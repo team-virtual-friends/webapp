@@ -1,0 +1,13 @@
+<form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=20) }}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=20) }}
+    </p>
+    <p>{{ form.submit() }}</p>
+    <p>New User? <a href="{{ url_for('register') }}">Register Here</a></p>
+</form>
