@@ -51,6 +51,11 @@ def index():  # Renamed the function to 'index'
     return render_template('index.html')
 
 
+@app.route('/game', methods=['GET'])  # Changed the route to '/game'
+def game():  # Renamed the function to 'ga,e'
+    return render_template('game.html')
+
+
 # @app.route('/register', methods=['GET', 'POST'])
 # def register():
 @app.route('/signup', methods=['GET', 'POST'])
@@ -82,10 +87,10 @@ def dashboard():
 
 @app.route('/', methods=['GET'])
 def home():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
-    else:
-        return redirect(url_for('login'))
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('dashboard'))
+    # else:
+    return redirect(url_for('index'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -102,4 +107,4 @@ def login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5101)
+    app.run(debug=True, port=5103)
