@@ -15,29 +15,8 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
 
-
-        <!-- Unity WebGL Player | TestForTheWebBuild -->
-        <link rel="shortcut icon" href="TemplateData/favicon.ico">
-        <link rel="stylesheet" href="{{ url_for('static', filename='TemplateData/style.css') }}">
-        <script src="{{ url_for('static', filename='TemplateData/UnityProgress.js') }}"></script>
-        <script src="{{ url_for('static', filename='Build/UnityLoader.js') }}"></script>
-        <script>
-          var gameInstance = UnityLoader.instantiate("gameContainer", "{{ url_for('static', filename='Build/Game.json') }}", {onProgress: UnityProgress});
-        </script>
-
-        <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-
-        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-        <style>
-            #modelviewer {
-                height: 400px;
-                width: 600px;
-            }
-        </style>
     </head>
+
 
 
     <section id="page-top">
@@ -56,20 +35,7 @@
             </div>
         </nav>
 
-
-        <!-- Content section 1-->
-        <section id="scroll">
-
-           <div class="webgl-content">
-          <div id="gameContainer" style="width: 960px; height: 600px"></div>
-          <div class="footer">
-            <div class="webgl-logo"></div>
-            <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-            <div class="title">TestForTheWebBuild</div>
-          </div>
-        </div>
-
-        </section>
+    </section>
 
 
         <header class="masthead text-center text-white">
@@ -89,25 +55,50 @@
         <div class="clearfix"></div>
 
 
+        <!-- Content section 2-->
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/mina1.png') }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
 
-<!--        &lt;!&ndash; Content section 2&ndash;&gt;-->
-<!--        <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid rounded-circle" src="{{ url_for('static', filename='images/02.jpg') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <h2 class="display-4">We salute you!</h2>-->
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-<!--        -->
-<!--        &lt;!&ndash; Content section 3&ndash;&gt;-->
+<!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
+<!--                            <h2 class="display-4">Chat with Mina!</h2>-->
+
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game') }}">Chat with Mina!</a>
+
+                            <p>Mina is a kpop star. She is good at dancing and singing. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/neko.png') }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game') }}">Chat with Neko!</a>
+
+<!--                            <h2 class="display-4">Chat with Neko!</h2>-->
+                            <p>Neko is ...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Content section 3-->
+
 <!--        <section>-->
 <!--            <div class="container px-5">-->
 <!--                <div class="row gx-5 align-items-center">-->
@@ -123,6 +114,8 @@
 <!--                </div>-->
 <!--            </div>-->
 <!--        </section>-->
+
+
 
         <!-- Footer-->
         <footer class="py-5 bg-black">
