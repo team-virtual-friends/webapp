@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from flask_socketio import SocketIO
 from openai import ChatCompletion
 import base64
 import json
@@ -9,11 +8,13 @@ import requests
 import speech_recognition as sr
 import os
 
+import asyncio
+ 
+import websockets
+
 openai.api_key = "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"
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app, cors_allowed_origins="*")
 
 recognizer = sr.Recognizer()
 
@@ -86,24 +87,30 @@ def hello_world():
     target = os.environ.get('TARGET', 'World')
     return 'Hello {}!\n'.format(target)
 
-@socketio.on('helloworld')
-def hello_world(message):
-    emit("hello", "world")
-
 def base64_decode(raw):
     base64_bytes = raw.encode('ascii')
     return base64.b64decode(base64_bytes).decode('ascii')
 
-@socketio.on('speech2text')
-def speech2text(message):
-    wav_base64 = message['wav_base64']
-    wav_bytes = base64_decode(wav_base64)
-    try:
-        # using google speech recognition
-        text = recognizer.recognize_google(wav_bytes)
-        emit("text", text)
-    except Exception as e:
-        emit("error", str(e))
+# @socketio.on('speech2text')
+# def speech2text(message):
+#     wav_base64 = message['wav_base64']
+#     wav_bytes = base64_decode(wav_base64)
+#     try:
+#         # using google speech recognition
+#         text = recognizer.recognize_google(wav_bytes)
+#         emit("text", text)
+#     except Exception as e:
+#         emit("error", str(e))
+
+# create handler for each connection
+ 
+async def handler(websocket, path):
+    data = await websocket.recv()
+    reply = f"Data recieved as: {data}!"
+    await websocket.send(reply)
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    start_server = websockets.serve(handler, '0.0.0.0', 8080)
+    asyncio.get_event_loop().run_until_complete(start_server)  
+    asyncio.get_event_loop().run_forever()
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
