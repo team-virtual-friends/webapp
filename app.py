@@ -7,12 +7,14 @@ import logging
 import openai
 import requests
 import speech_recognition as sr
+import env
 
 import config
 
 openai.api_key = "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"
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
 recognizer = sr.Recognizer()
@@ -81,7 +83,7 @@ def chat():
 
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
 
-@socketio.on('helloworlk')
+@socketio.on('helloworld')
 def hello_world(message):
     emit("hello", "world")
 
@@ -100,5 +102,5 @@ def speech2text(message):
     except Exception as e:
         emit("error", str(e))
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)
+if __name__ == '__main__':
+    socketio.run(app, port=8080)
