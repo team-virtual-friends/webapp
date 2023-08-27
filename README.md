@@ -4,7 +4,7 @@ https://medium.com/google-cloud/a-guide-to-deploy-flask-app-on-google-kubernetes
 
 ## Build Image
 ```sh
-> gcloud builds --project ysong-chat submit --tag gcr.io/ysong-chat/flask-app:$(git rev-parse --short HEAD) .
+gcloud builds --project ysong-chat submit --tag gcr.io/ysong-chat/flask-app:$(git rev-parse --short HEAD) .
 ```
 
 ## Scale

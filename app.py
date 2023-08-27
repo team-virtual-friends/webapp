@@ -1,16 +1,21 @@
 from flask import Flask, request, jsonify
+from flask_socketio import SocketIO
 from openai import ChatCompletion
-import openai
+import base64
+import json
 import logging
+import openai
+import requests
+import speech_recognition as sr
 
 import config
 
 openai.api_key = "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"
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
-import requests
-import json
+recognizer = sr.Recognizer()
 
 API_KEY = "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"
 API_URL = 'https://api.openai.com/v1/chat/completions'
@@ -75,6 +80,22 @@ def chat():
     sentiment = detect_sentiment(assistant_response)
 
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
+
+def base64_decode(raw):
+    base64_bytes = raw.encode('ascii')
+    return base64.b64decode(base64_bytes).decode('ascii')
+
+@socketio.on('speech2text')
+def value_changed(message):
+    wav_base64 = message['wav_base64']
+    wav_bytes = base64_decode(wav_base64)
+
+    try:
+        # using google speech recognition
+        text = recognizer.recognize_google(wav_bytes)
+        emit("text", text)
+    except Exception as e:
+        emit("error", str(e))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)
