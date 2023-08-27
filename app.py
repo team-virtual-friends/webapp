@@ -7,9 +7,6 @@ import logging
 import openai
 import requests
 import speech_recognition as sr
-import env
-
-import config
 
 openai.api_key = "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"
 
