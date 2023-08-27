@@ -4,12 +4,11 @@ metadata:
   annotations:
     beta.cloud.google.com/backend-config: '{"ports": {"80":"virtual-friends-backendconfig"}}'
   name: virtual-friends
-  labels:
-    app: virtual-friends
 spec:
-  ports:
-  - port: 8080
-    targetPort: 8080
+  type: LoadBalancer
   selector:
     app: virtual-friends
-  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+---
