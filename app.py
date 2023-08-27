@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+# from flask_socketio import SocketIO
+from flask_sock import Sock
 from openai import ChatCompletion
 import base64
 import json
@@ -8,13 +10,12 @@ import requests
 import speech_recognition as sr
 import os
 
-import asyncio
- 
-import websockets
-
 openai.api_key = "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"
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+# socketio = SocketIO(app, cors_allowed_origins="*")
+sock = Sock(app)
 
 recognizer = sr.Recognizer()
 
@@ -87,9 +88,19 @@ def hello_world():
     target = os.environ.get('TARGET', 'World')
     return 'Hello {}!\n'.format(target)
 
-def base64_decode(raw):
-    base64_bytes = raw.encode('ascii')
-    return base64.b64decode(base64_bytes).decode('ascii')
+@sock.route('/echo')
+def echo(sock):
+    while True:
+        data = sock.receive()
+        sock.send(data)
+
+# @socketio.on('helloworld')
+# def hello_world(message):
+#     emit("hello", "world")
+
+# def base64_decode(raw):
+#     base64_bytes = raw.encode('ascii')
+#     return base64.b64decode(base64_bytes).decode('ascii')
 
 # @socketio.on('speech2text')
 # def speech2text(message):
@@ -102,15 +113,5 @@ def base64_decode(raw):
 #     except Exception as e:
 #         emit("error", str(e))
 
-# create handler for each connection
- 
-async def handler(websocket, path):
-    data = await websocket.recv()
-    reply = f"Data recieved as: {data}!"
-    await websocket.send(reply)
-
 if __name__ == '__main__':
-    start_server = websockets.serve(handler, '0.0.0.0', 8080)
-    asyncio.get_event_loop().run_until_complete(start_server)  
-    asyncio.get_event_loop().run_forever()
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
