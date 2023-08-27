@@ -104,4 +104,4 @@ def speech2text(message):
         emit("error", str(e))
 
 if __name__ == '__main__':
-    socketio.run(app, port=80)
+    socketio.run(app, port=8080)
