@@ -13,7 +13,7 @@ openai.api_key = "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"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 recognizer = sr.Recognizer()
 
