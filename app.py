@@ -80,6 +80,10 @@ def chat():
 
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
 
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
 @socketio.on('helloworld')
 def hello_world(message):
     emit("hello", "world")
