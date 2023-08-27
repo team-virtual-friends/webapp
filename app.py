@@ -81,15 +81,18 @@ def chat():
 
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
 
+@socketio.on('helloworlk')
+def hello_world(message):
+    emit("hello", "world")
+
 def base64_decode(raw):
     base64_bytes = raw.encode('ascii')
     return base64.b64decode(base64_bytes).decode('ascii')
 
 @socketio.on('speech2text')
-def value_changed(message):
+def speech2text(message):
     wav_base64 = message['wav_base64']
     wav_bytes = base64_decode(wav_base64)
-
     try:
         # using google speech recognition
         text = recognizer.recognize_google(wav_bytes)
