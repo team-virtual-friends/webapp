@@ -3,6 +3,8 @@ from openai import ChatCompletion
 import openai
 import logging
 
+import config
+
 openai.api_key = "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"
 
 app = Flask(__name__)
@@ -74,5 +76,5 @@ def chat():
 
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
 
-if __name__ == '__main__':
-    app.run(port=5002)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)
