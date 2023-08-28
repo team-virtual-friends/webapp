@@ -109,6 +109,7 @@ def speech2text(json_object) -> str:
         text = recognizer.recognize_google(wav_bytes)
         return text
     except Exception as e:
+        print(f"error when trying to recognize_google: {e}")
         return ""
 
 def wrap_response(action, data, message, err) -> str:
@@ -128,7 +129,6 @@ def in_game_handler(ws):
     while True:
         raw = ws.receive()
         json_object = get_json(raw)
-        print(json_object)
         if not 'action' in json_object:
             ws.send(wrap_response(None, None, None, "unknown action"))
             continue
