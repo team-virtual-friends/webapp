@@ -130,15 +130,15 @@ def in_game_handler(ws):
         json_object = get_json(raw)
         print(json_object)
         if not 'action' in json_object:
-            ws.send(wrap_response(None, None, "unknown action"))
+            ws.send(wrap_response(None, None, None, "unknown action"))
             continue
         
         action = json_object['action']
         if action == 'hello':
-            ws.send(wrap_response(None, "hello there", None))
+            ws.send(wrap_response(action, None, "hello there", None))
         if action == 'speech2text':
             text = speech2text(json_object)
-            ws.send(wrap_response(None, text, None))
+            ws.send(wrap_response(action, None, text, None))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
