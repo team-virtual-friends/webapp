@@ -94,24 +94,51 @@ def echo(sock):
         data = sock.receive()
         sock.send(data)
 
-# @socketio.on('helloworld')
-# def hello_world(message):
-#     emit("hello", "world")
+def get_json(received) -> dict:
+    try:
+        json_object = json.loads(received)
+        return json_object
+    except ValueError as e:
+        return {}
 
-# def base64_decode(raw):
-#     base64_bytes = raw.encode('ascii')
-#     return base64.b64decode(base64_bytes).decode('ascii')
+def base64_decode(raw):
+    base64_bytes = raw.encode('ascii')
+    return base64.b64decode(base64_bytes).decode('ascii')
 
-# @socketio.on('speech2text')
-# def speech2text(message):
-#     wav_base64 = message['wav_base64']
-#     wav_bytes = base64_decode(wav_base64)
-#     try:
-#         # using google speech recognition
-#         text = recognizer.recognize_google(wav_bytes)
-#         emit("text", text)
-#     except Exception as e:
-#         emit("error", str(e))
+def speech2text(json_object) -> str:
+    wav_base64 = json_object['wav_base64']
+    wav_bytes = base64_decode(wav_base64)
+    try:
+        # using google speech recognition
+        text = recognizer.recognize_google(wav_bytes)
+        return text
+    except Exception as e:
+        return ""
+
+def wrap_response(data, message, err) -> str:
+    resp = {}
+    if data is not None:
+        resp['data'] = data
+    if message is not None:
+        resp['message'] = message
+    if err is not None:
+        resp['err'] = err
+    return json.dumps(resp)
+
+@sock.route("/in-game")
+def in_game_handler(ws):
+    while True:
+        raw = ws.receive()
+        json_object = get_json(raw)
+        if not 'action' in json_object:
+            ws.send(wrap_response(None, None, "unknown action"))
+        
+        action = json_object['action']
+        if action == 'hello':
+            ws.send(wrap_response(None, "hello there", None))
+        if action == 'speech2text':
+            text = speech2text(json_object)
+            ws.send(wrap_response(None, text, None))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
