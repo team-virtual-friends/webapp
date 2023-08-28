@@ -101,13 +101,9 @@ def get_json(received) -> dict:
     except ValueError as e:
         return {}
 
-def base64_decode(raw):
-    base64_bytes = raw.encode('ascii')
-    return base64.b64decode(base64_bytes).decode('ascii')
-
 def speech2text(json_object) -> str:
     wav_base64 = json_object['data']
-    wav_bytes = base64_decode(wav_base64)
+    wav_bytes = base64.b64decode(wav_base64)
     try:
         # using google speech recognition
         text = recognizer.recognize_google(wav_bytes)
