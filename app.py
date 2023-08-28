@@ -106,7 +106,7 @@ def base64_decode(raw):
     return base64.b64decode(base64_bytes).decode('ascii')
 
 def speech2text(json_object) -> str:
-    wav_base64 = json_object['wav_base64']
+    wav_base64 = json_object['data']
     wav_bytes = base64_decode(wav_base64)
     try:
         # using google speech recognition
@@ -115,8 +115,10 @@ def speech2text(json_object) -> str:
     except Exception as e:
         return ""
 
-def wrap_response(data, message, err) -> str:
+def wrap_response(action, data, message, err) -> str:
     resp = {}
+    if action is not None:
+        resp['action'] = action
     if data is not None:
         resp['data'] = data
     if message is not None:
