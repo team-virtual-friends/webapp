@@ -130,8 +130,10 @@ def in_game_handler(ws):
     while True:
         raw = ws.receive()
         json_object = get_json(raw)
+        print(json_object)
         if not 'action' in json_object:
             ws.send(wrap_response(None, None, "unknown action"))
+            continue
         
         action = json_object['action']
         if action == 'hello':

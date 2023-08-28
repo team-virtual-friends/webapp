@@ -14,6 +14,7 @@ kubectl autoscale deployment virtual-friends --min=NUMBER --max=NUMBER --cpu-rat
 ```
 
 ## Redploy
+Modify the kubernetes/deployment.yaml's image to be the `IMAGES` output by the Build Image step.
 ```sh
-kubectl set image deployment/virtual-friends virtual-friends=NEW_IMAGE_TAG
+kubectl apply -f kubernetes/deployment.yaml
 ```
