@@ -118,6 +118,32 @@ def speech2text(json_object) -> (str, str):
     except Exception as e:
         logger.error(f"error when trying to recognize_google: {e}")
         return ("", str(e))
+    
+def reply(json_object) -> (str, str, str):
+    message = json_object['message']
+    # messages should be a list of json strings, with chronical order.
+    messages = message.split(";;;")
+
+    chat_response = ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        max_tokens=150
+    )
+    assistant_response = chat_response.choices[0].message.content
+    messages.append({"role": "assistant", "content": assistant_response})
+
+    logging.debug("Debug assistant response: " + assistant_response)
+    logging.info("Info assistant response: " + assistant_response)
+    logging.error("Error assistant response: " + assistant_response)
+
+    action = detect_action(assistant_response)
+    sentiment = detect_sentiment(assistant_response)
+    # TODO (yufan.lu): fill in the data field as the voice wav bytes.
+    return (
+        None,
+        jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages}),
+        None
+    )
 
 def wrap_response(action, data, message, err) -> str:
     resp = {}
@@ -149,6 +175,9 @@ def in_game_handler(ws):
         elif action == 'speech2text':
             (text, err) = speech2text(json_object)
             ws.send(wrap_response(action, None, text, err))
+        elif action == 'reply':
+            (data, text, err) = reply(json_object)
+            ws.send(wrap_response(action, data, text, err))
         else:
             ws.send(wrap_response(action, None, None, "unknown action"))
 
