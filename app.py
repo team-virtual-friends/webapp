@@ -9,6 +9,7 @@ import openai
 import requests
 import speech_recognition as sr
 import os
+import logging
 
 openai.api_key = "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"
 
@@ -18,6 +19,9 @@ app.config['SECRET_KEY'] = 'secret!'
 sock = Sock(app)
 
 recognizer = sr.Recognizer()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('gunicorn.error')
 
 API_KEY = "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"
 API_URL = 'https://api.openai.com/v1/chat/completions'
@@ -107,9 +111,10 @@ def speech2text(json_object) -> str:
     try:
         # using google speech recognition
         text = recognizer.recognize_google(wav_bytes)
+        logger.info(f"wav is transcribed to {text}")
         return text
     except Exception as e:
-        print(f"error when trying to recognize_google: {e}")
+        logger.error(f"error when trying to recognize_google: {e}")
         return ""
 
 def wrap_response(action, data, message, err) -> str:
@@ -134,11 +139,18 @@ def in_game_handler(ws):
             continue
         
         action = json_object['action']
+        print(f"print action is {action}")
+        logger.info(f"logger action is {action}")
+
         if action == 'hello':
+            print(f"print hello: {action}")
+            logger.info(f"logger hello: {action}")
             ws.send(wrap_response(action, None, "hello there", None))
-        if action == 'speech2text':
+        elif action == 'speech2text':
             text = speech2text(json_object)
             ws.send(wrap_response(action, None, text, None))
+        else:
+            ws.send(wrap_response(action, None, None, "unknown action"))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

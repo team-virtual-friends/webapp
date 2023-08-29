@@ -16,7 +16,7 @@ spec:
       - name: virtual-friends-app
         # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
         # Replace $GCLOUD_PROJECT with your project ID.
-        image: gcr.io/ysong-chat/flask-app:459280b
+        image: gcr.io/ysong-chat/flask-app:88e810a
         # This app listens on port 8080 for web traffic by default.
         ports:
         - containerPort: 8080
@@ -25,9 +25,11 @@ spec:
             value: "8080"
         resources:
           requests:
+            memory: "300Mi"
+            cpu: "300m"
+            disk: "1Gi"
+          limits:
             memory: "500Mi"
             cpu: "500m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
+            disk: "2Gi"
 ---
