@@ -110,13 +110,11 @@ def speech2text(json_object) -> (str, str):
     wav_base64 = json_object['data']
     wav_bytes = base64.b64decode(wav_base64)
     try:
-        audio_data = sr.AudioData(wav_bytes, 44100, 2)
-        with sr.AudioFile(audio_data) as source:
-            audio = recognizer.record(source)
-            # using google speech recognition
-            text = recognizer.recognize_google(audio)
-            logger.info(f"wav is transcribed to {text}")
-            return (text, "")
+        audio_source = sr.AudioData(wav_bytes, 44100, 2)
+        # using google speech recognition
+        text = recognizer.recognize_google(audio_source)
+        logger.info(f"wav is transcribed to {text}")
+        return (text, "")
     except Exception as e:
         logger.error(f"error when trying to recognize_google: {e}")
         return ("", str(e))
