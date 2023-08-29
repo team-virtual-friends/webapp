@@ -96,6 +96,8 @@ def hello_world():
 def echo(sock):
     while True:
         data = sock.receive()
+        print(f"print data: {data}")
+        logger.info(f"logger data: {data}")
         sock.send(data)
 
 def get_json(received) -> dict:
@@ -143,8 +145,6 @@ def in_game_handler(ws):
         logger.info(f"logger action is {action}")
 
         if action == 'hello':
-            print(f"print hello: {action}")
-            logger.info(f"logger hello: {action}")
             ws.send(wrap_response(action, None, "hello there", None))
         elif action == 'speech2text':
             text = speech2text(json_object)
