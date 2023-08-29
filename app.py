@@ -96,7 +96,6 @@ def hello_world():
 def echo(sock):
     while True:
         data = sock.receive()
-        print(f"print data: {data}")
         logger.info(f"logger data: {data}")
         sock.send(data)
 
@@ -107,17 +106,20 @@ def get_json(received) -> dict:
     except ValueError as e:
         return {}
 
-def speech2text(json_object) -> str:
+def speech2text(json_object) -> (str, str):
     wav_base64 = json_object['data']
     wav_bytes = base64.b64decode(wav_base64)
     try:
-        # using google speech recognition
-        text = recognizer.recognize_google(wav_bytes)
-        logger.info(f"wav is transcribed to {text}")
-        return text
+        audio_data = sr.AudioData(wav_bytes, 44100, 2)
+        with sr.AudioFile(audio_data) as source:
+            audio = recognizer.record(source)
+            # using google speech recognition
+            text = recognizer.recognize_google(audio)
+            logger.info(f"wav is transcribed to {text}")
+            return (text, "")
     except Exception as e:
         logger.error(f"error when trying to recognize_google: {e}")
-        return ""
+        return ("", str(e))
 
 def wrap_response(action, data, message, err) -> str:
     resp = {}
@@ -147,8 +149,8 @@ def in_game_handler(ws):
         if action == 'hello':
             ws.send(wrap_response(action, None, "hello there", None))
         elif action == 'speech2text':
-            text = speech2text(json_object)
-            ws.send(wrap_response(action, None, text, None))
+            (text, err) = speech2text(json_object)
+            ws.send(wrap_response(action, None, text, err))
         else:
             ws.send(wrap_response(action, None, None, "unknown action"))
 
