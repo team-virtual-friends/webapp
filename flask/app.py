@@ -53,6 +53,8 @@ def chat():
     user_input = data.get('user_input')
     messages = data.get('messages', [])
 
+    logging.error("ysong: " + user_input)
+
     if not user_input:
         return jsonify({"error": "User input is missing"}), 400
 
@@ -65,14 +67,13 @@ def chat():
     assistant_response = chat_response.choices[0].message.content
     messages.append({"role": "assistant", "content": assistant_response})
 
-    logging.debug("Debug assistant response: " + assistant_response)
-    logging.info("Info assistant response: " + assistant_response)
-    logging.error("Error assistant response: " + assistant_response)
 
-    action = detect_action(assistant_response)
+    logging.error("ysong assistant response: " + assistant_response)
+
+    action = detect_action(user_input)
     sentiment = detect_sentiment(assistant_response)
 
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
 
 if __name__ == '__main__':
-    app.run(port=5002)
+    app.run(port=5004)
