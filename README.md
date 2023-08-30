@@ -2,8 +2,14 @@
 
 https://medium.com/google-cloud/a-guide-to-deploy-flask-app-on-google-kubernetes-engine-bfbbee5c6fb
 
+## add kubernetes cluster to local
+```sh
+gcloud container clusters get-credentials virtual-friends --region us-west2-a --project ysong-chat
+```
+
 ## Build Image
 ```sh
+git commit -am "build image"
 gcloud builds --project ysong-chat submit --tag gcr.io/ysong-chat/flask-app:$(git rev-parse --short HEAD) .
 ```
 

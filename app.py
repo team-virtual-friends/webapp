@@ -11,6 +11,9 @@ import speech_recognition as sr
 import os
 import logging
 
+from gtts import gTTS
+from io import BytesIO
+
 openai.api_key = "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"
 
 app = Flask(__name__)
@@ -112,12 +115,20 @@ def speech2text(json_object) -> (str, str):
     try:
         audio_source = sr.AudioData(wav_bytes, 44100, 2)
         # using google speech recognition
-        text = recognizer.recognize_google(audio_source)
+        text = recognizer.recognize_whisper(audio_source)
         logger.info(f"wav is transcribed to {text}")
         return (text, "")
     except Exception as e:
         logger.error(f"error when trying to recognize_google: {e}")
         return ("", str(e))
+    
+def text2speech(text) -> str:
+    tts = gTTS(text=text, lang="en")
+    fp = BytesIO()
+    tts.write_to_fp(fp)
+    fp.seek(0)
+    mp3_bytes = fp.read()
+    return base64.b64encode(mp3_bytes)
     
 def reply(json_object) -> (str, str, str):
     message = json_object['message']
@@ -140,7 +151,7 @@ def reply(json_object) -> (str, str, str):
     sentiment = detect_sentiment(assistant_response)
     # TODO (yufan.lu): fill in the data field as the voice wav bytes.
     return (
-        None,
+        text2speech(assistant_response),
         jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages}),
         None
     )
