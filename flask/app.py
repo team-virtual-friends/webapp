@@ -24,7 +24,8 @@ def detect_action(text):
           {"role": "system", "content": "You are a helpful assistent that identify the asked action in the input text. The output should be either 1. no action 2. dance 3. sit 4.stand  Only output one of the above 4 strings. Example:Text: can you dance? OUTPUT:dance"},
           {"role": "user", "content": f'Detect the asked action of the following text: {text}'}
       ],
-      'model': "gpt-3.5-turbo",
+      'model': "gpt-4",
+      # 'model': "gpt-3.5-turbo",
     }
     response = requests.post(API_URL, headers=headers, data=json.dumps(payload))
     response_data = response.json()
@@ -76,4 +77,4 @@ def chat():
     return jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages})
 
 if __name__ == '__main__':
-    app.run(port=5004)
+    app.run(port=5005)
