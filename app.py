@@ -125,10 +125,10 @@ def speech2text(json_object) -> (str, str):
         return ("", str(e))
 
 def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
-    seg = AudioSegment.from_mp3(BytesIO(mp3_bytes)).set_frame_rate(44100).set_channels(2)
-    wavIO = BytesIO()
-    seg.export(wavIO, format="wav")
-    return wavIO.getvalue()
+    seg = AudioSegment.from_mp3(BytesIO(mp3_bytes))
+    wav_io = BytesIO()
+    seg.export(wav_io, format="wav")
+    return wav_io.getvalue()
 
 def text2speech(text) -> str:
     tts = gTTS(text=text, lang="en")
@@ -160,7 +160,7 @@ def reply(json_object) -> (str, str, str):
     # TODO (yufan.lu): fill in the data field as the voice wav bytes.
     return (
         text2speech(assistant_response),
-        json.dumps({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": message}),
+        json.dumps({"assistant_response": assistant_response, "action": action, "sentiment": sentiment}),
         None
     )
 

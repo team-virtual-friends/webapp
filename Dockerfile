@@ -2,6 +2,7 @@
 # https://hub.docker.com/_/python
 FROM python:3.7-slim
 RUN apt update
+RUN apt install -y ffmpeg
 
 # Copy local code to the container image.
 ENV APP_HOME /app
