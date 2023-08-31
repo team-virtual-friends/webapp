@@ -10,7 +10,7 @@ gcloud container clusters get-credentials virtual-friends --region us-west2-a --
 ## Build Image
 ```sh
 git commit -am "build image"
-gcloud builds --project ysong-chat submit --tag gcr.io/ysong-chat/flask-app:$(git rev-parse --short HEAD) .
+gcloud builds --project ysong-chat submit --tag gcr.io/ysong-chat/flask-app:$(git rev-parse --short HEAD)-$(openssl rand -hex 4) .
 ```
 
 ## Scale

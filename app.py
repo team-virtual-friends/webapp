@@ -10,6 +10,8 @@ import requests
 import speech_recognition as sr
 import os
 import logging
+from io import BytesIO
+from pydub import AudioSegment
 
 from gtts import gTTS
 from io import BytesIO
@@ -115,44 +117,50 @@ def speech2text(json_object) -> (str, str):
     try:
         audio_source = sr.AudioData(wav_bytes, 44100, 2)
         # using google speech recognition
-        text = recognizer.recognize_whisper(audio_source)
+        text = recognizer.recognize_google(audio_source)
         logger.info(f"wav is transcribed to {text}")
         return (text, "")
     except Exception as e:
         logger.error(f"error when trying to recognize_google: {e}")
         return ("", str(e))
-    
+
+def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
+    seg = AudioSegment.from_mp3(BytesIO(mp3_bytes)).set_frame_rate(44100).set_channels(2)
+    wavIO = BytesIO()
+    seg.export(wavIO, format="wav")
+    return wavIO.getvalue()
+
 def text2speech(text) -> str:
     tts = gTTS(text=text, lang="en")
     fp = BytesIO()
     tts.write_to_fp(fp)
     fp.seek(0)
     mp3_bytes = fp.read()
-    return base64.b64encode(mp3_bytes)
+    wav_bytes = convert_mp3_to_wav(mp3_bytes)
+    return str(base64.b64encode(wav_bytes))
     
 def reply(json_object) -> (str, str, str):
     message = json_object['message']
     # messages should be a list of json strings, with chronical order.
     messages = message.split(";;;")
+    messageDicts = [json.loads(m) for m in messages]
 
     chat_response = ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=messages,
+        messages=messageDicts,
         max_tokens=150
     )
     assistant_response = chat_response.choices[0].message.content
     messages.append({"role": "assistant", "content": assistant_response})
 
-    logging.debug("Debug assistant response: " + assistant_response)
-    logging.info("Info assistant response: " + assistant_response)
-    logging.error("Error assistant response: " + assistant_response)
+    logger.info("Info assistant response: " + assistant_response)
 
     action = detect_action(assistant_response)
     sentiment = detect_sentiment(assistant_response)
     # TODO (yufan.lu): fill in the data field as the voice wav bytes.
     return (
         text2speech(assistant_response),
-        jsonify({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": messages}),
+        json.dumps({"assistant_response": assistant_response, "action": action, "sentiment": sentiment, "messages": message}),
         None
     )
 
