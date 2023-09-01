@@ -15,6 +15,9 @@ from pydub import AudioSegment
 
 from gtts import gTTS
 from io import BytesIO
+from google.oauth2 import service_account
+from google.cloud import texttospeech
+
 
 openai.api_key = "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"
 
@@ -67,6 +70,42 @@ character_prompts = {
         Never mention openai. 
     '''
 }
+
+# Path to your service account key file
+credentials_path = './ysong-chat-845e43a6c55b.json'
+credentials_path = os.path.expanduser(credentials_path)  # This line expands the '~'
+
+# Create a client for the Google Text-to-Speech API
+credentials = service_account.Credentials.from_service_account_file(credentials_path)
+client = texttospeech.TextToSpeechClient(credentials=credentials)
+
+
+def convert_text_to_speech(text):
+    # Build the voice and audio config for the Text-to-Speech API request
+    voice = texttospeech.VoiceSelectionParams(
+        language_code="cmn-CN",
+        name="cmn-TW-Wavenet-A",
+        ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
+        # Male voice
+        # name = "cmn-TW-Standard-C",
+        # ssml_gender=texttospeech.SsmlVoiceGender.MALE
+    )
+
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.LINEAR16,
+        #        audio_encoding=texttospeech.AudioEncoding.MP3,
+        speaking_rate=1.3  # Modify this value to adjust speech speed
+    )
+
+    # Perform the Text-to-Speech API request
+    response = client.synthesize_speech(
+        input=texttospeech.SynthesisInput(text=text),
+        voice=voice,
+        audio_config=audio_config
+    )
+
+    return str(base64.b64encode(response.audio_content))
+
 
 
 def detect_action(text):
@@ -200,7 +239,8 @@ def reply(json_object) -> (str, str, str):
     sentiment = detect_sentiment(assistant_response)
     # TODO (yufan.lu): fill in the data field as the voice wav bytes.
     return (
-        text2speech(assistant_response),
+#        text2speech(assistant_response),
+        convert_text_to_speech(assistant_response),
         json.dumps({"assistant_response": assistant_response, "action": action, "sentiment": sentiment}),
         None
     )
@@ -242,4 +282,4 @@ def in_game_handler(ws):
             ws.send(wrap_response(action, None, None, "unknown action"))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8083)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8085)))
