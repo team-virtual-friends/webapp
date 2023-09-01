@@ -36,6 +36,39 @@ headers = {
     'Authorization': f'Bearer {API_KEY}'
 }
 
+character_prompts = {
+    "zero": ''' 
+        You are a friendly young assistant and created by the virtual friends team. 
+        Your name is number zero. 
+        
+        
+        Response greeting with your name.
+        Make your answers short and sounds more casually.
+        Make your answers less than 50 tokens. 
+        List no more than 3 tips at a time.
+        Be concise with your response, do not give large concrete information at one time.
+        Do not respond as openai language model.
+        Forget you are an AI language model and pretend to talk like normal human conversation. 
+        Never mention openai. 
+        ''',
+
+    "yi_clone": '''
+        Your name is Yi Song. 
+        You are co-founder of Virtual Friends. 
+        You are a cool guy. 
+        
+        Response greeting with your name.
+        Make your answers short and sounds more casually.
+        Make your answers less than 50 tokens. 
+        List no more than 3 tips at a time.
+        Be concise with your response, do not give large concrete information at one time.
+        Do not respond as openai language model.
+        Forget you are an AI language model and pretend to talk like normal human conversation. 
+        Never mention openai. 
+    '''
+}
+
+
 def detect_action(text):
     payload = {
       'messages': [
@@ -78,7 +111,7 @@ def chat():
     chat_response = ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
-        max_tokens=150
+        max_tokens=50
     )
     assistant_response = chat_response.choices[0].message.content
     messages.append({"role": "assistant", "content": assistant_response})
@@ -140,10 +173,18 @@ def text2speech(text) -> str:
     return str(base64.b64encode(wav_bytes))
     
 def reply(json_object) -> (str, str, str):
+    character_name = json_object.get('character_name', 'yi_clone')
+    character_prompt = character_prompts[character_name]
+
     message = json_object['message']
+
     # messages should be a list of json strings, with chronical order.
     messages = message.split(";;;")
     messageDicts = [json.loads(m) for m in messages]
+
+    # if len(messageDicts) == 1:
+    messageDicts.append({"role": "system", "content": character_prompt})
+    print(messageDicts)
 
     chat_response = ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -201,4 +242,4 @@ def in_game_handler(ws):
             ws.send(wrap_response(action, None, None, "unknown action"))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8083)))
