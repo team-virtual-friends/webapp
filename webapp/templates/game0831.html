@@ -3,12 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Kpop Girl</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <title>Unity WebGL Player | virtual-friends-client</title>
+    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-client/TemplateData/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vf-client/TemplateData/style.css') }}">
   </head>
-
-
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
@@ -22,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Kpop Girl</div>
+        <div id="unity-build-title">virtual-friends-client</div>
       </div>
     </div>
     <script>
@@ -58,16 +56,16 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/firstUnityApp.loader.js";
+      var buildUrl = "{{ url_for('static', filename='vf-client/Build') }}";
+      var loaderUrl = buildUrl + "/vf-client.loader.js";
       var config = {
-        dataUrl: buildUrl + "/firstUnityApp.data.gz",
-        frameworkUrl: buildUrl + "/firstUnityApp.framework.js.gz",
-        codeUrl: buildUrl + "/firstUnityApp.wasm.gz",
+        dataUrl: buildUrl + "/vf-client.data.br",
+        frameworkUrl: buildUrl + "/vf-client.framework.js.br",
+        codeUrl: buildUrl + "/vf-client.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
-        productName: "Kpop Girl",
-        productVersion: "0.1",
+        productName: "virtual-friends-client",
+        productVersion: "0.1.0",
         showBanner: unityShowBanner,
       };
 
