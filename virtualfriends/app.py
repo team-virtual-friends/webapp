@@ -17,6 +17,7 @@ from gtts import gTTS
 from io import BytesIO
 from google.oauth2 import service_account
 from google.cloud import texttospeech
+import io
 
 
 openai.api_key = "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"
@@ -196,6 +197,30 @@ def speech2text(json_object) -> (str, str):
         logger.error(f"error when trying to recognize_google: {e}")
         return ("", str(e))
 
+
+class NamedBytesIO(io.BytesIO):
+    def __init__(self, buffer, name=None):
+        super().__init__(buffer)
+        self.name = name
+def whisper_speech2text(json_object) -> (str, str):
+
+    wav_base64 = json_object['data']
+    wav_bytes = base64.b64decode(wav_base64)
+    try:
+        audio_buffer = NamedBytesIO(wav_bytes, name="audio.wav")
+        transcript = openai.Audio.transcribe("whisper-1", audio_buffer)
+        text = transcript['text']
+
+        print(text)
+        # audio_source = sr.AudioData(wav_bytes, 44100, 2)
+        # # using google speech recognition
+        # text = recognizer.recognize_google(audio_source)
+        # logger.info(f"wav is transcribed to {text}")
+        return (text, "")
+    except Exception as e:
+        logger.error(f"error when trying to call whisper: {e}")
+        return ("", str(e))
+
 def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
     seg = AudioSegment.from_mp3(BytesIO(mp3_bytes))
     wav_io = BytesIO()
@@ -273,7 +298,8 @@ def in_game_handler(ws):
         if action == 'hello':
             ws.send(wrap_response(action, None, "hello there", None))
         elif action == 'speech2text':
-            (text, err) = speech2text(json_object)
+#            (text, err) = speech2text(json_object)
+            (text, err) = whisper_speech2text(json_object)
             ws.send(wrap_response(action, None, text, err))
         elif action == 'reply':
             (data, text, err) = reply(json_object)
@@ -282,4 +308,4 @@ def in_game_handler(ws):
             ws.send(wrap_response(action, None, None, "unknown action"))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8085)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8086)))
