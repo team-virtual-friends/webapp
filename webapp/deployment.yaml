@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: gcr.io/ysong-chat/webapp
+        image: gcr.io/ysong-chat/webapp0831
