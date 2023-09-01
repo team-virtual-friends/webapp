@@ -173,7 +173,7 @@ def text2speech(text) -> str:
     return str(base64.b64encode(wav_bytes))
     
 def reply(json_object) -> (str, str, str):
-    character_name = json_object.get('character_name', 'yi_clone')
+    character_name = json_object.get('character_name', 'zero')
     character_prompt = character_prompts[character_name]
 
     message = json_object['message']
