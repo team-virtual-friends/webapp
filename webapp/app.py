@@ -53,7 +53,7 @@ def index():  # Renamed the function to 'index'
 
 @app.route('/game', methods=['GET'])  # Changed the route to '/game'
 def game():  # Renamed the function to 'ga,e'
-    return render_template('game.html')
+    return render_template('game0831.html')
 
 
 # @app.route('/register', methods=['GET', 'POST'])
