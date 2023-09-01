@@ -1,7 +1,5 @@
 Flask==2.1.1
-# Flask-SocketIO==5.1.1
 flask-sock==0.5.1
-# websockets==10.4
 Werkzeug==2.1.2
 Jinja2==3.1.1
 MarkupSafe==2.1.0
@@ -13,3 +11,5 @@ gTTS==2.3.1
 pydub==0.25.1
 openai
 google-auth
+google-cloud-texttospeech
+requests
