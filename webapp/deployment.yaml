@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: gcr.io/ysong-chat/webapp
+        image: gcr.io/ysong-chat/webapp0831@sha256:83c6e5db434660a256b2e9ed1a46f97a1aeaa4c1386bb253ab797831c16e7276
