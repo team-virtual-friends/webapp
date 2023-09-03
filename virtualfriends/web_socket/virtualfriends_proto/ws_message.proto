@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package virtualfriends_proto;
+
+// Next tag: 3
+message VfRequest {
+    string identifier = 1;
+
+    bytes raw = 2;
+}
+
+// Next tag: 4
+message VfResponse {
+    string identifier = 1;
+
+    CustomError error = 2;
+
+    bytes raw = 3;
+}
+
+// Next tag: 2
+message CustomError {
+    string error_message = 1;
+}
+
+// Next tag: 2
+message EchoRequest {
+    string text = 1;
+}
+
+// Next tag: 2
+message EchoResponse {
+    string text = 1;
+}
+
+// Next tag: 2
+message SpeechToTextRequest {
+    bytes wav = 1;
+}
+
+// Next tag: 2
+message SpeechToTextResponse {
+    string text = 1;
+}
+
+// Next tag: 4
+message ReplyTextMessageRequest {
+    string character_name = 1;
+
+    // json_messages should be a list of json text that contains two entries
+    // role: user/assistant, content: <actual message>
+    // in chronical order.
+    repeated string json_messages = 2;
+
+    // the current message string requesting the reply.
+    // the user message can either be in this one or in the latest one of
+    // json_messages; both are acceptable.
+    string current_message = 3;
+}
+
+// Next tag: 5
+message ReplyTextMessageResponse {
+    string reply_message = 1;
+
+    string action = 2;
+
+    string sentiment = 3;
+
+    bytes reply_wav = 4;
+}
+
+// Next tag: 4
+message ReplyVoiceMessageRequest {
+    string character_name = 1;
+
+    // json_messages should be a list of json text that contains two entries
+    // role: user/assistant, content: <actual message>
+    // in chronical order.
+    repeated string json_messages = 2;
+
+    bytes wav = 3;
+}
+
+// Next tag: 6
+message ReplyVoiceMessageResponse {
+    string reply_message = 1;
+
+    string action = 2;
+
+    string sentiment = 3;
+
+    bytes reply_wav = 4;
+
+    string transcribed_text = 5;
+}
