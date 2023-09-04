@@ -9,7 +9,8 @@ gunicorn==20.1.0
 SpeechRecognition==3.8.1
 gTTS==2.3.1
 pydub==0.25.1
-openai
-google-auth
-google-cloud-texttospeech
-requests
+protobuf==3.20.0
+openai==0.27.0
+google-auth==2.6.2
+google-cloud-texttospeech==2.11.0
+requests==2.27.1

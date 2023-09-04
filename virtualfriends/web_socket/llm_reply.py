@@ -2,17 +2,18 @@ import json
 import logging
 import requests
 
+import openai
 from openai import ChatCompletion
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
-openai_api_key = "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"
+openai.api_key = "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"
 openai_api_url = 'https://api.openai.com/v1/chat/completions'
 
 auth_headers = {
     'Content-Type': 'application/json',
-    'Authorization': f'Bearer {openai_api_key}'
+    'Authorization': f'Bearer {openai.api_key}'
 }
 
 character_prompts = {
@@ -57,7 +58,7 @@ def infer_action(text):
     }
     response = requests.post(openai_api_url, headers=auth_headers, data=json.dumps(payload))
     response_data = response.json()
-    print(response_data['choices'][0]['message']['content'])
+    logger.info(response_data['choices'][0]['message']['content'])
     return response_data['choices'][0]['message']['content']
 
 def infer_sentiment(text):
@@ -71,7 +72,7 @@ def infer_sentiment(text):
     response = requests.post(openai_api_url, headers=auth_headers, data=json.dumps(payload))
     response_data = response.json()
 
-    print(response_data['choices'][0]['message']['content'])
+    logger.info(response_data['choices'][0]['message']['content'])
     return response_data['choices'][0]['message']['content']
 
 # chronical_messages should be a list of dict; each dict should contain "role" and "content".

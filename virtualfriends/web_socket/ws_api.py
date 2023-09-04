@@ -2,80 +2,65 @@ import base64
 import json
 import logging
 
-from custom_error import CustomError
-from ws_message import WebSocketMessage
+from .virtualfriends_proto import ws_message_pb2
 
-from speech import speech_to_text_whisper, text_to_speech_gcp
-
-from llm_reply import infer_action, infer_sentiment, infer_reply
+from . import speech
+from . import llm_reply
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
-delimiter = ";;;"
+def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
+    ret = ws_message_pb2.CustomError()
+    ret.error_message = str(exp)
+    return ret
 
-def create_ws_message(raw_json:str) -> WebSocketMessage:
-    action = ""
-    message = ""
-    data = ""
-    err = CustomError.NoError()
-    json_object = {}
-    try:
-        json_object = json.loads(raw_json)
-    except ValueError as e:
-        return WebSocketMessage("", "", "", CustomError(e))
-    if "action" in json_object:
-        action = json_object["action"]
-    if "message" in json_object:
-        message = json_object["message"]
-    if "data" in json_object:
-        data = json_object["data"]
-    return WebSocketMessage(action, message, data, err)
+def echo_handler(echo_request:ws_message_pb2.EchoRequest) -> (ws_message_pb2.EchoResponse, Exception):
+    logger.info("echo: " + echo_request.text)
+    echo_response = ws_message_pb2.EchoResponse()
+    echo_response.text = echo_request.text
+    return (echo_response, None)
 
-def hello_handler(ws_message: WebSocketMessage) -> WebSocketMessage:
-    return WebSocketMessage(ws_message.action, "hello there", "", CustomError.NoError())
+def speech_to_text_handler(speech_to_text_request:ws_message_pb2.SpeechToTextRequest) -> (ws_message_pb2.SpeechToTextResponse, Exception):
+    speech_to_text_response = ws_message_pb2.SpeechToTextResponse()
+    wav_bytes = speech_to_text_request.wav
+    (text, err) = speech.speech_to_text_whisper(wav_bytes)
+    if err is None:
+        speech_to_text_response.text = text
+    return (speech_to_text_response, err)
 
-def echo_handler(ws_message: WebSocketMessage) -> WebSocketMessage:
-    logger.info("echo: " + str(ws_message))
-    return ws_message
+def reply_text_handler(reply_text_message_request:ws_message_pb2.ReplyTextMessageRequest) -> (ws_message_pb2.ReplyTextMessageResponse, Exception):
+    reply_text_message_response = ws_message_pb2.ReplyTextMessageResponse()
 
-def speech_to_text_handler(ws_message:WebSocketMessage) -> WebSocketMessage:
-    wav_base64 = ws_message.data
-    wav_bytes = base64.b64decode(wav_base64)
-    (text, err) = speech_to_text_whisper(wav_bytes)
-    return WebSocketMessage(ws_message.action, text, "", err)
+    message_dicts = [json.loads(m) for m in reply_text_message_request.json_messages]
+    if len(reply_text_message_request.current_message) > 0:
+        message_dicts.append({"role": "user", "content": reply_text_message_request.current_message})
 
-def reply_text_handler(ws_message: WebSocketMessage) -> WebSocketMessage:
-    message = ws_message.message
-    splited_message = message.split(delimiter)
-    message_dicts = [json.loads(m) for m in splited_message]
-    # TODO: pass name.
-    reply_message = infer_reply(message_dicts, "zero")
-    action = infer_action(reply_message)
-    sentiment = infer_sentiment(reply_message)
-    return WebSocketMessage(
-        ws_message.action,
-        json.dumps({"assistant_response": reply_message, "action": action, "sentiment": sentiment}),
-        base64.b64encode(text_to_speech_gcp(reply_message)),
-        CustomError.NoError())
+    reply_message = llm_reply.infer_reply(message_dicts, reply_text_message_request.character_name)
 
-def reply_speech_handler(ws_message: WebSocketMessage) -> WebSocketMessage:
-    wav_base64 = ws_message.data
-    wav_bytes = base64.b64decode(wav_base64)
-    (text, err) = speech_to_text_whisper(wav_bytes)
-    if err.IsError():
-        return WebSocketMessage(ws_message, "", "", err)
-    
-    message = ws_message.message
-    splited_message = message.split(delimiter)
-    message_dicts = [json.loads(m) for m in splited_message]
+    reply_text_message_response.reply_message = reply_message
+    reply_text_message_response.action = llm_reply.infer_action(reply_message)
+    reply_text_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
+    reply_text_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
+
+    return (reply_text_message_response, None)
+
+def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMessageRequest) -> (ws_message_pb2.ReplyVoiceMessageResponse, Exception):
+    reply_voive_message_response = ws_message_pb2.ReplyVoiceMessageResponse()
+
+    wav_bytes = reply_voice_message_request.wav
+    (text, err) = speech.speech_to_text_whisper(wav_bytes)
+    if err is not None:
+        return reply_voive_message_response, err
+
+    message_dicts = [json.loads(m) for m in reply_voice_message_request.json_messages]
     message_dicts.append({"role": "user", "content": text})
-    # TODO: pass name.
-    reply_message = infer_reply(message_dicts, "zero")
-    action = infer_action(reply_message)
-    sentiment = infer_sentiment(reply_message)
-    return WebSocketMessage(
-        ws_message.action,
-        json.dumps({"speech_to_text": text, "assistant_response": reply_message, "action": action, "sentiment": sentiment}),
-        base64.b64encode(text_to_speech_gcp(reply_message)),
-        CustomError.NoError())
+
+    reply_message = llm_reply.infer_reply(message_dicts, reply_voice_message_request.character_name)
+    reply_voive_message_response.reply_message = reply_message
+    reply_voive_message_response.action = llm_reply.infer_action(reply_message)
+    reply_voive_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
+    reply_voive_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
+    reply_voive_message_response.transcribed_text = text
+
+    return (reply_voive_message_response, None)

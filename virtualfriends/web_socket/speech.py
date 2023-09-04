@@ -1,4 +1,4 @@
-from io import BytesIO
+import io
 import logging
 import os
 
@@ -8,8 +8,6 @@ from gtts import gTTS
 import openai
 from pydub import AudioSegment
 import speech_recognition as sr
-
-from custom_error import CustomError
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
@@ -21,36 +19,36 @@ credentials_path = os.path.expanduser('./ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 text_to_speech_client = texttospeech.TextToSpeechClient(credentials=credentials)
 
-def speech_to_text_google(wav_bytes:bytes) -> (str, CustomError):
+def speech_to_text_google(wav_bytes:bytes) -> (str, Exception):
     try:
         audio_source = sr.AudioData(wav_bytes, 44100, 2)
         # using google speech recognition
         text = recognizer.recognize_google(audio_source)
         logger.info(f"wav is transcribed to {text} with google API")
-        return (text, CustomError.NoError())
+        return (text, None)
     except Exception as e:
         logger.error(f"error when trying to recognize_google: {e}")
-        return ("", CustomError(e))
+        return ("", e)
 
-# class NamedBytesIO(io.BytesIO):
-#     def __init__(self, buffer, name=None):
-#         super().__init__(buffer)
-#         self.name = name
+class NamedBytesIO(io.BytesIO):
+    def __init__(self, buffer, name=None):
+        super().__init__(buffer)
+        self.name = name
 
-def speech_to_text_whisper(wav_bytes:bytes) -> (str, CustomError):
+def speech_to_text_whisper(wav_bytes:bytes) -> (str, Exception):
     try:
-        audio_buffer = BytesIO(wav_bytes)
+        audio_buffer = NamedBytesIO(wav_bytes, name="audio.wav")
         transcript = openai.Audio.transcribe("whisper-1", audio_buffer)
         text = transcript['text']
         logger.info(f"wav is transcribed to {text} with whisper")
-        return (text, CustomError.NoError())
+        return (text, None)
     except Exception as e:
         logger.error(f"error when trying to call whisper: {e}")
-        return ("", CustomError(e))
+        return ("", e)
 
 def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
-    seg = AudioSegment.from_mp3(BytesIO(mp3_bytes))
-    wav_io = BytesIO()
+    seg = AudioSegment.from_mp3(io.BytesIO(mp3_bytes))
+    wav_io = io.BytesIO()
     seg.export(wav_io, format="wav")
     return wav_io.getvalue()
 
