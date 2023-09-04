@@ -35,38 +35,34 @@ def in_game_handler(ws):
         vf_request.ParseFromString(received)
 
         vf_response = ws_message_pb2.VfResponse()
-        vf_response.identifier = vf_request.identifier
 
-        if vf_request.identifier == 'echo':
-            echo_request = ws_message_pb2.EchoRequest()
-            echo_request.ParseFromString(vf_request.raw)
-            (echo_response, err) = echo_handler(echo_request)
-            vf_response.raw = echo_response.SerializeToString()
-            vf_response.error.CopyFrom(custom_error(err))
-
-        elif vf_request.identifier == 'speech2text':
-            speech_to_text_request = ws_message_pb2.SpeechToTextRequest()
-            speech_to_text_request.ParseFromString(vf_request.raw)
-            (speech_to_text_response, err) = speech_to_text_handler(speech_to_text_request)
-            vf_response.raw = speech_to_text_response.SerializeToString()
-            vf_response.error.CopyFrom(custom_error(err))
-
-        elif vf_request.identifier == 'reply_text':
-            reply_text_message_request = ws_message_pb2.ReplyTextMessageRequest()
-            reply_text_message_request.ParseFromString(vf_request.raw)
-            (reply_text_message_response, err) = reply_text_handler(reply_text_message_request)
-            vf_response.raw = reply_text_message_response.SerializeToString()
-            vf_response.error.CopyFrom(custom_error(err))
-
-        elif vf_request.identifier == 'reply_speech':
-            reply_voice_message_request = ws_message_pb2.ReplyVoiceMessageRequest()
-            reply_voice_message_request.ParseFromString(vf_request.raw)
-            (reply_voice_message_response, err) = reply_speech_handler(reply_voice_message_request)
-            vf_response.raw = reply_voice_message_response.SerializeToString()
-            vf_response.error.CopyFrom(custom_error(err))
-
+        if vf_request.HasField("request"):
+            if vf_request.HasField("echo"):
+                (echo_response, err) = echo_handler(vf_request.echo)
+                vf_response.echo.CopyFrom(echo_response)
+                vf_response.error.CopyFrom(custom_error(err))
+    
+            elif vf_request.HasField("speech_to_text"):
+                (speech_to_text_response, err) = speech_to_text_handler(vf_request.speech_to_text)
+                vf_response.speech_to_text.CopyFrom(speech_to_text_response)
+                vf_response.error.CopyFrom(custom_error(err))
+    
+            elif vf_request.HasField("reply_text_message"):
+                (reply_text_message_response, err) = reply_text_handler(vf_request.reply_text_message)
+                vf_response.reply_text_message.CopyFrom(reply_text_message_response)
+                vf_response.error.CopyFrom(custom_error(err))
+    
+            elif vf_request.HasField("reply_voice_message"):
+                (reply_voice_message_response, err) = reply_speech_handler(vf_request.reply_voice_message)
+                vf_response.reply_voice_message.CopyFrom(reply_voice_message_response)
+                vf_response.error.CopyFrom(custom_error(err))
+    
+            else:
+                # Handle the case where the 'request' field is set, but none of the specific fields are set
+                vf_response.error.CopyFrom(custom_error("Unknown request type"))
         else:
-            vf_response.error = custom_error("unknown identifier")
+            # Handle the case where the 'request' field is not set
+            vf_response.error.CopyFrom(custom_error("No request type set"))
 
         ws.send(vf_response.SerializeToString())
 

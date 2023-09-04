@@ -61,5 +61,6 @@ def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMe
     reply_voive_message_response.action = llm_reply.infer_action(reply_message)
     reply_voive_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
     reply_voive_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
+    reply_voive_message_response.transcribed_text = text
 
     return (reply_voive_message_response, None)
