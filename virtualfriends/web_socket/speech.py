@@ -54,7 +54,7 @@ def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
 
 def text_to_speech_google_translate(text:str) -> bytes:
     tts = gTTS(text=text, lang="en")
-    fp = BytesIO()
+    fp = io.BytesIO()
     tts.write_to_fp(fp)
     fp.seek(0)
     mp3_bytes = fp.read()
@@ -64,8 +64,10 @@ def text_to_speech_google_translate(text:str) -> bytes:
 def text_to_speech_gcp(text:str) -> bytes:
     # Build the voice and audio config for the Text-to-Speech API request
     voice = texttospeech.VoiceSelectionParams(
-        language_code="cmn-CN",
-        name="cmn-TW-Wavenet-A",
+        # language_code="cmn-CN",
+        language_code="en-US",
+        # name="cmn-TW-Wavenet-A",
+        name="en-US-News-K",
         ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
         # Male voice
         # name = "cmn-TW-Standard-C",

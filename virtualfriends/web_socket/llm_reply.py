@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
 openai.api_key = "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"
-openai_api_url = 'https://api.openai.com/v1/chat/completions'
+openai_api_url = 'comp'
 
 auth_headers = {
     'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ def infer_reply(chronical_messages:list, character_name:str) -> str:
     # TODO: explore other index.
     return reply.choices[0].message.content
 
-def stream_infer_reply(chronical_messages:list, character_name:str, chunk_size:int) -> Iterator:
+def stream_infer_reply(chronical_messages:list, character_name:str, callback) -> Iterator:
     chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
     payload = {
         "model": "gpt-3.5-turbo",
@@ -96,13 +96,12 @@ def stream_infer_reply(chronical_messages:list, character_name:str, chunk_size:i
         # other payload data
     }
 
-    response = requests.post(openai_api_url, headers=auth_headers, json=payload, stream=True)
-    return response.iter_content(chunk_size=chunk_size)
+    return ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=chronical_messages,
+        max_tokens=150,
+        stream=True
+    )
 
-    # first_chunk = next(response.iter_content(chunk_size=20))
-    # # Process the entire response (including the first chunk)
-    # complete_response = first_chunk + b''.join(response.iter_content(chunk_size=20))
-
-    # # If the response is in JSON format, you can convert it to a Python dictionary for further processing
-    # response_data = complete_response.decode('utf-8')
-    # print(response_data)
+def get_content_from_chunk(chunk) -> str:
+    return chunk["choices"][0].get("delta", {}).get("content")

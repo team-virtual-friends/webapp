@@ -24,47 +24,52 @@ namespace VirtualfriendsProto {
     static WsMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byKwAgoJ",
+            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byKMAwoJ",
             "VmZSZXF1ZXN0EjEKBGVjaG8YAiABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90",
             "by5FY2hvUmVxdWVzdEgAEkMKDnNwZWVjaF90b190ZXh0GAMgASgLMikudmly",
             "dHVhbGZyaWVuZHNfcHJvdG8uU3BlZWNoVG9UZXh0UmVxdWVzdEgAEksKEnJl",
             "cGx5X3RleHRfbWVzc2FnZRgEIAEoCzItLnZpcnR1YWxmcmllbmRzX3Byb3Rv",
             "LlJlcGx5VGV4dE1lc3NhZ2VSZXF1ZXN0SAASTQoTcmVwbHlfdm9pY2VfbWVz",
             "c2FnZRgFIAEoCzIuLnZpcnR1YWxmcmllbmRzX3Byb3RvLlJlcGx5Vm9pY2VN",
-            "ZXNzYWdlUmVxdWVzdEgAQgkKB3JlcXVlc3RKBAgBEAIi4gIKClZmUmVzcG9u",
-            "c2USMAoFZXJyb3IYASABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90by5DdXN0",
-            "b21FcnJvchIyCgRlY2hvGAIgASgLMiIudmlydHVhbGZyaWVuZHNfcHJvdG8u",
-            "RWNob1Jlc3BvbnNlSAASRAoOc3BlZWNoX3RvX3RleHQYAyABKAsyKi52aXJ0",
-            "dWFsZnJpZW5kc19wcm90by5TcGVlY2hUb1RleHRSZXNwb25zZUgAEkwKEnJl",
-            "cGx5X3RleHRfbWVzc2FnZRgEIAEoCzIuLnZpcnR1YWxmcmllbmRzX3Byb3Rv",
-            "LlJlcGx5VGV4dE1lc3NhZ2VSZXNwb25zZUgAEk4KE3JlcGx5X3ZvaWNlX21l",
-            "c3NhZ2UYBSABKAsyLy52aXJ0dWFsZnJpZW5kc19wcm90by5SZXBseVZvaWNl",
-            "TWVzc2FnZVJlc3BvbnNlSABCCgoIcmVzcG9uc2UiJAoLQ3VzdG9tRXJyb3IS",
-            "FQoNZXJyb3JfbWVzc2FnZRgBIAEoCSIbCgtFY2hvUmVxdWVzdBIMCgR0ZXh0",
-            "GAEgASgJIhwKDEVjaG9SZXNwb25zZRIMCgR0ZXh0GAEgASgJIiIKE1NwZWVj",
-            "aFRvVGV4dFJlcXVlc3QSCwoDd2F2GAEgASgMIiQKFFNwZWVjaFRvVGV4dFJl",
-            "c3BvbnNlEgwKBHRleHQYASABKAkiYQoXUmVwbHlUZXh0TWVzc2FnZVJlcXVl",
-            "c3QSFgoOY2hhcmFjdGVyX25hbWUYASABKAkSFQoNanNvbl9tZXNzYWdlcxgC",
-            "IAMoCRIXCg9jdXJyZW50X21lc3NhZ2UYAyABKAkiZwoYUmVwbHlUZXh0TWVz",
-            "c2FnZVJlc3BvbnNlEhUKDXJlcGx5X21lc3NhZ2UYASABKAkSDgoGYWN0aW9u",
-            "GAIgASgJEhEKCXNlbnRpbWVudBgDIAEoCRIRCglyZXBseV93YXYYBCABKAwi",
-            "VgoYUmVwbHlWb2ljZU1lc3NhZ2VSZXF1ZXN0EhYKDmNoYXJhY3Rlcl9uYW1l",
-            "GAEgASgJEhUKDWpzb25fbWVzc2FnZXMYAiADKAkSCwoDd2F2GAMgASgMIoIB",
-            "ChlSZXBseVZvaWNlTWVzc2FnZVJlc3BvbnNlEhUKDXJlcGx5X21lc3NhZ2UY",
-            "ASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVudBgDIAEoCRIRCgly",
-            "ZXBseV93YXYYBCABKAwSGAoQdHJhbnNjcmliZWRfdGV4dBgFIAEoCSJwCh5T",
-            "dHJlYW1SZXBseVZvaWNlTWVzc2FnZVJlcXVlc3QSFgoOY2hhcmFjdGVyX25h",
-            "bWUYASABKAkSFQoNanNvbl9tZXNzYWdlcxgCIAMoCRILCgN3YXYYAyABKAwS",
-            "EgoKc2Vzc2lvbl9pZBgEIAEoAyLCAQofU3RyZWFtUmVwbHlWb2ljZU1lc3Nh",
-            "Z2VSZXNwb25zZRIVCg1yZXBseV9tZXNzYWdlGAEgASgJEg4KBmFjdGlvbhgC",
-            "IAEoCRIRCglzZW50aW1lbnQYAyABKAkSEQoJcmVwbHlfd2F2GAQgASgMEhgK",
-            "EHRyYW5zY3JpYmVkX3RleHQYBSABKAkSEgoKc2Vzc2lvbl9pZBgGIAEoAxIT",
-            "CgtjaHVua19pbmRleBgHIAEoBRIPCgdpc19zdG9wGAggASgIYgZwcm90bzM="));
+            "ZXNzYWdlUmVxdWVzdEgAEloKGnN0cmVhbV9yZXBseV92b2ljZV9tZXNzYWdl",
+            "GAYgASgLMjQudmlydHVhbGZyaWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlWb2lj",
+            "ZU1lc3NhZ2VSZXF1ZXN0SABCCQoHcmVxdWVzdEoECAEQAiK/AwoKVmZSZXNw",
+            "b25zZRIwCgVlcnJvchgBIAEoCzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLkN1",
+            "c3RvbUVycm9yEjIKBGVjaG8YAiABKAsyIi52aXJ0dWFsZnJpZW5kc19wcm90",
+            "by5FY2hvUmVzcG9uc2VIABJECg5zcGVlY2hfdG9fdGV4dBgDIAEoCzIqLnZp",
+            "cnR1YWxmcmllbmRzX3Byb3RvLlNwZWVjaFRvVGV4dFJlc3BvbnNlSAASTAoS",
+            "cmVwbHlfdGV4dF9tZXNzYWdlGAQgASgLMi4udmlydHVhbGZyaWVuZHNfcHJv",
+            "dG8uUmVwbHlUZXh0TWVzc2FnZVJlc3BvbnNlSAASTgoTcmVwbHlfdm9pY2Vf",
+            "bWVzc2FnZRgFIAEoCzIvLnZpcnR1YWxmcmllbmRzX3Byb3RvLlJlcGx5Vm9p",
+            "Y2VNZXNzYWdlUmVzcG9uc2VIABJbChpzdHJlYW1fcmVwbHlfdm9pY2VfbWVz",
+            "c2FnZRgGIAEoCzI1LnZpcnR1YWxmcmllbmRzX3Byb3RvLlN0cmVhbVJlcGx5",
+            "Vm9pY2VNZXNzYWdlUmVzcG9uc2VIAEIKCghyZXNwb25zZSIkCgtDdXN0b21F",
+            "cnJvchIVCg1lcnJvcl9tZXNzYWdlGAEgASgJIhsKC0VjaG9SZXF1ZXN0EgwK",
+            "BHRleHQYASABKAkiHAoMRWNob1Jlc3BvbnNlEgwKBHRleHQYASABKAkiIgoT",
+            "U3BlZWNoVG9UZXh0UmVxdWVzdBILCgN3YXYYASABKAwiJAoUU3BlZWNoVG9U",
+            "ZXh0UmVzcG9uc2USDAoEdGV4dBgBIAEoCSJhChdSZXBseVRleHRNZXNzYWdl",
+            "UmVxdWVzdBIWCg5jaGFyYWN0ZXJfbmFtZRgBIAEoCRIVCg1qc29uX21lc3Nh",
+            "Z2VzGAIgAygJEhcKD2N1cnJlbnRfbWVzc2FnZRgDIAEoCSJnChhSZXBseVRl",
+            "eHRNZXNzYWdlUmVzcG9uc2USFQoNcmVwbHlfbWVzc2FnZRgBIAEoCRIOCgZh",
+            "Y3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5X3dhdhgE",
+            "IAEoDCJWChhSZXBseVZvaWNlTWVzc2FnZVJlcXVlc3QSFgoOY2hhcmFjdGVy",
+            "X25hbWUYASABKAkSFQoNanNvbl9tZXNzYWdlcxgCIAMoCRILCgN3YXYYAyAB",
+            "KAwiggEKGVJlcGx5Vm9pY2VNZXNzYWdlUmVzcG9uc2USFQoNcmVwbHlfbWVz",
+            "c2FnZRgBIAEoCRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJ",
+            "EhEKCXJlcGx5X3dhdhgEIAEoDBIYChB0cmFuc2NyaWJlZF90ZXh0GAUgASgJ",
+            "InAKHlN0cmVhbVJlcGx5Vm9pY2VNZXNzYWdlUmVxdWVzdBIWCg5jaGFyYWN0",
+            "ZXJfbmFtZRgBIAEoCRIVCg1qc29uX21lc3NhZ2VzGAIgAygJEgsKA3dhdhgD",
+            "IAEoDBISCgpzZXNzaW9uX2lkGAQgASgDIsIBCh9TdHJlYW1SZXBseVZvaWNl",
+            "TWVzc2FnZVJlc3BvbnNlEhUKDXJlcGx5X21lc3NhZ2UYASABKAkSDgoGYWN0",
+            "aW9uGAIgASgJEhEKCXNlbnRpbWVudBgDIAEoCRIRCglyZXBseV93YXYYBCAB",
+            "KAwSGAoQdHJhbnNjcmliZWRfdGV4dBgFIAEoCRISCgpzZXNzaW9uX2lkGAYg",
+            "ASgDEhMKC2NodW5rX2luZGV4GAcgASgFEg8KB2lzX3N0b3AYCCABKAhiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "SpeechToText", "ReplyTextMessage", "ReplyVoiceMessage" }, new[]{ "Request" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "SpeechToText", "ReplyTextMessage", "ReplyVoiceMessage" }, new[]{ "Response" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "SpeechToText", "ReplyTextMessage", "ReplyVoiceMessage", "StreamReplyVoiceMessage" }, new[]{ "Request" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "SpeechToText", "ReplyTextMessage", "ReplyVoiceMessage", "StreamReplyVoiceMessage" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text" }, null, null, null, null),
@@ -83,7 +88,7 @@ namespace VirtualfriendsProto {
   }
   #region Messages
   /// <summary>
-  /// Next tag: 6
+  /// Next tag: 7
   /// </summary>
   public sealed partial class VfRequest : pb::IMessage<VfRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -131,6 +136,9 @@ namespace VirtualfriendsProto {
           break;
         case RequestOneofCase.ReplyVoiceMessage:
           ReplyVoiceMessage = other.ReplyVoiceMessage.Clone();
+          break;
+        case RequestOneofCase.StreamReplyVoiceMessage:
+          StreamReplyVoiceMessage = other.StreamReplyVoiceMessage.Clone();
           break;
       }
 
@@ -191,6 +199,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "stream_reply_voice_message" field.</summary>
+    public const int StreamReplyVoiceMessageFieldNumber = 6;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.StreamReplyVoiceMessageRequest StreamReplyVoiceMessage {
+      get { return requestCase_ == RequestOneofCase.StreamReplyVoiceMessage ? (global::VirtualfriendsProto.StreamReplyVoiceMessageRequest) request_ : null; }
+      set {
+        request_ = value;
+        requestCase_ = value == null ? RequestOneofCase.None : RequestOneofCase.StreamReplyVoiceMessage;
+      }
+    }
+
     private object request_;
     /// <summary>Enum of possible cases for the "request" oneof.</summary>
     public enum RequestOneofCase {
@@ -199,6 +219,7 @@ namespace VirtualfriendsProto {
       SpeechToText = 3,
       ReplyTextMessage = 4,
       ReplyVoiceMessage = 5,
+      StreamReplyVoiceMessage = 6,
     }
     private RequestOneofCase requestCase_ = RequestOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -233,6 +254,7 @@ namespace VirtualfriendsProto {
       if (!object.Equals(SpeechToText, other.SpeechToText)) return false;
       if (!object.Equals(ReplyTextMessage, other.ReplyTextMessage)) return false;
       if (!object.Equals(ReplyVoiceMessage, other.ReplyVoiceMessage)) return false;
+      if (!object.Equals(StreamReplyVoiceMessage, other.StreamReplyVoiceMessage)) return false;
       if (RequestCase != other.RequestCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -245,6 +267,7 @@ namespace VirtualfriendsProto {
       if (requestCase_ == RequestOneofCase.SpeechToText) hash ^= SpeechToText.GetHashCode();
       if (requestCase_ == RequestOneofCase.ReplyTextMessage) hash ^= ReplyTextMessage.GetHashCode();
       if (requestCase_ == RequestOneofCase.ReplyVoiceMessage) hash ^= ReplyVoiceMessage.GetHashCode();
+      if (requestCase_ == RequestOneofCase.StreamReplyVoiceMessage) hash ^= StreamReplyVoiceMessage.GetHashCode();
       hash ^= (int) requestCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -280,6 +303,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteMessage(ReplyVoiceMessage);
       }
+      if (requestCase_ == RequestOneofCase.StreamReplyVoiceMessage) {
+        output.WriteRawTag(50);
+        output.WriteMessage(StreamReplyVoiceMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -306,6 +333,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteMessage(ReplyVoiceMessage);
       }
+      if (requestCase_ == RequestOneofCase.StreamReplyVoiceMessage) {
+        output.WriteRawTag(50);
+        output.WriteMessage(StreamReplyVoiceMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -327,6 +358,9 @@ namespace VirtualfriendsProto {
       }
       if (requestCase_ == RequestOneofCase.ReplyVoiceMessage) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ReplyVoiceMessage);
+      }
+      if (requestCase_ == RequestOneofCase.StreamReplyVoiceMessage) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StreamReplyVoiceMessage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -364,6 +398,12 @@ namespace VirtualfriendsProto {
             ReplyVoiceMessage = new global::VirtualfriendsProto.ReplyVoiceMessageRequest();
           }
           ReplyVoiceMessage.MergeFrom(other.ReplyVoiceMessage);
+          break;
+        case RequestOneofCase.StreamReplyVoiceMessage:
+          if (StreamReplyVoiceMessage == null) {
+            StreamReplyVoiceMessage = new global::VirtualfriendsProto.StreamReplyVoiceMessageRequest();
+          }
+          StreamReplyVoiceMessage.MergeFrom(other.StreamReplyVoiceMessage);
           break;
       }
 
@@ -418,6 +458,15 @@ namespace VirtualfriendsProto {
             ReplyVoiceMessage = subBuilder;
             break;
           }
+          case 50: {
+            global::VirtualfriendsProto.StreamReplyVoiceMessageRequest subBuilder = new global::VirtualfriendsProto.StreamReplyVoiceMessageRequest();
+            if (requestCase_ == RequestOneofCase.StreamReplyVoiceMessage) {
+              subBuilder.MergeFrom(StreamReplyVoiceMessage);
+            }
+            input.ReadMessage(subBuilder);
+            StreamReplyVoiceMessage = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -469,6 +518,15 @@ namespace VirtualfriendsProto {
             ReplyVoiceMessage = subBuilder;
             break;
           }
+          case 50: {
+            global::VirtualfriendsProto.StreamReplyVoiceMessageRequest subBuilder = new global::VirtualfriendsProto.StreamReplyVoiceMessageRequest();
+            if (requestCase_ == RequestOneofCase.StreamReplyVoiceMessage) {
+              subBuilder.MergeFrom(StreamReplyVoiceMessage);
+            }
+            input.ReadMessage(subBuilder);
+            StreamReplyVoiceMessage = subBuilder;
+            break;
+          }
         }
       }
     }
@@ -477,7 +535,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 6
+  /// Next tag: 7
   /// </summary>
   public sealed partial class VfResponse : pb::IMessage<VfResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -526,6 +584,9 @@ namespace VirtualfriendsProto {
           break;
         case ResponseOneofCase.ReplyVoiceMessage:
           ReplyVoiceMessage = other.ReplyVoiceMessage.Clone();
+          break;
+        case ResponseOneofCase.StreamReplyVoiceMessage:
+          StreamReplyVoiceMessage = other.StreamReplyVoiceMessage.Clone();
           break;
       }
 
@@ -598,6 +659,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "stream_reply_voice_message" field.</summary>
+    public const int StreamReplyVoiceMessageFieldNumber = 6;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.StreamReplyVoiceMessageResponse StreamReplyVoiceMessage {
+      get { return responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage ? (global::VirtualfriendsProto.StreamReplyVoiceMessageResponse) response_ : null; }
+      set {
+        response_ = value;
+        responseCase_ = value == null ? ResponseOneofCase.None : ResponseOneofCase.StreamReplyVoiceMessage;
+      }
+    }
+
     private object response_;
     /// <summary>Enum of possible cases for the "response" oneof.</summary>
     public enum ResponseOneofCase {
@@ -606,6 +679,7 @@ namespace VirtualfriendsProto {
       SpeechToText = 3,
       ReplyTextMessage = 4,
       ReplyVoiceMessage = 5,
+      StreamReplyVoiceMessage = 6,
     }
     private ResponseOneofCase responseCase_ = ResponseOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -641,6 +715,7 @@ namespace VirtualfriendsProto {
       if (!object.Equals(SpeechToText, other.SpeechToText)) return false;
       if (!object.Equals(ReplyTextMessage, other.ReplyTextMessage)) return false;
       if (!object.Equals(ReplyVoiceMessage, other.ReplyVoiceMessage)) return false;
+      if (!object.Equals(StreamReplyVoiceMessage, other.StreamReplyVoiceMessage)) return false;
       if (ResponseCase != other.ResponseCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -654,6 +729,7 @@ namespace VirtualfriendsProto {
       if (responseCase_ == ResponseOneofCase.SpeechToText) hash ^= SpeechToText.GetHashCode();
       if (responseCase_ == ResponseOneofCase.ReplyTextMessage) hash ^= ReplyTextMessage.GetHashCode();
       if (responseCase_ == ResponseOneofCase.ReplyVoiceMessage) hash ^= ReplyVoiceMessage.GetHashCode();
+      if (responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage) hash ^= StreamReplyVoiceMessage.GetHashCode();
       hash ^= (int) responseCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -693,6 +769,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteMessage(ReplyVoiceMessage);
       }
+      if (responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage) {
+        output.WriteRawTag(50);
+        output.WriteMessage(StreamReplyVoiceMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -723,6 +803,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteMessage(ReplyVoiceMessage);
       }
+      if (responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage) {
+        output.WriteRawTag(50);
+        output.WriteMessage(StreamReplyVoiceMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -747,6 +831,9 @@ namespace VirtualfriendsProto {
       }
       if (responseCase_ == ResponseOneofCase.ReplyVoiceMessage) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ReplyVoiceMessage);
+      }
+      if (responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StreamReplyVoiceMessage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -790,6 +877,12 @@ namespace VirtualfriendsProto {
             ReplyVoiceMessage = new global::VirtualfriendsProto.ReplyVoiceMessageResponse();
           }
           ReplyVoiceMessage.MergeFrom(other.ReplyVoiceMessage);
+          break;
+        case ResponseOneofCase.StreamReplyVoiceMessage:
+          if (StreamReplyVoiceMessage == null) {
+            StreamReplyVoiceMessage = new global::VirtualfriendsProto.StreamReplyVoiceMessageResponse();
+          }
+          StreamReplyVoiceMessage.MergeFrom(other.StreamReplyVoiceMessage);
           break;
       }
 
@@ -851,6 +944,15 @@ namespace VirtualfriendsProto {
             ReplyVoiceMessage = subBuilder;
             break;
           }
+          case 50: {
+            global::VirtualfriendsProto.StreamReplyVoiceMessageResponse subBuilder = new global::VirtualfriendsProto.StreamReplyVoiceMessageResponse();
+            if (responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage) {
+              subBuilder.MergeFrom(StreamReplyVoiceMessage);
+            }
+            input.ReadMessage(subBuilder);
+            StreamReplyVoiceMessage = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -907,6 +1009,15 @@ namespace VirtualfriendsProto {
             }
             input.ReadMessage(subBuilder);
             ReplyVoiceMessage = subBuilder;
+            break;
+          }
+          case 50: {
+            global::VirtualfriendsProto.StreamReplyVoiceMessageResponse subBuilder = new global::VirtualfriendsProto.StreamReplyVoiceMessageResponse();
+            if (responseCase_ == ResponseOneofCase.StreamReplyVoiceMessage) {
+              subBuilder.MergeFrom(StreamReplyVoiceMessage);
+            }
+            input.ReadMessage(subBuilder);
+            StreamReplyVoiceMessage = subBuilder;
             break;
           }
         }

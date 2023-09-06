@@ -2,7 +2,6 @@ import base64
 import json
 import logging
 import re
-from itertools import peekable
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -42,7 +41,7 @@ def speech_to_text_handler(speech_to_text_request:ws_message_pb2.SpeechToTextReq
         speech_to_text_response.text = text
     
     vf_response = ws_message_pb2.VfResponse()
-    vf_response.echo.CopyFrom(speech_to_text_response)
+    vf_response.speech_to_text.CopyFrom(speech_to_text_response)
     vf_response.error.CopyFrom(custom_error(err))
     
     ws.send(vf_response.SerializeToString())
@@ -62,7 +61,7 @@ def reply_text_handler(reply_text_message_request:ws_message_pb2.ReplyTextMessag
     reply_text_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
 
     vf_response = ws_message_pb2.VfResponse()
-    vf_response.echo.CopyFrom(reply_text_message_response)
+    vf_response.reply_text_message.CopyFrom(reply_text_message_response)
     # vf_response.error.CopyFrom(custom_error(err))
     
     ws.send(vf_response.SerializeToString())
@@ -73,6 +72,7 @@ def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMe
     wav_bytes = reply_voice_message_request.wav
     (text, err) = speech.speech_to_text_whisper(wav_bytes)
     if err is not None:
+        logger.error("failed to speech to text: " + str(err))
         ws.send(error_response(custom_error(err)))
         return
 
@@ -81,65 +81,60 @@ def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMe
 
     reply_message = llm_reply.infer_reply(message_dicts, reply_voice_message_request.character_name)
     reply_voive_message_response.reply_message = reply_message
-    reply_voive_message_response.action = llm_reply.infer_action(reply_message)
-    reply_voive_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
+    # reply_voive_message_response.action = llm_reply.infer_action(reply_message)
+    # reply_voive_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
     reply_voive_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
     reply_voive_message_response.transcribed_text = text
 
     vf_response = ws_message_pb2.VfResponse()
-    vf_response.echo.CopyFrom(reply_voive_message_response)
-    vf_response.error.CopyFrom(custom_error(err))
-    
+    vf_response.reply_voice_message.CopyFrom(reply_voive_message_response)
+    # vf_response.error.CopyFrom(custom_error(err))
+
     ws.send(vf_response.SerializeToString())
 
 def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb2.StreamReplyVoiceMessageRequest, ws):
     wav_bytes = stream_reply_voice_message_request.wav
     (text, err) = speech.speech_to_text_whisper(wav_bytes)
     if err is not None:
+        logger.error("failed to speech to text: " + str(err))
         ws.send(error_response(custom_error(err)))
         return
     
     message_dicts = [json.loads(m) for m in stream_reply_voice_message_request.json_messages]
     message_dicts.append({"role": "user", "content": text})
-    reply_message_iter = peekable(llm_reply.stream_infer_reply(message_dicts, stream_reply_voice_message_request.character_name, 10))
+    
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, stream_reply_voice_message_request.character_name, 10)
 
     buffer = ""
     index = 0
-    while True:
-        current = next(reply_message_iter)
-        try:
-            splited = re.split("\.|;|\!|\?", current)
-            if len(splited) == 0:
-                pass
-            elif len(splited) == 1:
-                buffer = buffer + splited[0]
-            else:
-                for msg in splited[:-1]:
-                    buffer = buffer + msg + ' '
-                stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
-                stream_reply_voice_message_response.reply_message = buffer
-                stream_reply_voice_message_response.action = llm_reply.infer_action(buffer)
-                stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(buffer)
-                stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(buffer)
-                if index == 0:
-                    stream_reply_voice_message_response.transcribed_text = text
-                stream_reply_voice_message_response.chunk_index = index
-                stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
+    for chunk in reply_message_iter:
+        current = llm_reply.get_content_from_chunk(chunk)
+        if current == None:
+            continue
 
-                vf_response = ws_message_pb2.VfResponse()
-                vf_response.echo.CopyFrom(stream_reply_voice_message_response)
-                # vf_response.error.CopyFrom(custom_error(err))
-
-                ws.send(vf_response)
-                buffer = splited[-1]
-        except StopIteration:
+        splited = re.split("\.|;|\!|\?", current)
+        if len(splited) == 0:
+            pass
+        elif len(splited) == 1:
+            buffer = buffer + splited[0]
+        else:
+            for msg in splited[:-1]:
+                buffer = buffer + msg
             stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
+            stream_reply_voice_message_response.reply_message = buffer
+            # stream_reply_voice_message_response.action = llm_reply.infer_action(buffer)
+            # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(buffer)
+            stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(buffer)
+            if index == 0:
+                stream_reply_voice_message_response.transcribed_text = text
+            stream_reply_voice_message_response.chunk_index = index
             stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
-            stream_reply_voice_message_response.is_stop = True
 
             vf_response = ws_message_pb2.VfResponse()
-            vf_response.echo.CopyFrom(stream_reply_voice_message_response)
+            vf_response.stream_reply_voice_message.CopyFrom(stream_reply_voice_message_response)
+            # vf_response.error.CopyFrom(custom_error(err))
 
-            ws.send(vf_response)
-            break
-        index += 1
+            logger.info("buffer: " + buffer)
+            ws.send(vf_response.SerializeToString())
+            buffer = splited[-1]
+            index += 1
