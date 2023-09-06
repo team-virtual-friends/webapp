@@ -58,4 +58,4 @@ def in_game_handler(ws):
             ws.send(error_response("No request type set"))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8086)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))
