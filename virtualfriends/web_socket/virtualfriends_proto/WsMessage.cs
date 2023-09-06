@@ -52,8 +52,14 @@ namespace VirtualfriendsProto {
             "GAEgASgJEhUKDWpzb25fbWVzc2FnZXMYAiADKAkSCwoDd2F2GAMgASgMIoIB",
             "ChlSZXBseVZvaWNlTWVzc2FnZVJlc3BvbnNlEhUKDXJlcGx5X21lc3NhZ2UY",
             "ASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVudBgDIAEoCRIRCgly",
-            "ZXBseV93YXYYBCABKAwSGAoQdHJhbnNjcmliZWRfdGV4dBgFIAEoCWIGcHJv",
-            "dG8z"));
+            "ZXBseV93YXYYBCABKAwSGAoQdHJhbnNjcmliZWRfdGV4dBgFIAEoCSJwCh5T",
+            "dHJlYW1SZXBseVZvaWNlTWVzc2FnZVJlcXVlc3QSFgoOY2hhcmFjdGVyX25h",
+            "bWUYASABKAkSFQoNanNvbl9tZXNzYWdlcxgCIAMoCRILCgN3YXYYAyABKAwS",
+            "EgoKc2Vzc2lvbl9pZBgEIAEoAyLCAQofU3RyZWFtUmVwbHlWb2ljZU1lc3Nh",
+            "Z2VSZXNwb25zZRIVCg1yZXBseV9tZXNzYWdlGAEgASgJEg4KBmFjdGlvbhgC",
+            "IAEoCRIRCglzZW50aW1lbnQYAyABKAkSEQoJcmVwbHlfd2F2GAQgASgMEhgK",
+            "EHRyYW5zY3JpYmVkX3RleHQYBSABKAkSEgoKc2Vzc2lvbl9pZBgGIAEoAxIT",
+            "CgtjaHVua19pbmRleBgHIAEoBRIPCgdpc19zdG9wGAggASgIYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -67,7 +73,9 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.ReplyTextMessageRequest), global::VirtualfriendsProto.ReplyTextMessageRequest.Parser, new[]{ "CharacterName", "JsonMessages", "CurrentMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.ReplyTextMessageResponse), global::VirtualfriendsProto.ReplyTextMessageResponse.Parser, new[]{ "ReplyMessage", "Action", "Sentiment", "ReplyWav" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.ReplyVoiceMessageRequest), global::VirtualfriendsProto.ReplyVoiceMessageRequest.Parser, new[]{ "CharacterName", "JsonMessages", "Wav" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.ReplyVoiceMessageResponse), global::VirtualfriendsProto.ReplyVoiceMessageResponse.Parser, new[]{ "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.ReplyVoiceMessageResponse), global::VirtualfriendsProto.ReplyVoiceMessageResponse.Parser, new[]{ "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyVoiceMessageRequest), global::VirtualfriendsProto.StreamReplyVoiceMessageRequest.Parser, new[]{ "CharacterName", "JsonMessages", "Wav", "SessionId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyVoiceMessageResponse), global::VirtualfriendsProto.StreamReplyVoiceMessageResponse.Parser, new[]{ "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "SessionId", "ChunkIndex", "IsStop" }, null, null, null, null)
           }));
     }
     #endregion
@@ -3027,6 +3035,752 @@ namespace VirtualfriendsProto {
           }
           case 42: {
             TranscribedText = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 5
+  /// </summary>
+  public sealed partial class StreamReplyVoiceMessageRequest : pb::IMessage<StreamReplyVoiceMessageRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<StreamReplyVoiceMessageRequest> _parser = new pb::MessageParser<StreamReplyVoiceMessageRequest>(() => new StreamReplyVoiceMessageRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<StreamReplyVoiceMessageRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[11]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StreamReplyVoiceMessageRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StreamReplyVoiceMessageRequest(StreamReplyVoiceMessageRequest other) : this() {
+      characterName_ = other.characterName_;
+      jsonMessages_ = other.jsonMessages_.Clone();
+      wav_ = other.wav_;
+      sessionId_ = other.sessionId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StreamReplyVoiceMessageRequest Clone() {
+      return new StreamReplyVoiceMessageRequest(this);
+    }
+
+    /// <summary>Field number for the "character_name" field.</summary>
+    public const int CharacterNameFieldNumber = 1;
+    private string characterName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CharacterName {
+      get { return characterName_; }
+      set {
+        characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "json_messages" field.</summary>
+    public const int JsonMessagesFieldNumber = 2;
+    private static readonly pb::FieldCodec<string> _repeated_jsonMessages_codec
+        = pb::FieldCodec.ForString(18);
+    private readonly pbc::RepeatedField<string> jsonMessages_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<string> JsonMessages {
+      get { return jsonMessages_; }
+    }
+
+    /// <summary>Field number for the "wav" field.</summary>
+    public const int WavFieldNumber = 3;
+    private pb::ByteString wav_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString Wav {
+      get { return wav_; }
+      set {
+        wav_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "session_id" field.</summary>
+    public const int SessionIdFieldNumber = 4;
+    private long sessionId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long SessionId {
+      get { return sessionId_; }
+      set {
+        sessionId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as StreamReplyVoiceMessageRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(StreamReplyVoiceMessageRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CharacterName != other.CharacterName) return false;
+      if(!jsonMessages_.Equals(other.jsonMessages_)) return false;
+      if (Wav != other.Wav) return false;
+      if (SessionId != other.SessionId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+      hash ^= jsonMessages_.GetHashCode();
+      if (Wav.Length != 0) hash ^= Wav.GetHashCode();
+      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CharacterName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CharacterName);
+      }
+      jsonMessages_.WriteTo(output, _repeated_jsonMessages_codec);
+      if (Wav.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteBytes(Wav);
+      }
+      if (SessionId != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(SessionId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CharacterName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CharacterName);
+      }
+      jsonMessages_.WriteTo(ref output, _repeated_jsonMessages_codec);
+      if (Wav.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteBytes(Wav);
+      }
+      if (SessionId != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(SessionId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (CharacterName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
+      }
+      size += jsonMessages_.CalculateSize(_repeated_jsonMessages_codec);
+      if (Wav.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Wav);
+      }
+      if (SessionId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(StreamReplyVoiceMessageRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CharacterName.Length != 0) {
+        CharacterName = other.CharacterName;
+      }
+      jsonMessages_.Add(other.jsonMessages_);
+      if (other.Wav.Length != 0) {
+        Wav = other.Wav;
+      }
+      if (other.SessionId != 0L) {
+        SessionId = other.SessionId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            CharacterName = input.ReadString();
+            break;
+          }
+          case 18: {
+            jsonMessages_.AddEntriesFrom(input, _repeated_jsonMessages_codec);
+            break;
+          }
+          case 26: {
+            Wav = input.ReadBytes();
+            break;
+          }
+          case 32: {
+            SessionId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            CharacterName = input.ReadString();
+            break;
+          }
+          case 18: {
+            jsonMessages_.AddEntriesFrom(ref input, _repeated_jsonMessages_codec);
+            break;
+          }
+          case 26: {
+            Wav = input.ReadBytes();
+            break;
+          }
+          case 32: {
+            SessionId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 9
+  /// </summary>
+  public sealed partial class StreamReplyVoiceMessageResponse : pb::IMessage<StreamReplyVoiceMessageResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<StreamReplyVoiceMessageResponse> _parser = new pb::MessageParser<StreamReplyVoiceMessageResponse>(() => new StreamReplyVoiceMessageResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<StreamReplyVoiceMessageResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[12]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StreamReplyVoiceMessageResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StreamReplyVoiceMessageResponse(StreamReplyVoiceMessageResponse other) : this() {
+      replyMessage_ = other.replyMessage_;
+      action_ = other.action_;
+      sentiment_ = other.sentiment_;
+      replyWav_ = other.replyWav_;
+      transcribedText_ = other.transcribedText_;
+      sessionId_ = other.sessionId_;
+      chunkIndex_ = other.chunkIndex_;
+      isStop_ = other.isStop_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StreamReplyVoiceMessageResponse Clone() {
+      return new StreamReplyVoiceMessageResponse(this);
+    }
+
+    /// <summary>Field number for the "reply_message" field.</summary>
+    public const int ReplyMessageFieldNumber = 1;
+    private string replyMessage_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ReplyMessage {
+      get { return replyMessage_; }
+      set {
+        replyMessage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "action" field.</summary>
+    public const int ActionFieldNumber = 2;
+    private string action_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Action {
+      get { return action_; }
+      set {
+        action_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "sentiment" field.</summary>
+    public const int SentimentFieldNumber = 3;
+    private string sentiment_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Sentiment {
+      get { return sentiment_; }
+      set {
+        sentiment_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "reply_wav" field.</summary>
+    public const int ReplyWavFieldNumber = 4;
+    private pb::ByteString replyWav_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString ReplyWav {
+      get { return replyWav_; }
+      set {
+        replyWav_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "transcribed_text" field.</summary>
+    public const int TranscribedTextFieldNumber = 5;
+    private string transcribedText_ = "";
+    /// <summary>
+    /// will be omitted except the first one.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string TranscribedText {
+      get { return transcribedText_; }
+      set {
+        transcribedText_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "session_id" field.</summary>
+    public const int SessionIdFieldNumber = 6;
+    private long sessionId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long SessionId {
+      get { return sessionId_; }
+      set {
+        sessionId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "chunk_index" field.</summary>
+    public const int ChunkIndexFieldNumber = 7;
+    private int chunkIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ChunkIndex {
+      get { return chunkIndex_; }
+      set {
+        chunkIndex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "is_stop" field.</summary>
+    public const int IsStopFieldNumber = 8;
+    private bool isStop_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsStop {
+      get { return isStop_; }
+      set {
+        isStop_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as StreamReplyVoiceMessageResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(StreamReplyVoiceMessageResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ReplyMessage != other.ReplyMessage) return false;
+      if (Action != other.Action) return false;
+      if (Sentiment != other.Sentiment) return false;
+      if (ReplyWav != other.ReplyWav) return false;
+      if (TranscribedText != other.TranscribedText) return false;
+      if (SessionId != other.SessionId) return false;
+      if (ChunkIndex != other.ChunkIndex) return false;
+      if (IsStop != other.IsStop) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ReplyMessage.Length != 0) hash ^= ReplyMessage.GetHashCode();
+      if (Action.Length != 0) hash ^= Action.GetHashCode();
+      if (Sentiment.Length != 0) hash ^= Sentiment.GetHashCode();
+      if (ReplyWav.Length != 0) hash ^= ReplyWav.GetHashCode();
+      if (TranscribedText.Length != 0) hash ^= TranscribedText.GetHashCode();
+      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
+      if (ChunkIndex != 0) hash ^= ChunkIndex.GetHashCode();
+      if (IsStop != false) hash ^= IsStop.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ReplyMessage.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ReplyMessage);
+      }
+      if (Action.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Action);
+      }
+      if (Sentiment.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Sentiment);
+      }
+      if (ReplyWav.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteBytes(ReplyWav);
+      }
+      if (TranscribedText.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(TranscribedText);
+      }
+      if (SessionId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(SessionId);
+      }
+      if (ChunkIndex != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(ChunkIndex);
+      }
+      if (IsStop != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsStop);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ReplyMessage.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ReplyMessage);
+      }
+      if (Action.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Action);
+      }
+      if (Sentiment.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Sentiment);
+      }
+      if (ReplyWav.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteBytes(ReplyWav);
+      }
+      if (TranscribedText.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(TranscribedText);
+      }
+      if (SessionId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(SessionId);
+      }
+      if (ChunkIndex != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(ChunkIndex);
+      }
+      if (IsStop != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsStop);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ReplyMessage.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ReplyMessage);
+      }
+      if (Action.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Action);
+      }
+      if (Sentiment.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Sentiment);
+      }
+      if (ReplyWav.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(ReplyWav);
+      }
+      if (TranscribedText.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TranscribedText);
+      }
+      if (SessionId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
+      }
+      if (ChunkIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ChunkIndex);
+      }
+      if (IsStop != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(StreamReplyVoiceMessageResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ReplyMessage.Length != 0) {
+        ReplyMessage = other.ReplyMessage;
+      }
+      if (other.Action.Length != 0) {
+        Action = other.Action;
+      }
+      if (other.Sentiment.Length != 0) {
+        Sentiment = other.Sentiment;
+      }
+      if (other.ReplyWav.Length != 0) {
+        ReplyWav = other.ReplyWav;
+      }
+      if (other.TranscribedText.Length != 0) {
+        TranscribedText = other.TranscribedText;
+      }
+      if (other.SessionId != 0L) {
+        SessionId = other.SessionId;
+      }
+      if (other.ChunkIndex != 0) {
+        ChunkIndex = other.ChunkIndex;
+      }
+      if (other.IsStop != false) {
+        IsStop = other.IsStop;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ReplyMessage = input.ReadString();
+            break;
+          }
+          case 18: {
+            Action = input.ReadString();
+            break;
+          }
+          case 26: {
+            Sentiment = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReplyWav = input.ReadBytes();
+            break;
+          }
+          case 42: {
+            TranscribedText = input.ReadString();
+            break;
+          }
+          case 48: {
+            SessionId = input.ReadInt64();
+            break;
+          }
+          case 56: {
+            ChunkIndex = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            IsStop = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            ReplyMessage = input.ReadString();
+            break;
+          }
+          case 18: {
+            Action = input.ReadString();
+            break;
+          }
+          case 26: {
+            Sentiment = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReplyWav = input.ReadBytes();
+            break;
+          }
+          case 42: {
+            TranscribedText = input.ReadString();
+            break;
+          }
+          case 48: {
+            SessionId = input.ReadInt64();
+            break;
+          }
+          case 56: {
+            ChunkIndex = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            IsStop = input.ReadBool();
             break;
           }
         }

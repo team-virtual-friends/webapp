@@ -1,6 +1,7 @@
 import json
 import logging
 import requests
+from typing import Iterator
 
 import openai
 from openai import ChatCompletion
@@ -85,3 +86,23 @@ def infer_reply(chronical_messages:list, character_name:str) -> str:
     )
     # TODO: explore other index.
     return reply.choices[0].message.content
+
+def stream_infer_reply(chronical_messages:list, character_name:str, chunk_size:int) -> Iterator:
+    chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
+    payload = {
+        "model": "gpt-3.5-turbo",
+        "messages": chronical_messages,
+        "max_tokens": 300
+        # other payload data
+    }
+
+    response = requests.post(openai_api_url, headers=auth_headers, json=payload, stream=True)
+    return response.iter_content(chunk_size=chunk_size)
+
+    # first_chunk = next(response.iter_content(chunk_size=20))
+    # # Process the entire response (including the first chunk)
+    # complete_response = first_chunk + b''.join(response.iter_content(chunk_size=20))
+
+    # # If the response is in JSON format, you can convert it to a Python dictionary for further processing
+    # response_data = complete_response.decode('utf-8')
+    # print(response_data)
