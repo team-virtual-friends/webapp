@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
 openai.api_key = "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"
-openai_api_url = 'comp'
+openai_api_url = 'https://api.openai.com/v1/chat/completions'
 
 auth_headers = {
     'Content-Type': 'application/json',
