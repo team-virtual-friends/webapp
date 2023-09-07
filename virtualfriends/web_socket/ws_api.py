@@ -1,8 +1,7 @@
-import io
 import json
 import logging
 import re
-import wave
+import concurrent.futures
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -21,6 +20,12 @@ def error_response(err:ws_message_pb2.CustomError) -> ws_message_pb2.VfResponse:
     vf_response = ws_message_pb2.VfResponse()
     vf_response.error.CopyFrom(err)
     return vf_response.SerializeToString()
+
+def infer_sentiment_wrapper(text:str) -> (str, str):
+    return ("sentiment", llm_reply.infer_sentiment(text))
+
+def infer_action_wrapper(text:str) -> (str, str):
+    return ("action", llm_reply.infer_action(text))
 
 def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     logger.info("echo: " + echo_request.text)
@@ -82,6 +87,21 @@ def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMe
 
     reply_message = llm_reply.infer_reply(message_dicts, reply_voice_message_request.character_name)
     reply_voive_message_response.reply_message = reply_message
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        futures = []
+        futures.append(executor.submit(infer_action_wrapper, reply_message))
+        futures.append(executor.submit(infer_sentiment_wrapper, reply_message))
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                result = future.result()
+                if result[0] == 'sentiment':
+                    reply_voive_message_response.sentiment = result[1]
+                elif result[0] == 'action':
+                    reply_voive_message_response.action = result[1]
+            except Exception as e:
+                pass
     # reply_voive_message_response.action = llm_reply.infer_action(reply_message)
     # reply_voive_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
     reply_voive_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
@@ -110,8 +130,22 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
         stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
         if len(reply_text) > 0:
             stream_reply_voice_message_response.reply_message = reply_text
-            # stream_reply_voice_message_response.action = llm_reply.infer_action(reply_text)
-            # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(reply_text)
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+                futures = []
+                futures.append(executor.submit(infer_action_wrapper, reply_text))
+                futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
+
+                for future in concurrent.futures.as_completed(futures):
+                    try:
+                        result = future.result()
+                        if result[0] == 'sentiment':
+                            stream_reply_voice_message_response.sentiment = result[1]
+                        elif result[0] == 'action':
+                            stream_reply_voice_message_response.action = result[1]
+                    except Exception as e:
+                        pass
+
             if index == 0:
                 stream_reply_voice_message_response.transcribed_text = text
             stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(reply_text)
