@@ -105,13 +105,34 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
     
     reply_message_iter = llm_reply.stream_infer_reply(message_dicts, stream_reply_voice_message_request.character_name, 10)
 
+    def send_reply(reply_text:str, index:int, is_stop:bool):
+        stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
+        stream_reply_voice_message_response.reply_message = reply_text
+        # stream_reply_voice_message_response.action = llm_reply.infer_action(reply_text)
+        # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(reply_text)
+        if index == 0:
+            stream_reply_voice_message_response.transcribed_text = text
+        stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(reply_text)
+        stream_reply_voice_message_response.chunk_index = index
+        stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
+        stream_reply_voice_message_response.is_stop = is_stop
+
+        vf_response = ws_message_pb2.VfResponse()
+        vf_response.stream_reply_voice_message.CopyFrom(stream_reply_voice_message_response)
+        # vf_response.error.CopyFrom(custom_error(err))
+
+        ws.send(vf_response.SerializeToString())
+
     buffer = ""
     index = 0
     for chunk in reply_message_iter:
         current = llm_reply.get_content_from_chunk(chunk)
         if current == None:
+            if len(buffer.strip()) > 0:
+                send_reply(buffer, index, False)
             continue
 
+        logger.info("current: " + current)
         splited = re.split("\.|;|\!|\?", current)
         if len(splited) == 0:
             pass
@@ -120,21 +141,8 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
         else:
             for msg in splited[:-1]:
                 buffer = buffer + msg
-            stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
-            stream_reply_voice_message_response.reply_message = buffer
-            # stream_reply_voice_message_response.action = llm_reply.infer_action(buffer)
-            # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(buffer)
-            stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(buffer)
-            if index == 0:
-                stream_reply_voice_message_response.transcribed_text = text
-            stream_reply_voice_message_response.chunk_index = index
-            stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
-
-            vf_response = ws_message_pb2.VfResponse()
-            vf_response.stream_reply_voice_message.CopyFrom(stream_reply_voice_message_response)
-            # vf_response.error.CopyFrom(custom_error(err))
-
             logger.info("buffer: " + buffer)
-            ws.send(vf_response.SerializeToString())
+            send_reply(buffer, index, False)
             buffer = splited[-1]
             index += 1
+    send_reply("", index, True)
