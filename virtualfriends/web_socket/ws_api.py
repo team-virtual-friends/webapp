@@ -169,7 +169,7 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
             continue
 
         logger.info("current: " + current)
-        splited = re.split("\.|;|\!|\?|-|:", current)
+        splited = re.split("\.|;|\!|\?|:|,", current)
         if len(splited) == 0:
             pass
         elif len(splited) == 1:
