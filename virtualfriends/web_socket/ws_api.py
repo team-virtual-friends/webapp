@@ -1,7 +1,8 @@
-import base64
+import io
 import json
 import logging
 import re
+import wave
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -107,12 +108,13 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
-        stream_reply_voice_message_response.reply_message = reply_text
-        # stream_reply_voice_message_response.action = llm_reply.infer_action(reply_text)
-        # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(reply_text)
-        if index == 0:
-            stream_reply_voice_message_response.transcribed_text = text
-        stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(reply_text)
+        if len(reply_text) > 0:
+            stream_reply_voice_message_response.reply_message = reply_text
+            # stream_reply_voice_message_response.action = llm_reply.infer_action(reply_text)
+            # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(reply_text)
+            if index == 0:
+                stream_reply_voice_message_response.transcribed_text = text
+            stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(reply_text)
         stream_reply_voice_message_response.chunk_index = index
         stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
         stream_reply_voice_message_response.is_stop = is_stop
@@ -133,7 +135,7 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
             continue
 
         logger.info("current: " + current)
-        splited = re.split("\.|;|\!|\?", current)
+        splited = re.split("\.|;|\!|\?|-|:", current)
         if len(splited) == 0:
             pass
         elif len(splited) == 1:
