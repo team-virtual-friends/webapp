@@ -9,13 +9,7 @@ message VfRequest {
     oneof request {
         EchoRequest echo = 2;
 
-        SpeechToTextRequest speech_to_text = 3;
-
-        ReplyTextMessageRequest reply_text_message = 4;
-
-        ReplyVoiceMessageRequest reply_voice_message = 5;
-
-        StreamReplyVoiceMessageRequest stream_reply_voice_message = 6;
+        StreamReplyMessageRequest stream_reply_message = 6;
     }
 }
 
@@ -26,13 +20,7 @@ message VfResponse {
     oneof response {
         EchoResponse echo = 2;
 
-        SpeechToTextResponse speech_to_text = 3;
-
-        ReplyTextMessageResponse reply_text_message = 4;
-
-        ReplyVoiceMessageResponse reply_voice_message = 5;
-
-        StreamReplyVoiceMessageResponse stream_reply_voice_message = 6;
+        StreamReplyMessageResponse stream_reply_message = 6;
     }
 }
 
@@ -51,80 +39,34 @@ message EchoResponse {
     string text = 1;
 }
 
-// Next tag: 2
-message SpeechToTextRequest {
-    bytes wav = 1;
+// Next tag: 3
+enum VoiceGender {
+    VoiceGender_Invalid = 0;
+
+    VoiceGender_Male = 1;
+
+    VoiceGender_Female = 2;
 }
 
-// Next tag: 2
-message SpeechToTextResponse {
-    string text = 1;
-}
-
-// Next tag: 4
-message ReplyTextMessageRequest {
-    string character_name = 1;
-
-    // json_messages should be a list of json text that contains two entries
-    // role: user/assistant, content: <actual message>
-    // in chronical order.
-    repeated string json_messages = 2;
-
-    // the current message string requesting the reply.
-    // the user message can either be in this one or in the latest one of
-    // json_messages; both are acceptable.
-    string current_message = 3;
-}
-
-// Next tag: 5
-message ReplyTextMessageResponse {
-    string reply_message = 1;
-
-    string action = 2;
-
-    string sentiment = 3;
-
-    bytes reply_wav = 4;
-}
-
-// Next tag: 4
-message ReplyVoiceMessageRequest {
-    string character_name = 1;
-
-    // json_messages should be a list of json text that contains two entries
-    // role: user/assistant, content: <actual message>
-    // in chronical order.
-    repeated string json_messages = 2;
-
-    bytes wav = 3;
-}
-
-// Next tag: 6
-message ReplyVoiceMessageResponse {
-    string reply_message = 1;
-
-    string action = 2;
-
-    string sentiment = 3;
-
-    bytes reply_wav = 4;
-
-    string transcribed_text = 5;
-}
-
-// Next tag: 5
-message StreamReplyVoiceMessageRequest {
+// Next tag: 7
+message StreamReplyMessageRequest {
     string character_name = 1;
     
     repeated string json_messages = 2;
 
-    bytes wav = 3;
+    oneof current_message {
+        bytes wav = 3;
+
+        string text = 6;
+    }
 
     int64 session_id = 4;
+
+    VoiceGender gender = 5; 
 }
 
 // Next tag: 9
-message StreamReplyVoiceMessageResponse {
+message StreamReplyMessageResponse {
     string reply_message = 1;
 
     string action = 2;

@@ -61,14 +61,25 @@ def text_to_speech_google_translate(text:str) -> bytes:
     wav_bytes = convert_mp3_to_wav(mp3_bytes)
     return wav_bytes
 
-def text_to_speech_gcp(text:str) -> bytes:
+def text_to_speech_gcp(text:str, gender) -> (bytes, str):
+    if gender.lower() == "male":
+        name = "en-US-News-M"
+        ssml_gender = texttospeech.SsmlVoiceGender.MALE
+    elif gender.lower() == "female":
+        name="en-US-News-K"
+        ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
+    else:
+        return (None, "invalid gender, male/female")
+
     # Build the voice and audio config for the Text-to-Speech API request
     voice = texttospeech.VoiceSelectionParams(
         # language_code="cmn-CN",
         language_code="en-US",
         # name="cmn-TW-Wavenet-A",
-        name="en-US-News-K",
-        ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
+        name=name,
+        ssml_gender=ssml_gender
+        # name="en-US-News-K",
+        # ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
         # Male voice
         # name = "cmn-TW-Standard-C",
         # ssml_gender=texttospeech.SsmlVoiceGender.MALE
@@ -84,4 +95,4 @@ def text_to_speech_gcp(text:str) -> bytes:
         voice=voice,
         audio_config=audio_config
     )
-    return response.audio_content
+    return (response.audio_content, "")
