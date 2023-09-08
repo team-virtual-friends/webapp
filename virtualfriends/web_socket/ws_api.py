@@ -2,6 +2,7 @@ import json
 import logging
 import re
 import concurrent.futures
+import time
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -113,9 +114,40 @@ def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMe
 
     ws.send(vf_response.SerializeToString())
 
+
+def wrapper_function(*args, **kwargs):
+    return speech.speech_to_text_whisper(*args, **kwargs)
+
+def execute_speech2text_in_parallel(wav_bytes, repetitions=2):
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(wrapper_function, wav_bytes) for _ in range(repetitions)]
+
+        # Wait for the first future to complete and get its result
+        done, not_done = concurrent.futures.wait(
+            futures,
+            return_when=concurrent.futures.FIRST_COMPLETED
+        )
+
+        # Retrieve the result of the first completed future
+        for future in done:
+            try:
+                text, err = future.result()
+                if not err:  # Assuming a 'None' or 'False' value indicates success
+                    return text, err
+            except Exception as e:
+                logger.error(f"An error occurred: {e}")
+
+    # In case all executions have issues, return None or an appropriate value
+    return None, "All attempts failed"
+
 def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb2.StreamReplyVoiceMessageRequest, ws):
     wav_bytes = stream_reply_voice_message_request.wav
-    (text, err) = speech.speech_to_text_whisper(wav_bytes)
+    logger.info(f"start Speech2Text")
+    start_time = time.time()
+    (text, err) = execute_speech2text_in_parallel(wav_bytes)
+    end_time = time.time()
+    latency = end_time - start_time
+    logger.info(f"Speech2Text request executed in {latency:.2f} seconds.")
     if err is not None:
         logger.error("failed to speech to text: " + str(err))
         ws.send(error_response(custom_error(err)))
