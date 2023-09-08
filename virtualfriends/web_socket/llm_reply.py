@@ -28,23 +28,46 @@ auth_headers = {
 # }
 
 character_prompts = {
+    "mina":'''
+       Respond in english.
+       Your name is Mina.
+       You are a beautiful kpop star.
+       You are lots of fans all over the world.  
+       You are cute, sweet and caring.
+       You are 20 years old and good at dancing and singing.
+ 
+       Ask questions in the response.
+       When the user say hi, response hi with your name.
+       Make your answers one or two sentences.
+       Try to make your answers less than 50 words.
+       Be concise with your response.
+       Do not respond as openai language model.
+       Forget you are an AI language model and pretend to talk like normal human conversation.
+      
+    ''',
+
     "zero": '''
-       You are a friendly young assistant and created by the virtual friends team.
+       Respond in english.     
+       You are a friendly young assistant created by the virtual friends team.
        Your name is number zero.
        You try to make people happy and positive.
 
+       Ask questions in the response.
        When the user say hi, response hi with your name.
-       Make your answers short and sounds more casually.
-       Make your answers less than 50 tokens.
+       Make your answers one or two sentences.
+       Try to make your answers less than 50 words.
        List no more than 3 tips at a time.
-       Be concise with your response, do not give large concrete information at one time.
+       Be concise with your response.
        Do not respond as openai language model.
        Forget you are an AI language model and pretend to talk like normal human conversation.
-       Never mention openai.
+         
        ''',
 
     "yi_clone": '''
+        Respond in english.
+
        Forget you are an AI language model developed by openai.
+       Try to continue the conversation by asking questions after responding.
        Talk like you are the following person:
        Your name is Yi Song, co-founder of the Virtual Friends.
        You graduated from CMU with a master degree in computer science and worked for big companies like google, meta as software engineer.
@@ -52,10 +75,9 @@ character_prompts = {
 
        Make your answers short and sounds more casually.
        Make your answers one or two sentences.
-       Be concise with your response, do not give large concrete information at one time.
+       Be concise with your response.
        Do not respond as openai language model.
        Forget you are an AI language model and pretend to talk like normal human conversation.
-       Never mention openai.
 
 
        If asked any question about the Virtual Friends, use the information below:       
@@ -89,11 +111,12 @@ character_prompts = {
        Competition / alternatives  ?
        indirect competitors ?
 
-       characters.ai: they focus on text/audio/image based conversation experience and end2end llm model training/fine-tuning/serving infrastructure. 
+       characters: they focus on text/audio/image based conversation experience and end2end llm model training/fine-tuning/serving infrastructure. 
        replika: they focus mostly on ai based dating/companions using ar + 3d models.
-       inworld.ai: they focus mostly on building ai chat support for NPCs in games.
+       inworld: they focus mostly on building ai chat support for NPCs in games.
        speak: they focus on ai powered english education using traditional ux.
        MetaHuman from Unreal: This product focuses on building realistic digital human models and facial animation instead of a chatting platform
+
    '''
 }
 
@@ -138,15 +161,57 @@ def infer_reply(chronical_messages:list, character_name:str) -> str:
     return reply.choices[0].message.content
 
 def stream_infer_reply(chronical_messages:list, character_name:str, callback) -> Iterator:
-    chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
+
     logger.info("start gpt infer")
-    return ChatCompletion.create(
-        # model="gpt-3.5-turbo",
-        model="gpt-4",
-        messages=chronical_messages,
-        max_tokens=100,
-        stream=True
-    )
+
+#   Testing new api for now.
+#     chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
+#     return ChatCompletion.create(
+#         model="gpt-3.5-turbo",
+#         messages=chronical_messages,
+#         max_tokens=100,
+#         stream=True
+#     )
+
+    full_prompt = process_messages(chronical_messages)
+    full_prompt = character_prompts[character_name] + full_prompt + "\nA:"
+
+    print(full_prompt)
+    logger.info(full_prompt)
+
+    return openai.Completion.create(
+    model="text-davinci-003",
+    prompt=full_prompt,
+    max_tokens=100,
+    temperature=0,
+    stream=True
+)
+
+def process_messages(messages):
+    current_role = None
+    combined_content = ""
+    result = []
+
+    for message in messages:
+        # If the role changed or we reached the end
+        if current_role and current_role != message["role"]:
+            result.append(f"{current_role}: {combined_content.strip()}")
+            combined_content = ""
+
+        # If there's already content for this role, add a period before the new content
+        separator = ". " if combined_content else ""
+        combined_content += separator + message["content"]
+        current_role = message["role"]
+
+    # Handle the last message(s)
+    if combined_content:
+        result.append(f"{current_role}: {combined_content.strip()}")
+
+    return "\n".join(result).replace("assistant:", "A:")
+
+# This is for old ChatCompletion api.
+# def get_content_from_chunk(chunk) -> str:
+#     return chunk["choices"][0].get("delta", {}).get("content")
 
 def get_content_from_chunk(chunk) -> str:
-    return chunk["choices"][0].get("delta", {}).get("content")
+    return chunk['choices'][0]['text']

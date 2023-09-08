@@ -57,5 +57,5 @@ def in_game_handler(ws):
             # Handle the case where the 'request' field is not set
             ws.send(error_response("No request type set"))
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))
+if __name__ == '__main__':#
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8124)))
