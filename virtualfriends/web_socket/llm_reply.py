@@ -132,24 +132,19 @@ def infer_reply(chronical_messages:list, character_name:str) -> str:
         # model="gpt-3.5-turbo",
         model="gpt-4",
         messages=chronical_messages,
-        max_tokens=50
+        max_tokens=100
     )
     # TODO: explore other index.
     return reply.choices[0].message.content
 
 def stream_infer_reply(chronical_messages:list, character_name:str, callback) -> Iterator:
     chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
-    payload = {
-        "model": "gpt-3.5-turbo",
-        "messages": chronical_messages,
-        "max_tokens": 300
-        # other payload data
-    }
-
+    logger.info("start gpt infer")
     return ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        # model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=chronical_messages,
-        max_tokens=150,
+        max_tokens=100,
         stream=True
     )
 

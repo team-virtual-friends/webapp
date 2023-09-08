@@ -1,7 +1,7 @@
-import base64
 import json
 import logging
 import re
+import concurrent.futures
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -20,6 +20,12 @@ def error_response(err:ws_message_pb2.CustomError) -> ws_message_pb2.VfResponse:
     vf_response = ws_message_pb2.VfResponse()
     vf_response.error.CopyFrom(err)
     return vf_response.SerializeToString()
+
+def infer_sentiment_wrapper(text:str) -> (str, str):
+    return ("sentiment", llm_reply.infer_sentiment(text))
+
+def infer_action_wrapper(text:str) -> (str, str):
+    return ("action", llm_reply.infer_action(text))
 
 def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     logger.info("echo: " + echo_request.text)
@@ -81,6 +87,21 @@ def reply_speech_handler(reply_voice_message_request:ws_message_pb2.ReplyVoiceMe
 
     reply_message = llm_reply.infer_reply(message_dicts, reply_voice_message_request.character_name)
     reply_voive_message_response.reply_message = reply_message
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        futures = []
+        futures.append(executor.submit(infer_action_wrapper, reply_message))
+        futures.append(executor.submit(infer_sentiment_wrapper, reply_message))
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                result = future.result()
+                if result[0] == 'sentiment':
+                    reply_voive_message_response.sentiment = result[1]
+                elif result[0] == 'action':
+                    reply_voive_message_response.action = result[1]
+            except Exception as e:
+                pass
     # reply_voive_message_response.action = llm_reply.infer_action(reply_message)
     # reply_voive_message_response.sentiment = llm_reply.infer_sentiment(reply_message)
     reply_voive_message_response.reply_wav = speech.text_to_speech_gcp(reply_message)
@@ -105,14 +126,50 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
     
     reply_message_iter = llm_reply.stream_infer_reply(message_dicts, stream_reply_voice_message_request.character_name, 10)
 
+    def send_reply(reply_text:str, index:int, is_stop:bool):
+        stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
+        if len(reply_text) > 0:
+            stream_reply_voice_message_response.reply_message = reply_text
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+                futures = []
+                futures.append(executor.submit(infer_action_wrapper, reply_text))
+                futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
+
+                for future in concurrent.futures.as_completed(futures):
+                    try:
+                        result = future.result()
+                        if result[0] == 'sentiment':
+                            stream_reply_voice_message_response.sentiment = result[1]
+                        elif result[0] == 'action':
+                            stream_reply_voice_message_response.action = result[1]
+                    except Exception as e:
+                        pass
+
+            if index == 0:
+                stream_reply_voice_message_response.transcribed_text = text
+            stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(reply_text)
+        stream_reply_voice_message_response.chunk_index = index
+        stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
+        stream_reply_voice_message_response.is_stop = is_stop
+
+        vf_response = ws_message_pb2.VfResponse()
+        vf_response.stream_reply_voice_message.CopyFrom(stream_reply_voice_message_response)
+        # vf_response.error.CopyFrom(custom_error(err))
+
+        ws.send(vf_response.SerializeToString())
+
     buffer = ""
     index = 0
     for chunk in reply_message_iter:
         current = llm_reply.get_content_from_chunk(chunk)
         if current == None:
+            if len(buffer.strip()) > 0:
+                send_reply(buffer, index, False)
             continue
 
-        splited = re.split("\.|;|\!|\?", current)
+        logger.info("current: " + current)
+        splited = re.split("\.|;|\!|\?|:|,", current)
         if len(splited) == 0:
             pass
         elif len(splited) == 1:
@@ -120,21 +177,8 @@ def stream_reply_speech_handler(stream_reply_voice_message_request:ws_message_pb
         else:
             for msg in splited[:-1]:
                 buffer = buffer + msg
-            stream_reply_voice_message_response = ws_message_pb2.StreamReplyVoiceMessageResponse()
-            stream_reply_voice_message_response.reply_message = buffer
-            # stream_reply_voice_message_response.action = llm_reply.infer_action(buffer)
-            # stream_reply_voice_message_response.sentiment = llm_reply.infer_sentiment(buffer)
-            stream_reply_voice_message_response.reply_wav = speech.text_to_speech_gcp(buffer)
-            if index == 0:
-                stream_reply_voice_message_response.transcribed_text = text
-            stream_reply_voice_message_response.chunk_index = index
-            stream_reply_voice_message_response.session_id = stream_reply_voice_message_request.session_id
-
-            vf_response = ws_message_pb2.VfResponse()
-            vf_response.stream_reply_voice_message.CopyFrom(stream_reply_voice_message_response)
-            # vf_response.error.CopyFrom(custom_error(err))
-
             logger.info("buffer: " + buffer)
-            ws.send(vf_response.SerializeToString())
+            send_reply(buffer, index, False)
             buffer = splited[-1]
             index += 1
+    send_reply("", index, True)
