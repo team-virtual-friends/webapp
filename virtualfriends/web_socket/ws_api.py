@@ -134,7 +134,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
                 return
             response.reply_wav = wav
         response.chunk_index = index
-        response.session_id = response.session_id
+        response.session_id = request.session_id
         response.is_stop = is_stop
 
         vf_response = ws_message_pb2.VfResponse()
