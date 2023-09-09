@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT5XWFJV12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT5XWFJV12');
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | virtual-friends-client</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-client-0908-mina/TemplateData/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vf-client-0908-mina/TemplateData/style.css') }}">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -56,12 +65,12 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/vf-client.loader.js";
+      var buildUrl = "{{ url_for('static', filename='vf-client-0908-mina/Build') }}";
+      var loaderUrl = buildUrl + "/vf-client-0908-mina.loader.js";
       var config = {
-        dataUrl: buildUrl + "/vf-client.data.br",
-        frameworkUrl: buildUrl + "/vf-client.framework.js.br",
-        codeUrl: buildUrl + "/vf-client.wasm.br",
+        dataUrl: buildUrl + "/vf-client-0908-mina.data.br",
+        frameworkUrl: buildUrl + "/vf-client-0908-mina.framework.js.br",
+        codeUrl: buildUrl + "/vf-client-0908-mina.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "virtual-friends-client",

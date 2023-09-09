@@ -13,8 +13,8 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | virtual-friends-client</title>
-    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-client1/TemplateData/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='vf-client1/TemplateData/style.css') }}">
+    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-client-0908-mina/TemplateData/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vf-client-0908-mina/TemplateData/style.css') }}">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -65,12 +65,12 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = "{{ url_for('static', filename='vf-client1/Build') }}";
-      var loaderUrl = buildUrl + "/vf-client.loader.js";
+      var buildUrl = "{{ url_for('static', filename='vf-client-0908-mina/Build') }}";
+      var loaderUrl = buildUrl + "/vf-client-0908-mina.loader.js";
       var config = {
-        dataUrl: buildUrl + "/vf-client.data",
-        frameworkUrl: buildUrl + "/vf-client.framework.js",
-        codeUrl: buildUrl + "/vf-client.wasm",
+        dataUrl: buildUrl + "/vf-client-0908-mina.data.br",
+        frameworkUrl: buildUrl + "/vf-client-0908-mina.framework.js.br",
+        codeUrl: buildUrl + "/vf-client-0908-mina.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "virtual-friends-client",

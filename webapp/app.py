@@ -62,6 +62,10 @@ def game():  # Renamed the function to 'ga,e'
     return render_template('game0831.html')
 
 
+@app.route('/game_yi', methods=['GET'])  # Changed the route to '/game_yi'
+def game_yi():  # Renamed the function to 'ga,e'
+    return render_template('game_yi.html')
+
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():
     if request.method == 'POST':
@@ -151,4 +155,4 @@ def login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5113)
+    app.run(debug=True, port=5115)
