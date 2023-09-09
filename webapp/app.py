@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -6,6 +6,12 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
+
+from google.cloud import bigquery
+from google.cloud.exceptions import Conflict
+from datetime import datetime
+from google.oauth2 import service_account
+import os
 
 
 app = Flask(__name__)
@@ -54,6 +60,44 @@ def index():  # Renamed the function to 'index'
 @app.route('/game', methods=['GET'])  # Changed the route to '/game'
 def game():  # Renamed the function to 'ga,e'
     return render_template('game0831.html')
+
+
+@app.route('/join_waitlist', methods=['GET', 'POST'])
+def join_waitlist():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Construct the BigQuery client
+        credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+        credentials = service_account.Credentials.from_service_account_file(credentials_path)
+        client = bigquery.Client(credentials=credentials)
+
+        # The SQL query to insert data
+        sql = """
+            INSERT INTO `ysong-chat.virtualfriends.waitlist_table` (name, email, date)
+            VALUES (@name, @email, @date)
+        """
+
+        # Set the query parameters
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("name", "STRING", name),
+                bigquery.ScalarQueryParameter("email", "STRING", email),
+                bigquery.ScalarQueryParameter("date", "TIMESTAMP", date)
+            ]
+        )
+
+        try:
+            client.query(sql, job_config=job_config).result()
+            flash("Successfully added to the waitlist!", "success")
+        except Conflict:  # Replace with the appropriate exception for duplicate entries
+            flash("You're already on the waitlist!", "warning")
+
+        return redirect(url_for('join_waitlist'))
+
+    return render_template('waitlist.html')
 
 
 # @app.route('/register', methods=['GET', 'POST'])
@@ -107,4 +151,4 @@ def login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5103)
+    app.run(debug=True, port=5113)
