@@ -59,7 +59,7 @@ def index():  # Renamed the function to 'index'
 
 @app.route('/game', methods=['GET'])  # Changed the route to '/game'
 def game():  # Renamed the function to 'ga,e'
-    return render_template('game0831.html')
+    return render_template('game_mina.html')
 
 
 @app.route('/game_yi', methods=['GET'])  # Changed the route to '/game_yi'
@@ -155,4 +155,4 @@ def login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5117)
+    app.run(debug=True, port=5118)
