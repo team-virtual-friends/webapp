@@ -152,7 +152,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
                 send_reply(buffer, index, False)
             continue
 
-        logger.info("current: " + current)
+        # logger.info("current: " + current)
         splited = re.split("\.|;|\!|\?|:|,", current)
         if len(splited) == 0:
             pass

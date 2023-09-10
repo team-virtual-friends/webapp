@@ -155,7 +155,7 @@ def infer_reply(chronical_messages:list, character_name:str) -> str:
     return reply.choices[0].message.content
 
 def stream_infer_reply(chronical_messages:list, character_name:str, callback) -> Iterator:
-    logger.info("start gpt infer")
+    # logger.info("start gpt infer")
 
     #   Testing new api for now.
     #     chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
@@ -169,8 +169,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, callback) ->
     full_prompt = process_messages(chronical_messages)
     full_prompt = character_prompts[character_name] + full_prompt + "\nA:"
 
-    print(full_prompt)
-    logger.info(full_prompt)
+    # logger.info(full_prompt)
 
     return openai.Completion.create(
         model="text-davinci-003",
