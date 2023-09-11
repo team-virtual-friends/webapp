@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp-service
+  name: webapp0910-service
 spec:
   selector:
-    app: webapp
+    app: webapp0910
   ports:
   - protocol: TCP
     port: 80

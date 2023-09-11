@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deployment
+  name: webapp0910-deployment
   labels:
-    app: webapp
+    app: webapp0910
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp
+      app: webapp0910
   template:
     metadata:
       labels:
-        app: webapp
+        app: webapp0910
     spec:
       containers:
-      - name: webapp
+      - name: webapp0910
         image: gcr.io/ysong-chat/web0910-yi-2
         ports:
         - containerPort: 8000
