@@ -1,11 +1,10 @@
 import logging
 import os
-
-from flask import Flask, request, jsonify
+from flask import Flask, request
+from flask_cors import CORS
 from flask_sock import Sock
 
 from web_socket.virtualfriends_proto import ws_message_pb2
-
 from web_socket.ws_api import *
 
 logging.basicConfig(level=logging.INFO)
@@ -13,19 +12,23 @@ logger = logging.getLogger('gunicorn.error')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+
+# Enable CORS for the Flask app
+CORS(app)
+
 sock = Sock(app)
 
 @app.route('/')
 def hello_world():
     target = os.environ.get('TARGET', 'World')
-    return 'Hello {}!\n'.format(target)
+    return 'Hello {}!\n'.format(target), 200
 
 @sock.route('/echo')
 def echo(ws):
     while True:
         data = ws.receive()
         logger.info(f"logger data: {data}")
-        sock.send(data)
+        ws.send(data)
 
 @sock.route("/in-game")
 def in_game_handler(ws):
@@ -42,7 +45,7 @@ def in_game_handler(ws):
                 stream_reply_speech_handler(vf_request.stream_reply_message, ws)
 
             else:
-                # Handle the case where the 'request' field is set, but none of the specific fields are set
+                # Handle the case where the 'request' field is set but none of the specific fields are set
                 ws.send(error_response("Unknown request type"))
         else:
             # Handle the case where the 'request' field is not set
@@ -50,4 +53,4 @@ def in_game_handler(ws):
 
 if __name__ == '__main__':
     from waitress import serve
-    serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))
+    serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8107)))
