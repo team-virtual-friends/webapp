@@ -16,18 +16,18 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: gcr.io/ysong-chat/web0910-yi
+        image: gcr.io/ysong-chat/web0910-yi-2
         ports:
-        - containerPort: 5119
+        - containerPort: 8000
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 5119
+            port: 8000
           initialDelaySeconds: 5
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /healthz
-            port: 5119
+            port: 8000
           initialDelaySeconds: 5
           periodSeconds: 10

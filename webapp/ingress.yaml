@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: webapp-ingress
   annotations:
-    networking.gke.io/managed-certificates: my-managed-cert
+    networking.gke.io/managed-certificates: my-gke-certificate
 spec:
   rules:
   - host: virtualfriends.ai
