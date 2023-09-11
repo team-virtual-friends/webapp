@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: vf-cert
+spec:
+  domains:
+    - virtualfriends.ai
+    - www.virtualfriends.ai

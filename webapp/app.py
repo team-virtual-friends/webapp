@@ -59,8 +59,12 @@ def index():  # Renamed the function to 'index'
 
 @app.route('/game', methods=['GET'])  # Changed the route to '/game'
 def game():  # Renamed the function to 'ga,e'
-    return render_template('game0831.html')
+    return render_template('game_mina.html')
 
+
+@app.route('/game_yi', methods=['GET'])  # Changed the route to '/game_yi'
+def game_yi():  # Renamed the function to 'ga,e'
+    return render_template('game_yi.html')
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():
@@ -134,7 +138,7 @@ def home():
     # if current_user.is_authenticated:
     #     return redirect(url_for('dashboard'))
     # else:
-    return redirect(url_for('index'))
+    return redirect(url_for('index')), 200
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -148,7 +152,11 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/healthz', methods=['GET'])
+def healthz():
+    return "Healthy", 200
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5113)
+    app.run(debug=True, port=5119)
