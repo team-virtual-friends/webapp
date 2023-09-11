@@ -152,6 +152,10 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/healthz', methods=['GET'])
+def healthz():
+    return "Healthy", 200
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
