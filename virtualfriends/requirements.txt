@@ -15,4 +15,4 @@ openai==0.27.0
 google-auth==2.6.2
 google-cloud-texttospeech==2.11.0
 requests==2.27.1
-Flask-CORS=4.0.0
+Flask-CORS==4.0.0
