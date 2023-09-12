@@ -1,14 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: virtual-friends-nodeport
   annotations:
-    beta.cloud.google.com/backend-config: '{"ports": {"80":"virtual-friends-backendconfig"}}'
-  name: virtual-friends
+    beta.cloud.google.com/backend-config: '{"default": "backend-config"}'
 spec:
-  type: LoadBalancer
   selector:
     app: virtual-friends
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 8080
----
+  - name: https
+    port: 443
+    targetPort: 8080
