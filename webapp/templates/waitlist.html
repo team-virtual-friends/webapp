@@ -3,20 +3,69 @@
 <head>
     <meta charset="utf-8">
     <title>Join Waitlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px; /* Adjust the width as needed */
+            max-width: 90%; /* Ensure it doesn't exceed the viewport width */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    {% for category, message in get_flashed_messages(with_categories=true) %}
-        <div class="{{ category }}">{{ message }}</div>
-    {% endfor %}
+    <div class="container">
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+            <div class="{{ category }}">{{ message }}</div>
+        {% endfor %}
 
-    <form action="/join_waitlist" method="post">
-        <label for="name">Name:</label>
-        <input type="text" name="name" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
-        <br>
-        <input type="submit" value="Join Waitlist">
-    </form>
+        <form action="/join_waitlist" method="post">
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+            <br>
+            <input type="submit" value="Join Waitlist">
+        </form>
+    </div>
 </body>
 </html>
