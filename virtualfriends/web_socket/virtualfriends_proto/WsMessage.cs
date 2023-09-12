@@ -35,29 +35,36 @@ namespace VirtualfriendsProto {
             "ZnJpZW5kc19wcm90by5TdHJlYW1SZXBseU1lc3NhZ2VSZXNwb25zZUgAQgoK",
             "CHJlc3BvbnNlIiQKC0N1c3RvbUVycm9yEhUKDWVycm9yX21lc3NhZ2UYASAB",
             "KAkiGwoLRWNob1JlcXVlc3QSDAoEdGV4dBgBIAEoCSIcCgxFY2hvUmVzcG9u",
-            "c2USDAoEdGV4dBgBIAEoCSLJAQoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVz",
-            "dBIWCg5jaGFyYWN0ZXJfbmFtZRgBIAEoCRIVCg1qc29uX21lc3NhZ2VzGAIg",
-            "AygJEg0KA3dhdhgDIAEoDEgAEg4KBHRleHQYBiABKAlIABISCgpzZXNzaW9u",
-            "X2lkGAQgASgDEjcKDHZvaWNlX2NvbmZpZxgFIAEoDjIhLnZpcnR1YWxmcmll",
-            "bmRzX3Byb3RvLlZvaWNlQ29uZmlnQhEKD2N1cnJlbnRfbWVzc2FnZSK9AQoa",
-            "U3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9uc2USFQoNcmVwbHlfbWVzc2FnZRgB",
-            "IAEoCRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJl",
-            "cGx5X3dhdhgEIAEoDBIYChB0cmFuc2NyaWJlZF90ZXh0GAUgASgJEhIKCnNl",
-            "c3Npb25faWQYBiABKAMSEwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNfc3Rv",
-            "cBgIIAEoCCqVAQoLVm9pY2VDb25maWcSFwoTVm9pY2VDb25maWdfSW52YWxp",
-            "ZBAAEhoKFlZvaWNlQ29uZmlnX05vcm1hbE1hbGUQARIdChlWb2ljZUNvbmZp",
-            "Z19Ob3JtYWxGZW1hbGUxEAISHQoZVm9pY2VDb25maWdfTm9ybWFsRmVtYWxl",
-            "MhADEhMKD1ZvaWNlQ29uZmlnX09yYxAEYgZwcm90bzM="));
+            "c2USDAoEdGV4dBgBIAEoCSJTCgtWb2ljZUNvbmZpZxIzCgp2b2ljZV90eXBl",
+            "GAEgASgOMh8udmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VUeXBlEg8KB29j",
+            "dGF2ZXMYAiABKAIiPQoPTWlycm9yZWRDb250ZW50EhYKDmNoYXJhY3Rlcl9u",
+            "YW1lGAEgASgJEhIKCnNlc3Npb25faWQYAiABKAMi3gEKGVN0cmVhbVJlcGx5",
+            "TWVzc2FnZVJlcXVlc3QSPwoQbWlycm9yZWRfY29udGVudBgBIAEoCzIlLnZp",
+            "cnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1qc29uX21l",
+            "c3NhZ2VzGAIgAygJEg0KA3dhdhgDIAEoDEgAEg4KBHRleHQYBiABKAlIABI3",
+            "Cgx2b2ljZV9jb25maWcYBSABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90by5W",
+            "b2ljZUNvbmZpZ0IRCg9jdXJyZW50X21lc3NhZ2Ui6gEKGlN0cmVhbVJlcGx5",
+            "TWVzc2FnZVJlc3BvbnNlEj8KEG1pcnJvcmVkX2NvbnRlbnQYBiABKAsyJS52",
+            "aXJ0dWFsZnJpZW5kc19wcm90by5NaXJyb3JlZENvbnRlbnQSFQoNcmVwbHlf",
+            "bWVzc2FnZRgBIAEoCRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMg",
+            "ASgJEhEKCXJlcGx5X3dhdhgEIAEoDBIYChB0cmFuc2NyaWJlZF90ZXh0GAUg",
+            "ASgJEhMKC2NodW5rX2luZGV4GAcgASgFEg8KB2lzX3N0b3AYCCABKAgqiwEK",
+            "CVZvaWNlVHlwZRIVChFWb2ljZVR5cGVfSW52YWxpZBAAEhgKFFZvaWNlVHlw",
+            "ZV9Ob3JtYWxNYWxlEAESGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTEQAhIb",
+            "ChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMhADEhMKD1ZvaWNlQ29uZmlnX09y",
+            "YxAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceConfig), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage" }, new[]{ "Request" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "CharacterName", "JsonMessages", "Wav", "Text", "SessionId", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "SessionId", "ChunkIndex", "IsStop" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "SessionId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null)
           }));
     }
     #endregion
@@ -67,12 +74,12 @@ namespace VirtualfriendsProto {
   /// <summary>
   /// Next tag: 3
   /// </summary>
-  public enum VoiceConfig {
-    [pbr::OriginalName("VoiceConfig_Invalid")] Invalid = 0,
-    [pbr::OriginalName("VoiceConfig_NormalMale")] NormalMale = 1,
-    [pbr::OriginalName("VoiceConfig_NormalFemale1")] NormalFemale1 = 2,
-    [pbr::OriginalName("VoiceConfig_NormalFemale2")] NormalFemale2 = 3,
-    [pbr::OriginalName("VoiceConfig_Orc")] Orc = 4,
+  public enum VoiceType {
+    [pbr::OriginalName("VoiceType_Invalid")] Invalid = 0,
+    [pbr::OriginalName("VoiceType_NormalMale")] NormalMale = 1,
+    [pbr::OriginalName("VoiceType_NormalFemale1")] NormalFemale1 = 2,
+    [pbr::OriginalName("VoiceType_NormalFemale2")] NormalFemale2 = 3,
+    [pbr::OriginalName("VoiceConfig_Orc")] VoiceConfigOrc = 4,
   }
 
   #endregion
@@ -1277,6 +1284,465 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
+  /// Next tag: 3
+  /// </summary>
+  public sealed partial class VoiceConfig : pb::IMessage<VoiceConfig>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<VoiceConfig> _parser = new pb::MessageParser<VoiceConfig>(() => new VoiceConfig());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<VoiceConfig> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public VoiceConfig() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public VoiceConfig(VoiceConfig other) : this() {
+      voiceType_ = other.voiceType_;
+      octaves_ = other.octaves_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public VoiceConfig Clone() {
+      return new VoiceConfig(this);
+    }
+
+    /// <summary>Field number for the "voice_type" field.</summary>
+    public const int VoiceTypeFieldNumber = 1;
+    private global::VirtualfriendsProto.VoiceType voiceType_ = global::VirtualfriendsProto.VoiceType.Invalid;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.VoiceType VoiceType {
+      get { return voiceType_; }
+      set {
+        voiceType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "octaves" field.</summary>
+    public const int OctavesFieldNumber = 2;
+    private float octaves_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Octaves {
+      get { return octaves_; }
+      set {
+        octaves_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as VoiceConfig);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(VoiceConfig other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (VoiceType != other.VoiceType) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Octaves, other.Octaves)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (VoiceType != global::VirtualfriendsProto.VoiceType.Invalid) hash ^= VoiceType.GetHashCode();
+      if (Octaves != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Octaves);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (VoiceType != global::VirtualfriendsProto.VoiceType.Invalid) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) VoiceType);
+      }
+      if (Octaves != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Octaves);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (VoiceType != global::VirtualfriendsProto.VoiceType.Invalid) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) VoiceType);
+      }
+      if (Octaves != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Octaves);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (VoiceType != global::VirtualfriendsProto.VoiceType.Invalid) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) VoiceType);
+      }
+      if (Octaves != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(VoiceConfig other) {
+      if (other == null) {
+        return;
+      }
+      if (other.VoiceType != global::VirtualfriendsProto.VoiceType.Invalid) {
+        VoiceType = other.VoiceType;
+      }
+      if (other.Octaves != 0F) {
+        Octaves = other.Octaves;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            VoiceType = (global::VirtualfriendsProto.VoiceType) input.ReadEnum();
+            break;
+          }
+          case 21: {
+            Octaves = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            VoiceType = (global::VirtualfriendsProto.VoiceType) input.ReadEnum();
+            break;
+          }
+          case 21: {
+            Octaves = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// MirroredContent contains the content that is copied from request to response.
+  /// Next tag: 3
+  /// </summary>
+  public sealed partial class MirroredContent : pb::IMessage<MirroredContent>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<MirroredContent> _parser = new pb::MessageParser<MirroredContent>(() => new MirroredContent());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<MirroredContent> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MirroredContent() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MirroredContent(MirroredContent other) : this() {
+      characterName_ = other.characterName_;
+      sessionId_ = other.sessionId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MirroredContent Clone() {
+      return new MirroredContent(this);
+    }
+
+    /// <summary>Field number for the "character_name" field.</summary>
+    public const int CharacterNameFieldNumber = 1;
+    private string characterName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CharacterName {
+      get { return characterName_; }
+      set {
+        characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "session_id" field.</summary>
+    public const int SessionIdFieldNumber = 2;
+    private long sessionId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long SessionId {
+      get { return sessionId_; }
+      set {
+        sessionId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as MirroredContent);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(MirroredContent other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CharacterName != other.CharacterName) return false;
+      if (SessionId != other.SessionId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CharacterName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CharacterName);
+      }
+      if (SessionId != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(SessionId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CharacterName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CharacterName);
+      }
+      if (SessionId != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(SessionId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (CharacterName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
+      }
+      if (SessionId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(MirroredContent other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CharacterName.Length != 0) {
+        CharacterName = other.CharacterName;
+      }
+      if (other.SessionId != 0L) {
+        SessionId = other.SessionId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            CharacterName = input.ReadString();
+            break;
+          }
+          case 16: {
+            SessionId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            CharacterName = input.ReadString();
+            break;
+          }
+          case 16: {
+            SessionId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
   /// Next tag: 7
   /// </summary>
   public sealed partial class StreamReplyMessageRequest : pb::IMessage<StreamReplyMessageRequest>
@@ -1293,7 +1759,7 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[5]; }
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1313,10 +1779,9 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public StreamReplyMessageRequest(StreamReplyMessageRequest other) : this() {
-      characterName_ = other.characterName_;
+      mirroredContent_ = other.mirroredContent_ != null ? other.mirroredContent_.Clone() : null;
       jsonMessages_ = other.jsonMessages_.Clone();
-      sessionId_ = other.sessionId_;
-      voiceConfig_ = other.voiceConfig_;
+      voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
       switch (other.CurrentMessageCase) {
         case CurrentMessageOneofCase.Wav:
           Wav = other.Wav;
@@ -1335,15 +1800,15 @@ namespace VirtualfriendsProto {
       return new StreamReplyMessageRequest(this);
     }
 
-    /// <summary>Field number for the "character_name" field.</summary>
-    public const int CharacterNameFieldNumber = 1;
-    private string characterName_ = "";
+    /// <summary>Field number for the "mirrored_content" field.</summary>
+    public const int MirroredContentFieldNumber = 1;
+    private global::VirtualfriendsProto.MirroredContent mirroredContent_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterName {
-      get { return characterName_; }
+    public global::VirtualfriendsProto.MirroredContent MirroredContent {
+      get { return mirroredContent_; }
       set {
-        characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        mirroredContent_ = value;
       }
     }
 
@@ -1410,21 +1875,9 @@ namespace VirtualfriendsProto {
       }
     }
 
-    /// <summary>Field number for the "session_id" field.</summary>
-    public const int SessionIdFieldNumber = 4;
-    private long sessionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long SessionId {
-      get { return sessionId_; }
-      set {
-        sessionId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "voice_config" field.</summary>
     public const int VoiceConfigFieldNumber = 5;
-    private global::VirtualfriendsProto.VoiceConfig voiceConfig_ = global::VirtualfriendsProto.VoiceConfig.Invalid;
+    private global::VirtualfriendsProto.VoiceConfig voiceConfig_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::VirtualfriendsProto.VoiceConfig VoiceConfig {
@@ -1470,12 +1923,11 @@ namespace VirtualfriendsProto {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterName != other.CharacterName) return false;
+      if (!object.Equals(MirroredContent, other.MirroredContent)) return false;
       if(!jsonMessages_.Equals(other.jsonMessages_)) return false;
       if (Wav != other.Wav) return false;
       if (Text != other.Text) return false;
-      if (SessionId != other.SessionId) return false;
-      if (VoiceConfig != other.VoiceConfig) return false;
+      if (!object.Equals(VoiceConfig, other.VoiceConfig)) return false;
       if (CurrentMessageCase != other.CurrentMessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1484,12 +1936,11 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+      if (mirroredContent_ != null) hash ^= MirroredContent.GetHashCode();
       hash ^= jsonMessages_.GetHashCode();
       if (HasWav) hash ^= Wav.GetHashCode();
       if (HasText) hash ^= Text.GetHashCode();
-      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
-      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) hash ^= VoiceConfig.GetHashCode();
+      if (voiceConfig_ != null) hash ^= VoiceConfig.GetHashCode();
       hash ^= (int) currentMessageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1509,22 +1960,18 @@ namespace VirtualfriendsProto {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterName.Length != 0) {
+      if (mirroredContent_ != null) {
         output.WriteRawTag(10);
-        output.WriteString(CharacterName);
+        output.WriteMessage(MirroredContent);
       }
       jsonMessages_.WriteTo(output, _repeated_jsonMessages_codec);
       if (HasWav) {
         output.WriteRawTag(26);
         output.WriteBytes(Wav);
       }
-      if (SessionId != 0L) {
-        output.WriteRawTag(32);
-        output.WriteInt64(SessionId);
-      }
-      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
-        output.WriteRawTag(40);
-        output.WriteEnum((int) VoiceConfig);
+      if (voiceConfig_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(VoiceConfig);
       }
       if (HasText) {
         output.WriteRawTag(50);
@@ -1540,22 +1987,18 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterName.Length != 0) {
+      if (mirroredContent_ != null) {
         output.WriteRawTag(10);
-        output.WriteString(CharacterName);
+        output.WriteMessage(MirroredContent);
       }
       jsonMessages_.WriteTo(ref output, _repeated_jsonMessages_codec);
       if (HasWav) {
         output.WriteRawTag(26);
         output.WriteBytes(Wav);
       }
-      if (SessionId != 0L) {
-        output.WriteRawTag(32);
-        output.WriteInt64(SessionId);
-      }
-      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
-        output.WriteRawTag(40);
-        output.WriteEnum((int) VoiceConfig);
+      if (voiceConfig_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(VoiceConfig);
       }
       if (HasText) {
         output.WriteRawTag(50);
@@ -1571,8 +2014,8 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
+      if (mirroredContent_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MirroredContent);
       }
       size += jsonMessages_.CalculateSize(_repeated_jsonMessages_codec);
       if (HasWav) {
@@ -1581,11 +2024,8 @@ namespace VirtualfriendsProto {
       if (HasText) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Text);
       }
-      if (SessionId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
-      }
-      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) VoiceConfig);
+      if (voiceConfig_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VoiceConfig);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1599,15 +2039,18 @@ namespace VirtualfriendsProto {
       if (other == null) {
         return;
       }
-      if (other.CharacterName.Length != 0) {
-        CharacterName = other.CharacterName;
+      if (other.mirroredContent_ != null) {
+        if (mirroredContent_ == null) {
+          MirroredContent = new global::VirtualfriendsProto.MirroredContent();
+        }
+        MirroredContent.MergeFrom(other.MirroredContent);
       }
       jsonMessages_.Add(other.jsonMessages_);
-      if (other.SessionId != 0L) {
-        SessionId = other.SessionId;
-      }
-      if (other.VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
-        VoiceConfig = other.VoiceConfig;
+      if (other.voiceConfig_ != null) {
+        if (voiceConfig_ == null) {
+          VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+        }
+        VoiceConfig.MergeFrom(other.VoiceConfig);
       }
       switch (other.CurrentMessageCase) {
         case CurrentMessageOneofCase.Wav:
@@ -1634,7 +2077,10 @@ namespace VirtualfriendsProto {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            CharacterName = input.ReadString();
+            if (mirroredContent_ == null) {
+              MirroredContent = new global::VirtualfriendsProto.MirroredContent();
+            }
+            input.ReadMessage(MirroredContent);
             break;
           }
           case 18: {
@@ -1645,12 +2091,11 @@ namespace VirtualfriendsProto {
             Wav = input.ReadBytes();
             break;
           }
-          case 32: {
-            SessionId = input.ReadInt64();
-            break;
-          }
-          case 40: {
-            VoiceConfig = (global::VirtualfriendsProto.VoiceConfig) input.ReadEnum();
+          case 42: {
+            if (voiceConfig_ == null) {
+              VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+            }
+            input.ReadMessage(VoiceConfig);
             break;
           }
           case 50: {
@@ -1673,7 +2118,10 @@ namespace VirtualfriendsProto {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            CharacterName = input.ReadString();
+            if (mirroredContent_ == null) {
+              MirroredContent = new global::VirtualfriendsProto.MirroredContent();
+            }
+            input.ReadMessage(MirroredContent);
             break;
           }
           case 18: {
@@ -1684,12 +2132,11 @@ namespace VirtualfriendsProto {
             Wav = input.ReadBytes();
             break;
           }
-          case 32: {
-            SessionId = input.ReadInt64();
-            break;
-          }
-          case 40: {
-            VoiceConfig = (global::VirtualfriendsProto.VoiceConfig) input.ReadEnum();
+          case 42: {
+            if (voiceConfig_ == null) {
+              VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+            }
+            input.ReadMessage(VoiceConfig);
             break;
           }
           case 50: {
@@ -1704,7 +2151,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 9
+  /// Next tag: 10
   /// </summary>
   public sealed partial class StreamReplyMessageResponse : pb::IMessage<StreamReplyMessageResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -1720,7 +2167,7 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[6]; }
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1740,12 +2187,12 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public StreamReplyMessageResponse(StreamReplyMessageResponse other) : this() {
+      mirroredContent_ = other.mirroredContent_ != null ? other.mirroredContent_.Clone() : null;
       replyMessage_ = other.replyMessage_;
       action_ = other.action_;
       sentiment_ = other.sentiment_;
       replyWav_ = other.replyWav_;
       transcribedText_ = other.transcribedText_;
-      sessionId_ = other.sessionId_;
       chunkIndex_ = other.chunkIndex_;
       isStop_ = other.isStop_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1755,6 +2202,18 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public StreamReplyMessageResponse Clone() {
       return new StreamReplyMessageResponse(this);
+    }
+
+    /// <summary>Field number for the "mirrored_content" field.</summary>
+    public const int MirroredContentFieldNumber = 6;
+    private global::VirtualfriendsProto.MirroredContent mirroredContent_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.MirroredContent MirroredContent {
+      get { return mirroredContent_; }
+      set {
+        mirroredContent_ = value;
+      }
     }
 
     /// <summary>Field number for the "reply_message" field.</summary>
@@ -1820,18 +2279,6 @@ namespace VirtualfriendsProto {
       }
     }
 
-    /// <summary>Field number for the "session_id" field.</summary>
-    public const int SessionIdFieldNumber = 6;
-    private long sessionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long SessionId {
-      get { return sessionId_; }
-      set {
-        sessionId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "chunk_index" field.</summary>
     public const int ChunkIndexFieldNumber = 7;
     private int chunkIndex_;
@@ -1871,12 +2318,12 @@ namespace VirtualfriendsProto {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(MirroredContent, other.MirroredContent)) return false;
       if (ReplyMessage != other.ReplyMessage) return false;
       if (Action != other.Action) return false;
       if (Sentiment != other.Sentiment) return false;
       if (ReplyWav != other.ReplyWav) return false;
       if (TranscribedText != other.TranscribedText) return false;
-      if (SessionId != other.SessionId) return false;
       if (ChunkIndex != other.ChunkIndex) return false;
       if (IsStop != other.IsStop) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1886,12 +2333,12 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (mirroredContent_ != null) hash ^= MirroredContent.GetHashCode();
       if (ReplyMessage.Length != 0) hash ^= ReplyMessage.GetHashCode();
       if (Action.Length != 0) hash ^= Action.GetHashCode();
       if (Sentiment.Length != 0) hash ^= Sentiment.GetHashCode();
       if (ReplyWav.Length != 0) hash ^= ReplyWav.GetHashCode();
       if (TranscribedText.Length != 0) hash ^= TranscribedText.GetHashCode();
-      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
       if (ChunkIndex != 0) hash ^= ChunkIndex.GetHashCode();
       if (IsStop != false) hash ^= IsStop.GetHashCode();
       if (_unknownFields != null) {
@@ -1932,9 +2379,9 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteString(TranscribedText);
       }
-      if (SessionId != 0L) {
-        output.WriteRawTag(48);
-        output.WriteInt64(SessionId);
+      if (mirroredContent_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(MirroredContent);
       }
       if (ChunkIndex != 0) {
         output.WriteRawTag(56);
@@ -1974,9 +2421,9 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteString(TranscribedText);
       }
-      if (SessionId != 0L) {
-        output.WriteRawTag(48);
-        output.WriteInt64(SessionId);
+      if (mirroredContent_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(MirroredContent);
       }
       if (ChunkIndex != 0) {
         output.WriteRawTag(56);
@@ -1996,6 +2443,9 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (mirroredContent_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MirroredContent);
+      }
       if (ReplyMessage.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ReplyMessage);
       }
@@ -2010,9 +2460,6 @@ namespace VirtualfriendsProto {
       }
       if (TranscribedText.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(TranscribedText);
-      }
-      if (SessionId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
       }
       if (ChunkIndex != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ChunkIndex);
@@ -2032,6 +2479,12 @@ namespace VirtualfriendsProto {
       if (other == null) {
         return;
       }
+      if (other.mirroredContent_ != null) {
+        if (mirroredContent_ == null) {
+          MirroredContent = new global::VirtualfriendsProto.MirroredContent();
+        }
+        MirroredContent.MergeFrom(other.MirroredContent);
+      }
       if (other.ReplyMessage.Length != 0) {
         ReplyMessage = other.ReplyMessage;
       }
@@ -2046,9 +2499,6 @@ namespace VirtualfriendsProto {
       }
       if (other.TranscribedText.Length != 0) {
         TranscribedText = other.TranscribedText;
-      }
-      if (other.SessionId != 0L) {
-        SessionId = other.SessionId;
       }
       if (other.ChunkIndex != 0) {
         ChunkIndex = other.ChunkIndex;
@@ -2091,8 +2541,11 @@ namespace VirtualfriendsProto {
             TranscribedText = input.ReadString();
             break;
           }
-          case 48: {
-            SessionId = input.ReadInt64();
+          case 50: {
+            if (mirroredContent_ == null) {
+              MirroredContent = new global::VirtualfriendsProto.MirroredContent();
+            }
+            input.ReadMessage(MirroredContent);
             break;
           }
           case 56: {
@@ -2138,8 +2591,11 @@ namespace VirtualfriendsProto {
             TranscribedText = input.ReadString();
             break;
           }
-          case 48: {
-            SessionId = input.ReadInt64();
+          case 50: {
+            if (mirroredContent_ == null) {
+              MirroredContent = new global::VirtualfriendsProto.MirroredContent();
+            }
+            input.ReadMessage(MirroredContent);
             break;
           }
           case 56: {

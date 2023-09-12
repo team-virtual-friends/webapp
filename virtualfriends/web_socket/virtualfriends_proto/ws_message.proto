@@ -40,20 +40,35 @@ message EchoResponse {
 }
 
 // Next tag: 3
-enum VoiceConfig {
-    VoiceConfig_Invalid = 0;
+enum VoiceType {
+    VoiceType_Invalid = 0;
 
-    VoiceConfig_NormalMale = 1;
+    VoiceType_NormalMale = 1;
 
-    VoiceConfig_NormalFemale1 = 2;
-    VoiceConfig_NormalFemale2 = 3;
+    VoiceType_NormalFemale1 = 2;
+    VoiceType_NormalFemale2 = 3;
 
     VoiceConfig_Orc = 4;
 }
 
+// Next tag: 3
+message VoiceConfig {
+    VoiceType voice_type = 1;
+
+    float octaves = 2;
+}
+
+// MirroredContent contains the content that is copied from request to response.
+// Next tag: 3
+message MirroredContent {
+    string character_name = 1;
+
+    int64 session_id = 2;
+}
+
 // Next tag: 7
 message StreamReplyMessageRequest {
-    string character_name = 1;
+    MirroredContent mirrored_content = 1;
     
     repeated string json_messages = 2;
 
@@ -63,13 +78,13 @@ message StreamReplyMessageRequest {
         string text = 6;
     }
 
-    int64 session_id = 4;
-
     VoiceConfig voice_config = 5; 
 }
 
-// Next tag: 9
+// Next tag: 10
 message StreamReplyMessageResponse {
+    MirroredContent mirrored_content = 6;
+
     string reply_message = 1;
 
     string action = 2;
@@ -80,8 +95,6 @@ message StreamReplyMessageResponse {
 
     // will be omitted except the first one.
     string transcribed_text = 5;
-
-    int64 session_id = 6;
 
     int32 chunk_index = 7;
 

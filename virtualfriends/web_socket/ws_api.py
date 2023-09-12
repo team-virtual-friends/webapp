@@ -68,17 +68,22 @@ def execute_speech2text_in_parallel(wav_bytes, repetitions=2):
     return None, "All attempts failed"
 
 def generate_voice(text, voice_config) -> (bytes, str):
-    if voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_NormalMale:
-        return (speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE), "")
-    elif voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_NormalFemale1:
-        return (speech.text_to_speech_gcp(text, "en-US-News-K", texttospeech.SsmlVoiceGender.FEMALE), "")
-    elif voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_NormalFemale2:
-        return (speech.text_to_speech_gcp(text, "en-US-News-L", texttospeech.SsmlVoiceGender.FEMALE), "")
-    elif voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_Orc:
-        male_voice = speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE)
-        return (speech.tweak_to_orc_sound(male_voice), "")
+    voice_type = voice_config.voice_type
+    voice_bytes = None
+    if voice_type == ws_message_pb2.VoiceType.VoiceType_NormalMale:
+        voice_bytes = speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE)
+    elif voice_type == ws_message_pb2.VoiceType.VoiceType_NormalFemale1:
+        voice_bytes = speech.text_to_speech_gcp(text, "en-US-News-K", texttospeech.SsmlVoiceGender.FEMALE)
+    elif voice_type == ws_message_pb2.VoiceType.VoiceType_NormalFemale2:
+        voice_bytes = speech.text_to_speech_gcp(text, "en-US-News-L", texttospeech.SsmlVoiceGender.FEMALE)
+    elif voice_type == ws_message_pb2.VoiceType.VoiceType_Orc:
+        voice_bytes = speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE)
     else:
-        return (None, "invalid voice_config: " + str(voice_config))
+        return (None, "invalid voice_type: " + str(voice_type))
+    if voice_config.octaves == 1:
+        return (voice_bytes, "")
+    else:
+        return (speech.tweak_sound(voice_bytes, voice_config.octaves), "")
 
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, ws):
     text = ""
@@ -107,11 +112,12 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.character_name, 10)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.mirrored_content.character_name, 10)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
         if len(reply_text) > 0:
+            response.mirrored_content.CopyFrom(request.mirrored_content)
             response.reply_message = reply_text
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
@@ -137,15 +143,14 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
                 ws.send(error_response(custom_error(err)))
                 return
             response.reply_wav = wav
-        response.chunk_index = index
-        response.session_id = request.session_id
-        response.is_stop = is_stop
+            response.chunk_index = index
+            response.is_stop = is_stop
 
-        vf_response = ws_message_pb2.VfResponse()
-        vf_response.stream_reply_message.CopyFrom(response)
-        # vf_response.error.CopyFrom(custom_error(err))
+            vf_response = ws_message_pb2.VfResponse()
+            vf_response.stream_reply_message.CopyFrom(response)
+            # vf_response.error.CopyFrom(custom_error(err))
 
-        ws.send(vf_response.SerializeToString())
+            ws.send(vf_response.SerializeToString())
 
     buffer = ""
     index = 0
