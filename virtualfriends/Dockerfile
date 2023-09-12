@@ -2,8 +2,8 @@
 # https://hub.docker.com/_/python
 FROM python:3.7-slim
 RUN apt update
-# Only need to install ffmpeg if we want to convert mp3 to wav.
-# RUN apt install -y ffmpeg
+# Used to tweak the voice stream.
+RUN apt install -y ffmpeg
 
 # Copy local code to the container image.
 ENV APP_HOME /app
@@ -18,6 +18,7 @@ EXPOSE $PORT
 
 ## allow logs
 ENV PYTHONUNBUFFERED=1
+ENV ENV=STAGING
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.

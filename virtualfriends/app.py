@@ -49,5 +49,11 @@ def in_game_handler(ws):
             ws.send(error_response("No request type set"))
 
 if __name__ == '__main__':
-    from waitress import serve
-    serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))
+    env = os.environ.get('ENV', 'LOCAL')
+    if env == 'PROD':
+        pass
+    elif env == 'STAGING':
+        from waitress import serve
+        serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))
+    else:
+        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))

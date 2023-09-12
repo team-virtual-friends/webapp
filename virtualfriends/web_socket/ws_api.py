@@ -67,6 +67,19 @@ def execute_speech2text_in_parallel(wav_bytes, repetitions=2):
     # In case all executions have issues, return None or an appropriate value
     return None, "All attempts failed"
 
+def generate_voice(text, voice_config) -> (bytes, str):
+    if voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_NormalMale:
+        return (speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE), "")
+    elif voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_NormalFemale1:
+        return (speech.text_to_speech_gcp(text, "en-US-News-K", texttospeech.SsmlVoiceGender.FEMALE), "")
+    elif voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_NormalFemale2:
+        return (speech.text_to_speech_gcp(text, "en-US-News-L", texttospeech.SsmlVoiceGender.FEMALE), "")
+    elif voice_config == ws_message_pb2.VoiceConfig.VoiceConfig_Orc:
+        male_voice = speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE)
+        return (speech.tweak_to_orc_sound(male_voice), "")
+    else:
+        return (None, "invalid voice_config: " + str(voice_config))
+
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, ws):
     text = ""
     if request.HasField("wav"):
@@ -96,15 +109,6 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     
     reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.character_name, 10)
 
-    if request.gender == ws_message_pb2.VoiceGender.VoiceGender_Male:
-        gender = "male"
-    elif request.gender == ws_message_pb2.VoiceGender.VoiceGender_Female:
-        gender = "female"
-    else:
-        err = "invalid voice gender: " + str(request.gender)
-        logger.error(err)
-        ws.send(error_response(custom_error(err)))
-
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
         if len(reply_text) > 0:
@@ -127,7 +131,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
 
             if index == 0:
                 response.transcribed_text = text
-            (wav, err) = speech.text_to_speech_gcp(reply_text, gender)
+            (wav, err) = generate_voice(reply_text, request.voice_config)
             if len(err) > 0:
                 logger.error(err)
                 ws.send(error_response(custom_error(err)))

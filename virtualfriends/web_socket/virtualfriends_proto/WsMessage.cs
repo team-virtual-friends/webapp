@@ -35,27 +35,28 @@ namespace VirtualfriendsProto {
             "ZnJpZW5kc19wcm90by5TdHJlYW1SZXBseU1lc3NhZ2VSZXNwb25zZUgAQgoK",
             "CHJlc3BvbnNlIiQKC0N1c3RvbUVycm9yEhUKDWVycm9yX21lc3NhZ2UYASAB",
             "KAkiGwoLRWNob1JlcXVlc3QSDAoEdGV4dBgBIAEoCSIcCgxFY2hvUmVzcG9u",
-            "c2USDAoEdGV4dBgBIAEoCSLDAQoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVz",
+            "c2USDAoEdGV4dBgBIAEoCSLJAQoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVz",
             "dBIWCg5jaGFyYWN0ZXJfbmFtZRgBIAEoCRIVCg1qc29uX21lc3NhZ2VzGAIg",
             "AygJEg0KA3dhdhgDIAEoDEgAEg4KBHRleHQYBiABKAlIABISCgpzZXNzaW9u",
-            "X2lkGAQgASgDEjEKBmdlbmRlchgFIAEoDjIhLnZpcnR1YWxmcmllbmRzX3By",
-            "b3RvLlZvaWNlR2VuZGVyQhEKD2N1cnJlbnRfbWVzc2FnZSK9AQoaU3RyZWFt",
-            "UmVwbHlNZXNzYWdlUmVzcG9uc2USFQoNcmVwbHlfbWVzc2FnZRgBIAEoCRIO",
-            "CgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5X3dh",
-            "dhgEIAEoDBIYChB0cmFuc2NyaWJlZF90ZXh0GAUgASgJEhIKCnNlc3Npb25f",
-            "aWQYBiABKAMSEwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNfc3RvcBgIIAEo",
-            "CCpUCgtWb2ljZUdlbmRlchIXChNWb2ljZUdlbmRlcl9JbnZhbGlkEAASFAoQ",
-            "Vm9pY2VHZW5kZXJfTWFsZRABEhYKElZvaWNlR2VuZGVyX0ZlbWFsZRACYgZw",
-            "cm90bzM="));
+            "X2lkGAQgASgDEjcKDHZvaWNlX2NvbmZpZxgFIAEoDjIhLnZpcnR1YWxmcmll",
+            "bmRzX3Byb3RvLlZvaWNlQ29uZmlnQhEKD2N1cnJlbnRfbWVzc2FnZSK9AQoa",
+            "U3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9uc2USFQoNcmVwbHlfbWVzc2FnZRgB",
+            "IAEoCRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJl",
+            "cGx5X3dhdhgEIAEoDBIYChB0cmFuc2NyaWJlZF90ZXh0GAUgASgJEhIKCnNl",
+            "c3Npb25faWQYBiABKAMSEwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNfc3Rv",
+            "cBgIIAEoCCqVAQoLVm9pY2VDb25maWcSFwoTVm9pY2VDb25maWdfSW52YWxp",
+            "ZBAAEhoKFlZvaWNlQ29uZmlnX05vcm1hbE1hbGUQARIdChlWb2ljZUNvbmZp",
+            "Z19Ob3JtYWxGZW1hbGUxEAISHQoZVm9pY2VDb25maWdfTm9ybWFsRmVtYWxl",
+            "MhADEhMKD1ZvaWNlQ29uZmlnX09yYxAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceGender), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceConfig), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage" }, new[]{ "Request" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "CharacterName", "JsonMessages", "Wav", "Text", "SessionId", "Gender" }, new[]{ "CurrentMessage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "CharacterName", "JsonMessages", "Wav", "Text", "SessionId", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "SessionId", "ChunkIndex", "IsStop" }, null, null, null, null)
           }));
     }
@@ -66,10 +67,12 @@ namespace VirtualfriendsProto {
   /// <summary>
   /// Next tag: 3
   /// </summary>
-  public enum VoiceGender {
-    [pbr::OriginalName("VoiceGender_Invalid")] Invalid = 0,
-    [pbr::OriginalName("VoiceGender_Male")] Male = 1,
-    [pbr::OriginalName("VoiceGender_Female")] Female = 2,
+  public enum VoiceConfig {
+    [pbr::OriginalName("VoiceConfig_Invalid")] Invalid = 0,
+    [pbr::OriginalName("VoiceConfig_NormalMale")] NormalMale = 1,
+    [pbr::OriginalName("VoiceConfig_NormalFemale1")] NormalFemale1 = 2,
+    [pbr::OriginalName("VoiceConfig_NormalFemale2")] NormalFemale2 = 3,
+    [pbr::OriginalName("VoiceConfig_Orc")] Orc = 4,
   }
 
   #endregion
@@ -1313,7 +1316,7 @@ namespace VirtualfriendsProto {
       characterName_ = other.characterName_;
       jsonMessages_ = other.jsonMessages_.Clone();
       sessionId_ = other.sessionId_;
-      gender_ = other.gender_;
+      voiceConfig_ = other.voiceConfig_;
       switch (other.CurrentMessageCase) {
         case CurrentMessageOneofCase.Wav:
           Wav = other.Wav;
@@ -1419,15 +1422,15 @@ namespace VirtualfriendsProto {
       }
     }
 
-    /// <summary>Field number for the "gender" field.</summary>
-    public const int GenderFieldNumber = 5;
-    private global::VirtualfriendsProto.VoiceGender gender_ = global::VirtualfriendsProto.VoiceGender.Invalid;
+    /// <summary>Field number for the "voice_config" field.</summary>
+    public const int VoiceConfigFieldNumber = 5;
+    private global::VirtualfriendsProto.VoiceConfig voiceConfig_ = global::VirtualfriendsProto.VoiceConfig.Invalid;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::VirtualfriendsProto.VoiceGender Gender {
-      get { return gender_; }
+    public global::VirtualfriendsProto.VoiceConfig VoiceConfig {
+      get { return voiceConfig_; }
       set {
-        gender_ = value;
+        voiceConfig_ = value;
       }
     }
 
@@ -1472,7 +1475,7 @@ namespace VirtualfriendsProto {
       if (Wav != other.Wav) return false;
       if (Text != other.Text) return false;
       if (SessionId != other.SessionId) return false;
-      if (Gender != other.Gender) return false;
+      if (VoiceConfig != other.VoiceConfig) return false;
       if (CurrentMessageCase != other.CurrentMessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1486,7 +1489,7 @@ namespace VirtualfriendsProto {
       if (HasWav) hash ^= Wav.GetHashCode();
       if (HasText) hash ^= Text.GetHashCode();
       if (SessionId != 0L) hash ^= SessionId.GetHashCode();
-      if (Gender != global::VirtualfriendsProto.VoiceGender.Invalid) hash ^= Gender.GetHashCode();
+      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) hash ^= VoiceConfig.GetHashCode();
       hash ^= (int) currentMessageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1519,9 +1522,9 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(32);
         output.WriteInt64(SessionId);
       }
-      if (Gender != global::VirtualfriendsProto.VoiceGender.Invalid) {
+      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
         output.WriteRawTag(40);
-        output.WriteEnum((int) Gender);
+        output.WriteEnum((int) VoiceConfig);
       }
       if (HasText) {
         output.WriteRawTag(50);
@@ -1550,9 +1553,9 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(32);
         output.WriteInt64(SessionId);
       }
-      if (Gender != global::VirtualfriendsProto.VoiceGender.Invalid) {
+      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
         output.WriteRawTag(40);
-        output.WriteEnum((int) Gender);
+        output.WriteEnum((int) VoiceConfig);
       }
       if (HasText) {
         output.WriteRawTag(50);
@@ -1581,8 +1584,8 @@ namespace VirtualfriendsProto {
       if (SessionId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
       }
-      if (Gender != global::VirtualfriendsProto.VoiceGender.Invalid) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Gender);
+      if (VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) VoiceConfig);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1603,8 +1606,8 @@ namespace VirtualfriendsProto {
       if (other.SessionId != 0L) {
         SessionId = other.SessionId;
       }
-      if (other.Gender != global::VirtualfriendsProto.VoiceGender.Invalid) {
-        Gender = other.Gender;
+      if (other.VoiceConfig != global::VirtualfriendsProto.VoiceConfig.Invalid) {
+        VoiceConfig = other.VoiceConfig;
       }
       switch (other.CurrentMessageCase) {
         case CurrentMessageOneofCase.Wav:
@@ -1647,7 +1650,7 @@ namespace VirtualfriendsProto {
             break;
           }
           case 40: {
-            Gender = (global::VirtualfriendsProto.VoiceGender) input.ReadEnum();
+            VoiceConfig = (global::VirtualfriendsProto.VoiceConfig) input.ReadEnum();
             break;
           }
           case 50: {
@@ -1686,7 +1689,7 @@ namespace VirtualfriendsProto {
             break;
           }
           case 40: {
-            Gender = (global::VirtualfriendsProto.VoiceGender) input.ReadEnum();
+            VoiceConfig = (global::VirtualfriendsProto.VoiceConfig) input.ReadEnum();
             break;
           }
           case 50: {

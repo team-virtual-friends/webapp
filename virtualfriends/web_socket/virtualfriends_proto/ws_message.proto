@@ -40,12 +40,15 @@ message EchoResponse {
 }
 
 // Next tag: 3
-enum VoiceGender {
-    VoiceGender_Invalid = 0;
+enum VoiceConfig {
+    VoiceConfig_Invalid = 0;
 
-    VoiceGender_Male = 1;
+    VoiceConfig_NormalMale = 1;
 
-    VoiceGender_Female = 2;
+    VoiceConfig_NormalFemale1 = 2;
+    VoiceConfig_NormalFemale2 = 3;
+
+    VoiceConfig_Orc = 4;
 }
 
 // Next tag: 7
@@ -62,7 +65,7 @@ message StreamReplyMessageRequest {
 
     int64 session_id = 4;
 
-    VoiceGender gender = 5; 
+    VoiceConfig voice_config = 5; 
 }
 
 // Next tag: 9

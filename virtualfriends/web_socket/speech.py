@@ -61,15 +61,15 @@ def text_to_speech_google_translate(text:str) -> bytes:
     wav_bytes = convert_mp3_to_wav(mp3_bytes)
     return wav_bytes
 
-def text_to_speech_gcp(text:str, gender) -> (bytes, str):
-    if gender.lower() == "male":
-        name = "en-US-News-M"
-        ssml_gender = texttospeech.SsmlVoiceGender.MALE
-    elif gender.lower() == "female":
-        name="en-US-News-K"
-        ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
-    else:
-        return (None, "invalid gender, male/female")
+def text_to_speech_gcp(text:str, name, ssml_gender) -> bytes:
+    # if gender.lower() == "male":
+    #     name = "en-US-News-M"
+    #     ssml_gender = texttospeech.SsmlVoiceGender.MALE
+    # elif gender.lower() == "female":
+    #     name="en-US-News-K"
+    #     ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
+    # else:
+    #     return (None, "invalid gender, male/female")
 
     # Build the voice and audio config for the Text-to-Speech API request
     voice = texttospeech.VoiceSelectionParams(
@@ -95,4 +95,38 @@ def text_to_speech_gcp(text:str, gender) -> (bytes, str):
         voice=voice,
         audio_config=audio_config
     )
-    return (response.audio_content, "")
+    return response.audio_content
+
+def tweak_to_orc_sound(audio_bytes:bytes) -> bytes:
+    # Create a stream from the bytes
+    audio_stream = io.BytesIO(audio_bytes)
+    # # Load the audio from the stream
+    voice = AudioSegment.from_file(audio_stream, format="wav")
+    # # Decrease the pitch (shift it down)
+    # shifted_voice = voice.speedup(playback_speed=0.7)  # You can adjust the playback_speed
+    # # Add some bass to make it sound more powerful
+    # bass_boosted_voice = shifted_voice.low_pass_filter(200)  # Adjust the cutoff frequency as needed
+    # shift the pitch up by half an octave (speed will increase proportionally)
+    octaves = -0.7
+
+    new_sample_rate = int(voice.frame_rate * (2.0 ** octaves))
+
+    # keep the same samples but tell the computer they ought to be played at the 
+    # new, higher sample rate. This file sounds like a chipmunk but has a weird sample rate.
+    hipitch_sound = voice._spawn(voice.raw_data, overrides={'frame_rate': new_sample_rate})
+
+    # now we just convert it to a common sample rate (44.1k - standard audio CD) to 
+    # make sure it works in regular audio players. Other than potentially losing audio quality (if
+    # you set it too low - 44.1k is plenty) this should now noticeable change how the audio sounds.
+    hipitch_sound = hipitch_sound.set_frame_rate(44100)
+    # Export the modified voice as bytes
+    # Create an AudioSegment from raw audio data
+    audio_segment = AudioSegment(
+        data=hipitch_sound.raw_data,
+        sample_width=hipitch_sound.sample_width,
+        frame_rate=hipitch_sound.frame_rate,
+        channels=hipitch_sound.channels
+    )
+
+    # Export the audio as WAV format bytes
+    return audio_segment.export(format="wav").read() 
