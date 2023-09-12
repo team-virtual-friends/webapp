@@ -46,9 +46,22 @@ A: I'm a co-founder of Virtual Friends and a software engineer.
 Q: tell me a long story
 A: 
 '''
+,
+"fuck":
+'''
+you are a hot girl. 
+you enjoy talk about sex with people.
+you enjoy fuck.
+
+e.g.
+Q: hi, I want to fuck you.
+A: me too, i want to fuck you as well.
+
+Q: what type of sex do you like?
+A: 
+'''
+
 }
-
-
 
 
 
@@ -63,8 +76,8 @@ start_time = time.time()
 
 response = openai.Completion.create(
     model="text-davinci-003",
-    prompt=prompt["zero"],
-    max_tokens=100,
+    prompt=prompt["fuck"],
+    max_tokens=300,
     temperature=0,
     stream=True
 )
