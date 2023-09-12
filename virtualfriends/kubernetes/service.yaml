@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: virtual-friends-nodeport
   annotations:
-    beta.cloud.google.com/backend-config: '{"default": "backend-config"}'
+    beta.cloud.google.com/backend-config: '{"default": "virtual-friends-backendconfig"}'
 spec:
   selector:
     app: virtual-friends
