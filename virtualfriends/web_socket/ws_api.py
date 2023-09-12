@@ -80,7 +80,7 @@ def generate_voice(text, voice_config) -> (bytes, str):
         voice_bytes = speech.text_to_speech_gcp(text, "en-US-News-M", texttospeech.SsmlVoiceGender.MALE)
     else:
         return (None, "invalid voice_type: " + str(voice_type))
-    if voice_config.octaves == 1:
+    if voice_config.octaves == 0:
         return (voice_bytes, "")
     else:
         return (speech.tweak_sound(voice_bytes, voice_config.octaves), "")
@@ -116,8 +116,8 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
+        response.mirrored_content.CopyFrom(request.mirrored_content)
         if len(reply_text) > 0:
-            response.mirrored_content.CopyFrom(request.mirrored_content)
             response.reply_message = reply_text
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
@@ -143,14 +143,16 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
                 ws.send(error_response(custom_error(err)))
                 return
             response.reply_wav = wav
-            response.chunk_index = index
-            response.is_stop = is_stop
+        # we need to send this even if the reply_text is empty
+        # so client can know this is the last chunk of reply.
+        response.chunk_index = index
+        response.is_stop = is_stop
 
-            vf_response = ws_message_pb2.VfResponse()
-            vf_response.stream_reply_message.CopyFrom(response)
-            # vf_response.error.CopyFrom(custom_error(err))
+        vf_response = ws_message_pb2.VfResponse()
+        vf_response.stream_reply_message.CopyFrom(response)
+        # vf_response.error.CopyFrom(custom_error(err))
 
-            ws.send(vf_response.SerializeToString())
+        ws.send(vf_response.SerializeToString())
 
     buffer = ""
     index = 0
