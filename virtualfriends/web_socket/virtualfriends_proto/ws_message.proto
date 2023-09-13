@@ -66,11 +66,13 @@ message MirroredContent {
     int64 session_id = 2;
 }
 
-// Next tag: 7
+// Next tag: 8
 message StreamReplyMessageRequest {
     MirroredContent mirrored_content = 1;
     
     repeated string json_messages = 2;
+
+    string custom_prompts = 7;
 
     oneof current_message {
         bytes wav = 3;

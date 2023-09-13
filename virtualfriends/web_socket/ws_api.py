@@ -112,7 +112,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.mirrored_content.character_name, 10)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.mirrored_content.character_name, request.custom_prompts)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
