@@ -132,7 +132,7 @@ def home():
     # if current_user.is_authenticated:
     #     return redirect(url_for('dashboard'))
     # else:
-    return render_template('index.html')
+    return render_template('index.html'), 200
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -153,4 +153,4 @@ def healthz():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5119)
+    app.run(debug=True, port=5125)
