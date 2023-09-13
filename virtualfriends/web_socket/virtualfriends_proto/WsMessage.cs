@@ -38,21 +38,21 @@ namespace VirtualfriendsProto {
             "c2USDAoEdGV4dBgBIAEoCSJTCgtWb2ljZUNvbmZpZxIzCgp2b2ljZV90eXBl",
             "GAEgASgOMh8udmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VUeXBlEg8KB29j",
             "dGF2ZXMYAiABKAIiPQoPTWlycm9yZWRDb250ZW50EhYKDmNoYXJhY3Rlcl9u",
-            "YW1lGAEgASgJEhIKCnNlc3Npb25faWQYAiABKAMi3gEKGVN0cmVhbVJlcGx5",
+            "YW1lGAEgASgJEhIKCnNlc3Npb25faWQYAiABKAMi9gEKGVN0cmVhbVJlcGx5",
             "TWVzc2FnZVJlcXVlc3QSPwoQbWlycm9yZWRfY29udGVudBgBIAEoCzIlLnZp",
             "cnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1qc29uX21l",
-            "c3NhZ2VzGAIgAygJEg0KA3dhdhgDIAEoDEgAEg4KBHRleHQYBiABKAlIABI3",
-            "Cgx2b2ljZV9jb25maWcYBSABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90by5W",
-            "b2ljZUNvbmZpZ0IRCg9jdXJyZW50X21lc3NhZ2Ui6gEKGlN0cmVhbVJlcGx5",
-            "TWVzc2FnZVJlc3BvbnNlEj8KEG1pcnJvcmVkX2NvbnRlbnQYBiABKAsyJS52",
-            "aXJ0dWFsZnJpZW5kc19wcm90by5NaXJyb3JlZENvbnRlbnQSFQoNcmVwbHlf",
-            "bWVzc2FnZRgBIAEoCRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMg",
-            "ASgJEhEKCXJlcGx5X3dhdhgEIAEoDBIYChB0cmFuc2NyaWJlZF90ZXh0GAUg",
-            "ASgJEhMKC2NodW5rX2luZGV4GAcgASgFEg8KB2lzX3N0b3AYCCABKAgqiwEK",
-            "CVZvaWNlVHlwZRIVChFWb2ljZVR5cGVfSW52YWxpZBAAEhgKFFZvaWNlVHlw",
-            "ZV9Ob3JtYWxNYWxlEAESGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTEQAhIb",
-            "ChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMhADEhMKD1ZvaWNlQ29uZmlnX09y",
-            "YxAEYgZwcm90bzM="));
+            "c3NhZ2VzGAIgAygJEhYKDmN1c3RvbV9wcm9tcHRzGAcgASgJEg0KA3dhdhgD",
+            "IAEoDEgAEg4KBHRleHQYBiABKAlIABI3Cgx2b2ljZV9jb25maWcYBSABKAsy",
+            "IS52aXJ0dWFsZnJpZW5kc19wcm90by5Wb2ljZUNvbmZpZ0IRCg9jdXJyZW50",
+            "X21lc3NhZ2Ui6gEKGlN0cmVhbVJlcGx5TWVzc2FnZVJlc3BvbnNlEj8KEG1p",
+            "cnJvcmVkX2NvbnRlbnQYBiABKAsyJS52aXJ0dWFsZnJpZW5kc19wcm90by5N",
+            "aXJyb3JlZENvbnRlbnQSFQoNcmVwbHlfbWVzc2FnZRgBIAEoCRIOCgZhY3Rp",
+            "b24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5X3dhdhgEIAEo",
+            "DBIYChB0cmFuc2NyaWJlZF90ZXh0GAUgASgJEhMKC2NodW5rX2luZGV4GAcg",
+            "ASgFEg8KB2lzX3N0b3AYCCABKAgqiwEKCVZvaWNlVHlwZRIVChFWb2ljZVR5",
+            "cGVfSW52YWxpZBAAEhgKFFZvaWNlVHlwZV9Ob3JtYWxNYWxlEAESGwoXVm9p",
+            "Y2VUeXBlX05vcm1hbEZlbWFsZTEQAhIbChdWb2ljZVR5cGVfTm9ybWFsRmVt",
+            "YWxlMhADEhMKD1ZvaWNlQ29uZmlnX09yYxAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -63,7 +63,7 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "SessionId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "CustomPrompts", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null)
           }));
     }
@@ -1743,7 +1743,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 7
+  /// Next tag: 8
   /// </summary>
   public sealed partial class StreamReplyMessageRequest : pb::IMessage<StreamReplyMessageRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -1781,6 +1781,7 @@ namespace VirtualfriendsProto {
     public StreamReplyMessageRequest(StreamReplyMessageRequest other) : this() {
       mirroredContent_ = other.mirroredContent_ != null ? other.mirroredContent_.Clone() : null;
       jsonMessages_ = other.jsonMessages_.Clone();
+      customPrompts_ = other.customPrompts_;
       voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
       switch (other.CurrentMessageCase) {
         case CurrentMessageOneofCase.Wav:
@@ -1821,6 +1822,18 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<string> JsonMessages {
       get { return jsonMessages_; }
+    }
+
+    /// <summary>Field number for the "custom_prompts" field.</summary>
+    public const int CustomPromptsFieldNumber = 7;
+    private string customPrompts_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CustomPrompts {
+      get { return customPrompts_; }
+      set {
+        customPrompts_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     /// <summary>Field number for the "wav" field.</summary>
@@ -1925,6 +1938,7 @@ namespace VirtualfriendsProto {
       }
       if (!object.Equals(MirroredContent, other.MirroredContent)) return false;
       if(!jsonMessages_.Equals(other.jsonMessages_)) return false;
+      if (CustomPrompts != other.CustomPrompts) return false;
       if (Wav != other.Wav) return false;
       if (Text != other.Text) return false;
       if (!object.Equals(VoiceConfig, other.VoiceConfig)) return false;
@@ -1938,6 +1952,7 @@ namespace VirtualfriendsProto {
       int hash = 1;
       if (mirroredContent_ != null) hash ^= MirroredContent.GetHashCode();
       hash ^= jsonMessages_.GetHashCode();
+      if (CustomPrompts.Length != 0) hash ^= CustomPrompts.GetHashCode();
       if (HasWav) hash ^= Wav.GetHashCode();
       if (HasText) hash ^= Text.GetHashCode();
       if (voiceConfig_ != null) hash ^= VoiceConfig.GetHashCode();
@@ -1977,6 +1992,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(50);
         output.WriteString(Text);
       }
+      if (CustomPrompts.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(CustomPrompts);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2004,6 +2023,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(50);
         output.WriteString(Text);
       }
+      if (CustomPrompts.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(CustomPrompts);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2018,6 +2041,9 @@ namespace VirtualfriendsProto {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MirroredContent);
       }
       size += jsonMessages_.CalculateSize(_repeated_jsonMessages_codec);
+      if (CustomPrompts.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CustomPrompts);
+      }
       if (HasWav) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Wav);
       }
@@ -2046,6 +2072,9 @@ namespace VirtualfriendsProto {
         MirroredContent.MergeFrom(other.MirroredContent);
       }
       jsonMessages_.Add(other.jsonMessages_);
+      if (other.CustomPrompts.Length != 0) {
+        CustomPrompts = other.CustomPrompts;
+      }
       if (other.voiceConfig_ != null) {
         if (voiceConfig_ == null) {
           VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
@@ -2102,6 +2131,10 @@ namespace VirtualfriendsProto {
             Text = input.ReadString();
             break;
           }
+          case 58: {
+            CustomPrompts = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -2141,6 +2174,10 @@ namespace VirtualfriendsProto {
           }
           case 50: {
             Text = input.ReadString();
+            break;
+          }
+          case 58: {
+            CustomPrompts = input.ReadString();
             break;
           }
         }
