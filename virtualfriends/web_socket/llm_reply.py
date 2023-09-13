@@ -29,33 +29,47 @@ auth_headers = {
 #          '''
 # }
 
+from requests.exceptions import Timeout
 
-def infer_action(text):
+def infer_action(text, timeout_seconds=2):
     payload = {
-      'messages': [
-          {"role": "system", "content": "You are a helpful assistent that identify the asked action in the input text. The output should be either 1. no action 2. dance 3. sit 4.stand  Only output one of the above 4 strings. Example:Text: can you dance? OUTPUT:dance"},
-          {"role": "user", "content": f'Detect the asked action of the following text: {text}'}
-      ],
-      'model': "gpt-3.5-turbo",
+        'messages': [
+            {"role": "system", "content": "You are a helpful assistant that identifies the asked action in the input text. The output should be either 1. no action 2. dance 3. sit 4. stand. Only output one of the above 4 strings. Example: Text: can you dance? OUTPUT: dance"},
+            {"role": "user", "content": f'Detect the asked action of the following text: {text}'}
+        ],
+        'model': "gpt-3.5-turbo",
     }
-    response = requests.post(openai_api_url, headers=auth_headers, data=json.dumps(payload))
-    response_data = response.json()
-    logger.info(response_data['choices'][0]['message']['content'])
-    return response_data['choices'][0]['message']['content']
 
-def infer_sentiment(text):
+    try:
+        response = requests.post(openai_api_url, headers=auth_headers, data=json.dumps(payload), timeout=timeout_seconds)
+        response.raise_for_status()
+        response_data = response.json()
+        result = response_data['choices'][0]['message']['content']
+        logger.info(result)
+        return result
+    except requests.exceptions.Timeout:
+        logger.error("infer_action API call to OpenAI timed out")
+        return "no action"
+
+def infer_sentiment(text, timeout_seconds=2):
     payload = {
-      'messages': [
-          {"role": "system", "content": "You are a helpful assistent that identify the sentiment of the input text. The output should be either 1. happy 2. neutral 3. sad 4.angry. Only output one of the above 4 strings. Example:Text: hahahah Output: happy"},
-          {"role": "user", "content": f'Detect the the sentiment of the input text: {text}'}
-      ],
-      'model': "gpt-3.5-turbo",
+        'messages': [
+            {"role": "system", "content": "You are a helpful assistant that identifies the sentiment of the input text. The output should be either 1. happy 2. neutral 3. sad 4. angry. Only output one of the above 4 strings. Example: Text: hahahah Output: happy"},
+            {"role": "user", "content": f'Detect the sentiment of the input text: {text}'}
+        ],
+        'model': "gpt-3.5-turbo",
     }
-    response = requests.post(openai_api_url, headers=auth_headers, data=json.dumps(payload))
-    response_data = response.json()
 
-    logger.info(response_data['choices'][0]['message']['content'])
-    return response_data['choices'][0]['message']['content']
+    try:
+        response = requests.post(openai_api_url, headers=auth_headers, data=json.dumps(payload), timeout=timeout_seconds)
+        response.raise_for_status()
+        response_data = response.json()
+        result = response_data['choices'][0]['message']['content']
+        logger.info(result)
+        return result
+    except requests.exceptions.Timeout:
+        logger.error("infer_sentiment API call to OpenAI timed out")
+        return "neutral"
 
 # chronical_messages should be a list of dict; each dict should contain "role" and "content".
 def infer_reply(chronical_messages:list, character_name:str) -> str:
