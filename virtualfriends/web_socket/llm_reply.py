@@ -104,7 +104,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, callback) ->
         model="text-davinci-003",
         prompt=full_prompt,
         max_tokens=100,
-        temperature=0,
+        temperature=1,
         stream=True
     )
 
