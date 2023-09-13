@@ -52,11 +52,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route('/index', methods=['GET'])  # Changed the route to '/index'
-def index():  # Renamed the function to 'index'
-    return render_template('index.html')
-
-
 @app.route('/game', methods=['GET'])
 def game():
     # Get the "FriendIndex" parameter from the URL query string
@@ -137,7 +132,7 @@ def home():
     # if current_user.is_authenticated:
     #     return redirect(url_for('dashboard'))
     # else:
-    return redirect(url_for('index')), 200
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
