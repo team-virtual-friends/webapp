@@ -59,7 +59,7 @@ def infer_sentiment(text):
 
 # chronical_messages should be a list of dict; each dict should contain "role" and "content".
 def infer_reply(chronical_messages:list, character_name:str) -> str:
-    chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
+    chronical_messages.append({"role": "system", "content": prompts.character_prompts[character_name]})
     reply = ChatCompletion.create(
         # model="gpt-3.5-turbo",
         model="gpt-4",
@@ -73,7 +73,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, callback) ->
     # logger.info("start gpt infer")
 
     #   Testing new api for now.
-    #     chronical_messages.append({"role": "system", "content": character_prompts[character_name]})
+    #     chronical_messages.append({"role": "system", "content": prompts.character_prompts[character_name]})
     #     return ChatCompletion.create(
     #         model="gpt-3.5-turbo",
     #         messages=chronical_messages,
@@ -82,7 +82,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, callback) ->
     #     )
 
     full_prompt = process_messages(chronical_messages)
-    full_prompt = character_prompts[character_name] + full_prompt + "\nA:"
+    full_prompt = prompts.character_prompts[character_name] + full_prompt + "\nA:"
 
     # logger.info(full_prompt)
 
