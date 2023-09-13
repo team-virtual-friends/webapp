@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+                    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT5XWFJV12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GT5XWFJV12');
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | virtual-friends-client</title>
-    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-0912v0/TemplateData/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='vf-0912v0/TemplateData/style.css') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='vf-0912v0/manifest.webmanifest') }}">
+    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-0912/TemplateData/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vf-0912/TemplateData/style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='vf-0912/manifest.webmanifest') }}">
   </head>
   <body>
     <div id="unity-container">
@@ -22,7 +32,7 @@
     <script>
       window.addEventListener("load", function () {
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("{{ url_for('static', filename='vf-0912v0/ServiceWorker.js') }}");
+          navigator.serviceWorker.register("{{ url_for('static', filename='vf-0912/ServiceWorker.js') }}");
         }
       });
 
@@ -56,12 +66,12 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = "{{ url_for('static', filename='vf-0912v0/Build') }}";
-      var loaderUrl = buildUrl + "/vf-0912v0.loader.js";
+      var buildUrl = "{{ url_for('static', filename='vf-0912/Build') }}";
+      var loaderUrl = buildUrl + "/vf-0912.loader.js";
       var config = {
-        dataUrl: buildUrl + "/vf-0912v0.data.br",
-        frameworkUrl: buildUrl + "/vf-0912v0.framework.js.br",
-        codeUrl: buildUrl + "/vf-0912v0.wasm.br",
+        dataUrl: buildUrl + "/vf-0912.data.br",
+        frameworkUrl: buildUrl + "/vf-0912.framework.js.br",
+        codeUrl: buildUrl + "/vf-0912.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "virtual-friends-client",
