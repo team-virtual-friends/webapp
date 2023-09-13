@@ -57,11 +57,11 @@
       }
 
       var buildUrl = "{{ url_for('static', filename='{vf-0912v0}/Build') }}";
-      var loaderUrl = buildUrl + "/{vf-0912v0}.loader.js";
+      var loaderUrl = buildUrl + "/Builds.loader.js";
       var config = {
-        dataUrl: buildUrl + "/{vf-0912v0}.data.br",
-        frameworkUrl: buildUrl + "/{vf-0912v0}.framework.js.br",
-        codeUrl: buildUrl + "/{vf-0912v0}.wasm.br",
+        dataUrl: buildUrl + "/Builds.data.br",
+        frameworkUrl: buildUrl + "/Builds.framework.js.br",
+        codeUrl: buildUrl + "/Builds.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "virtual-friends-client",
