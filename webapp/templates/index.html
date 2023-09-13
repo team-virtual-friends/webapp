@@ -75,7 +75,7 @@
 <!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
 <!--                            <h2 class="display-4">Chat with Mina!</h2>-->
 
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game') }}">Meet Mina!</a>
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=0) }}">Meet Yi!</a>
                             <p>Mina is a k-pop star. </p>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game_yi') }}">Meet Yi!</a>
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=1) }}">Meet Yi!</a>
                                 <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>
                         </div>
                     </div>
@@ -99,6 +99,21 @@
             </div>
         </section>
 
+            <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/yi.jpeg') }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=2) }}">Meet Zero!</a>
+                                <p>Zero is a friendly assistant. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 <!--            &lt;!&ndash; Content section 2&ndash;&gt;-->
 <!--        <section>-->
@@ -154,7 +169,7 @@
 <!--                    <div class="col-lg-6">-->
 <!--                        <div class="p-5">-->
 
-<!--                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game_yi') }}">Chat with Yufan!</a>-->
+<!--                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game') }}">Chat with Yufan!</a>-->
 <!--                                <p>Yufan is the co-founder of the virtual friends team. Ask him any question about himself, product and the company. </p>-->
 
 <!--&lt;!&ndash;                            <h2 class="display-4">Chat with Neko!</h2>&ndash;&gt;-->

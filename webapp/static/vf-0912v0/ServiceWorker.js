@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-virtual-friends-client-0.1.0";
 const contentToCache = [
-    "Build/vf-0910-mina.loader.js",
-    "Build/vf-0910-mina.framework.js",
-    "Build/vf-0910-mina.data",
-    "Build/vf-0910-mina.wasm",
+    "Build/vf-0912v0.loader.js",
+    "Build/vf-0912v0.framework.js.br",
+    "Build/vf-0912v0.data.br",
+    "Build/vf-0912v0.wasm.br",
     "TemplateData/style.css"
 
 ];

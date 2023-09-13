@@ -57,14 +57,13 @@ def index():  # Renamed the function to 'index'
     return render_template('index.html')
 
 
-@app.route('/game', methods=['GET'])  # Changed the route to '/game'
-def game():  # Renamed the function to 'ga,e'
-    return render_template('game_mina.html')
+@app.route('/game', methods=['GET'])
+def game():
+    # Get the "FriendIndex" parameter from the URL query string
+    friend_index = request.args.get('FriendIndex')
 
-
-@app.route('/game_yi', methods=['GET'])  # Changed the route to '/game_yi'
-def game_yi():  # Renamed the function to 'ga,e'
-    return render_template('game_yi.html')
+    # Use the "friend_index" variable as needed in your code
+    return render_template('game.html', FriendIndex=friend_index)  # Pass it to the template
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():
