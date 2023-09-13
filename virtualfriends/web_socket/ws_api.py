@@ -45,7 +45,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
 def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
 
-def execute_speech2text_in_parallel(wav_bytes, repetitions=2):
+def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = [executor.submit(wrapper_function, wav_bytes) for _ in range(repetitions)]
 
