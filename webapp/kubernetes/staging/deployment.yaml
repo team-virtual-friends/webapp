@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp0910-deployment-stg
+  labels:
+    app: webapp0910-stg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp0910-stg
+  template:
+    metadata:
+      labels:
+        app: webapp0910-stg
+    spec:
+      containers:
+      - name: webapp0910-stg
+        image: gcr.io/ysong-chat/webapp:b82c43f-8e245c42
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
