@@ -158,9 +158,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     index = 0
     for chunk in reply_message_iter:
         current = llm_reply.get_content_from_chunk(chunk)
-        if current == None:
-            if len(buffer.strip()) > 0:
-                send_reply(buffer, index, False)
+        if current == None or len(current) == 0:
             continue
 
         # logger.info("current: " + current)
