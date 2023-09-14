@@ -96,7 +96,10 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     #     )
 
     full_prompt = process_messages(chronical_messages)
-    full_prompt = prompts.character_prompts[character_name] + '\n' + custom_prompts + '\n' + full_prompt + "\nA:"
+    base_prompt = prompts.character_prompts.get(character_name)
+    if base_prompt is None:
+        base_prompt = ""
+    full_prompt = base_prompt + '\n' + custom_prompts + '\n' + full_prompt + "\nA:"
 
     # logger.info(full_prompt)
 
