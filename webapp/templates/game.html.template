@@ -14,9 +14,9 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | virtual-friends-client</title>
-    <link rel="shortcut icon" href=" {{ url_for('static', filename='vf-0912/TemplateData/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='vf-0912/TemplateData/style.css') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='vf-0912/manifest.webmanifest') }}">
+    <link rel="shortcut icon" href=" {{ url_for('static', filename='{vf-0912v0}/TemplateData/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='{vf-0912v0}/TemplateData/style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='{vf-0912v0}/manifest.webmanifest') }}">
   </head>
   <body>
     <div id="unity-container">
@@ -32,7 +32,7 @@
     <script>
       window.addEventListener("load", function () {
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("{{ url_for('static', filename='vf-0912/ServiceWorker.js') }}");
+          navigator.serviceWorker.register("{{ url_for('static', filename='{vf-0912v0}/ServiceWorker.js') }}");
         }
       });
 
@@ -66,12 +66,13 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = "{{ url_for('static', filename='vf-0912/Build') }}";
-      var loaderUrl = buildUrl + "/vf-0912.loader.js";
+      var buildUrl = "{{ url_for('static', filename='{vf-0912v0}/Build') }}";
+      var loaderUrl = buildUrl + "/Builds.loader.js";
+      // dataUrl, frameworkUrl, codeUrl need to append '.br' after '.js' if using brotli.
       var config = {
-        dataUrl: buildUrl + "/vf-0912.data.br",
-        frameworkUrl: buildUrl + "/vf-0912.framework.js.br",
-        codeUrl: buildUrl + "/vf-0912.wasm.br",
+        dataUrl: buildUrl + "/Builds.data",
+        frameworkUrl: buildUrl + "/Builds.framework.js",
+        codeUrl: buildUrl + "/Builds.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "virtual-friends-client",
