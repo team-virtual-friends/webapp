@@ -68,10 +68,11 @@
 
       var buildUrl = "{{ url_for('static', filename='{vf-0912v0}/Build') }}";
       var loaderUrl = buildUrl + "/Builds.loader.js";
+      // dataUrl, frameworkUrl, codeUrl need to append '.br' after '.js' if using brotli.
       var config = {
-        dataUrl: buildUrl + "/Builds.data.br",
-        frameworkUrl: buildUrl + "/Builds.framework.js.br",
-        codeUrl: buildUrl + "/Builds.wasm.br",
+        dataUrl: buildUrl + "/Builds.data",
+        frameworkUrl: buildUrl + "/Builds.framework.js",
+        codeUrl: buildUrl + "/Builds.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "virtual-friends-client",

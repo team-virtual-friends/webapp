@@ -5,7 +5,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-gsutil cp -r "gs://vf-unity-data/$1" "./static"
+gsutil -m cp -r "gs://vf-unity-data/$1" "./static"
 
 template=`cat ./templates/game.html.template`
 replaced="${template//\{vf-0912v0\}/$1}"

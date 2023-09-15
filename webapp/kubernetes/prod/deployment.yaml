@@ -5,7 +5,7 @@ metadata:
   labels:
     app: webapp0910
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: webapp0910
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: webapp0910
-        image: gcr.io/ysong-chat/webapp:b82c43f-8e245c42
+        image: gcr.io/ysong-chat/webapp0912:1785d3d-c9972884
         ports:
         - containerPort: 8000
         livenessProbe:
