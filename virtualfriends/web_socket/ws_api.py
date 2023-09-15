@@ -45,7 +45,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
 def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
 
-def execute_speech2text_in_parallel(wav_bytes, repetitions=2):
+def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = [executor.submit(wrapper_function, wav_bytes) for _ in range(repetitions)]
 
@@ -112,7 +112,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.mirrored_content.character_name, 10)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.mirrored_content.character_name.lower(), request.custom_prompts)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
@@ -158,13 +158,11 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     index = 0
     for chunk in reply_message_iter:
         current = llm_reply.get_content_from_chunk(chunk)
-        if current == None:
-            if len(buffer.strip()) > 0:
-                send_reply(buffer, index, False)
+        if current == None or len(current) == 0:
             continue
 
         # logger.info("current: " + current)
-        splited = re.split("\.|;|\!|\?|:|,", current)
+        splited = re.split("\.|;|\!|\?|:|,|。|；|！|？|：|，", current)
         if len(splited) == 0:
             pass
         elif len(splited) == 1:
@@ -176,4 +174,6 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             send_reply(buffer, index, False)
             buffer = splited[-1]
             index += 1
-    send_reply("", index, True)
+    if len(buffer.strip()) > 0:
+        send_reply(buffer, index, True)
+    send_reply("", index + 1, True)
