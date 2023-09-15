@@ -19,16 +19,6 @@ auth_headers = {
     'Authorization': f'Bearer {openai.api_key}'
 }
 
-# # TODO(ysong): Add greeting logic to characters.
-# character_greeting = {
-#     "zero":
-#         ''' hi, I am zero. How can I help you today? ''',
-#     "yi_clone":
-#          '''
-#                hi, my name is Yi Song. I am co-founders of the Virtual Friends project, ask me any question about the company, product and team.
-#          '''
-# }
-
 from requests.exceptions import Timeout
 
 def infer_action(text, timeout_seconds=2):
@@ -98,11 +88,13 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     full_prompt = process_messages(chronical_messages)
     base_prompt = prompts.character_prompts.get(character_name)
     if base_prompt is None:
-        base_prompt = ""
-    full_prompt = base_prompt + '\n' + custom_prompts + '\n' + full_prompt + "\nA:"
+        base_prompt = "You are an AI assistant created by Virtual Friends Team."
+    if custom_prompts:
+        full_prompt = custom_prompts + '\n' + full_prompt + "\nA:"
+    else:
+        full_prompt = base_prompt + '\n' + full_prompt + "\nA:"
 
-    # logger.info(full_prompt)
-
+    logger.info(full_prompt)
     return openai.Completion.create(
         model="text-davinci-003",
         prompt=full_prompt,

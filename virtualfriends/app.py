@@ -59,5 +59,5 @@ if __name__ == '__main__':
         from waitress import serve
         serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8107)))
     else:
-        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8106)))
+        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8108)))
 
