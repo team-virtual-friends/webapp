@@ -94,7 +94,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     else:
         full_prompt = base_prompt + '\n' + full_prompt + "\nA:"
 
-    # logger.info(full_prompt)
+    logger.info(full_prompt)
     return openai.Completion.create(
         model="text-davinci-003",
         prompt=full_prompt,
