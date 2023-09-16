@@ -151,7 +151,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         vf_response = ws_message_pb2.VfResponse()
         vf_response.stream_reply_message.CopyFrom(response)
         # vf_response.error.CopyFrom(custom_error(err))
-
+        logger.info("sending out: " + reply_text)
         ws.send(vf_response.SerializeToString())
 
     buffer = ""
@@ -170,7 +170,6 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         else:
             for msg in splited[:-1]:
                 buffer = buffer + msg
-            logger.info("buffer: " + buffer)
             send_reply(buffer, index, False)
             buffer = splited[-1]
             index += 1
