@@ -49,9 +49,9 @@
             <div class="masthead-content">
                 <div class="container px-5">
                     <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>
-                    <h2 class="masthead-subheading mb-0">Chat like in person!</h2>
+                    <h2 class="masthead-subheading mb-0">Chat with AI like in person!</h2>
 <!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>
+<!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>-->
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>
@@ -62,12 +62,13 @@
 
         <div class="clearfix"></div>
 
+
             <!-- Content section 2-->
         <section>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/mina-0910.png') }}" alt="..." /></div>
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/mina-0915.png') }}" alt="..." /></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
@@ -76,7 +77,7 @@
 <!--                            <h2 class="display-4">Chat with Mina!</h2>-->
 
                             <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=0) }}">Meet Mina!</a>
-                            <p>Mina is a k-pop star. </p>
+<!--                            <p>Mina is a k-pop star. </p>-->
                         </div>
                     </div>
                 </div>
@@ -87,12 +88,12 @@
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/yi.jpeg') }}" alt="..." /></div>
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/jack-0915.png') }}" alt="..." /></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=1) }}">Meet Yi!</a>
-                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=1) }}">Meet Jack!</a>
+<!--                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>-->
                         </div>
                     </div>
                 </div>
@@ -103,12 +104,28 @@
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/elena.png') }}" alt="..." /></div>
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/elena-0915.png') }}" alt="..." /></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
                             <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=2) }}">Meet Elena!</a>
-                                <p>Elena is taking vacation with her friends... </p>
+<!--                                <p>Elena is taking vacation with her friends... </p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/daniel-0915.png') }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', FriendIndex=3) }}">Meet Daniel!</a>
+<!--                                <p>Elena is taking vacation with her friends... </p>-->
                         </div>
                     </div>
                 </div>
