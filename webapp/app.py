@@ -1,4 +1,5 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+import os
+from flask import Flask, render_template, redirect, url_for, request, flash, render_template_string
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -7,11 +8,11 @@ from wtforms.validators import DataRequired, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 
-from google.cloud import bigquery
+from google.cloud import bigquery, storage
 from google.cloud.exceptions import Conflict
 from datetime import datetime
 from google.oauth2 import service_account
-import os
+import logging
 
 
 app = Flask(__name__)
@@ -20,6 +21,56 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+
+logger = logging.getLogger('gunicorn.error')
+
+unity_gcs_bucket = "vf-unity-data"
+unity_gcs_folders = [
+    "20230915195202-542cded-fc82bb4c",
+]
+unity_index_html_replacements = {
+    "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
+    "href=\"TemplateData/style.css\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/style.css') }}}}\"",
+    "href=\"manifest.webmanifest\"": "href=\"{{{{ url_for('static', filename='{folder_name}/manifest.webmanifest') }}}}\"",
+    "navigator.serviceWorker.register(\"ServiceWorker.js\");": "navigator.serviceWorker.register(\"{{{{ url_for('static', filename='{folder_name}/ServiceWorker.js') }}}}\");",
+    "var buildUrl = \"Build\";": "var buildUrl = \"{{{{ url_for('static', filename='{folder_name}/Build') }}}}\";",
+}
+
+def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
+    credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+    credentials = service_account.Credentials.from_service_account_file(credentials_path)
+    gcsClient = storage.Client(credentials=credentials)
+    bucket = gcsClient.get_bucket(bucket_name)
+
+    static_folder = "./static/"
+    static_folder_full_path = os.path.abspath(static_folder)
+    templates_folder = "./templates/"
+    templates_folder_full_path = os.path.abspath(templates_folder)
+
+    for folder_path in unity_gcs_folders:
+        local_folder = static_folder_full_path + '/' + folder_path
+        if os.path.exists(local_folder) and os.path.isdir(local_folder):
+            continue
+        blobs = bucket.list_blobs(prefix = folder_path)
+        for blob in blobs:
+            file_name = blob.name[len(folder_path) :]
+            local_path = local_folder + file_name
+            os.makedirs(os.path.dirname(local_path), exist_ok = True)
+            print(f"downloading f{local_path} ...")
+            blob.download_to_filename(local_path)
+
+        # scape the index.html.
+        with open(f"{static_folder_full_path}/{folder_path}/index.html") as read_file:
+            html = read_file.read()
+        for k, v in unity_index_html_replacements.items():
+            html = html.replace(k, v.format(folder_name=folder_path))
+        # move the index.html to templates.
+        with open(f"{templates_folder_full_path}/{folder_path}.html", "w") as write_file:
+            write_file.write(html)
+
+# load unity build data from GCS
+print("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
+load_all_unity_builds(unity_gcs_bucket, unity_gcs_folders)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,10 +106,12 @@ def load_user(user_id):
 @app.route('/game', methods=['GET'])
 def game():
     # Get the "FriendIndex" parameter from the URL query string
+    binary_index = request.args.get("BinaryIndex")
     friend_index = request.args.get('FriendIndex')
 
     # Use the "friend_index" variable as needed in your code
-    return render_template('game.html', FriendIndex=friend_index)  # Pass it to the template
+    template_name = unity_gcs_folders[int(binary_index)]
+    return render_template(f'{template_name}.html', FriendIndex=friend_index)  # Pass it to the template
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():
@@ -153,4 +206,5 @@ def healthz():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+
     app.run(debug=True, port=5125)
