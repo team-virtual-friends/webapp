@@ -36,6 +36,42 @@ unity_index_html_replacements = {
     "var buildUrl = \"Build\";": "var buildUrl = \"{{{{ url_for('static', filename='{folder_name}/Build') }}}}\";",
 }
 
+def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
+    credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+    credentials = service_account.Credentials.from_service_account_file(credentials_path)
+    gcsClient = storage.Client(credentials=credentials)
+    bucket = gcsClient.get_bucket(bucket_name)
+
+    static_folder = "./static/"
+    static_folder_full_path = os.path.abspath(static_folder)
+    templates_folder = "./templates/"
+    templates_folder_full_path = os.path.abspath(templates_folder)
+
+    for folder_path in unity_gcs_folders:
+        local_folder = static_folder_full_path + '/' + folder_path
+        if os.path.exists(local_folder) and os.path.isdir(local_folder):
+            continue
+        blobs = bucket.list_blobs(prefix = folder_path)
+        for blob in blobs:
+            file_name = blob.name[len(folder_path) :]
+            local_path = local_folder + file_name
+            os.makedirs(os.path.dirname(local_path), exist_ok = True)
+            print(f"downloading f{local_path} ...")
+            blob.download_to_filename(local_path)
+
+        # scape the index.html.
+        with open(f"{static_folder_full_path}/{folder_path}/index.html") as read_file:
+            html = read_file.read()
+        for k, v in unity_index_html_replacements.items():
+            html = html.replace(k, v.format(folder_name=folder_path))
+        # move the index.html to templates.
+        with open(f"{templates_folder_full_path}/{folder_path}.html", "w") as write_file:
+            write_file.write(html)
+
+# load unity build data from GCS
+print("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
+load_all_unity_builds(unity_gcs_bucket, unity_gcs_folders)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -167,47 +203,8 @@ def login():
 def healthz():
     return "Healthy", 200
 
-def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
-    credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
-    credentials = service_account.Credentials.from_service_account_file(credentials_path)
-    gcsClient = storage.Client(credentials=credentials)
-    bucket = gcsClient.get_bucket(bucket_name)
-
-    static_folder = "./static/"
-    static_folder_full_path = os.path.abspath(static_folder)
-    templates_folder = "./templates/"
-    templates_folder_full_path = os.path.abspath(templates_folder)
-    print(static_folder_full_path)
-
-    for folder_path in unity_gcs_folders:
-        local_folder = static_folder_full_path + '/' + folder_path
-        if os.path.exists(local_folder) and os.path.isdir(local_folder):
-            continue
-        blobs = bucket.list_blobs(prefix = folder_path)
-        for blob in blobs:
-            file_name = blob.name[len(folder_path) :]
-            local_path = local_folder + file_name
-            os.makedirs(os.path.dirname(local_path), exist_ok = True)
-            print(f"downloading f{local_path} ...")
-            blob.download_to_filename(local_path)
-
-        # scape the index.html.
-        print(f"{static_folder_full_path}/{folder_path}/index.html")
-        with open(f"{static_folder_full_path}/{folder_path}/index.html") as read_file:
-            html = read_file.read()
-        for k, v in unity_index_html_replacements.items():
-            html = html.replace(k, v.format(folder_name=folder_path))
-        # move the index.html to templates.
-        print(f"{templates_folder_full_path}/{folder_path}.html")
-        with open(f"{templates_folder_full_path}/{folder_path}.html", "w") as write_file:
-            write_file.write(html)
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    
-    # load unity build data from GCS
-    logger.info("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
-    load_all_unity_builds(unity_gcs_bucket, unity_gcs_folders)
 
     app.run(debug=True, port=5125)
