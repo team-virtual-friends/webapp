@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, request, flash, render_template_string
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
@@ -11,7 +12,7 @@ from google.cloud import bigquery, storage
 from google.cloud.exceptions import Conflict
 from datetime import datetime
 from google.oauth2 import service_account
-import os
+import logging
 
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-gcsClient = storage.Client()
+logger = logging.getLogger('gunicorn.error')
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = set([
@@ -161,20 +162,29 @@ def login():
 def healthz():
     return "Healthy", 200
 
-def load_unity_build_from_gcs(bucket_name:str, folder_path:str, local_dest:str):
+def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set, local:str):
+    credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+    credentials = service_account.Credentials.from_service_account_file(credentials_path)
+    gcsClient = storage.Client(credentials=credentials)
     bucket = gcsClient.get_bucket(bucket_name)
-    blobs = bucket.list_blobs(prefix = folder_path)
-    for blob in blobs:
-        local_path = os.path.join(local_dest, blob.name[len(folder_path) :])
-        os.makedirs(os.path.dirname(local_path), exist_ok = True)
-        blob.download_to_filename(local_path)
+
+    full_local = os.path.abspath(local)
+    print(full_local)
+    for folder_path in unity_gcs_folders:
+        blobs = bucket.list_blobs(prefix = folder_path)
+        for blob in blobs:
+            local_path = full_local + folder_path + blob.name[len(folder_path) :]
+            print(local_path)
+            print(os.path.dirname(local_path))
+            os.makedirs(os.path.dirname(local_path), exist_ok = True)
+            blob.download_to_filename(local_path)
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     
     # load unity build data from GCS
-    for gcs_folder in unity_gcs_folders:
-        load_unity_build_from_gcs(unity_gcs_bucket, gcs_folder, "templates")
+    logger.info("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
+    load_all_unity_builds(unity_gcs_bucket, unity_gcs_folders, "./templates/")
 
     app.run(debug=True, port=5125)
