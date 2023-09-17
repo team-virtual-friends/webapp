@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, render_template_string
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 
-from google.cloud import bigquery
+from google.cloud import bigquery, storage
 from google.cloud.exceptions import Conflict
 from datetime import datetime
 from google.oauth2 import service_account
@@ -20,6 +20,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+
+gcsClient = storage.Client()
+
+unity_gcs_bucket = "vf-unity-data"
+unity_gcs_folders = set([
+    "20230915195202-542cded-fc82bb4c",
+])
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -59,6 +66,10 @@ def game():
 
     # Use the "friend_index" variable as needed in your code
     return render_template('game.html', FriendIndex=friend_index)  # Pass it to the template
+
+@app.route('/game_blob', methods=['GET'])
+def game_blob():
+    return render_template("test.html")
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():
@@ -150,7 +161,20 @@ def login():
 def healthz():
     return "Healthy", 200
 
+def load_unity_build_from_gcs(bucket_name:str, folder_path:str, local_dest:str):
+    bucket = gcsClient.get_bucket(bucket_name)
+    blobs = bucket.list_blobs(prefix = folder_path)
+    for blob in blobs:
+        local_path = os.path.join(local_dest, blob.name[len(folder_path) :])
+        os.makedirs(os.path.dirname(local_path), exist_ok = True)
+        blob.download_to_filename(local_path)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+    
+    # load unity build data from GCS
+    for gcs_folder in unity_gcs_folders:
+        load_unity_build_from_gcs(unity_gcs_bucket, gcs_folder, "templates")
+
     app.run(debug=True, port=5125)
