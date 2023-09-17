@@ -13,6 +13,7 @@ from google.cloud.exceptions import Conflict
 from datetime import datetime
 from google.oauth2 import service_account
 import logging
+import concurrent.futures
 
 
 app = Flask(__name__)
@@ -47,10 +48,11 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
     templates_folder = "./templates/"
     templates_folder_full_path = os.path.abspath(templates_folder)
 
-    for folder_path in unity_gcs_folders:
+    # for folder_path in unity_gcs_folders:
+    def load_unity_build(folder_path:str):
         local_folder = static_folder_full_path + '/' + folder_path
         if os.path.exists(local_folder) and os.path.isdir(local_folder):
-            continue
+            return
         blobs = bucket.list_blobs(prefix = folder_path)
         for blob in blobs:
             file_name = blob.name[len(folder_path) :]
@@ -67,6 +69,14 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
         # move the index.html to templates.
         with open(f"{templates_folder_full_path}/{folder_path}.html", "w") as write_file:
             write_file.write(html)
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        futures = []
+        for folder_path in unity_gcs_folders:
+            futures.append(executor.submit(load_unity_build, folder_path))
+
+        for future in concurrent.futures.as_completed(futures):
+            pass
 
 # load unity build data from GCS
 print("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
