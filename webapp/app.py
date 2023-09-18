@@ -27,7 +27,9 @@ logger = logging.getLogger('gunicorn.error')
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20230915195202-542cded-fc82bb4c",
+    "20230917085156-6002ff9-86ae1806", # elena, daniel
+    "20230917111609-6002ff9-da700fec", # mina, jack
+    "20230917190831-6002ff9-aab7b687", # bunny, cat
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
@@ -49,10 +51,12 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
     templates_folder_full_path = os.path.abspath(templates_folder)
 
     # for folder_path in unity_gcs_folders:
-    def load_unity_build(folder_path:str):
+    def load_unity_build(folder_path:str) -> (str, bool):
+        if len(folder_path) == 0:
+            return (folder_path, False)
         local_folder = static_folder_full_path + '/' + folder_path
         if os.path.exists(local_folder) and os.path.isdir(local_folder):
-            return
+            return (folder_path, False)
         blobs = bucket.list_blobs(prefix = folder_path)
         for blob in blobs:
             file_name = blob.name[len(folder_path) :]
@@ -69,6 +73,7 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
         # move the index.html to templates.
         with open(f"{templates_folder_full_path}/{folder_path}.html", "w") as write_file:
             write_file.write(html)
+        return (folder_path, True)
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         futures = []
@@ -76,7 +81,11 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
             futures.append(executor.submit(load_unity_build, folder_path))
 
         for future in concurrent.futures.as_completed(futures):
-            pass
+            try:
+                result = future.result()
+                print(f"loaded {result[0]} result: {result[1]}")
+            except Exception as e:
+                print(f"failed to load coroutine result: {e}")
 
 # load unity build data from GCS
 print("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
