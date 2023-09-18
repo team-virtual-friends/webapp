@@ -14,6 +14,8 @@ from datetime import datetime
 from google.oauth2 import service_account
 import logging
 import concurrent.futures
+import re
+
 
 
 app = Flask(__name__)
@@ -199,8 +201,22 @@ def dashboard():
     return f'Welcome to the dashboard, {current_user.username}!'
 
 
+def is_mobile(user_agent):
+    mobile_keywords = ['mobile', 'android', 'iphone', 'ipad', 'windows phone']
+    user_agent = user_agent.lower()
+    for keyword in mobile_keywords:
+        if re.search(keyword, user_agent):
+            return True
+    return False
+
+
 @app.route('/', methods=['GET'])
 def home():
+    user_agent = request.headers.get('User-Agent')
+
+    if is_mobile(user_agent):
+        return render_template('mobile-index.html'), 200
+
     # if current_user.is_authenticated:
     #     return redirect(url_for('dashboard'))
     # else:
@@ -226,4 +242,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, port=5125)
+    app.run(debug=True, port=5127)
