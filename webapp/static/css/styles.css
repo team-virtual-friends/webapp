@@ -2887,6 +2887,8 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #ee0979;
 }
 
+
+
 .btn-secondary {
   --bs-btn-color: #000;
   --bs-btn-bg: #ff6a00;
@@ -2989,21 +2991,54 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #f8f9fa;
 }
 
+/*.btn-dark {*/
+/*  --bs-btn-color: #fff;*/
+/*  --bs-btn-bg: #212529;*/
+/*  --bs-btn-border-color: #212529;*/
+/*  --bs-btn-hover-color: #fff;*/
+/*  --bs-btn-hover-bg: #424649;*/
+/*  --bs-btn-hover-border-color: #373b3e;*/
+/*  --bs-btn-focus-shadow-rgb: 66, 70, 73;*/
+/*  --bs-btn-active-color: #fff;*/
+/*  --bs-btn-active-bg: #4d5154;*/
+/*  --bs-btn-active-border-color: #373b3e;*/
+/*  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);*/
+/*  --bs-btn-disabled-color: #fff;*/
+/*  --bs-btn-disabled-bg: #212529;*/
+/*  --bs-btn-disabled-border-color: #212529;*/
+
+/*  !* Set fixed width and height *!*/
+/*  width: 300px; !* Adjust the width to your preferred value *!*/
+/*  height: 70px; !* Adjust the height to your preferred value *!*/
+/*}*/
+
 .btn-dark {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #212529;
-  --bs-btn-border-color: #212529;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #424649;
-  --bs-btn-hover-border-color: #373b3e;
-  --bs-btn-focus-shadow-rgb: 66, 70, 73;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #4d5154;
-  --bs-btn-active-border-color: #373b3e;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #212529;
-  --bs-btn-disabled-border-color: #212529;
+  color: #fff;
+  background-color: #555555; /* Background color */
+  border-color: #212529; /* Border color */
+
+  /* Hover styles */
+  &:hover {
+    background-color: #666666; /* Hover background color */
+    border-color: #373b3e; /* Hover border color */
+  }
+
+  /* Active (clicked) styles */
+  &:active {
+    background-color: #4d5154; /* Active background color */
+    border-color: #373b3e; /* Active border color */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  }
+
+  /* Disabled styles */
+  &:disabled {
+    background-color: #212529; /* Disabled background color */
+    border-color: #212529; /* Disabled border color */
+  }
+
+  /* Set fixed width and height */
+  width: 300px; /* Adjust the width to your preferred value */
+  height: 70px; /* Adjust the height to your preferred value */
 }
 
 .btn-outline-primary {
@@ -10886,7 +10921,8 @@ header.masthead {
   overflow: hidden;
   padding-top: calc(7rem + 72px);
   padding-bottom: 7rem;
-  background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%);
+  background: linear-gradient(0deg, #333333 0%, #666666 100%); /* Change the colors to black and grey */
+  /*background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%);*/
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: scroll;
@@ -10906,7 +10942,8 @@ header.masthead .bg-circle {
   z-index: 0;
   position: absolute;
   border-radius: 100%;
-  background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
+  background: linear-gradient(0deg, #333333 0%, #666666 100%); /* Change the colors to black and grey */
+  /*background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);*/
 }
 header.masthead .bg-circle-1 {
   height: 90rem;
