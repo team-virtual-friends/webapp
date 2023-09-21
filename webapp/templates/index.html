@@ -49,9 +49,9 @@
             <div class="masthead-content">
                 <div class="container px-5">
                     <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>
-                    <h2 class="masthead-subheading mb-0">Chat with AI like in person!</h2>
+                    <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>
 <!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>
+                    <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>
@@ -76,7 +76,7 @@
 <!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
 <!--                            <h2 class="display-4">Chat with Mina!</h2>-->
 
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=1, FriendIndex=0) }}">Meet Mina!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=1, FriendIndex=0) }}">Meet Mina!</a>
 <!--                            <p>Mina is a k-pop star. </p>-->
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=1, FriendIndex=1) }}">Meet Jack!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=1, FriendIndex=1) }}">Meet Jack!</a>
 <!--                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>-->
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=0, FriendIndex=0) }}">Meet Elena!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, FriendIndex=0) }}">Meet Elena!</a>
 <!--                                <p>Elena is taking vacation with her friends... </p>-->
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=0, FriendIndex=1) }}">Meet Daniel!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, FriendIndex=1) }}">Meet Daniel!</a>
 <!--                                <p>Elena is taking vacation with her friends... </p>-->
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=2, FriendIndex=0) }}">Meet Bunny!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=2, FriendIndex=0) }}">Meet Bunny!</a>
 <!--                                <p>Elena is taking vacation with her friends... </p>-->
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=2, FriendIndex=1) }}">Meet Cat!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=2, FriendIndex=1) }}">Meet Cat!</a>
 <!--                                <p>Elena is taking vacation with her friends... </p>-->
                         </div>
                     </div>
@@ -166,6 +166,38 @@
             </div>
         </section>
 
+
+
+                <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/question.png') }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <a class="btn btn-dark btn-xl mt-5" >Coming Soon!</a>
+<!--                                <p>Elena is taking vacation with her friends... </p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- Feedback and Email Container (Combined) -->
+<div class="feedback-email-container text-center py-xxl-5">
+    <div class="combined-box">
+        <h3>Feedback</h3>
+        <p>We'd love to hear your thoughts! Please provide your feedback below:</p>
+        <form action="/submit_feedback" method="post"> <!-- Updated action attribute -->
+            <textarea name="feedback" rows="10" style="width: 60%;"></textarea>
+            <br>
+            <input type="email" name="email" placeholder="Your Email" style="width: 30%;">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
 
 
     <section class="centered-section">

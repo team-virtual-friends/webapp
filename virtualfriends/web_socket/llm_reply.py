@@ -8,6 +8,25 @@ from openai import ChatCompletion
 
 from . import prompts
 
+# For log chat history in BQ.
+from google.cloud import bigquery
+import os
+from google.oauth2 import service_account
+from datetime import datetime
+import asyncio
+
+# Load the BigQuery credentials and create a BigQuery client
+credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+print(credentials_path)
+
+credentials = service_account.Credentials.from_service_account_file(credentials_path)
+client = bigquery.Client(credentials=credentials)
+
+# Define your dataset and table names
+dataset_name = 'virtualfriends'
+table_name = 'chat_history'
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
@@ -73,6 +92,25 @@ def infer_reply(chronical_messages:list, character_name:str) -> str:
     # TODO: explore other index.
     return reply.choices[0].message.content
 
+
+async def log_chat_history(user_id, user_ip, character_id, chat_history, timestamp):
+    try:
+        # Create a reference to your dataset and table
+        dataset_ref = client.dataset(dataset_name)
+        table_ref = dataset_ref.table(table_name)
+        table = client.get_table(table_ref)
+
+        # Insert a new row into the table
+        row_to_insert = (user_id, user_ip, character_id, chat_history, timestamp)
+
+        client.insert_rows(table, [row_to_insert])
+
+        logger.info("Log chat history data successfully")
+
+    except Exception as e:
+        logger.info(f"An error occurred when logging chat history: {e}")
+
+
 def stream_infer_reply(chronical_messages:list, character_name:str, custom_prompts:str) -> Iterator:
     # logger.info("start gpt infer")
 
@@ -86,6 +124,17 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     #     )
 
     full_prompt = process_messages(chronical_messages)
+
+    # log chat history
+    current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    loop = asyncio.new_event_loop()
+    # Run the asynchronous function concurrently
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(log_chat_history("dummy", "dummy", character_name, full_prompt,  current_timestamp))
+    # Close the event loop
+    loop.close()
+
+
     base_prompt = prompts.character_prompts.get(character_name)
     if base_prompt is None:
         base_prompt = "You are an AI assistant created by Virtual Friends Team."

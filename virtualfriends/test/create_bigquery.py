@@ -13,13 +13,15 @@ client = bigquery.Client(credentials=credentials)
 
 # Define your dataset and table names
 dataset_name = 'virtualfriends'
-table_name = 'feedback_table'
+table_name = 'chat_history'
 
 # Define your table schema
 schema = [
-    bigquery.SchemaField("email", "STRING", mode="REQUIRED"),
-    bigquery.SchemaField("feedback", "STRING", mode="REQUIRED"),
-    bigquery.SchemaField("date", "TIMESTAMP", mode="REQUIRED")
+    bigquery.SchemaField("user_id", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("user_ip", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("character_id", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("chat_history", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("timestamp", "TIMESTAMP", mode="NULLABLE")
 ]
 
 # Create the table
