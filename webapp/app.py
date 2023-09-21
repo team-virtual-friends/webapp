@@ -234,6 +234,63 @@ def login():
 
     return render_template('login.html')
 
+
+@app.route('/show_flash_message')
+def show_flash_message():
+    return render_template('flash_message.html')
+
+@app.route('/submit_feedback', methods=['POST'])
+def submit_feedback():
+    if request.method == 'POST':
+        feedback = request.form['feedback']
+        email = request.form['email']
+        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
+        # Construct the BigQuery client
+        credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+        credentials = service_account.Credentials.from_service_account_file(credentials_path)
+
+        if credentials:
+            # Construct the BigQuery client
+            client = bigquery.Client(credentials=credentials)
+
+            # Define the target table using your dataset and table names
+            dataset_name = 'virtualfriends'  # Replace with your dataset name
+            table_name = 'feedback_table'  # Replace with your table name
+            table_id = f"{client.project}.{dataset_name}.{table_name}"
+
+            # The SQL query to insert data into the 'feedback_table'
+            sql = f"""
+                 INSERT INTO `{table_id}` (feedback, email, date)
+                 VALUES (@feedback, @email, @date)
+             """
+
+            # Set the query parameters
+            job_config = bigquery.QueryJobConfig(
+                query_parameters=[
+                    bigquery.ScalarQueryParameter("feedback", "STRING", feedback),
+                    bigquery.ScalarQueryParameter("email", "STRING", email),
+                    bigquery.ScalarQueryParameter("date", "TIMESTAMP", date)
+                ]
+            )
+
+            try:
+                client.query(sql, job_config=job_config).result()
+                flash("Thank you for your feedback!", "success")
+            except Conflict:  # Replace with the appropriate exception for duplicate entries
+                flash("You've already submitted feedback!", "warning")
+        else:
+            flash("BigQuery credentials not found. Data not submitted.", "danger")
+
+        return redirect(url_for('show_flash_message'))
+
+    flash("Thank you for your feedback!", 'success')
+
+    # Redirect to a page that displays the flash message
+    return redirect(url_for('show_flash_message'))
+
+
 @app.route('/healthz', methods=['GET'])
 def healthz():
     return "Healthy", 200
@@ -242,4 +299,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, port=5127)
+    app.run(debug=True, port=5128)
