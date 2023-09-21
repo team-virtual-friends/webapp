@@ -5,7 +5,7 @@ import concurrent.futures
 import os
 import tempfile
 
-from utils.read_write_lock import ReadWriteLock
+from utils.read_write_lock import RWLock
 
 import diskcache
 
@@ -26,7 +26,7 @@ gcsClient = storage.Client(credentials=credentials)
 
 cachePath = f"{tempfile.gettempdir()}/gcs_asset_bundles"
 gcsCache = diskcache.Cache(cachePath, expire=10800) # 3 hours
-gcsLock = ReadWriteLock()
+gcsLock = RWLock()
 
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
@@ -67,16 +67,16 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     ws.send(vf_response.SerializeToString())
 
 def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequest, ws):
-    chunk_size = 1048576 # 1Mb
+    chunk_size = 3 * 1048576 # 3Mb
 
     bucket = gcsClient.get_bucket("vf-unity-data")
     folder = "character-asset-bundles"
     asset_bundle_name = f"{request.publisher_name}_{request.character_name}"
     asset_bundle_path = f"{folder}/{request.runtime_platform}/{asset_bundle_name}"
 
-    gcsLock.acquire_read()
+    gcsLock.r_acquire()
     asset_bundle_bytes = gcsCache.get(asset_bundle_path)
-    gcsLock.release_read()
+    gcsLock.r_release()
 
     if asset_bundle_bytes is None:
         logger.info("downloading asset_bundle...")
@@ -89,11 +89,11 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
         
         asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
 
-        gcsLock.acquire_write()
+        gcsLock.w_acquire()
         # check again to see if the content has been written by another thread.
         if gcsCache.get(asset_bundle_path) is None:
             gcsCache.set(asset_bundle_path, asset_bundle_bytes)
-        gcsLock.release_write()
+        gcsLock.w_release()
     else:
         logger.info("found asset_bundle in cache, continue...")
 
@@ -103,7 +103,6 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
 
     index = 0
     for chunk in chunks:
-        logger.info(f"sending {index}th chunk")
         response = ws_message_pb2.DownloadAssetBundleResponse()
         response.chunk = chunk
         response.index = index
@@ -115,6 +114,7 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
         ws.send(vf_response.SerializeToString())
 
         index += 1
+    logger.info(f"{asset_bundle_path} chunks sent")
 
 def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
