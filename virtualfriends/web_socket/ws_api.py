@@ -3,6 +3,9 @@ import logging
 import re
 import concurrent.futures
 import os
+import tempfile
+
+import diskcache
 
 from google.oauth2 import service_account
 from google.cloud import texttospeech, storage
@@ -19,6 +22,7 @@ credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 gcsClient = storage.Client(credentials=credentials)
 
+gcsCache = diskcache.Cache(f"{tempfile.gettempdir()}/gcs_asset_bundles", expire=10800) # 3 hours
 
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
@@ -65,15 +69,22 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
     folder = "character-asset-bundles"
     asset_bundle_name = f"{request.publisher_name}_{request.character_name}"
     asset_bundle_path = f"{folder}/{request.runtime_platform}/{asset_bundle_name}"
-    asset_bundle_blob = bucket.blob(asset_bundle_path)
 
-    if not asset_bundle_blob.exists():
-        logger.error(f"{asset_bundle_path} does not exist")
-        ws.send(error_response(custom_error(Exception("blob does not exist"))))
-        return
-    
-    logger.info("downloading asset_bundle...")
-    asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
+    asset_bundle_bytes = gcsCache.get(asset_bundle_path)
+    if asset_bundle_bytes is None:
+        logger.info("downloading asset_bundle...")
+        asset_bundle_blob = bucket.blob(asset_bundle_path)
+
+        if not asset_bundle_blob.exists():
+            logger.error(f"{asset_bundle_path} does not exist")
+            ws.send(error_response(custom_error(Exception("blob does not exist"))))
+            return
+        
+        asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
+        gcsCache.set(asset_bundle_path, asset_bundle_bytes)
+    else:
+        logger.info("found asset_bundle in cache, continue...")
+
     chunks = [asset_bundle_bytes[i:i + chunk_size] for i in range(0, len(asset_bundle_bytes), chunk_size)]
     total_count = len(chunks)
     logger.info(f"total count of chunks {total_count}")
@@ -210,27 +221,6 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             response.action = action
             response.reply_wav = reply_wav
 
-            # with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-            #     futures = []
-            #     futures.append(executor.submit(infer_action_wrapper, reply_text))
-            #     futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
-
-            #     for future in concurrent.futures.as_completed(futures):
-            #         try:
-            #             result = future.result()
-            #             if result[0] == 'sentiment':
-            #                 response.sentiment = result[1]
-            #             elif result[0] == 'action':
-            #                 response.action = result[1]
-            #         except Exception as e:
-            #             pass
-
-            # (wav, err) = generate_voice(reply_text, request.voice_config)
-            # if len(err) > 0:
-            #     logger.error(err)
-            #     ws.send(error_response(custom_error(err)))
-            #     return
-            # response.reply_wav = wav
         # we need to send this even if the reply_text is empty
         # so client can know this is the last chunk of reply.
         response.chunk_index = index
