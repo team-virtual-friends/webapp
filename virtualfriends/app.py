@@ -44,6 +44,9 @@ def in_game_handler(ws):
             elif vf_request.HasField("stream_reply_message"):
                 stream_reply_speech_handler(vf_request.stream_reply_message, ws)
 
+            elif vf_request.HasField("download_asset_bundle"):
+                download_asset_bundle_handler(vf_request.download_asset_bundle, ws)
+
             else:
                 # Handle the case where the 'request' field is set but none of the specific fields are set
                 ws.send(error_response("Unknown request type"))

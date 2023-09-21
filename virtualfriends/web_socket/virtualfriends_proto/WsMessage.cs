@@ -24,47 +24,60 @@ namespace VirtualfriendsProto {
     static WsMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byKgAQoJ",
+            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byLzAQoJ",
             "VmZSZXF1ZXN0EjEKBGVjaG8YAiABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90",
             "by5FY2hvUmVxdWVzdEgAEk8KFHN0cmVhbV9yZXBseV9tZXNzYWdlGAYgASgL",
             "Mi8udmlydHVhbGZyaWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlNZXNzYWdlUmVx",
-            "dWVzdEgAQgkKB3JlcXVlc3RKBAgBEAIi0AEKClZmUmVzcG9uc2USMAoFZXJy",
-            "b3IYASABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90by5DdXN0b21FcnJvchIy",
-            "CgRlY2hvGAIgASgLMiIudmlydHVhbGZyaWVuZHNfcHJvdG8uRWNob1Jlc3Bv",
-            "bnNlSAASUAoUc3RyZWFtX3JlcGx5X21lc3NhZ2UYBiABKAsyMC52aXJ0dWFs",
-            "ZnJpZW5kc19wcm90by5TdHJlYW1SZXBseU1lc3NhZ2VSZXNwb25zZUgAQgoK",
-            "CHJlc3BvbnNlIiQKC0N1c3RvbUVycm9yEhUKDWVycm9yX21lc3NhZ2UYASAB",
-            "KAkiGwoLRWNob1JlcXVlc3QSDAoEdGV4dBgBIAEoCSIcCgxFY2hvUmVzcG9u",
-            "c2USDAoEdGV4dBgBIAEoCSJTCgtWb2ljZUNvbmZpZxIzCgp2b2ljZV90eXBl",
-            "GAEgASgOMh8udmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VUeXBlEg8KB29j",
-            "dGF2ZXMYAiABKAIiPQoPTWlycm9yZWRDb250ZW50EhYKDmNoYXJhY3Rlcl9u",
-            "YW1lGAEgASgJEhIKCnNlc3Npb25faWQYAiABKAMi9gEKGVN0cmVhbVJlcGx5",
-            "TWVzc2FnZVJlcXVlc3QSPwoQbWlycm9yZWRfY29udGVudBgBIAEoCzIlLnZp",
-            "cnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1qc29uX21l",
-            "c3NhZ2VzGAIgAygJEhYKDmN1c3RvbV9wcm9tcHRzGAcgASgJEg0KA3dhdhgD",
-            "IAEoDEgAEg4KBHRleHQYBiABKAlIABI3Cgx2b2ljZV9jb25maWcYBSABKAsy",
-            "IS52aXJ0dWFsZnJpZW5kc19wcm90by5Wb2ljZUNvbmZpZ0IRCg9jdXJyZW50",
-            "X21lc3NhZ2Ui6gEKGlN0cmVhbVJlcGx5TWVzc2FnZVJlc3BvbnNlEj8KEG1p",
-            "cnJvcmVkX2NvbnRlbnQYBiABKAsyJS52aXJ0dWFsZnJpZW5kc19wcm90by5N",
-            "aXJyb3JlZENvbnRlbnQSFQoNcmVwbHlfbWVzc2FnZRgBIAEoCRIOCgZhY3Rp",
-            "b24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5X3dhdhgEIAEo",
-            "DBIYChB0cmFuc2NyaWJlZF90ZXh0GAUgASgJEhMKC2NodW5rX2luZGV4GAcg",
-            "ASgFEg8KB2lzX3N0b3AYCCABKAgqiwEKCVZvaWNlVHlwZRIVChFWb2ljZVR5",
-            "cGVfSW52YWxpZBAAEhgKFFZvaWNlVHlwZV9Ob3JtYWxNYWxlEAESGwoXVm9p",
-            "Y2VUeXBlX05vcm1hbEZlbWFsZTEQAhIbChdWb2ljZVR5cGVfTm9ybWFsRmVt",
-            "YWxlMhADEhMKD1ZvaWNlQ29uZmlnX09yYxAEYgZwcm90bzM="));
+            "dWVzdEgAElEKFWRvd25sb2FkX2Fzc2V0X2J1bmRsZRgHIAEoCzIwLnZpcnR1",
+            "YWxmcmllbmRzX3Byb3RvLkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0SABC",
+            "CQoHcmVxdWVzdEoECAEQAiKkAgoKVmZSZXNwb25zZRIwCgVlcnJvchgBIAEo",
+            "CzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLkN1c3RvbUVycm9yEjIKBGVjaG8Y",
+            "AiABKAsyIi52aXJ0dWFsZnJpZW5kc19wcm90by5FY2hvUmVzcG9uc2VIABJQ",
+            "ChRzdHJlYW1fcmVwbHlfbWVzc2FnZRgGIAEoCzIwLnZpcnR1YWxmcmllbmRz",
+            "X3Byb3RvLlN0cmVhbVJlcGx5TWVzc2FnZVJlc3BvbnNlSAASUgoVZG93bmxv",
+            "YWRfYXNzZXRfYnVuZGxlGAcgASgLMjEudmlydHVhbGZyaWVuZHNfcHJvdG8u",
+            "RG93bmxvYWRBc3NldEJ1bmRsZVJlc3BvbnNlSABCCgoIcmVzcG9uc2UiJAoL",
+            "Q3VzdG9tRXJyb3ISFQoNZXJyb3JfbWVzc2FnZRgBIAEoCSJUCgtFY2hvUmVx",
+            "dWVzdBIMCgR0ZXh0GAEgASgJEjcKDHZvaWNlX2NvbmZpZxgCIAEoCzIhLnZp",
+            "cnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnIlIKDEVjaG9SZXNwb25z",
+            "ZRIMCgR0ZXh0GAEgASgJEg4KBmFjdGlvbhgCIAEoCRIRCglzZW50aW1lbnQY",
+            "AyABKAkSEQoJcmVwbHlfd2F2GAQgASgMIlMKC1ZvaWNlQ29uZmlnEjMKCnZv",
+            "aWNlX3R5cGUYASABKA4yHy52aXJ0dWFsZnJpZW5kc19wcm90by5Wb2ljZVR5",
+            "cGUSDwoHb2N0YXZlcxgCIAEoAiI9Cg9NaXJyb3JlZENvbnRlbnQSFgoOY2hh",
+            "cmFjdGVyX25hbWUYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEoAyL2AQoZU3Ry",
+            "ZWFtUmVwbHlNZXNzYWdlUmVxdWVzdBI/ChBtaXJyb3JlZF9jb250ZW50GAEg",
+            "ASgLMiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRDb250ZW50EhUK",
+            "DWpzb25fbWVzc2FnZXMYAiADKAkSFgoOY3VzdG9tX3Byb21wdHMYByABKAkS",
+            "DQoDd2F2GAMgASgMSAASDgoEdGV4dBgGIAEoCUgAEjcKDHZvaWNlX2NvbmZp",
+            "ZxgFIAEoCzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnQhEK",
+            "D2N1cnJlbnRfbWVzc2FnZSLqAQoaU3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9u",
+            "c2USPwoQbWlycm9yZWRfY29udGVudBgGIAEoCzIlLnZpcnR1YWxmcmllbmRz",
+            "X3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1yZXBseV9tZXNzYWdlGAEgASgJ",
+            "Eg4KBmFjdGlvbhgCIAEoCRIRCglzZW50aW1lbnQYAyABKAkSEQoJcmVwbHlf",
+            "d2F2GAQgASgMEhgKEHRyYW5zY3JpYmVkX3RleHQYBSABKAkSEwoLY2h1bmtf",
+            "aW5kZXgYByABKAUSDwoHaXNfc3RvcBgIIAEoCCJmChpEb3dubG9hZEFzc2V0",
+            "QnVuZGxlUmVxdWVzdBIWCg5wdWJsaXNoZXJfbmFtZRgBIAEoCRIWCg5jaGFy",
+            "YWN0ZXJfbmFtZRgCIAEoCRIYChBydW50aW1lX3BsYXRmb3JtGAMgASgJIlAK",
+            "G0Rvd25sb2FkQXNzZXRCdW5kbGVSZXNwb25zZRINCgVjaHVuaxgBIAEoDBIN",
+            "CgVpbmRleBgCIAEoBRITCgt0b3RhbF9jb3VudBgDIAEoBSqLAQoJVm9pY2VU",
+            "eXBlEhUKEVZvaWNlVHlwZV9JbnZhbGlkEAASGAoUVm9pY2VUeXBlX05vcm1h",
+            "bE1hbGUQARIbChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMRACEhsKF1ZvaWNl",
+            "VHlwZV9Ob3JtYWxGZW1hbGUyEAMSEwoPVm9pY2VDb25maWdfT3JjEARiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage" }, new[]{ "Request" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage" }, new[]{ "Response" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle" }, new[]{ "Request" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage", "DownloadAssetBundle" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text", "VoiceConfig" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text", "Action", "Sentiment", "ReplyWav" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "SessionId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "CustomPrompts", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadAssetBundleRequest), global::VirtualfriendsProto.DownloadAssetBundleRequest.Parser, new[]{ "PublisherName", "CharacterName", "RuntimePlatform" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadAssetBundleResponse), global::VirtualfriendsProto.DownloadAssetBundleResponse.Parser, new[]{ "Chunk", "Index", "TotalCount" }, null, null, null, null)
           }));
     }
     #endregion
@@ -86,7 +99,7 @@ namespace VirtualfriendsProto {
 
   #region Messages
   /// <summary>
-  /// Next tag: 7
+  /// Next tag: 8
   /// </summary>
   public sealed partial class VfRequest : pb::IMessage<VfRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -129,6 +142,9 @@ namespace VirtualfriendsProto {
         case RequestOneofCase.StreamReplyMessage:
           StreamReplyMessage = other.StreamReplyMessage.Clone();
           break;
+        case RequestOneofCase.DownloadAssetBundle:
+          DownloadAssetBundle = other.DownloadAssetBundle.Clone();
+          break;
       }
 
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -164,12 +180,25 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "download_asset_bundle" field.</summary>
+    public const int DownloadAssetBundleFieldNumber = 7;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.DownloadAssetBundleRequest DownloadAssetBundle {
+      get { return requestCase_ == RequestOneofCase.DownloadAssetBundle ? (global::VirtualfriendsProto.DownloadAssetBundleRequest) request_ : null; }
+      set {
+        request_ = value;
+        requestCase_ = value == null ? RequestOneofCase.None : RequestOneofCase.DownloadAssetBundle;
+      }
+    }
+
     private object request_;
     /// <summary>Enum of possible cases for the "request" oneof.</summary>
     public enum RequestOneofCase {
       None = 0,
       Echo = 2,
       StreamReplyMessage = 6,
+      DownloadAssetBundle = 7,
     }
     private RequestOneofCase requestCase_ = RequestOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -202,6 +231,7 @@ namespace VirtualfriendsProto {
       }
       if (!object.Equals(Echo, other.Echo)) return false;
       if (!object.Equals(StreamReplyMessage, other.StreamReplyMessage)) return false;
+      if (!object.Equals(DownloadAssetBundle, other.DownloadAssetBundle)) return false;
       if (RequestCase != other.RequestCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -212,6 +242,7 @@ namespace VirtualfriendsProto {
       int hash = 1;
       if (requestCase_ == RequestOneofCase.Echo) hash ^= Echo.GetHashCode();
       if (requestCase_ == RequestOneofCase.StreamReplyMessage) hash ^= StreamReplyMessage.GetHashCode();
+      if (requestCase_ == RequestOneofCase.DownloadAssetBundle) hash ^= DownloadAssetBundle.GetHashCode();
       hash ^= (int) requestCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -239,6 +270,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(50);
         output.WriteMessage(StreamReplyMessage);
       }
+      if (requestCase_ == RequestOneofCase.DownloadAssetBundle) {
+        output.WriteRawTag(58);
+        output.WriteMessage(DownloadAssetBundle);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -257,6 +292,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(50);
         output.WriteMessage(StreamReplyMessage);
       }
+      if (requestCase_ == RequestOneofCase.DownloadAssetBundle) {
+        output.WriteRawTag(58);
+        output.WriteMessage(DownloadAssetBundle);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -272,6 +311,9 @@ namespace VirtualfriendsProto {
       }
       if (requestCase_ == RequestOneofCase.StreamReplyMessage) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(StreamReplyMessage);
+      }
+      if (requestCase_ == RequestOneofCase.DownloadAssetBundle) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DownloadAssetBundle);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -297,6 +339,12 @@ namespace VirtualfriendsProto {
             StreamReplyMessage = new global::VirtualfriendsProto.StreamReplyMessageRequest();
           }
           StreamReplyMessage.MergeFrom(other.StreamReplyMessage);
+          break;
+        case RequestOneofCase.DownloadAssetBundle:
+          if (DownloadAssetBundle == null) {
+            DownloadAssetBundle = new global::VirtualfriendsProto.DownloadAssetBundleRequest();
+          }
+          DownloadAssetBundle.MergeFrom(other.DownloadAssetBundle);
           break;
       }
 
@@ -333,6 +381,15 @@ namespace VirtualfriendsProto {
             StreamReplyMessage = subBuilder;
             break;
           }
+          case 58: {
+            global::VirtualfriendsProto.DownloadAssetBundleRequest subBuilder = new global::VirtualfriendsProto.DownloadAssetBundleRequest();
+            if (requestCase_ == RequestOneofCase.DownloadAssetBundle) {
+              subBuilder.MergeFrom(DownloadAssetBundle);
+            }
+            input.ReadMessage(subBuilder);
+            DownloadAssetBundle = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -366,6 +423,15 @@ namespace VirtualfriendsProto {
             StreamReplyMessage = subBuilder;
             break;
           }
+          case 58: {
+            global::VirtualfriendsProto.DownloadAssetBundleRequest subBuilder = new global::VirtualfriendsProto.DownloadAssetBundleRequest();
+            if (requestCase_ == RequestOneofCase.DownloadAssetBundle) {
+              subBuilder.MergeFrom(DownloadAssetBundle);
+            }
+            input.ReadMessage(subBuilder);
+            DownloadAssetBundle = subBuilder;
+            break;
+          }
         }
       }
     }
@@ -374,7 +440,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 7
+  /// Next tag: 8
   /// </summary>
   public sealed partial class VfResponse : pb::IMessage<VfResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -417,6 +483,9 @@ namespace VirtualfriendsProto {
           break;
         case ResponseOneofCase.StreamReplyMessage:
           StreamReplyMessage = other.StreamReplyMessage.Clone();
+          break;
+        case ResponseOneofCase.DownloadAssetBundle:
+          DownloadAssetBundle = other.DownloadAssetBundle.Clone();
           break;
       }
 
@@ -465,12 +534,25 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "download_asset_bundle" field.</summary>
+    public const int DownloadAssetBundleFieldNumber = 7;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.DownloadAssetBundleResponse DownloadAssetBundle {
+      get { return responseCase_ == ResponseOneofCase.DownloadAssetBundle ? (global::VirtualfriendsProto.DownloadAssetBundleResponse) response_ : null; }
+      set {
+        response_ = value;
+        responseCase_ = value == null ? ResponseOneofCase.None : ResponseOneofCase.DownloadAssetBundle;
+      }
+    }
+
     private object response_;
     /// <summary>Enum of possible cases for the "response" oneof.</summary>
     public enum ResponseOneofCase {
       None = 0,
       Echo = 2,
       StreamReplyMessage = 6,
+      DownloadAssetBundle = 7,
     }
     private ResponseOneofCase responseCase_ = ResponseOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -504,6 +586,7 @@ namespace VirtualfriendsProto {
       if (!object.Equals(Error, other.Error)) return false;
       if (!object.Equals(Echo, other.Echo)) return false;
       if (!object.Equals(StreamReplyMessage, other.StreamReplyMessage)) return false;
+      if (!object.Equals(DownloadAssetBundle, other.DownloadAssetBundle)) return false;
       if (ResponseCase != other.ResponseCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -515,6 +598,7 @@ namespace VirtualfriendsProto {
       if (error_ != null) hash ^= Error.GetHashCode();
       if (responseCase_ == ResponseOneofCase.Echo) hash ^= Echo.GetHashCode();
       if (responseCase_ == ResponseOneofCase.StreamReplyMessage) hash ^= StreamReplyMessage.GetHashCode();
+      if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) hash ^= DownloadAssetBundle.GetHashCode();
       hash ^= (int) responseCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -546,6 +630,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(50);
         output.WriteMessage(StreamReplyMessage);
       }
+      if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) {
+        output.WriteRawTag(58);
+        output.WriteMessage(DownloadAssetBundle);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -568,6 +656,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(50);
         output.WriteMessage(StreamReplyMessage);
       }
+      if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) {
+        output.WriteRawTag(58);
+        output.WriteMessage(DownloadAssetBundle);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -586,6 +678,9 @@ namespace VirtualfriendsProto {
       }
       if (responseCase_ == ResponseOneofCase.StreamReplyMessage) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(StreamReplyMessage);
+      }
+      if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DownloadAssetBundle);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -617,6 +712,12 @@ namespace VirtualfriendsProto {
             StreamReplyMessage = new global::VirtualfriendsProto.StreamReplyMessageResponse();
           }
           StreamReplyMessage.MergeFrom(other.StreamReplyMessage);
+          break;
+        case ResponseOneofCase.DownloadAssetBundle:
+          if (DownloadAssetBundle == null) {
+            DownloadAssetBundle = new global::VirtualfriendsProto.DownloadAssetBundleResponse();
+          }
+          DownloadAssetBundle.MergeFrom(other.DownloadAssetBundle);
           break;
       }
 
@@ -660,6 +761,15 @@ namespace VirtualfriendsProto {
             StreamReplyMessage = subBuilder;
             break;
           }
+          case 58: {
+            global::VirtualfriendsProto.DownloadAssetBundleResponse subBuilder = new global::VirtualfriendsProto.DownloadAssetBundleResponse();
+            if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) {
+              subBuilder.MergeFrom(DownloadAssetBundle);
+            }
+            input.ReadMessage(subBuilder);
+            DownloadAssetBundle = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -698,6 +808,15 @@ namespace VirtualfriendsProto {
             }
             input.ReadMessage(subBuilder);
             StreamReplyMessage = subBuilder;
+            break;
+          }
+          case 58: {
+            global::VirtualfriendsProto.DownloadAssetBundleResponse subBuilder = new global::VirtualfriendsProto.DownloadAssetBundleResponse();
+            if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) {
+              subBuilder.MergeFrom(DownloadAssetBundle);
+            }
+            input.ReadMessage(subBuilder);
+            DownloadAssetBundle = subBuilder;
             break;
           }
         }
@@ -900,7 +1019,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 2
+  /// Next tag: 3
   /// </summary>
   public sealed partial class EchoRequest : pb::IMessage<EchoRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -937,6 +1056,7 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EchoRequest(EchoRequest other) : this() {
       text_ = other.text_;
+      voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -958,6 +1078,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "voice_config" field.</summary>
+    public const int VoiceConfigFieldNumber = 2;
+    private global::VirtualfriendsProto.VoiceConfig voiceConfig_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.VoiceConfig VoiceConfig {
+      get { return voiceConfig_; }
+      set {
+        voiceConfig_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -974,6 +1106,7 @@ namespace VirtualfriendsProto {
         return true;
       }
       if (Text != other.Text) return false;
+      if (!object.Equals(VoiceConfig, other.VoiceConfig)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -982,6 +1115,7 @@ namespace VirtualfriendsProto {
     public override int GetHashCode() {
       int hash = 1;
       if (Text.Length != 0) hash ^= Text.GetHashCode();
+      if (voiceConfig_ != null) hash ^= VoiceConfig.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1004,6 +1138,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(10);
         output.WriteString(Text);
       }
+      if (voiceConfig_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(VoiceConfig);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1018,6 +1156,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(10);
         output.WriteString(Text);
       }
+      if (voiceConfig_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(VoiceConfig);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1030,6 +1172,9 @@ namespace VirtualfriendsProto {
       int size = 0;
       if (Text.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Text);
+      }
+      if (voiceConfig_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VoiceConfig);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1045,6 +1190,12 @@ namespace VirtualfriendsProto {
       }
       if (other.Text.Length != 0) {
         Text = other.Text;
+      }
+      if (other.voiceConfig_ != null) {
+        if (voiceConfig_ == null) {
+          VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+        }
+        VoiceConfig.MergeFrom(other.VoiceConfig);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1063,6 +1214,13 @@ namespace VirtualfriendsProto {
             break;
           case 10: {
             Text = input.ReadString();
+            break;
+          }
+          case 18: {
+            if (voiceConfig_ == null) {
+              VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+            }
+            input.ReadMessage(VoiceConfig);
             break;
           }
         }
@@ -1084,6 +1242,13 @@ namespace VirtualfriendsProto {
             Text = input.ReadString();
             break;
           }
+          case 18: {
+            if (voiceConfig_ == null) {
+              VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+            }
+            input.ReadMessage(VoiceConfig);
+            break;
+          }
         }
       }
     }
@@ -1092,7 +1257,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 2
+  /// Next tag: 5
   /// </summary>
   public sealed partial class EchoResponse : pb::IMessage<EchoResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -1129,6 +1294,9 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EchoResponse(EchoResponse other) : this() {
       text_ = other.text_;
+      action_ = other.action_;
+      sentiment_ = other.sentiment_;
+      replyWav_ = other.replyWav_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1150,6 +1318,42 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "action" field.</summary>
+    public const int ActionFieldNumber = 2;
+    private string action_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Action {
+      get { return action_; }
+      set {
+        action_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "sentiment" field.</summary>
+    public const int SentimentFieldNumber = 3;
+    private string sentiment_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Sentiment {
+      get { return sentiment_; }
+      set {
+        sentiment_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "reply_wav" field.</summary>
+    public const int ReplyWavFieldNumber = 4;
+    private pb::ByteString replyWav_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString ReplyWav {
+      get { return replyWav_; }
+      set {
+        replyWav_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1166,6 +1370,9 @@ namespace VirtualfriendsProto {
         return true;
       }
       if (Text != other.Text) return false;
+      if (Action != other.Action) return false;
+      if (Sentiment != other.Sentiment) return false;
+      if (ReplyWav != other.ReplyWav) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1174,6 +1381,9 @@ namespace VirtualfriendsProto {
     public override int GetHashCode() {
       int hash = 1;
       if (Text.Length != 0) hash ^= Text.GetHashCode();
+      if (Action.Length != 0) hash ^= Action.GetHashCode();
+      if (Sentiment.Length != 0) hash ^= Sentiment.GetHashCode();
+      if (ReplyWav.Length != 0) hash ^= ReplyWav.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1196,6 +1406,18 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(10);
         output.WriteString(Text);
       }
+      if (Action.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Action);
+      }
+      if (Sentiment.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Sentiment);
+      }
+      if (ReplyWav.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteBytes(ReplyWav);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1210,6 +1432,18 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(10);
         output.WriteString(Text);
       }
+      if (Action.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Action);
+      }
+      if (Sentiment.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Sentiment);
+      }
+      if (ReplyWav.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteBytes(ReplyWav);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1222,6 +1456,15 @@ namespace VirtualfriendsProto {
       int size = 0;
       if (Text.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Text);
+      }
+      if (Action.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Action);
+      }
+      if (Sentiment.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Sentiment);
+      }
+      if (ReplyWav.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(ReplyWav);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1237,6 +1480,15 @@ namespace VirtualfriendsProto {
       }
       if (other.Text.Length != 0) {
         Text = other.Text;
+      }
+      if (other.Action.Length != 0) {
+        Action = other.Action;
+      }
+      if (other.Sentiment.Length != 0) {
+        Sentiment = other.Sentiment;
+      }
+      if (other.ReplyWav.Length != 0) {
+        ReplyWav = other.ReplyWav;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1257,6 +1509,18 @@ namespace VirtualfriendsProto {
             Text = input.ReadString();
             break;
           }
+          case 18: {
+            Action = input.ReadString();
+            break;
+          }
+          case 26: {
+            Sentiment = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReplyWav = input.ReadBytes();
+            break;
+          }
         }
       }
     #endif
@@ -1274,6 +1538,18 @@ namespace VirtualfriendsProto {
             break;
           case 10: {
             Text = input.ReadString();
+            break;
+          }
+          case 18: {
+            Action = input.ReadString();
+            break;
+          }
+          case 26: {
+            Sentiment = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReplyWav = input.ReadBytes();
             break;
           }
         }
@@ -2641,6 +2917,538 @@ namespace VirtualfriendsProto {
           }
           case 64: {
             IsStop = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 4
+  /// </summary>
+  public sealed partial class DownloadAssetBundleRequest : pb::IMessage<DownloadAssetBundleRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DownloadAssetBundleRequest> _parser = new pb::MessageParser<DownloadAssetBundleRequest>(() => new DownloadAssetBundleRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DownloadAssetBundleRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[9]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DownloadAssetBundleRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DownloadAssetBundleRequest(DownloadAssetBundleRequest other) : this() {
+      publisherName_ = other.publisherName_;
+      characterName_ = other.characterName_;
+      runtimePlatform_ = other.runtimePlatform_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DownloadAssetBundleRequest Clone() {
+      return new DownloadAssetBundleRequest(this);
+    }
+
+    /// <summary>Field number for the "publisher_name" field.</summary>
+    public const int PublisherNameFieldNumber = 1;
+    private string publisherName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string PublisherName {
+      get { return publisherName_; }
+      set {
+        publisherName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "character_name" field.</summary>
+    public const int CharacterNameFieldNumber = 2;
+    private string characterName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CharacterName {
+      get { return characterName_; }
+      set {
+        characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "runtime_platform" field.</summary>
+    public const int RuntimePlatformFieldNumber = 3;
+    private string runtimePlatform_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RuntimePlatform {
+      get { return runtimePlatform_; }
+      set {
+        runtimePlatform_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DownloadAssetBundleRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DownloadAssetBundleRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (PublisherName != other.PublisherName) return false;
+      if (CharacterName != other.CharacterName) return false;
+      if (RuntimePlatform != other.RuntimePlatform) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (PublisherName.Length != 0) hash ^= PublisherName.GetHashCode();
+      if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+      if (RuntimePlatform.Length != 0) hash ^= RuntimePlatform.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (PublisherName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(PublisherName);
+      }
+      if (CharacterName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(CharacterName);
+      }
+      if (RuntimePlatform.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RuntimePlatform);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (PublisherName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(PublisherName);
+      }
+      if (CharacterName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(CharacterName);
+      }
+      if (RuntimePlatform.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RuntimePlatform);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (PublisherName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(PublisherName);
+      }
+      if (CharacterName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
+      }
+      if (RuntimePlatform.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RuntimePlatform);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DownloadAssetBundleRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.PublisherName.Length != 0) {
+        PublisherName = other.PublisherName;
+      }
+      if (other.CharacterName.Length != 0) {
+        CharacterName = other.CharacterName;
+      }
+      if (other.RuntimePlatform.Length != 0) {
+        RuntimePlatform = other.RuntimePlatform;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            PublisherName = input.ReadString();
+            break;
+          }
+          case 18: {
+            CharacterName = input.ReadString();
+            break;
+          }
+          case 26: {
+            RuntimePlatform = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            PublisherName = input.ReadString();
+            break;
+          }
+          case 18: {
+            CharacterName = input.ReadString();
+            break;
+          }
+          case 26: {
+            RuntimePlatform = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 4
+  /// </summary>
+  public sealed partial class DownloadAssetBundleResponse : pb::IMessage<DownloadAssetBundleResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DownloadAssetBundleResponse> _parser = new pb::MessageParser<DownloadAssetBundleResponse>(() => new DownloadAssetBundleResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DownloadAssetBundleResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[10]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DownloadAssetBundleResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DownloadAssetBundleResponse(DownloadAssetBundleResponse other) : this() {
+      chunk_ = other.chunk_;
+      index_ = other.index_;
+      totalCount_ = other.totalCount_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DownloadAssetBundleResponse Clone() {
+      return new DownloadAssetBundleResponse(this);
+    }
+
+    /// <summary>Field number for the "chunk" field.</summary>
+    public const int ChunkFieldNumber = 1;
+    private pb::ByteString chunk_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString Chunk {
+      get { return chunk_; }
+      set {
+        chunk_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "index" field.</summary>
+    public const int IndexFieldNumber = 2;
+    private int index_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Index {
+      get { return index_; }
+      set {
+        index_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "total_count" field.</summary>
+    public const int TotalCountFieldNumber = 3;
+    private int totalCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int TotalCount {
+      get { return totalCount_; }
+      set {
+        totalCount_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DownloadAssetBundleResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DownloadAssetBundleResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Chunk != other.Chunk) return false;
+      if (Index != other.Index) return false;
+      if (TotalCount != other.TotalCount) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Chunk.Length != 0) hash ^= Chunk.GetHashCode();
+      if (Index != 0) hash ^= Index.GetHashCode();
+      if (TotalCount != 0) hash ^= TotalCount.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Chunk.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteBytes(Chunk);
+      }
+      if (Index != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Index);
+      }
+      if (TotalCount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(TotalCount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Chunk.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteBytes(Chunk);
+      }
+      if (Index != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Index);
+      }
+      if (TotalCount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(TotalCount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Chunk.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Chunk);
+      }
+      if (Index != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
+      }
+      if (TotalCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalCount);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DownloadAssetBundleResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Chunk.Length != 0) {
+        Chunk = other.Chunk;
+      }
+      if (other.Index != 0) {
+        Index = other.Index;
+      }
+      if (other.TotalCount != 0) {
+        TotalCount = other.TotalCount;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Chunk = input.ReadBytes();
+            break;
+          }
+          case 16: {
+            Index = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            TotalCount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Chunk = input.ReadBytes();
+            break;
+          }
+          case 16: {
+            Index = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            TotalCount = input.ReadInt32();
             break;
           }
         }

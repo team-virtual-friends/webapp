@@ -2,9 +2,10 @@ import json
 import logging
 import re
 import concurrent.futures
-import time
+import os
 
-from google.cloud import texttospeech
+from google.oauth2 import service_account
+from google.cloud import texttospeech, storage
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -13,6 +14,11 @@ from . import llm_reply
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
+
+credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+credentials = service_account.Credentials.from_service_account_file(credentials_path)
+gcsClient = storage.Client(credentials=credentials)
+
 
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
@@ -34,13 +40,58 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     logger.info("echo: " + echo_request.text)
 
     echo_response = ws_message_pb2.EchoResponse()
+
+    (sentiment, action, reply_wav, err) = gen_reply_package(echo_request.text, echo_request.voice_config)
+
+    if err is not None:
+        ws.send(error_response(err))
+        return
+
     echo_response.text = echo_request.text
+    echo_response.sentiment = sentiment
+    echo_response.action = action
+    echo_response.reply_wav = reply_wav
 
     vf_response = ws_message_pb2.VfResponse()
     vf_response.echo.CopyFrom(echo_response)
     # vf_response.error.CopyFrom(custom_error(err))
     
     ws.send(vf_response.SerializeToString())
+
+def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequest, ws):
+    chunk_size = 1048576 # 1Mb
+
+    bucket = gcsClient.get_bucket("vf-unity-data")
+    folder = "character-asset-bundles"
+    asset_bundle_name = f"{request.publisher_name}_{request.character_name}"
+    asset_bundle_path = f"{folder}/{request.runtime_platform}/{asset_bundle_name}"
+    asset_bundle_blob = bucket.blob(asset_bundle_path)
+
+    if not asset_bundle_blob.exists():
+        logger.error(f"{asset_bundle_path} does not exist")
+        ws.send(error_response(custom_error(Exception("blob does not exist"))))
+        return
+    
+    logger.info("downloading asset_bundle...")
+    asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
+    chunks = [asset_bundle_bytes[i:i + chunk_size] for i in range(0, len(asset_bundle_bytes), chunk_size)]
+    total_count = len(chunks)
+    logger.info(f"total count of chunks {total_count}")
+
+    index = 0
+    for chunk in chunks:
+        logger.info(f"sending {index}th chunk")
+        response = ws_message_pb2.DownloadAssetBundleResponse()
+        response.chunk = chunk
+        response.index = index
+        response.total_count = total_count
+
+        vf_response = ws_message_pb2.VfResponse()
+        vf_response.download_asset_bundle.CopyFrom(response)
+
+        ws.send(vf_response.SerializeToString())
+
+        index += 1
 
 def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
@@ -84,6 +135,34 @@ def generate_voice(text, voice_config) -> (bytes, str):
         return (voice_bytes, "")
     else:
         return (speech.tweak_sound(voice_bytes, voice_config.octaves), "")
+    
+def gen_reply_package(reply_text:str, voice_config) -> (str, str, bytes, ws_message_pb2.CustomError):
+    sentiment = ""
+    action = ""
+    reply_wav = None
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        futures = []
+        futures.append(executor.submit(infer_action_wrapper, reply_text))
+        futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
+
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                result = future.result()
+                if result[0] == 'sentiment':
+                    sentiment = result[1]
+                elif result[0] == 'action':
+                    action = result[1]
+            except Exception as e:
+                pass
+
+    (wav, err) = generate_voice(reply_text, voice_config)
+    if len(err) > 0:
+        logger.error(err)
+        err = custom_error(err)
+        return (sentiment, action, reply_wav, err)
+    reply_wav = wav
+    return (sentiment, action, reply_wav, None)
 
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, ws):
     text = ""
@@ -119,30 +198,39 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         response.mirrored_content.CopyFrom(request.mirrored_content)
         if len(reply_text) > 0:
             response.reply_message = reply_text
-
-            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-                futures = []
-                futures.append(executor.submit(infer_action_wrapper, reply_text))
-                futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
-
-                for future in concurrent.futures.as_completed(futures):
-                    try:
-                        result = future.result()
-                        if result[0] == 'sentiment':
-                            response.sentiment = result[1]
-                        elif result[0] == 'action':
-                            response.action = result[1]
-                    except Exception as e:
-                        pass
-
             if index == 0:
                 response.transcribed_text = text
-            (wav, err) = generate_voice(reply_text, request.voice_config)
-            if len(err) > 0:
+
+            (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config)
+            if err is not None > 0:
                 logger.error(err)
                 ws.send(error_response(custom_error(err)))
                 return
-            response.reply_wav = wav
+            response.sentiment = sentiment
+            response.action = action
+            response.reply_wav = reply_wav
+
+            # with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            #     futures = []
+            #     futures.append(executor.submit(infer_action_wrapper, reply_text))
+            #     futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
+
+            #     for future in concurrent.futures.as_completed(futures):
+            #         try:
+            #             result = future.result()
+            #             if result[0] == 'sentiment':
+            #                 response.sentiment = result[1]
+            #             elif result[0] == 'action':
+            #                 response.action = result[1]
+            #         except Exception as e:
+            #             pass
+
+            # (wav, err) = generate_voice(reply_text, request.voice_config)
+            # if len(err) > 0:
+            #     logger.error(err)
+            #     ws.send(error_response(custom_error(err)))
+            #     return
+            # response.reply_wav = wav
         # we need to send this even if the reply_text is empty
         # so client can know this is the last chunk of reply.
         response.chunk_index = index

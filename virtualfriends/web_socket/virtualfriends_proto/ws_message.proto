@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package virtualfriends_proto;
 
-// Next tag: 7
+// Next tag: 8
 message VfRequest {
     reserved 1;
 
@@ -10,10 +10,12 @@ message VfRequest {
         EchoRequest echo = 2;
 
         StreamReplyMessageRequest stream_reply_message = 6;
+
+        DownloadAssetBundleRequest download_asset_bundle = 7;
     }
 }
 
-// Next tag: 7
+// Next tag: 8
 message VfResponse {
     CustomError error = 1;
 
@@ -21,6 +23,8 @@ message VfResponse {
         EchoResponse echo = 2;
 
         StreamReplyMessageResponse stream_reply_message = 6;
+
+        DownloadAssetBundleResponse download_asset_bundle = 7;
     }
 }
 
@@ -29,14 +33,22 @@ message CustomError {
     string error_message = 1;
 }
 
-// Next tag: 2
+// Next tag: 3
 message EchoRequest {
     string text = 1;
+
+    VoiceConfig voice_config = 2;
 }
 
-// Next tag: 2
+// Next tag: 5
 message EchoResponse {
     string text = 1;
+    
+    string action = 2;
+
+    string sentiment = 3;
+
+    bytes reply_wav = 4;
 }
 
 // Next tag: 3
@@ -101,4 +113,22 @@ message StreamReplyMessageResponse {
     int32 chunk_index = 7;
 
     bool is_stop = 8;
+}
+
+// Next tag: 4
+message DownloadAssetBundleRequest {
+    string publisher_name = 1;
+
+    string character_name = 2;
+
+    string runtime_platform = 3;
+}
+
+// Next tag: 4
+message DownloadAssetBundleResponse {
+    bytes chunk = 1;
+
+    int32 index = 2;
+
+    int32 total_count = 3;
 }
