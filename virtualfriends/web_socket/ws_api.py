@@ -5,6 +5,8 @@ import concurrent.futures
 import os
 import tempfile
 
+from utils.read_write_lock import ReadWriteLock
+
 import diskcache
 
 from google.oauth2 import service_account
@@ -22,7 +24,9 @@ credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 gcsClient = storage.Client(credentials=credentials)
 
-gcsCache = diskcache.Cache(f"{tempfile.gettempdir()}/gcs_asset_bundles", expire=10800) # 3 hours
+cachePath = f"{tempfile.gettempdir()}/gcs_asset_bundles"
+gcsCache = diskcache.Cache(cachePath, expire=10800) # 3 hours
+gcsLock = ReadWriteLock()
 
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
@@ -70,7 +74,10 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
     asset_bundle_name = f"{request.publisher_name}_{request.character_name}"
     asset_bundle_path = f"{folder}/{request.runtime_platform}/{asset_bundle_name}"
 
+    gcsLock.acquire_read()
     asset_bundle_bytes = gcsCache.get(asset_bundle_path)
+    gcsLock.release_read()
+
     if asset_bundle_bytes is None:
         logger.info("downloading asset_bundle...")
         asset_bundle_blob = bucket.blob(asset_bundle_path)
@@ -81,7 +88,12 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
             return
         
         asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
-        gcsCache.set(asset_bundle_path, asset_bundle_bytes)
+
+        gcsLock.acquire_write()
+        # check again to see if the content has been written by another thread.
+        if gcsCache.get(asset_bundle_path) is None:
+            gcsCache.set(asset_bundle_path, asset_bundle_bytes)
+        gcsLock.release_write()
     else:
         logger.info("found asset_bundle in cache, continue...")
 
