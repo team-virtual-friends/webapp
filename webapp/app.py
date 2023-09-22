@@ -167,7 +167,7 @@ def join_waitlist():
         except Conflict:  # Replace with the appropriate exception for duplicate entries
             flash("You're already on the waitlist!", "warning")
 
-        return redirect(url_for('join_waitlist'))
+        return redirect(url_for('show_flash_message'))
 
     return render_template('waitlist.html')
 
