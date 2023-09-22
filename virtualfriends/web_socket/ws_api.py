@@ -3,11 +3,10 @@ import logging
 import re
 import concurrent.futures
 import os
-import tempfile
+import hashlib
+import pathlib
 
 from utils.read_write_lock import RWLock
-
-import diskcache
 
 from google.oauth2 import service_account
 from google.cloud import texttospeech, storage
@@ -20,13 +19,57 @@ from . import llm_reply
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
-credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
-credentials = service_account.Credentials.from_service_account_file(credentials_path)
-gcsClient = storage.Client(credentials=credentials)
+def pre_download_all_asset_bundles():
+    gcs_path = "character-asset-bundles/WebGL"
+    asset_bundle_names = [
+        "idafaber_mina",
+        "idafaber_jack",
+        "idafaber_daniel",
+        "idafaber_elena",
+        "idafaber_cat",
+        "idafaber_bunny",
+    ]
 
-cachePath = f"{tempfile.gettempdir()}/gcs_asset_bundles"
-gcsCache = diskcache.Cache(cachePath, expire=10800) # 3 hours
-gcsLock = RWLock()
+    credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+    credentials = service_account.Credentials.from_service_account_file(credentials_path)
+    gcsClient = storage.Client(credentials=credentials)
+
+    folder = os.path.expanduser('./static')
+    download_folder = f"{folder}/{gcs_path}"
+    pathlib.Path(download_folder).mkdir(parents=True, exist_ok=True)
+
+    def download_blob(asset_bundle_name):
+        file_path = f"{download_folder}/{asset_bundle_name}"
+        if os.path.exists(file_path):
+            return (asset_bundle_name, True)
+
+        bucket = gcsClient.get_bucket("vf-unity-data")
+        asset_bundle_path = f"{gcs_path}/{asset_bundle_name}"
+        logger.info(f"downloading {asset_bundle_path} ...")
+
+        asset_bundle_blob = bucket.blob(asset_bundle_path)
+        if asset_bundle_blob.exists():
+            asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
+            with open(file_path, "wb") as file:
+                file.write(asset_bundle_bytes)
+            checksum = hashlib.md5(asset_bundle_bytes).hexdigest()
+            return (asset_bundle_name, True, checksum)
+        return (asset_bundle_name, False, "")
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        futures = []
+        for asset_bundle_name in asset_bundle_names:
+            futures.append(executor.submit(download_blob, asset_bundle_name))
+        
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                result = future.result()
+                print(f"loaded {result[0]} result: {result[1]}, checksum: {result[2]}")
+                if result[1]:
+                    global asset_bundle_checksums
+                    asset_bundle_checksums[result[0]] = result[2]
+            except Exception as e:
+                print(f"failed to load coroutine result: {e}")
 
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
@@ -67,35 +110,11 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     ws.send(vf_response.SerializeToString())
 
 def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequest, ws):
+    file_path = f"./static/character-asset-bundles/{request.runtime_platform}/{request.publisher_name}_{request.character_name}"
+    with open(file_path, "rb") as file:
+        asset_bundle_bytes = file.read()
+
     chunk_size = 3 * 1048576 # 3Mb
-
-    bucket = gcsClient.get_bucket("vf-unity-data")
-    folder = "character-asset-bundles"
-    asset_bundle_name = f"{request.publisher_name}_{request.character_name}"
-    asset_bundle_path = f"{folder}/{request.runtime_platform}/{asset_bundle_name}"
-
-    gcsLock.r_acquire()
-    asset_bundle_bytes = gcsCache.get(asset_bundle_path)
-    gcsLock.r_release()
-
-    if asset_bundle_bytes is None:
-        logger.info("downloading asset_bundle...")
-        asset_bundle_blob = bucket.blob(asset_bundle_path)
-
-        if not asset_bundle_blob.exists():
-            logger.error(f"{asset_bundle_path} does not exist")
-            ws.send(error_response(custom_error(Exception("blob does not exist"))))
-            return
-        
-        asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
-
-        gcsLock.w_acquire()
-        # check again to see if the content has been written by another thread.
-        if gcsCache.get(asset_bundle_path) is None:
-            gcsCache.set(asset_bundle_path, asset_bundle_bytes)
-        gcsLock.w_release()
-    else:
-        logger.info("found asset_bundle in cache, continue...")
 
     chunks = [asset_bundle_bytes[i:i + chunk_size] for i in range(0, len(asset_bundle_bytes), chunk_size)]
     total_count = len(chunks)
@@ -114,7 +133,7 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
         ws.send(vf_response.SerializeToString())
 
         index += 1
-    logger.info(f"{asset_bundle_path} chunks sent")
+    logger.info(f"{file_path} chunks sent")
 
 def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)

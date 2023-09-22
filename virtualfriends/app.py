@@ -54,6 +54,8 @@ def in_game_handler(ws):
             # Handle the case where the 'request' field is not set
             ws.send(error_response("No request type set"))
 
+pre_download_all_asset_bundles()
+
 if __name__ == '__main__':
     env = os.environ.get('ENV', 'LOCAL')
     if env == 'PROD':

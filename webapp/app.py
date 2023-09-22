@@ -29,7 +29,7 @@ logger = logging.getLogger('gunicorn.error')
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20230921083712-aa64746-01e6b447",
+    "20230921172118-aa64746-d1c5a17a",
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
@@ -126,11 +126,12 @@ def load_user(user_id):
 def game():
     # Get the "FriendIndex" parameter from the URL query string
     binary_index = request.args.get("BinaryIndex")
-    friend_index = request.args.get('FriendIndex')
+    friend_name = request.args.get('friend')
+    publisher_name = request.args.get('publisher')
 
     # Use the "friend_index" variable as needed in your code
     template_name = unity_gcs_folders[int(binary_index)]
-    return render_template(f'{template_name}.html', FriendIndex=friend_index)  # Pass it to the template
+    return render_template(f'{template_name}.html', publisher=publisher_name, friend=friend_name)  # Pass it to the template
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():

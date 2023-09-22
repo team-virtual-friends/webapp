@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package virtualfriends_proto;
 
-// Next tag: 8
+// Next tag: 9
 message VfRequest {
     reserved 1;
 
@@ -13,6 +13,8 @@ message VfRequest {
 
         DownloadAssetBundleRequest download_asset_bundle = 7;
     }
+
+    string ip_addr = 8;
 }
 
 // Next tag: 8
