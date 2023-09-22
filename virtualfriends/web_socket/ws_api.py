@@ -14,6 +14,15 @@ from . import llm_reply
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
+def send_message(ws, vf_response:ws_message_pb2.VfResponse):
+    if not ws.closed:
+        try:
+            ws.send(vf_response.SerializeToString())
+        except Exception as e:
+            logger.error(f"Error sending WebSocket message: {str(e)}")
+    else:
+        logger.info("ws has closed")
+
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
     ret.error_message = str(exp)
@@ -22,7 +31,7 @@ def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
 def error_response(err:ws_message_pb2.CustomError) -> ws_message_pb2.VfResponse:
     vf_response = ws_message_pb2.VfResponse()
     vf_response.error.CopyFrom(err)
-    return vf_response.SerializeToString()
+    return vf_response
 
 def infer_sentiment_wrapper(text:str) -> (str, str):
     return ("sentiment", llm_reply.infer_sentiment(text))
@@ -40,7 +49,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     vf_response.echo.CopyFrom(echo_response)
     # vf_response.error.CopyFrom(custom_error(err))
     
-    ws.send(vf_response.SerializeToString())
+    send_message(vf_response)
 
 def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
@@ -97,14 +106,14 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         # logger.info(f"Speech2Text request executed in {latency:.2f} seconds.")
         if err is not None:
             logger.error("failed to speech to text: " + str(err))
-            ws.send(error_response(custom_error(err)))
+            send_message(error_response(custom_error(err)))
             return
     elif request.HasField("text"):
         text = request.text
     else:
         err = "invalid current_message field"
         logger.error(err)
-        ws.send(error_response(custom_error(err)))
+        send_message(error_response(custom_error(err)))
     
     if len(text) == 0:
         return
@@ -140,7 +149,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             (wav, err) = generate_voice(reply_text, request.voice_config)
             if len(err) > 0:
                 logger.error(err)
-                ws.send(error_response(custom_error(err)))
+                send_message(error_response(custom_error(err)))
                 return
             response.reply_wav = wav
         # we need to send this even if the reply_text is empty
@@ -152,7 +161,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         vf_response.stream_reply_message.CopyFrom(response)
         # vf_response.error.CopyFrom(custom_error(err))
         logger.info("sending out: " + reply_text)
-        ws.send(vf_response.SerializeToString())
+        send_message(vf_response)
 
     buffer = ""
     index = 0
