@@ -13,35 +13,35 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10ws_message.proto\x12\x14virtualfriends_proto\"\xf3\x01\n\tVfRequest\x12\x31\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.EchoRequestH\x00\x12O\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32/.virtualfriends_proto.StreamReplyMessageRequestH\x00\x12Q\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x30.virtualfriends_proto.DownloadAssetBundleRequestH\x00\x42\t\n\x07requestJ\x04\x08\x01\x10\x02\"\xa4\x02\n\nVfResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.virtualfriends_proto.CustomError\x12\x32\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32\".virtualfriends_proto.EchoResponseH\x00\x12P\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32\x30.virtualfriends_proto.StreamReplyMessageResponseH\x00\x12R\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x31.virtualfriends_proto.DownloadAssetBundleResponseH\x00\x42\n\n\x08response\"$\n\x0b\x43ustomError\x12\x15\n\rerror_message\x18\x01 \x01(\t\"T\n\x0b\x45\x63hoRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x37\n\x0cvoice_config\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfig\"R\n\x0c\x45\x63hoResponse\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\"S\n\x0bVoiceConfig\x12\x33\n\nvoice_type\x18\x01 \x01(\x0e\x32\x1f.virtualfriends_proto.VoiceType\x12\x0f\n\x07octaves\x18\x02 \x01(\x02\"=\n\x0fMirroredContent\x12\x16\n\x0e\x63haracter_name\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\x03\"\xf6\x01\n\x19StreamReplyMessageRequest\x12?\n\x10mirrored_content\x18\x01 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rjson_messages\x18\x02 \x03(\t\x12\x16\n\x0e\x63ustom_prompts\x18\x07 \x01(\t\x12\r\n\x03wav\x18\x03 \x01(\x0cH\x00\x12\x0e\n\x04text\x18\x06 \x01(\tH\x00\x12\x37\n\x0cvoice_config\x18\x05 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfigB\x11\n\x0f\x63urrent_message\"\xea\x01\n\x1aStreamReplyMessageResponse\x12?\n\x10mirrored_content\x18\x06 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rreply_message\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\x12\x18\n\x10transcribed_text\x18\x05 \x01(\t\x12\x13\n\x0b\x63hunk_index\x18\x07 \x01(\x05\x12\x0f\n\x07is_stop\x18\x08 \x01(\x08\"f\n\x1a\x44ownloadAssetBundleRequest\x12\x16\n\x0epublisher_name\x18\x01 \x01(\t\x12\x16\n\x0e\x63haracter_name\x18\x02 \x01(\t\x12\x18\n\x10runtime_platform\x18\x03 \x01(\t\"P\n\x1b\x44ownloadAssetBundleResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\x0c\x12\r\n\x05index\x18\x02 \x01(\x05\x12\x13\n\x0btotal_count\x18\x03 \x01(\x05*\x8b\x01\n\tVoiceType\x12\x15\n\x11VoiceType_Invalid\x10\x00\x12\x18\n\x14VoiceType_NormalMale\x10\x01\x12\x1b\n\x17VoiceType_NormalFemale1\x10\x02\x12\x1b\n\x17VoiceType_NormalFemale2\x10\x03\x12\x13\n\x0fVoiceConfig_Orc\x10\x04\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10ws_message.proto\x12\x14virtualfriends_proto\"\x84\x02\n\tVfRequest\x12\x31\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.EchoRequestH\x00\x12O\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32/.virtualfriends_proto.StreamReplyMessageRequestH\x00\x12Q\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x30.virtualfriends_proto.DownloadAssetBundleRequestH\x00\x12\x0f\n\x07ip_addr\x18\x08 \x01(\tB\t\n\x07requestJ\x04\x08\x01\x10\x02\"\xa4\x02\n\nVfResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.virtualfriends_proto.CustomError\x12\x32\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32\".virtualfriends_proto.EchoResponseH\x00\x12P\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32\x30.virtualfriends_proto.StreamReplyMessageResponseH\x00\x12R\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x31.virtualfriends_proto.DownloadAssetBundleResponseH\x00\x42\n\n\x08response\"$\n\x0b\x43ustomError\x12\x15\n\rerror_message\x18\x01 \x01(\t\"T\n\x0b\x45\x63hoRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x37\n\x0cvoice_config\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfig\"R\n\x0c\x45\x63hoResponse\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\"S\n\x0bVoiceConfig\x12\x33\n\nvoice_type\x18\x01 \x01(\x0e\x32\x1f.virtualfriends_proto.VoiceType\x12\x0f\n\x07octaves\x18\x02 \x01(\x02\"=\n\x0fMirroredContent\x12\x16\n\x0e\x63haracter_name\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\x03\"\xf6\x01\n\x19StreamReplyMessageRequest\x12?\n\x10mirrored_content\x18\x01 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rjson_messages\x18\x02 \x03(\t\x12\x16\n\x0e\x63ustom_prompts\x18\x07 \x01(\t\x12\r\n\x03wav\x18\x03 \x01(\x0cH\x00\x12\x0e\n\x04text\x18\x06 \x01(\tH\x00\x12\x37\n\x0cvoice_config\x18\x05 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfigB\x11\n\x0f\x63urrent_message\"\xea\x01\n\x1aStreamReplyMessageResponse\x12?\n\x10mirrored_content\x18\x06 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rreply_message\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\x12\x18\n\x10transcribed_text\x18\x05 \x01(\t\x12\x13\n\x0b\x63hunk_index\x18\x07 \x01(\x05\x12\x0f\n\x07is_stop\x18\x08 \x01(\x08\"f\n\x1a\x44ownloadAssetBundleRequest\x12\x16\n\x0epublisher_name\x18\x01 \x01(\t\x12\x16\n\x0e\x63haracter_name\x18\x02 \x01(\t\x12\x18\n\x10runtime_platform\x18\x03 \x01(\t\"P\n\x1b\x44ownloadAssetBundleResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\x0c\x12\r\n\x05index\x18\x02 \x01(\x05\x12\x13\n\x0btotal_count\x18\x03 \x01(\x05*\x8b\x01\n\tVoiceType\x12\x15\n\x11VoiceType_Invalid\x10\x00\x12\x18\n\x14VoiceType_NormalMale\x10\x01\x12\x1b\n\x17VoiceType_NormalFemale1\x10\x02\x12\x1b\n\x17VoiceType_NormalFemale2\x10\x03\x12\x13\n\x0fVoiceConfig_Orc\x10\x04\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ws_message_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_VOICETYPE']._serialized_start=1612
-  _globals['_VOICETYPE']._serialized_end=1751
+  _globals['_VOICETYPE']._serialized_start=1629
+  _globals['_VOICETYPE']._serialized_end=1768
   _globals['_VFREQUEST']._serialized_start=43
-  _globals['_VFREQUEST']._serialized_end=286
-  _globals['_VFRESPONSE']._serialized_start=289
-  _globals['_VFRESPONSE']._serialized_end=581
-  _globals['_CUSTOMERROR']._serialized_start=583
-  _globals['_CUSTOMERROR']._serialized_end=619
-  _globals['_ECHOREQUEST']._serialized_start=621
-  _globals['_ECHOREQUEST']._serialized_end=705
-  _globals['_ECHORESPONSE']._serialized_start=707
-  _globals['_ECHORESPONSE']._serialized_end=789
-  _globals['_VOICECONFIG']._serialized_start=791
-  _globals['_VOICECONFIG']._serialized_end=874
-  _globals['_MIRROREDCONTENT']._serialized_start=876
-  _globals['_MIRROREDCONTENT']._serialized_end=937
-  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_start=940
-  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_end=1186
-  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_start=1189
-  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_end=1423
-  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_start=1425
-  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_end=1527
-  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_start=1529
-  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_end=1609
+  _globals['_VFREQUEST']._serialized_end=303
+  _globals['_VFRESPONSE']._serialized_start=306
+  _globals['_VFRESPONSE']._serialized_end=598
+  _globals['_CUSTOMERROR']._serialized_start=600
+  _globals['_CUSTOMERROR']._serialized_end=636
+  _globals['_ECHOREQUEST']._serialized_start=638
+  _globals['_ECHOREQUEST']._serialized_end=722
+  _globals['_ECHORESPONSE']._serialized_start=724
+  _globals['_ECHORESPONSE']._serialized_end=806
+  _globals['_VOICECONFIG']._serialized_start=808
+  _globals['_VOICECONFIG']._serialized_end=891
+  _globals['_MIRROREDCONTENT']._serialized_start=893
+  _globals['_MIRROREDCONTENT']._serialized_end=954
+  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_start=957
+  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_end=1203
+  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_start=1206
+  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_end=1440
+  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_start=1442
+  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_end=1544
+  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_start=1546
+  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_end=1626
 # @@protoc_insertion_point(module_scope)

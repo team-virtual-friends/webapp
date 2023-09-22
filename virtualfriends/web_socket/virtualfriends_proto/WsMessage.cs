@@ -24,50 +24,50 @@ namespace VirtualfriendsProto {
     static WsMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byLzAQoJ",
+            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byKEAgoJ",
             "VmZSZXF1ZXN0EjEKBGVjaG8YAiABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90",
             "by5FY2hvUmVxdWVzdEgAEk8KFHN0cmVhbV9yZXBseV9tZXNzYWdlGAYgASgL",
             "Mi8udmlydHVhbGZyaWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlNZXNzYWdlUmVx",
             "dWVzdEgAElEKFWRvd25sb2FkX2Fzc2V0X2J1bmRsZRgHIAEoCzIwLnZpcnR1",
-            "YWxmcmllbmRzX3Byb3RvLkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0SABC",
-            "CQoHcmVxdWVzdEoECAEQAiKkAgoKVmZSZXNwb25zZRIwCgVlcnJvchgBIAEo",
-            "CzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLkN1c3RvbUVycm9yEjIKBGVjaG8Y",
-            "AiABKAsyIi52aXJ0dWFsZnJpZW5kc19wcm90by5FY2hvUmVzcG9uc2VIABJQ",
-            "ChRzdHJlYW1fcmVwbHlfbWVzc2FnZRgGIAEoCzIwLnZpcnR1YWxmcmllbmRz",
-            "X3Byb3RvLlN0cmVhbVJlcGx5TWVzc2FnZVJlc3BvbnNlSAASUgoVZG93bmxv",
-            "YWRfYXNzZXRfYnVuZGxlGAcgASgLMjEudmlydHVhbGZyaWVuZHNfcHJvdG8u",
-            "RG93bmxvYWRBc3NldEJ1bmRsZVJlc3BvbnNlSABCCgoIcmVzcG9uc2UiJAoL",
-            "Q3VzdG9tRXJyb3ISFQoNZXJyb3JfbWVzc2FnZRgBIAEoCSJUCgtFY2hvUmVx",
-            "dWVzdBIMCgR0ZXh0GAEgASgJEjcKDHZvaWNlX2NvbmZpZxgCIAEoCzIhLnZp",
-            "cnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnIlIKDEVjaG9SZXNwb25z",
-            "ZRIMCgR0ZXh0GAEgASgJEg4KBmFjdGlvbhgCIAEoCRIRCglzZW50aW1lbnQY",
-            "AyABKAkSEQoJcmVwbHlfd2F2GAQgASgMIlMKC1ZvaWNlQ29uZmlnEjMKCnZv",
-            "aWNlX3R5cGUYASABKA4yHy52aXJ0dWFsZnJpZW5kc19wcm90by5Wb2ljZVR5",
-            "cGUSDwoHb2N0YXZlcxgCIAEoAiI9Cg9NaXJyb3JlZENvbnRlbnQSFgoOY2hh",
-            "cmFjdGVyX25hbWUYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEoAyL2AQoZU3Ry",
-            "ZWFtUmVwbHlNZXNzYWdlUmVxdWVzdBI/ChBtaXJyb3JlZF9jb250ZW50GAEg",
-            "ASgLMiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRDb250ZW50EhUK",
-            "DWpzb25fbWVzc2FnZXMYAiADKAkSFgoOY3VzdG9tX3Byb21wdHMYByABKAkS",
-            "DQoDd2F2GAMgASgMSAASDgoEdGV4dBgGIAEoCUgAEjcKDHZvaWNlX2NvbmZp",
-            "ZxgFIAEoCzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnQhEK",
-            "D2N1cnJlbnRfbWVzc2FnZSLqAQoaU3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9u",
-            "c2USPwoQbWlycm9yZWRfY29udGVudBgGIAEoCzIlLnZpcnR1YWxmcmllbmRz",
-            "X3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1yZXBseV9tZXNzYWdlGAEgASgJ",
-            "Eg4KBmFjdGlvbhgCIAEoCRIRCglzZW50aW1lbnQYAyABKAkSEQoJcmVwbHlf",
-            "d2F2GAQgASgMEhgKEHRyYW5zY3JpYmVkX3RleHQYBSABKAkSEwoLY2h1bmtf",
-            "aW5kZXgYByABKAUSDwoHaXNfc3RvcBgIIAEoCCJmChpEb3dubG9hZEFzc2V0",
-            "QnVuZGxlUmVxdWVzdBIWCg5wdWJsaXNoZXJfbmFtZRgBIAEoCRIWCg5jaGFy",
-            "YWN0ZXJfbmFtZRgCIAEoCRIYChBydW50aW1lX3BsYXRmb3JtGAMgASgJIlAK",
-            "G0Rvd25sb2FkQXNzZXRCdW5kbGVSZXNwb25zZRINCgVjaHVuaxgBIAEoDBIN",
-            "CgVpbmRleBgCIAEoBRITCgt0b3RhbF9jb3VudBgDIAEoBSqLAQoJVm9pY2VU",
-            "eXBlEhUKEVZvaWNlVHlwZV9JbnZhbGlkEAASGAoUVm9pY2VUeXBlX05vcm1h",
-            "bE1hbGUQARIbChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMRACEhsKF1ZvaWNl",
-            "VHlwZV9Ob3JtYWxGZW1hbGUyEAMSEwoPVm9pY2VDb25maWdfT3JjEARiBnBy",
-            "b3RvMw=="));
+            "YWxmcmllbmRzX3Byb3RvLkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0SAAS",
+            "DwoHaXBfYWRkchgIIAEoCUIJCgdyZXF1ZXN0SgQIARACIqQCCgpWZlJlc3Bv",
+            "bnNlEjAKBWVycm9yGAEgASgLMiEudmlydHVhbGZyaWVuZHNfcHJvdG8uQ3Vz",
+            "dG9tRXJyb3ISMgoEZWNobxgCIAEoCzIiLnZpcnR1YWxmcmllbmRzX3Byb3Rv",
+            "LkVjaG9SZXNwb25zZUgAElAKFHN0cmVhbV9yZXBseV9tZXNzYWdlGAYgASgL",
+            "MjAudmlydHVhbGZyaWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlNZXNzYWdlUmVz",
+            "cG9uc2VIABJSChVkb3dubG9hZF9hc3NldF9idW5kbGUYByABKAsyMS52aXJ0",
+            "dWFsZnJpZW5kc19wcm90by5Eb3dubG9hZEFzc2V0QnVuZGxlUmVzcG9uc2VI",
+            "AEIKCghyZXNwb25zZSIkCgtDdXN0b21FcnJvchIVCg1lcnJvcl9tZXNzYWdl",
+            "GAEgASgJIlQKC0VjaG9SZXF1ZXN0EgwKBHRleHQYASABKAkSNwoMdm9pY2Vf",
+            "Y29uZmlnGAIgASgLMiEudmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VDb25m",
+            "aWciUgoMRWNob1Jlc3BvbnNlEgwKBHRleHQYASABKAkSDgoGYWN0aW9uGAIg",
+            "ASgJEhEKCXNlbnRpbWVudBgDIAEoCRIRCglyZXBseV93YXYYBCABKAwiUwoL",
+            "Vm9pY2VDb25maWcSMwoKdm9pY2VfdHlwZRgBIAEoDjIfLnZpcnR1YWxmcmll",
+            "bmRzX3Byb3RvLlZvaWNlVHlwZRIPCgdvY3RhdmVzGAIgASgCIj0KD01pcnJv",
+            "cmVkQ29udGVudBIWCg5jaGFyYWN0ZXJfbmFtZRgBIAEoCRISCgpzZXNzaW9u",
+            "X2lkGAIgASgDIvYBChlTdHJlYW1SZXBseU1lc3NhZ2VSZXF1ZXN0Ej8KEG1p",
+            "cnJvcmVkX2NvbnRlbnQYASABKAsyJS52aXJ0dWFsZnJpZW5kc19wcm90by5N",
+            "aXJyb3JlZENvbnRlbnQSFQoNanNvbl9tZXNzYWdlcxgCIAMoCRIWCg5jdXN0",
+            "b21fcHJvbXB0cxgHIAEoCRINCgN3YXYYAyABKAxIABIOCgR0ZXh0GAYgASgJ",
+            "SAASNwoMdm9pY2VfY29uZmlnGAUgASgLMiEudmlydHVhbGZyaWVuZHNfcHJv",
+            "dG8uVm9pY2VDb25maWdCEQoPY3VycmVudF9tZXNzYWdlIuoBChpTdHJlYW1S",
+            "ZXBseU1lc3NhZ2VSZXNwb25zZRI/ChBtaXJyb3JlZF9jb250ZW50GAYgASgL",
+            "MiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRDb250ZW50EhUKDXJl",
+            "cGx5X21lc3NhZ2UYASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVu",
+            "dBgDIAEoCRIRCglyZXBseV93YXYYBCABKAwSGAoQdHJhbnNjcmliZWRfdGV4",
+            "dBgFIAEoCRITCgtjaHVua19pbmRleBgHIAEoBRIPCgdpc19zdG9wGAggASgI",
+            "ImYKGkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0EhYKDnB1Ymxpc2hlcl9u",
+            "YW1lGAEgASgJEhYKDmNoYXJhY3Rlcl9uYW1lGAIgASgJEhgKEHJ1bnRpbWVf",
+            "cGxhdGZvcm0YAyABKAkiUAobRG93bmxvYWRBc3NldEJ1bmRsZVJlc3BvbnNl",
+            "Eg0KBWNodW5rGAEgASgMEg0KBWluZGV4GAIgASgFEhMKC3RvdGFsX2NvdW50",
+            "GAMgASgFKosBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFsaWQQABIY",
+            "ChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9Ob3JtYWxG",
+            "ZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxITCg9Wb2lj",
+            "ZUNvbmZpZ19PcmMQBGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle" }, new[]{ "Request" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle", "IpAddr" }, new[]{ "Request" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage", "DownloadAssetBundle" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text", "VoiceConfig" }, null, null, null, null),
@@ -99,7 +99,7 @@ namespace VirtualfriendsProto {
 
   #region Messages
   /// <summary>
-  /// Next tag: 8
+  /// Next tag: 9
   /// </summary>
   public sealed partial class VfRequest : pb::IMessage<VfRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -135,6 +135,7 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public VfRequest(VfRequest other) : this() {
+      ipAddr_ = other.ipAddr_;
       switch (other.RequestCase) {
         case RequestOneofCase.Echo:
           Echo = other.Echo.Clone();
@@ -192,6 +193,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "ip_addr" field.</summary>
+    public const int IpAddrFieldNumber = 8;
+    private string ipAddr_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string IpAddr {
+      get { return ipAddr_; }
+      set {
+        ipAddr_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     private object request_;
     /// <summary>Enum of possible cases for the "request" oneof.</summary>
     public enum RequestOneofCase {
@@ -232,6 +245,7 @@ namespace VirtualfriendsProto {
       if (!object.Equals(Echo, other.Echo)) return false;
       if (!object.Equals(StreamReplyMessage, other.StreamReplyMessage)) return false;
       if (!object.Equals(DownloadAssetBundle, other.DownloadAssetBundle)) return false;
+      if (IpAddr != other.IpAddr) return false;
       if (RequestCase != other.RequestCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -243,6 +257,7 @@ namespace VirtualfriendsProto {
       if (requestCase_ == RequestOneofCase.Echo) hash ^= Echo.GetHashCode();
       if (requestCase_ == RequestOneofCase.StreamReplyMessage) hash ^= StreamReplyMessage.GetHashCode();
       if (requestCase_ == RequestOneofCase.DownloadAssetBundle) hash ^= DownloadAssetBundle.GetHashCode();
+      if (IpAddr.Length != 0) hash ^= IpAddr.GetHashCode();
       hash ^= (int) requestCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -274,6 +289,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(58);
         output.WriteMessage(DownloadAssetBundle);
       }
+      if (IpAddr.Length != 0) {
+        output.WriteRawTag(66);
+        output.WriteString(IpAddr);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -296,6 +315,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(58);
         output.WriteMessage(DownloadAssetBundle);
       }
+      if (IpAddr.Length != 0) {
+        output.WriteRawTag(66);
+        output.WriteString(IpAddr);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -315,6 +338,9 @@ namespace VirtualfriendsProto {
       if (requestCase_ == RequestOneofCase.DownloadAssetBundle) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(DownloadAssetBundle);
       }
+      if (IpAddr.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(IpAddr);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -326,6 +352,9 @@ namespace VirtualfriendsProto {
     public void MergeFrom(VfRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.IpAddr.Length != 0) {
+        IpAddr = other.IpAddr;
       }
       switch (other.RequestCase) {
         case RequestOneofCase.Echo:
@@ -390,6 +419,10 @@ namespace VirtualfriendsProto {
             DownloadAssetBundle = subBuilder;
             break;
           }
+          case 66: {
+            IpAddr = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -430,6 +463,10 @@ namespace VirtualfriendsProto {
             }
             input.ReadMessage(subBuilder);
             DownloadAssetBundle = subBuilder;
+            break;
+          }
+          case 66: {
+            IpAddr = input.ReadString();
             break;
           }
         }
