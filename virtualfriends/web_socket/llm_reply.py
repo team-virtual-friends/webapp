@@ -54,7 +54,7 @@ def infer_action(text, timeout_seconds=2):
         response.raise_for_status()
         response_data = response.json()
         result = response_data['choices'][0]['message']['content']
-        logger.info(result)
+        # logger.info(result)
         return result
     except requests.exceptions.Timeout:
         logger.error("infer_action API call to OpenAI timed out")
@@ -74,7 +74,7 @@ def infer_sentiment(text, timeout_seconds=2):
         response.raise_for_status()
         response_data = response.json()
         result = response_data['choices'][0]['message']['content']
-        logger.info(result)
+        # logger.info(result)
         return result
     except requests.exceptions.Timeout:
         logger.error("infer_sentiment API call to OpenAI timed out")
@@ -143,7 +143,6 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     else:
         full_prompt = base_prompt + '\n' + full_prompt + "\nA:"
 
-    logger.info(full_prompt)
     return openai.Completion.create(
         model="text-davinci-003",
         prompt=full_prompt,
