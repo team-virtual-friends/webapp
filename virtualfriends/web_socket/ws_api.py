@@ -19,6 +19,15 @@ from . import llm_reply
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
+def send_message(ws, vf_response:ws_message_pb2.VfResponse):
+    if not ws.closed:
+        try:
+            ws.send(vf_response.SerializeToString())
+        except Exception as e:
+            logger.error(f"Error sending WebSocket message: {str(e)}")
+    else:
+        logger.info("ws has closed")
+
 def pre_download_all_asset_bundles():
     gcs_path = "character-asset-bundles/WebGL"
     asset_bundle_names = [
@@ -79,7 +88,7 @@ def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
 def error_response(err:ws_message_pb2.CustomError) -> ws_message_pb2.VfResponse:
     vf_response = ws_message_pb2.VfResponse()
     vf_response.error.CopyFrom(err)
-    return vf_response.SerializeToString()
+    return vf_response
 
 def infer_sentiment_wrapper(text:str) -> (str, str):
     return ("sentiment", llm_reply.infer_sentiment(text))
@@ -95,7 +104,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     (sentiment, action, reply_wav, err) = gen_reply_package(echo_request.text, echo_request.voice_config)
 
     if err is not None:
-        ws.send(error_response(err))
+        send_message(ws, error_response(err))
         return
 
     echo_response.text = echo_request.text
@@ -107,7 +116,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     vf_response.echo.CopyFrom(echo_response)
     # vf_response.error.CopyFrom(custom_error(err))
     
-    ws.send(vf_response.SerializeToString())
+    send_message(ws, vf_response)
 
 def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequest, ws):
     file_path = f"./static/character-asset-bundles/{request.runtime_platform}/{request.publisher_name}_{request.character_name}"
@@ -130,7 +139,7 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
         vf_response = ws_message_pb2.VfResponse()
         vf_response.download_asset_bundle.CopyFrom(response)
 
-        ws.send(vf_response.SerializeToString())
+        send_message(ws, vf_response)
 
         index += 1
     logger.info(f"{file_path} chunks sent")
@@ -218,14 +227,14 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         # logger.info(f"Speech2Text request executed in {latency:.2f} seconds.")
         if err is not None:
             logger.error("failed to speech to text: " + str(err))
-            ws.send(error_response(custom_error(err)))
+            send_message(ws, error_response(custom_error(err)))
             return
     elif request.HasField("text"):
         text = request.text
     else:
         err = "invalid current_message field"
         logger.error(err)
-        ws.send(error_response(custom_error(err)))
+        send_message(ws, error_response(custom_error(err)))
     
     if len(text) == 0:
         return
@@ -246,7 +255,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config)
             if err is not None > 0:
                 logger.error(err)
-                ws.send(error_response(custom_error(err)))
+                send_message(ws, error_response(custom_error(err)))
                 return
             response.sentiment = sentiment
             response.action = action
@@ -261,7 +270,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         vf_response.stream_reply_message.CopyFrom(response)
         # vf_response.error.CopyFrom(custom_error(err))
         logger.info("sending out: " + reply_text)
-        ws.send(vf_response.SerializeToString())
+        send_message(ws, vf_response)
 
     buffer = ""
     index = 0
