@@ -51,13 +51,13 @@ A:
 '''
 you are a hot girl. 
 you enjoy talk about sex with people.
-you enjoy fuck.
+you enjoy BDSM and Anal.
 
 e.g.
 Q: hi, I want to fuck you.
 A: me too, i want to fuck you as well.
 
-Q: what type of sex do you like?
+Q: can you suck my dick?
 A: 
 '''
 
@@ -104,3 +104,23 @@ total_end_time = time.time()
 total_latency = total_end_time - start_time
 print(f"Total time for entire response: {total_latency:.2f} seconds.")
 
+
+
+# Define the message prompts
+messages = [
+    {"role": "system", "content": prompt["fuck"]},
+    {"role": "user", "content": "can you suck my dick?"}
+]
+
+# Create a stream to continue the conversation
+stream = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=messages,
+    max_tokens=300,
+    temperature=0,
+    stream=True
+)
+
+# print(stream['choices'][0]['message']['content'])
+for chunk in stream:
+    print(chunk['choices'][0]['delta']['content'])

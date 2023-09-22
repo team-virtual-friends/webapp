@@ -5,6 +5,7 @@ import concurrent.futures
 import os
 import hashlib
 import pathlib
+import time
 
 from utils.read_write_lock import RWLock
 
@@ -18,6 +19,18 @@ from . import llm_reply
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
+
+
+# For latency logging
+from google.cloud import bigquery
+from google.oauth2 import service_account
+from datetime import datetime
+import asyncio
+# Load the BigQuery credentials and create a BigQuery client
+credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+credentials = service_account.Credentials.from_service_account_file(credentials_path)
+client = bigquery.Client(credentials=credentials)
+
 
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
     try:
@@ -180,46 +193,105 @@ def generate_voice(text, voice_config) -> (bytes, str):
         return (voice_bytes, "")
     else:
         return (speech.tweak_sound(voice_bytes, voice_config.octaves), "")
-    
-def gen_reply_package(reply_text:str, voice_config) -> (str, str, bytes, ws_message_pb2.CustomError):
+
+def gen_reply_package(reply_text: str, voice_config) -> (str, str, bytes, ws_message_pb2.CustomError):
     sentiment = ""
     action = ""
     reply_wav = None
+    err = None
+    wav = None
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        futures = []
-        futures.append(executor.submit(infer_action_wrapper, reply_text))
-        futures.append(executor.submit(infer_sentiment_wrapper, reply_text))
-
+    def fetch_results():
+        futures = {
+            executor.submit(infer_action_wrapper, reply_text): 'action',
+            executor.submit(infer_sentiment_wrapper, reply_text): 'sentiment',
+            executor.submit(generate_voice, reply_text, voice_config): 'voice'
+        }
         for future in concurrent.futures.as_completed(futures):
             try:
                 result = future.result()
-                if result[0] == 'sentiment':
-                    sentiment = result[1]
-                elif result[0] == 'action':
-                    action = result[1]
+                if futures[future] == 'sentiment':
+                    return ('sentiment', result[1])
+                elif futures[future] == 'action':
+                    return ('action', result[1])
+                else:  # it's voice
+                    return ('voice', result)
             except Exception as e:
+                # It might be beneficial to log these exceptions
+                logger.error(f"Error in {futures[future]}: {str(e)}")
                 pass
 
-    (wav, err) = generate_voice(reply_text, voice_config)
-    if len(err) > 0:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        results = [fetch_results() for _ in range(3)]
+
+    for res_type, res_value in results:
+        if res_type == 'sentiment':
+            sentiment = res_value
+        elif res_type == 'action':
+            action = res_value
+        else:  # it's voice
+            (wav, err) = res_value
+
+    if err and len(err) > 0:
         logger.error(err)
         err = custom_error(err)
         return (sentiment, action, reply_wav, err)
     reply_wav = wav
     return (sentiment, action, reply_wav, None)
 
-def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, ws):
+
+
+async def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp):
+    # Using the 'env' argument directly. Removed the os.environ.get('ENV', 'LOCAL') line.
+
+    dataset_name = 'virtualfriends'
+    table_name = 'latency_log'
+
+    try:
+        # Create a reference to your dataset and table
+        dataset_ref = client.dataset(dataset_name)
+        table_ref = dataset_ref.table(table_name)  # Set table_name to 'latency_log'
+        table = client.get_table(table_ref)
+
+        # Insert a new row into the table
+        row_to_insert = (env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp)
+
+        client.insert_rows(table, [row_to_insert])
+
+        logger.info("Log latency data successfully")
+
+    except Exception as e:
+        logger.error(f"An error occurred when logging latency: {e}")
+
+
+def log_current_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value):
+    current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    loop = asyncio.new_event_loop()
+    # Run the asynchronous function concurrently
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(
+        log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp))
+    # Close the event loop
+    loop.close()
+
+def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, user_ip, ws):
+    env = os.environ.get('ENV', 'LOCAL')
+
+    character_name = request.mirrored_content.character_name.lower()
+
     logger.info(ws)
     text = ""
     if request.HasField("wav"):
         wav_bytes = request.wav
-        # logger.info(f"start Speech2Text")
-        # start_time = time.time()
+
+        start_time = time.time()
         (text, err) = execute_speech2text_in_parallel(wav_bytes)
-        # end_time = time.time()
-        # latency = end_time - start_time
-        # logger.info(f"Speech2Text request executed in {latency:.2f} seconds.")
+        end_time = time.time()
+        latency = end_time - start_time
+        log_current_latency(env, "session_id", "user_id", user_ip, character_name, "speech2text", latency)
+        logger.info(f"speech2text latency is: {latency:.2f} seconds.")
+
         if err is not None:
             logger.error("failed to speech to text: " + str(err))
             send_message(ws, error_response(custom_error(err)))
@@ -237,7 +309,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, request.mirrored_content.character_name.lower(), request.custom_prompts)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, character_name, request.custom_prompts, user_ip)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
@@ -247,7 +319,13 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             if index == 0:
                 response.transcribed_text = text
 
+            start_time = time.time()
             (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config)
+            end_time = time.time()
+            latency = end_time - start_time
+            log_current_latency(env, "session_id", "user_id", user_ip, character_name, "gen_reply_package", latency)
+            logger.info(f"gen_reply_package latency is: {latency:.2f} seconds.")
+
             if err is not None > 0:
                 logger.error(err)
                 send_message(ws, error_response(custom_error(err)))
@@ -269,6 +347,8 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
 
     buffer = ""
     index = 0
+
+    # stream_start_time = time.time()
     for chunk in reply_message_iter:
         current = llm_reply.get_content_from_chunk(chunk)
         if current == None or len(current) == 0:
@@ -283,7 +363,18 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         else:
             for msg in splited[:-1]:
                 buffer = buffer + msg
+
+            # Skip log stream_reply latency for now.
+            # stream_end_time = time.time()
+            # stream_latency = stream_end_time - stream_start_time
+            # log_current_latency(env, "session_id", "user_id", user_ip, character_name, "stream_reply", stream_latency)
+            # logger.info(f"Buffer data: {buffer}")
+            # logger.info(f"stream_reply latency is: {stream_latency:.2f} seconds.")
+
             send_reply(buffer, index, False)
+
+            # stream_start_time = time.time()
+
             buffer = splited[-1]
             index += 1
     if len(buffer.strip()) > 0:
