@@ -65,3 +65,20 @@ def generate_system_prompt(name, background):
 
 
 print(generate_system_prompt("mina", "Mina loves BDSM and DP. She is willing to have sex with anyone."))
+
+# Consider add user prompt with system prompt
+#
+# user_prompt = '''
+# Context
+#   ---
+#   {context}
+#   ---
+#   Use previous information as context to answer the following user question, Aim to keep responses super super concise and meaningful and try to express emotions.
+#   ALWAYS ask clarification question, when
+#   - user's question isn't clear
+#   - seems unfinished
+#   - seems totally irrelevant
+#   Remember to prefix your reply.
+#   ---
+#   {query}
+# '''
