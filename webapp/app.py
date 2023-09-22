@@ -29,7 +29,7 @@ logger = logging.getLogger('gunicorn.error')
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20230921172118-aa64746-d1c5a17a",
+    "20230922105758-47de871-a29e3ae1",
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",

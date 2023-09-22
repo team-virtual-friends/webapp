@@ -210,6 +210,7 @@ def gen_reply_package(reply_text:str, voice_config) -> (str, str, bytes, ws_mess
     return (sentiment, action, reply_wav, None)
 
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, ws):
+    logger.info(ws)
     text = ""
     if request.HasField("wav"):
         wav_bytes = request.wav
