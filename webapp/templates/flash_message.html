@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Feedback Submission</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        .messages {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Feedback Submission</h1>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <ul class="messages">
                     {% for category, message in messages %}
-                        <li class="{{ category }}">{{ message }}</li>
+                        <li><h1 class="{{ category }}">{{ message }}</h1></li>
                     {% endfor %}
                 </ul>
             {% endif %}
