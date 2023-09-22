@@ -49,10 +49,10 @@ def in_game_handler(ws):
 
             else:
                 # Handle the case where the 'request' field is set but none of the specific fields are set
-                ws.send(error_response("Unknown request type"))
+                ws.send(error_response("Unknown request type").SerializeToString())
         else:
             # Handle the case where the 'request' field is not set
-            ws.send(error_response("No request type set"))
+            ws.send(error_response("No request type set").SerializeToString())
 
 pre_download_all_asset_bundles()
 
