@@ -20,13 +20,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
-    if not ws.closed:
-        try:
-            ws.send(vf_response.SerializeToString())
-        except Exception as e:
-            logger.error(f"Error sending WebSocket message: {str(e)}")
-    else:
-        logger.info("ws has closed")
+    try:
+        ws.send(vf_response.SerializeToString())
+    except Exception as e:
+        logger.error(f"Error sending WebSocket message: {str(e)}")
 
 def pre_download_all_asset_bundles():
     gcs_path = "character-asset-bundles/WebGL"
@@ -61,9 +58,9 @@ def pre_download_all_asset_bundles():
             asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
             with open(file_path, "wb") as file:
                 file.write(asset_bundle_bytes)
-            checksum = hashlib.md5(asset_bundle_bytes).hexdigest()
-            return (asset_bundle_name, True, checksum)
-        return (asset_bundle_name, False, "")
+            # checksum = hashlib.md5(asset_bundle_bytes).hexdigest()
+            return (asset_bundle_name, True)
+        return (asset_bundle_name, False)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         futures = []
@@ -73,10 +70,7 @@ def pre_download_all_asset_bundles():
         for future in concurrent.futures.as_completed(futures):
             try:
                 result = future.result()
-                print(f"loaded {result[0]} result: {result[1]}, checksum: {result[2]}")
-                if result[1]:
-                    global asset_bundle_checksums
-                    asset_bundle_checksums[result[0]] = result[2]
+                print(f"loaded {result[0]} result: {result[1]}")
             except Exception as e:
                 print(f"failed to load coroutine result: {e}")
 
