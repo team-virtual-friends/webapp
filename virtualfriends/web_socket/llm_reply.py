@@ -40,7 +40,7 @@ auth_headers = {
 
 from requests.exceptions import Timeout
 
-def infer_action(text, timeout_seconds=2):
+def infer_action(text, timeout_seconds=1):
     payload = {
         'messages': [
             {"role": "system", "content": "You are a helpful assistant that identifies the asked action in the input text. The output should be either 1. no action 2. dance 3. sit 4. stand. Only output one of the above 4 strings. Example: Text: can you dance? OUTPUT: dance"},
@@ -60,7 +60,7 @@ def infer_action(text, timeout_seconds=2):
         logger.error("infer_action API call to OpenAI timed out")
         return "no action"
 
-def infer_sentiment(text, timeout_seconds=2):
+def infer_sentiment(text, timeout_seconds=1):
     payload = {
         'messages': [
             {"role": "system", "content": "You are a helpful assistant that identifies the sentiment of the input text. The output should be either 1. happy 2. neutral 3. sad 4. angry. Only output one of the above 4 strings. Example: Text: hahahah Output: happy"},
@@ -111,7 +111,7 @@ async def log_chat_history(user_id, user_ip, character_id, chat_history, timesta
         logger.info(f"An error occurred when logging chat history: {e}")
 
 
-def stream_infer_reply(chronical_messages:list, character_name:str, custom_prompts:str) -> Iterator:
+def stream_infer_reply(chronical_messages:list, character_name:str, custom_prompts:str, user_ip:str) -> Iterator:
     # logger.info("start gpt infer")
 
     #   Testing new api for now.
@@ -125,15 +125,16 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
 
     full_prompt = process_messages(chronical_messages)
 
-    # log chat history
-    current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    loop = asyncio.new_event_loop()
-    # Run the asynchronous function concurrently
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(log_chat_history("dummy", "dummy", character_name, full_prompt,  current_timestamp))
-    # Close the event loop
-    loop.close()
-
+    env = os.environ.get('ENV', 'LOCAL')
+    if env == 'PROD':
+        # log chat history
+        current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        loop = asyncio.new_event_loop()
+        # Run the asynchronous function concurrently
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(log_chat_history("dummy", user_ip, character_name, full_prompt,  current_timestamp))
+        # Close the event loop
+        loop.close()
 
     base_prompt = prompts.character_prompts.get(character_name)
     if base_prompt is None:

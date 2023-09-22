@@ -42,7 +42,7 @@ def in_game_handler(ws):
                 echo_handler(vf_request.echo, ws)
 
             elif vf_request.HasField("stream_reply_message"):
-                stream_reply_speech_handler(vf_request.stream_reply_message, ws)
+                stream_reply_speech_handler(vf_request.stream_reply_message, vf_request.ip_addr ,ws)
 
             elif vf_request.HasField("download_asset_bundle"):
                 download_asset_bundle_handler(vf_request.download_asset_bundle, ws)
