@@ -47,6 +47,7 @@ def pre_download_all_asset_bundles():
         "idafaber_elena",
         "idafaber_cat",
         "idafaber_bunny",
+        "metaavatars_einstein",
     ]
 
     credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
