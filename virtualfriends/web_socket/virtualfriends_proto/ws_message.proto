@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package virtualfriends_proto;
 
-// Next tag: 9
+// Next tag: 13
 message VfRequest {
     reserved 1;
 
@@ -12,12 +12,20 @@ message VfRequest {
         StreamReplyMessageRequest stream_reply_message = 6;
 
         DownloadAssetBundleRequest download_asset_bundle = 7;
+
+        DownloadBlobRequest download_blob = 9;
     }
 
     string ip_addr = 8;
+
+    string username = 10;
+
+    string user_id = 11;
+
+    string session_id = 12;
 }
 
-// Next tag: 8
+// Next tag: 9
 message VfResponse {
     CustomError error = 1;
 
@@ -27,6 +35,8 @@ message VfResponse {
         StreamReplyMessageResponse stream_reply_message = 6;
 
         DownloadAssetBundleResponse download_asset_bundle = 7;
+
+        DownloadBlobResponse download_blob = 8;
     }
 }
 
@@ -118,7 +128,10 @@ message StreamReplyMessageResponse {
 }
 
 // Next tag: 4
+// [Deprecated, use DownloadBlobRequest]
 message DownloadAssetBundleRequest {
+    option deprecated = true;
+
     string publisher_name = 1;
 
     string character_name = 2;
@@ -127,10 +140,37 @@ message DownloadAssetBundleRequest {
 }
 
 // Next tag: 4
+// [Deprecated, use DownloadBlobResponse]
 message DownloadAssetBundleResponse {
+    option deprecated = true;
+
     bytes chunk = 1;
 
     int32 index = 2;
 
     int32 total_count = 3;
+}
+
+// Next tag: 4
+message MirroredBlobInfo {
+    string blob_name = 1;
+
+    int32 major_version = 2;
+    int32 minor_version = 3;
+}
+
+// Next tag: 2
+message DownloadBlobRequest {
+    MirroredBlobInfo mirrored_blob_info = 1;
+}
+
+// Next tag: 5
+message DownloadBlobResponse {
+    MirroredBlobInfo mirrored_blob_info = 1;
+
+    bytes chunk = 2;
+
+    int32 index = 3;
+
+    int32 total_count = 4;
 }

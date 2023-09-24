@@ -125,6 +125,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     
     send_message(ws, vf_response)
 
+ # [Deprecated]
 def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequest, ws):
     file_path = f"./static/character-asset-bundles/{request.runtime_platform}/{request.publisher_name}_{request.character_name}"
     with open(file_path, "rb") as file:
@@ -145,6 +146,37 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
 
         vf_response = ws_message_pb2.VfResponse()
         vf_response.download_asset_bundle.CopyFrom(response)
+
+        send_message(ws, vf_response)
+
+        index += 1
+    logger.info(f"{file_path} chunks sent")
+
+def download_blob_handler(request:ws_message_pb2.DownloadBlobRequest, ws):
+    file_path = f"./static/character-asset-bundles/{request.mirrored_blob_info.blob_name}"
+    with open(file_path, "rb") as file:
+        blob_bytes = file.read()
+
+    if blob_bytes is None or len(blob_bytes) == 0:
+        send_message(ws, error_response(custom_error("empty file")))
+        return
+
+    chunk_size = 3 * 1048576 # 3Mb
+
+    chunks = [blob_bytes[i:i + chunk_size] for i in range(0, len(blob_bytes), chunk_size)]
+    total_count = len(chunks)
+    logger.info(f"total count of chunks {total_count}")
+
+    index = 0
+    for chunk in chunks:
+        response = ws_message_pb2.DownloadBlobResponse()
+        response.mirrored_blob_info.CopyFrom(request.mirrored_blob_info)
+        response.chunk = chunk
+        response.index = index
+        response.total_count = total_count
+
+        vf_response = ws_message_pb2.VfResponse()
+        vf_response.download_blob.CopyFrom(response)
 
         send_message(ws, vf_response)
 

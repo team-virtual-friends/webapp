@@ -23,6 +23,15 @@ def hello_world():
     target = os.environ.get('TARGET', 'World')
     return 'Hello {}!\n'.format(target), 200
 
+@app.route('/connect')
+def on_connect(ws):
+    logger.info("on_connect")
+    ws.send("connect")
+
+@app.route('/disconnect')
+def on_disconnect(ws):
+    logger.info("disconnected")
+
 @sock.route('/echo')
 def echo(ws):
     while True:
@@ -46,6 +55,9 @@ def in_game_handler(ws):
 
             elif vf_request.HasField("download_asset_bundle"):
                 download_asset_bundle_handler(vf_request.download_asset_bundle, ws)
+
+            elif vf_request.HasField("download_blob"):
+                download_blob_handler(vf_request.download_blob, ws)
 
             else:
                 # Handle the case where the 'request' field is set but none of the specific fields are set
