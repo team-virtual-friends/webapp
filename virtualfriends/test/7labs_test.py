@@ -54,10 +54,15 @@ def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
     return wav_io.getvalue()
 
 
+
 def text_to_audio(text):
     api_key = "4fb91ffd3e3e3cd35cbf2d19a64fd4e9"
     CHUNK_SIZE = 1024
-    voice_id = "LcfcDJNUP1GQjkzn1xUU"
+#    voice_id = "LcfcDJNUP1GQjkzn1xUU"
+
+
+
+    voice_id = "sij1MJjyxTEZi1YPU3h1"
     url = "https://api.elevenlabs.io/v1/text-to-speech/" + voice_id  # + "?optimize_streaming_latency=3"
 
     headers = {
@@ -70,8 +75,8 @@ def text_to_audio(text):
         "text": text,
         "model_id": "eleven_monolingual_v1",
         "voice_settings": {
-            "stability": 0.5,
-            "similarity_boost": 0.5
+            "stability": 0.9,
+            "similarity_boost": 0.9
         }
     }
 
@@ -100,8 +105,6 @@ def text_to_audio(text):
     else:
         print("Request failed. Status code:", response.status_code)
         print("Response content:", response.text)
-
-
 
 
 # Path to your service account key file
@@ -154,9 +157,10 @@ def convert_text_to_speech(text):
 #    return str(base64.b64encode(response.audio_content))
 
 # text = "Hi there, it is so nice to meet you. how are you doing"
-text = "Hi there, what can i do for you today? mac price is 12345"
+text = "Hello World， my name is Yi Song. "
 
 text_to_audio(text)
 
 
 convert_text_to_speech(text)
+
