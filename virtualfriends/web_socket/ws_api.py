@@ -16,6 +16,7 @@ from .virtualfriends_proto import ws_message_pb2
 
 from . import speech
 from . import llm_reply
+from . import voice_clone
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
@@ -109,7 +110,7 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
 
     echo_response = ws_message_pb2.EchoResponse()
 
-    (sentiment, action, reply_wav, err) = gen_reply_package(echo_request.text, echo_request.voice_config)
+    (sentiment, action, reply_wav, err) = gen_reply_package(echo_request.text, echo_request.voice_config, "")
 
     if err is not None:
         send_message(ws, error_response(err))
@@ -209,7 +210,12 @@ def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
     # In case all executions have issues, return None or an appropriate value
     return None, "All attempts failed"
 
-def generate_voice(text, voice_config) -> (bytes, str):
+def generate_voice(text, voice_config, voice_id) -> (bytes, str):
+    # Enable voice clone call if voice_id is not None.
+    if voice_id is not None:
+        voice_clone_bytes = voice_clone.text_to_audio(text, voice_id)
+        return (voice_clone_bytes, "")
+
     voice_type = voice_config.voice_type
     voice_bytes = None
     if voice_type == ws_message_pb2.VoiceType.VoiceType_NormalMale:
@@ -227,51 +233,52 @@ def generate_voice(text, voice_config) -> (bytes, str):
     else:
         return (speech.tweak_sound(voice_bytes, voice_config.octaves), "")
 
-def gen_reply_package(reply_text: str, voice_config) -> (str, str, bytes, ws_message_pb2.CustomError):
+def gen_reply_package(reply_text: str, voice_config, character_name) -> (str, str, bytes, ws_message_pb2.CustomError):
     sentiment = ""
     action = ""
-    reply_wav = None
     err = None
     wav = None
+
+    voice_id_map = {
+        "yi-clone": "sij1MJjyxTEZi1YPU3h1"
+    }
+
+    voice_id = voice_id_map.get(character_name)
 
     def fetch_results():
         futures = {
             executor.submit(infer_action_wrapper, reply_text): 'action',
             executor.submit(infer_sentiment_wrapper, reply_text): 'sentiment',
-            executor.submit(generate_voice, reply_text, voice_config): 'voice'
+            executor.submit(generate_voice, reply_text, voice_config, voice_id): 'voice'
         }
+
+        results = {}
+
         for future in concurrent.futures.as_completed(futures):
             try:
-                result = future.result()
-                if futures[future] == 'sentiment':
-                    return ('sentiment', result[1])
-                elif futures[future] == 'action':
-                    return ('action', result[1])
-                else:  # it's voice
-                    return ('voice', result)
+                result_type = futures[future]
+                results[result_type] = future.result()
             except Exception as e:
-                # It might be beneficial to log these exceptions
-                logger.error(f"Error in {futures[future]}: {str(e)}")
-                pass
+                logger.error(f"Error in {result_type}: {str(e)}")
+                results[result_type] = None  # Optionally, store a None value or some default for failed tasks.
+
+        return results
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        results = [fetch_results() for _ in range(3)]
+        results = fetch_results()
 
-    for res_type, res_value in results:
-        if res_type == 'sentiment':
-            sentiment = res_value
-        elif res_type == 'action':
-            action = res_value
-        else:  # it's voice
-            (wav, err) = res_value
+    if 'sentiment' in results:
+        sentiment = results['sentiment'][1]
+    if 'action' in results:
+        action = results['action'][1]
+    if 'voice' in results:
+        (wav, err) = results['voice']
 
     if err and len(err) > 0:
         logger.error(err)
         err = custom_error(err)
-        return (sentiment, action, reply_wav, err)
-    reply_wav = wav
-    return (sentiment, action, reply_wav, None)
-
+        return (sentiment, action, wav, err)
+    return (sentiment, action, wav, None)
 
 
 async def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp):
@@ -353,7 +360,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
                 response.transcribed_text = text
 
             start_time = time.time()
-            (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config)
+            (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config, character_name)
             end_time = time.time()
             latency = end_time - start_time
             log_current_latency(env, "session_id", "user_id", user_ip, character_name, "gen_reply_package", latency)

@@ -63,7 +63,7 @@ async def text_to_speech(voice_id):
 
         # Send "Hello World" input
         input_message = {
-            "text": "Hello World， my name is Yi Song. ",
+            "text":  "Hello World， my name is Yi Song. I love AI and XR, I am always ready to build something new. ",
             "try_trigger_generation": True
         }
 
