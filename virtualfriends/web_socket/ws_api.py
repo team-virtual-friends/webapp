@@ -32,6 +32,12 @@ credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 client = bigquery.Client(credentials=credentials)
 
+from faster_whisper import WhisperModel
+
+# Initialize the Whisper ASR model
+faster_whisper_model = WhisperModel("tiny", device="cpu", compute_type="int8")
+
+
 
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
     try:
@@ -210,6 +216,29 @@ def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
     # In case all executions have issues, return None or an appropriate value
     return None, "All attempts failed"
 
+
+# Infer whisper model locally
+def faster_whisper(wav_bytes):
+    # Create a NamedBytesIO object from WAV bytes
+    audio_buffer = speech.NamedBytesIO(wav_bytes, name="audio.wav")
+
+    # Transcribe the audio
+    # start_time = time.time()
+    segments, info = faster_whisper_model.transcribe(audio_buffer, beam_size=5)
+    # end_time = time.time()
+    # latency = end_time - start_time
+
+    # print(f"faster whisper took {latency:.5f} seconds")
+    # print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+
+    # transcribed_segments = []
+    # for segment in segments:
+    #     transcribed_segments.append([segment.start, segment.end, segment.text])
+
+    transcribed_text = " ".join(segment.text for segment in segments)
+    return transcribed_text, None
+
+
 def generate_voice(text, voice_config, voice_id) -> (bytes, str):
     # Enable voice clone call if voice_id is not None.
     if voice_id is not None:
@@ -326,7 +355,10 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         wav_bytes = request.wav
 
         start_time = time.time()
-        (text, err) = execute_speech2text_in_parallel(wav_bytes)
+
+        (text, err) = faster_whisper(wav_bytes)
+#        (text, err) = execute_speech2text_in_parallel(wav_bytes)
+
         end_time = time.time()
         latency = end_time - start_time
         log_current_latency(env, "session_id", "user_id", user_ip, character_name, "speech2text", latency)
