@@ -126,7 +126,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     full_prompt = process_messages(chronical_messages)
 
     env = os.environ.get('ENV', 'LOCAL')
-    if env == 'PROD':
+    if env != 'LOCAL':
         # log chat history
         current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop = asyncio.new_event_loop()

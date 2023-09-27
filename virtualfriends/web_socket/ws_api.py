@@ -33,9 +33,11 @@ credentials = service_account.Credentials.from_service_account_file(credentials_
 client = bigquery.Client(credentials=credentials)
 
 from faster_whisper import WhisperModel
+from torch.cuda import is_available as is_cuda_available
 
+device = 'cuda' if is_cuda_available() else 'cpu'
 # Initialize the Whisper ASR model
-faster_whisper_model = WhisperModel("tiny", device="cpu", compute_type="int8")
+faster_whisper_model = WhisperModel("tiny", device=device, compute_type="int8")
 
 
 
@@ -356,8 +358,9 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
 
         start_time = time.time()
 
-        (text, err) = faster_whisper(wav_bytes)
-#        (text, err) = execute_speech2text_in_parallel(wav_bytes)
+#       Need GPU  machine to reduce the latency.
+#       (text, err) = faster_whisper(wav_bytes)
+        (text, err) = execute_speech2text_in_parallel(wav_bytes)
 
         end_time = time.time()
         latency = end_time - start_time
