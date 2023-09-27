@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: virtual-friends-gke
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: virtual-friends
@@ -16,7 +16,7 @@ spec:
       - name: virtual-friends-app
         # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
         # Replace $GCLOUD_PROJECT with your project ID.
-        image: gcr.io/ysong-chat/flask-app:4d2316f-26780452
+        image: gcr.io/ysong-chat/flask-app:f622825-26be6f48
         # gcr.io/ysong-chat/flask-app:809f866-d6c44f0d
         # This app listens on port 8080 for web traffic by default.
         ports:
