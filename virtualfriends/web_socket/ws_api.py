@@ -36,9 +36,10 @@ from faster_whisper import WhisperModel
 from torch.cuda import is_available as is_cuda_available
 
 device = 'cuda' if is_cuda_available() else 'cpu'
-# Initialize the Whisper ASR model
-faster_whisper_model = WhisperModel("tiny", device=device, compute_type="int8")
+logger.error(f"Faster Whisper Model device: {device}")
 
+# Initialize the Whisper ASR model
+faster_whisper_model = WhisperModel("base", device=device, compute_type="int8")
 
 
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
@@ -359,7 +360,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         start_time = time.time()
 
 #       Need GPU  machine to reduce the latency.
-#       (text, err) = faster_whisper(wav_bytes)
+#         (text, err) = faster_whisper(wav_bytes)
         (text, err) = execute_speech2text_in_parallel(wav_bytes)
 
         end_time = time.time()

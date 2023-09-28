@@ -18,6 +18,11 @@ CORS(app)
 
 sock = Sock(app)
 
+from torch.cuda import is_available as is_cuda_available
+device = 'cuda' if is_cuda_available() else 'cpu'
+logger.error(f"Faster Whisper Model device: {device}")
+
+
 @app.route('/')
 def hello_world():
     target = os.environ.get('TARGET', 'World')

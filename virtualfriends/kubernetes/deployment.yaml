@@ -14,11 +14,7 @@ spec:
     spec:
       containers:
       - name: virtual-friends-app
-        # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
-        # Replace $GCLOUD_PROJECT with your project ID.
-        image: gcr.io/ysong-chat/flask-app:f622825-26be6f48
-        # gcr.io/ysong-chat/flask-app:809f866-d6c44f0d
-        # This app listens on port 8080 for web traffic by default.
+        image: gcr.io/ysong-chat/flask-app:2c9088a-77caf643
         ports:
         - containerPort: 8080
         env:
@@ -26,11 +22,12 @@ spec:
             value: "8080"
         resources:
           requests:
-            memory: "300Mi"
-            cpu: "300m"
-            ephemeral-storage: "2Gi"
+            memory: "5Gi"
+            cpu: "3"
+            ephemeral-storage: "5Gi"
+#            nvidia.com/gpu: "1" # Requesting 1 T4 GPU
           limits:
-            memory: "1Gi"
-            cpu: "1"
-            ephemeral-storage: "4Gi"
----
+            memory: "5Gi"
+            cpu: "3"
+            ephemeral-storage: "5Gi"
+#            nvidia.com/gpu: "1" # Limiting to 1 T4 GPU

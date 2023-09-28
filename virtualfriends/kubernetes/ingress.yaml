@@ -4,7 +4,7 @@ metadata:
   name: virtual-friends-ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
-    networking.gke.io/managed-certificates: virtual-friends-cert
+    networking.gke.io/managed-certificates: virtual-friends-cert-new
 spec:
   rules:
   - host: virtualfriends.app
