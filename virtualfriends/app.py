@@ -59,6 +59,9 @@ def in_game_handler(ws):
             elif vf_request.HasField("download_blob"):
                 download_blob_handler(vf_request.download_blob, ws)
 
+            elif vf_request.HasField("get_character"):
+                get_character_handler(vf_request.get_character, ws)
+
             else:
                 # Handle the case where the 'request' field is set but none of the specific fields are set
                 ws.send(error_response("Unknown request type").SerializeToString())

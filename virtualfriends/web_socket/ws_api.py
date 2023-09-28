@@ -135,6 +135,42 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     
     send_message(ws, vf_response)
 
+def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
+    vf_response = ws_message_pb2.VfResponse()
+    response = ws_message_pb2.GetCharacterResponse()
+
+    # TODO(yufan.lu, ysong): replace with actual DB call.
+    if request.character_id == "00001": # yi.song
+        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
+        loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/64dc7240cfdd0f000df8c137.glb"
+
+        voiceConfig = ws_message_pb2.VoiceConfig()
+        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
+        voiceConfig.octaves = 0
+
+        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+        response.gender = ws_message_pb2.Gender.Gender_Male
+        response.friend_name = "Yi Song"
+        response.voice_config.CopyFrom(voiceConfig)
+
+    elif request.character_id == "00002": # yufan.lu
+        pass
+    elif request.character_id == "00003": # valerie
+        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
+        loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/6514f44f1c810b0e7e7963e3.glb"
+
+        voiceConfig = ws_message_pb2.VoiceConfig()
+        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+        voiceConfig.octaves = 0
+
+        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+        response.gender = ws_message_pb2.Gender.Gender_Female
+        response.friend_name = "Valerie"
+        response.voice_config.CopyFrom(voiceConfig)
+    
+    vf_response.get_character.CopyFrom(response)
+    send_message(ws, vf_response)
+
  # [Deprecated]
 def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequest, ws):
     file_path = f"./static/character-asset-bundles/{request.runtime_platform}/{request.publisher_name}_{request.character_name}"

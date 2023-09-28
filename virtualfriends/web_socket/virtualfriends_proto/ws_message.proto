@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package virtualfriends_proto;
 
-// Next tag: 13
+// Next tag: 14
 message VfRequest {
     reserved 1;
 
@@ -14,6 +14,8 @@ message VfRequest {
         DownloadAssetBundleRequest download_asset_bundle = 7;
 
         DownloadBlobRequest download_blob = 9;
+
+        GetCharacterRequest get_character = 13;
     }
 
     string ip_addr = 8;
@@ -25,7 +27,7 @@ message VfRequest {
     string session_id = 12;
 }
 
-// Next tag: 9
+// Next tag: 10
 message VfResponse {
     CustomError error = 1;
 
@@ -37,6 +39,8 @@ message VfResponse {
         DownloadAssetBundleResponse download_asset_bundle = 7;
 
         DownloadBlobResponse download_blob = 8;
+
+        GetCharacterResponse get_character = 9;
     }
 }
 
@@ -72,7 +76,16 @@ enum VoiceType {
     VoiceType_NormalFemale1 = 2;
     VoiceType_NormalFemale2 = 3;
 
-    VoiceConfig_Orc = 4;
+    VoiceType_Orc = 4;
+}
+
+// Next tag: 3
+enum Gender {
+    Gender_Invalid = 0;
+
+    Gender_Male = 1;
+
+    Gender_Female = 2;
 }
 
 // Next tag: 3
@@ -173,4 +186,27 @@ message DownloadBlobResponse {
     int32 index = 3;
 
     int32 total_count = 4;
+}
+
+// Next tag: 2
+message LoaderReadyPlayerMe {
+    string avatar_url = 1;
+}
+
+// Next tag: 2
+message GetCharacterRequest {
+    string character_id = 1;
+}
+
+// Next tag: 5
+message GetCharacterResponse {
+    oneof loader_config {
+        LoaderReadyPlayerMe loader_readyplayerme = 1;
+    }
+
+    Gender gender = 2;
+
+    string friend_name = 3;
+
+    VoiceConfig voice_config = 4;
 }
