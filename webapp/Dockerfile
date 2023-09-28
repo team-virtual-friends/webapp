@@ -1,12 +1,12 @@
-# Use an official Python runtime as the base image
-FROM python:3.9-slim
+# Use an official NVIDIA CUDA base image that includes cuBLAS and cuDNN for CUDA 11
+FROM nvidia/cuda:11.0-base
+# nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+# nvidia/cuda:11.0-base
 
 # Metadata as described above
 LABEL maintainer="yisong0623@gmail.com"
 
-# Set environment variables:
-# 1. Set PYTHONUNBUFFERED so that Python output is logged immediately.
-# 2. Set PYTHONDONTWRITEBYTECODE so that Python doesn't try to write .pyc files.
+# Set environment variables for Python
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
 
-# Define environment variable for Gunicorn
+# Define environment variables for Gunicorn
 ENV GUNICORN_CMD="gunicorn"
 ENV APP_MODULE="app:app"
 ENV WORKER_COUNT="4"
