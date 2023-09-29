@@ -1,6 +1,12 @@
 # Use the official lightweight Python image.
 # https://hub.docker.com/_/python
 FROM python:3.8-slim
+
+# Use an official NVIDIA CUDA base image that includes cuBLAS and cuDNN for CUDA 11
+# FROM nvidia/cuda:11.0-base
+# # nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+# # nvidia/cuda:11.0-base
+
 RUN apt update
 # Used to tweak the voice stream.
 RUN apt install -y ffmpeg
