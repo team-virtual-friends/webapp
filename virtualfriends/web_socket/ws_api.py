@@ -48,15 +48,10 @@ def send_message(ws, vf_response:ws_message_pb2.VfResponse):
         logger.error(f"Error sending WebSocket message: {str(e)}")
 
 def pre_download_all_asset_bundles():
-    gcs_path = "character-asset-bundles/WebGL"
+    gcs_path = "raw-characters/WebGL"
     asset_bundle_names = [
-        "idafaber_mina",
-        "idafaber_jack",
-        "idafaber_daniel",
-        "idafaber_elena",
-        "idafaber_cat",
-        "idafaber_bunny",
-        "metaavatars_einstein",
+        "mina",
+        "einstein",
     ]
 
     credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
@@ -140,7 +135,33 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
     response = ws_message_pb2.GetCharacterResponse()
 
     # TODO(yufan.lu, ysong): replace with actual DB call.
-    if request.character_id == "00001": # yi.song
+    if request.character_id == "mina":
+        loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
+        loaderBlobDownload.blob_name = "mina"
+
+        voiceConfig = ws_message_pb2.VoiceConfig()
+        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale1
+        voiceConfig.octaves = 0.3
+
+        response.loader_blob_download.CopyFrom(loaderBlobDownload)
+        response.gender = ws_message_pb2.Gender.Gender_Female
+        response.friend_name = "mina"
+        response.voice_config.CopyFrom(voiceConfig)
+
+    elif request.character_id == "einstein":
+        loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
+        loaderBlobDownload.blob_name = "einstein"
+
+        voiceConfig = ws_message_pb2.VoiceConfig()
+        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
+        voiceConfig.octaves = -0.2
+
+        response.loader_blob_download.CopyFrom(loaderBlobDownload)
+        response.gender = ws_message_pb2.Gender.Gender_Male
+        response.friend_name = "einstein"
+        response.voice_config.CopyFrom(voiceConfig)
+
+    elif request.character_id == "00001": # yi.song
         loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
         loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/64dc7240cfdd0f000df8c137.glb"
 
@@ -199,7 +220,7 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
     logger.info(f"{file_path} chunks sent")
 
 def download_blob_handler(request:ws_message_pb2.DownloadBlobRequest, ws):
-    file_path = f"./static/character-asset-bundles/{request.mirrored_blob_info.blob_name}"
+    file_path = f"./static/raw-characters/{request.mirrored_blob_info.blob_name}"
     with open(file_path, "rb") as file:
         blob_bytes = file.read()
 

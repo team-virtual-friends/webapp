@@ -88,11 +88,13 @@ enum Gender {
     Gender_Female = 2;
 }
 
-// Next tag: 3
+// Next tag: 4
 message VoiceConfig {
     VoiceType voice_type = 1;
 
     float octaves = 2;
+
+    string eleven_lab_id = 3;
 }
 
 // MirroredContent contains the content that is copied from request to response.
@@ -192,16 +194,22 @@ message DownloadBlobResponse {
 message LoaderReadyPlayerMe {
     string avatar_url = 1;
 }
+// Next tag: 2
+message LoaderBlobDownload {
+    string blob_name = 1;
+}
 
 // Next tag: 2
 message GetCharacterRequest {
     string character_id = 1;
 }
 
-// Next tag: 5
+// Next tag: 6
 message GetCharacterResponse {
     oneof loader_config {
         LoaderReadyPlayerMe loader_readyplayerme = 1;
+
+        LoaderBlobDownload loader_blob_download = 5;
     }
 
     Gender gender = 2;
