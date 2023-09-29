@@ -1,3 +1,5 @@
+# gcloud builds --project ysong-chat submit --tag gcr.io/ysong-chat/webapp:$(git rev-parse --short HEAD)-$(openssl rand -hex 4) .
+
 # Use an official NVIDIA CUDA base image that includes cuBLAS and cuDNN for CUDA 11
 FROM nvidia/cuda:11.0-base
 # nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
