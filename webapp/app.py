@@ -299,6 +299,7 @@ def create_character():
     if request.method == 'POST':
         rpm_url = request.form['rpm_url']
         name = request.form['name']
+        gender = request.form['gender']
         character_greeting = request.form['character_greeting']
         character_description = request.form['character_description']
         audio_file = request.files['audioFile']
@@ -315,6 +316,7 @@ def create_character():
         character_entity.update({
             'rpm_url': rpm_url,
             'name': name,
+            'gender': gender,  # Added the gender field
             'character_greeting': character_greeting,
             'character_description': character_description,
             'audio_file_name': audio_file_name
@@ -323,7 +325,7 @@ def create_character():
         # Save the character entity
         client.put(character_entity)
 
-        return "Character saved successfully!"
+        return render_template('character-profile.html', character=character_entity)
 
     return render_template('create-character.html')
 
