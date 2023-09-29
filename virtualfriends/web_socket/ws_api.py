@@ -167,8 +167,7 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/64dc7240cfdd0f000df8c137.glb"
 
         voiceConfig = ws_message_pb2.VoiceConfig()
-        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
-        voiceConfig.octaves = 0
+        voiceConfig.eleven_lab_id = "sij1MJjyxTEZi1YPU3h1"
 
         response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
         response.gender = ws_message_pb2.Gender.Gender_Male
@@ -299,10 +298,10 @@ def faster_whisper(wav_bytes):
     return transcribed_text, None
 
 
-def generate_voice(text, voice_config, voice_id) -> (bytes, str):
+def generate_voice(text, voice_config) -> (bytes, str):
     # Enable voice clone call if voice_id is not None.
-    if voice_id is not None:
-        voice_clone_bytes = voice_clone.text_to_audio(text, voice_id)
+    if voice_config.eleven_lab_id is not None:
+        voice_clone_bytes = voice_clone.text_to_audio(text, voice_config.eleven_lab_id)
         return (voice_clone_bytes, "")
 
     voice_type = voice_config.voice_type
@@ -328,17 +327,11 @@ def gen_reply_package(reply_text: str, voice_config, character_name) -> (str, st
     err = None
     wav = None
 
-    voice_id_map = {
-        "yi-clone": "sij1MJjyxTEZi1YPU3h1"
-    }
-
-    voice_id = voice_id_map.get(character_name)
-
     def fetch_results():
         futures = {
             executor.submit(infer_action_wrapper, reply_text): 'action',
             executor.submit(infer_sentiment_wrapper, reply_text): 'sentiment',
-            executor.submit(generate_voice, reply_text, voice_config, voice_id): 'voice'
+            executor.submit(generate_voice, reply_text, voice_config): 'voice'
         }
 
         results = {}
