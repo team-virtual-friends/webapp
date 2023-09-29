@@ -24,67 +24,81 @@ namespace VirtualfriendsProto {
     static WsMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byL/AgoJ",
+            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byLDAwoJ",
             "VmZSZXF1ZXN0EjEKBGVjaG8YAiABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90",
             "by5FY2hvUmVxdWVzdEgAEk8KFHN0cmVhbV9yZXBseV9tZXNzYWdlGAYgASgL",
             "Mi8udmlydHVhbGZyaWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlNZXNzYWdlUmVx",
             "dWVzdEgAElEKFWRvd25sb2FkX2Fzc2V0X2J1bmRsZRgHIAEoCzIwLnZpcnR1",
             "YWxmcmllbmRzX3Byb3RvLkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0SAAS",
             "QgoNZG93bmxvYWRfYmxvYhgJIAEoCzIpLnZpcnR1YWxmcmllbmRzX3Byb3Rv",
-            "LkRvd25sb2FkQmxvYlJlcXVlc3RIABIPCgdpcF9hZGRyGAggASgJEhAKCHVz",
-            "ZXJuYW1lGAogASgJEg8KB3VzZXJfaWQYCyABKAkSEgoKc2Vzc2lvbl9pZBgM",
-            "IAEoCUIJCgdyZXF1ZXN0SgQIARACIukCCgpWZlJlc3BvbnNlEjAKBWVycm9y",
-            "GAEgASgLMiEudmlydHVhbGZyaWVuZHNfcHJvdG8uQ3VzdG9tRXJyb3ISMgoE",
-            "ZWNobxgCIAEoCzIiLnZpcnR1YWxmcmllbmRzX3Byb3RvLkVjaG9SZXNwb25z",
-            "ZUgAElAKFHN0cmVhbV9yZXBseV9tZXNzYWdlGAYgASgLMjAudmlydHVhbGZy",
-            "aWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9uc2VIABJSChVk",
-            "b3dubG9hZF9hc3NldF9idW5kbGUYByABKAsyMS52aXJ0dWFsZnJpZW5kc19w",
-            "cm90by5Eb3dubG9hZEFzc2V0QnVuZGxlUmVzcG9uc2VIABJDCg1kb3dubG9h",
-            "ZF9ibG9iGAggASgLMioudmlydHVhbGZyaWVuZHNfcHJvdG8uRG93bmxvYWRC",
-            "bG9iUmVzcG9uc2VIAEIKCghyZXNwb25zZSIkCgtDdXN0b21FcnJvchIVCg1l",
-            "cnJvcl9tZXNzYWdlGAEgASgJIlQKC0VjaG9SZXF1ZXN0EgwKBHRleHQYASAB",
-            "KAkSNwoMdm9pY2VfY29uZmlnGAIgASgLMiEudmlydHVhbGZyaWVuZHNfcHJv",
-            "dG8uVm9pY2VDb25maWciUgoMRWNob1Jlc3BvbnNlEgwKBHRleHQYASABKAkS",
-            "DgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVudBgDIAEoCRIRCglyZXBseV93",
-            "YXYYBCABKAwiUwoLVm9pY2VDb25maWcSMwoKdm9pY2VfdHlwZRgBIAEoDjIf",
-            "LnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlVHlwZRIPCgdvY3RhdmVzGAIg",
-            "ASgCIj0KD01pcnJvcmVkQ29udGVudBIWCg5jaGFyYWN0ZXJfbmFtZRgBIAEo",
-            "CRISCgpzZXNzaW9uX2lkGAIgASgDIvYBChlTdHJlYW1SZXBseU1lc3NhZ2VS",
-            "ZXF1ZXN0Ej8KEG1pcnJvcmVkX2NvbnRlbnQYASABKAsyJS52aXJ0dWFsZnJp",
-            "ZW5kc19wcm90by5NaXJyb3JlZENvbnRlbnQSFQoNanNvbl9tZXNzYWdlcxgC",
-            "IAMoCRIWCg5jdXN0b21fcHJvbXB0cxgHIAEoCRINCgN3YXYYAyABKAxIABIO",
-            "CgR0ZXh0GAYgASgJSAASNwoMdm9pY2VfY29uZmlnGAUgASgLMiEudmlydHVh",
-            "bGZyaWVuZHNfcHJvdG8uVm9pY2VDb25maWdCEQoPY3VycmVudF9tZXNzYWdl",
-            "IuoBChpTdHJlYW1SZXBseU1lc3NhZ2VSZXNwb25zZRI/ChBtaXJyb3JlZF9j",
-            "b250ZW50GAYgASgLMiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRD",
-            "b250ZW50EhUKDXJlcGx5X21lc3NhZ2UYASABKAkSDgoGYWN0aW9uGAIgASgJ",
-            "EhEKCXNlbnRpbWVudBgDIAEoCRIRCglyZXBseV93YXYYBCABKAwSGAoQdHJh",
-            "bnNjcmliZWRfdGV4dBgFIAEoCRITCgtjaHVua19pbmRleBgHIAEoBRIPCgdp",
-            "c19zdG9wGAggASgIImoKGkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0EhYK",
-            "DnB1Ymxpc2hlcl9uYW1lGAEgASgJEhYKDmNoYXJhY3Rlcl9uYW1lGAIgASgJ",
-            "EhgKEHJ1bnRpbWVfcGxhdGZvcm0YAyABKAk6AhgBIlQKG0Rvd25sb2FkQXNz",
-            "ZXRCdW5kbGVSZXNwb25zZRINCgVjaHVuaxgBIAEoDBINCgVpbmRleBgCIAEo",
-            "BRITCgt0b3RhbF9jb3VudBgDIAEoBToCGAEiUwoQTWlycm9yZWRCbG9iSW5m",
-            "bxIRCglibG9iX25hbWUYASABKAkSFQoNbWFqb3JfdmVyc2lvbhgCIAEoBRIV",
-            "Cg1taW5vcl92ZXJzaW9uGAMgASgFIlkKE0Rvd25sb2FkQmxvYlJlcXVlc3QS",
-            "QgoSbWlycm9yZWRfYmxvYl9pbmZvGAEgASgLMiYudmlydHVhbGZyaWVuZHNf",
-            "cHJvdG8uTWlycm9yZWRCbG9iSW5mbyKNAQoURG93bmxvYWRCbG9iUmVzcG9u",
-            "c2USQgoSbWlycm9yZWRfYmxvYl9pbmZvGAEgASgLMiYudmlydHVhbGZyaWVu",
-            "ZHNfcHJvdG8uTWlycm9yZWRCbG9iSW5mbxINCgVjaHVuaxgCIAEoDBINCgVp",
-            "bmRleBgDIAEoBRITCgt0b3RhbF9jb3VudBgEIAEoBSqLAQoJVm9pY2VUeXBl",
-            "EhUKEVZvaWNlVHlwZV9JbnZhbGlkEAASGAoUVm9pY2VUeXBlX05vcm1hbE1h",
-            "bGUQARIbChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMRACEhsKF1ZvaWNlVHlw",
-            "ZV9Ob3JtYWxGZW1hbGUyEAMSEwoPVm9pY2VDb25maWdfT3JjEARiBnByb3Rv",
-            "Mw=="));
+            "LkRvd25sb2FkQmxvYlJlcXVlc3RIABJCCg1nZXRfY2hhcmFjdGVyGA0gASgL",
+            "MikudmlydHVhbGZyaWVuZHNfcHJvdG8uR2V0Q2hhcmFjdGVyUmVxdWVzdEgA",
+            "Eg8KB2lwX2FkZHIYCCABKAkSEAoIdXNlcm5hbWUYCiABKAkSDwoHdXNlcl9p",
+            "ZBgLIAEoCRISCgpzZXNzaW9uX2lkGAwgASgJQgkKB3JlcXVlc3RKBAgBEAIi",
+            "rgMKClZmUmVzcG9uc2USMAoFZXJyb3IYASABKAsyIS52aXJ0dWFsZnJpZW5k",
+            "c19wcm90by5DdXN0b21FcnJvchIyCgRlY2hvGAIgASgLMiIudmlydHVhbGZy",
+            "aWVuZHNfcHJvdG8uRWNob1Jlc3BvbnNlSAASUAoUc3RyZWFtX3JlcGx5X21l",
+            "c3NhZ2UYBiABKAsyMC52aXJ0dWFsZnJpZW5kc19wcm90by5TdHJlYW1SZXBs",
+            "eU1lc3NhZ2VSZXNwb25zZUgAElIKFWRvd25sb2FkX2Fzc2V0X2J1bmRsZRgH",
+            "IAEoCzIxLnZpcnR1YWxmcmllbmRzX3Byb3RvLkRvd25sb2FkQXNzZXRCdW5k",
+            "bGVSZXNwb25zZUgAEkMKDWRvd25sb2FkX2Jsb2IYCCABKAsyKi52aXJ0dWFs",
+            "ZnJpZW5kc19wcm90by5Eb3dubG9hZEJsb2JSZXNwb25zZUgAEkMKDWdldF9j",
+            "aGFyYWN0ZXIYCSABKAsyKi52aXJ0dWFsZnJpZW5kc19wcm90by5HZXRDaGFy",
+            "YWN0ZXJSZXNwb25zZUgAQgoKCHJlc3BvbnNlIiQKC0N1c3RvbUVycm9yEhUK",
+            "DWVycm9yX21lc3NhZ2UYASABKAkiVAoLRWNob1JlcXVlc3QSDAoEdGV4dBgB",
+            "IAEoCRI3Cgx2b2ljZV9jb25maWcYAiABKAsyIS52aXJ0dWFsZnJpZW5kc19w",
+            "cm90by5Wb2ljZUNvbmZpZyJSCgxFY2hvUmVzcG9uc2USDAoEdGV4dBgBIAEo",
+            "CRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5",
+            "X3dhdhgEIAEoDCJqCgtWb2ljZUNvbmZpZxIzCgp2b2ljZV90eXBlGAEgASgO",
+            "Mh8udmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VUeXBlEg8KB29jdGF2ZXMY",
+            "AiABKAISFQoNZWxldmVuX2xhYl9pZBgDIAEoCSI9Cg9NaXJyb3JlZENvbnRl",
+            "bnQSFgoOY2hhcmFjdGVyX25hbWUYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEo",
+            "AyL2AQoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVzdBI/ChBtaXJyb3JlZF9j",
+            "b250ZW50GAEgASgLMiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRD",
+            "b250ZW50EhUKDWpzb25fbWVzc2FnZXMYAiADKAkSFgoOY3VzdG9tX3Byb21w",
+            "dHMYByABKAkSDQoDd2F2GAMgASgMSAASDgoEdGV4dBgGIAEoCUgAEjcKDHZv",
+            "aWNlX2NvbmZpZxgFIAEoCzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNl",
+            "Q29uZmlnQhEKD2N1cnJlbnRfbWVzc2FnZSLqAQoaU3RyZWFtUmVwbHlNZXNz",
+            "YWdlUmVzcG9uc2USPwoQbWlycm9yZWRfY29udGVudBgGIAEoCzIlLnZpcnR1",
+            "YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1yZXBseV9tZXNz",
+            "YWdlGAEgASgJEg4KBmFjdGlvbhgCIAEoCRIRCglzZW50aW1lbnQYAyABKAkS",
+            "EQoJcmVwbHlfd2F2GAQgASgMEhgKEHRyYW5zY3JpYmVkX3RleHQYBSABKAkS",
+            "EwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNfc3RvcBgIIAEoCCJqChpEb3du",
+            "bG9hZEFzc2V0QnVuZGxlUmVxdWVzdBIWCg5wdWJsaXNoZXJfbmFtZRgBIAEo",
+            "CRIWCg5jaGFyYWN0ZXJfbmFtZRgCIAEoCRIYChBydW50aW1lX3BsYXRmb3Jt",
+            "GAMgASgJOgIYASJUChtEb3dubG9hZEFzc2V0QnVuZGxlUmVzcG9uc2USDQoF",
+            "Y2h1bmsYASABKAwSDQoFaW5kZXgYAiABKAUSEwoLdG90YWxfY291bnQYAyAB",
+            "KAU6AhgBIlMKEE1pcnJvcmVkQmxvYkluZm8SEQoJYmxvYl9uYW1lGAEgASgJ",
+            "EhUKDW1ham9yX3ZlcnNpb24YAiABKAUSFQoNbWlub3JfdmVyc2lvbhgDIAEo",
+            "BSJZChNEb3dubG9hZEJsb2JSZXF1ZXN0EkIKEm1pcnJvcmVkX2Jsb2JfaW5m",
+            "bxgBIAEoCzImLnZpcnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQmxvYklu",
+            "Zm8ijQEKFERvd25sb2FkQmxvYlJlc3BvbnNlEkIKEm1pcnJvcmVkX2Jsb2Jf",
+            "aW5mbxgBIAEoCzImLnZpcnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQmxv",
+            "YkluZm8SDQoFY2h1bmsYAiABKAwSDQoFaW5kZXgYAyABKAUSEwoLdG90YWxf",
+            "Y291bnQYBCABKAUiKQoTTG9hZGVyUmVhZHlQbGF5ZXJNZRISCgphdmF0YXJf",
+            "dXJsGAEgASgJIicKEkxvYWRlckJsb2JEb3dubG9hZBIRCglibG9iX25hbWUY",
+            "ASABKAkiKwoTR2V0Q2hhcmFjdGVyUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQY",
+            "ASABKAkiuAIKFEdldENoYXJhY3RlclJlc3BvbnNlEkkKFGxvYWRlcl9yZWFk",
+            "eXBsYXllcm1lGAEgASgLMikudmlydHVhbGZyaWVuZHNfcHJvdG8uTG9hZGVy",
+            "UmVhZHlQbGF5ZXJNZUgAEkgKFGxvYWRlcl9ibG9iX2Rvd25sb2FkGAUgASgL",
+            "MigudmlydHVhbGZyaWVuZHNfcHJvdG8uTG9hZGVyQmxvYkRvd25sb2FkSAAS",
+            "LAoGZ2VuZGVyGAIgASgOMhwudmlydHVhbGZyaWVuZHNfcHJvdG8uR2VuZGVy",
+            "EhMKC2ZyaWVuZF9uYW1lGAMgASgJEjcKDHZvaWNlX2NvbmZpZxgEIAEoCzIh",
+            "LnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnQg8KDWxvYWRlcl9j",
+            "b25maWcqiQEKCVZvaWNlVHlwZRIVChFWb2ljZVR5cGVfSW52YWxpZBAAEhgK",
+            "FFZvaWNlVHlwZV9Ob3JtYWxNYWxlEAESGwoXVm9pY2VUeXBlX05vcm1hbEZl",
+            "bWFsZTEQAhIbChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMhADEhEKDVZvaWNl",
+            "VHlwZV9PcmMQBCpACgZHZW5kZXISEgoOR2VuZGVyX0ludmFsaWQQABIPCgtH",
+            "ZW5kZXJfTWFsZRABEhEKDUdlbmRlcl9GZW1hbGUQAmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob", "IpAddr", "Username", "UserId", "SessionId" }, new[]{ "Request" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob" }, new[]{ "Response" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), typeof(global::VirtualfriendsProto.Gender), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob", "GetCharacter", "IpAddr", "Username", "UserId", "SessionId" }, new[]{ "Request" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob", "GetCharacter" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text", "VoiceConfig" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text", "Action", "Sentiment", "ReplyWav" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves", "ElevenLabId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "SessionId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "CustomPrompts", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null),
@@ -92,7 +106,11 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadAssetBundleResponse), global::VirtualfriendsProto.DownloadAssetBundleResponse.Parser, new[]{ "Chunk", "Index", "TotalCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredBlobInfo), global::VirtualfriendsProto.MirroredBlobInfo.Parser, new[]{ "BlobName", "MajorVersion", "MinorVersion" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadBlobRequest), global::VirtualfriendsProto.DownloadBlobRequest.Parser, new[]{ "MirroredBlobInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadBlobResponse), global::VirtualfriendsProto.DownloadBlobResponse.Parser, new[]{ "MirroredBlobInfo", "Chunk", "Index", "TotalCount" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadBlobResponse), global::VirtualfriendsProto.DownloadBlobResponse.Parser, new[]{ "MirroredBlobInfo", "Chunk", "Index", "TotalCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.LoaderReadyPlayerMe), global::VirtualfriendsProto.LoaderReadyPlayerMe.Parser, new[]{ "AvatarUrl" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.LoaderBlobDownload), global::VirtualfriendsProto.LoaderBlobDownload.Parser, new[]{ "BlobName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterRequest), global::VirtualfriendsProto.GetCharacterRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterResponse), global::VirtualfriendsProto.GetCharacterResponse.Parser, new[]{ "LoaderReadyplayerme", "LoaderBlobDownload", "Gender", "FriendName", "VoiceConfig" }, new[]{ "LoaderConfig" }, null, null, null)
           }));
     }
     #endregion
@@ -107,14 +125,23 @@ namespace VirtualfriendsProto {
     [pbr::OriginalName("VoiceType_NormalMale")] NormalMale = 1,
     [pbr::OriginalName("VoiceType_NormalFemale1")] NormalFemale1 = 2,
     [pbr::OriginalName("VoiceType_NormalFemale2")] NormalFemale2 = 3,
-    [pbr::OriginalName("VoiceConfig_Orc")] VoiceConfigOrc = 4,
+    [pbr::OriginalName("VoiceType_Orc")] Orc = 4,
+  }
+
+  /// <summary>
+  /// Next tag: 3
+  /// </summary>
+  public enum Gender {
+    [pbr::OriginalName("Gender_Invalid")] Invalid = 0,
+    [pbr::OriginalName("Gender_Male")] Male = 1,
+    [pbr::OriginalName("Gender_Female")] Female = 2,
   }
 
   #endregion
 
   #region Messages
   /// <summary>
-  /// Next tag: 13
+  /// Next tag: 14
   /// </summary>
   public sealed partial class VfRequest : pb::IMessage<VfRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -166,6 +193,9 @@ namespace VirtualfriendsProto {
           break;
         case RequestOneofCase.DownloadBlob:
           DownloadBlob = other.DownloadBlob.Clone();
+          break;
+        case RequestOneofCase.GetCharacter:
+          GetCharacter = other.GetCharacter.Clone();
           break;
       }
 
@@ -227,6 +257,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "get_character" field.</summary>
+    public const int GetCharacterFieldNumber = 13;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.GetCharacterRequest GetCharacter {
+      get { return requestCase_ == RequestOneofCase.GetCharacter ? (global::VirtualfriendsProto.GetCharacterRequest) request_ : null; }
+      set {
+        request_ = value;
+        requestCase_ = value == null ? RequestOneofCase.None : RequestOneofCase.GetCharacter;
+      }
+    }
+
     /// <summary>Field number for the "ip_addr" field.</summary>
     public const int IpAddrFieldNumber = 8;
     private string ipAddr_ = "";
@@ -283,6 +325,7 @@ namespace VirtualfriendsProto {
       StreamReplyMessage = 6,
       DownloadAssetBundle = 7,
       DownloadBlob = 9,
+      GetCharacter = 13,
     }
     private RequestOneofCase requestCase_ = RequestOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -317,6 +360,7 @@ namespace VirtualfriendsProto {
       if (!object.Equals(StreamReplyMessage, other.StreamReplyMessage)) return false;
       if (!object.Equals(DownloadAssetBundle, other.DownloadAssetBundle)) return false;
       if (!object.Equals(DownloadBlob, other.DownloadBlob)) return false;
+      if (!object.Equals(GetCharacter, other.GetCharacter)) return false;
       if (IpAddr != other.IpAddr) return false;
       if (Username != other.Username) return false;
       if (UserId != other.UserId) return false;
@@ -333,6 +377,7 @@ namespace VirtualfriendsProto {
       if (requestCase_ == RequestOneofCase.StreamReplyMessage) hash ^= StreamReplyMessage.GetHashCode();
       if (requestCase_ == RequestOneofCase.DownloadAssetBundle) hash ^= DownloadAssetBundle.GetHashCode();
       if (requestCase_ == RequestOneofCase.DownloadBlob) hash ^= DownloadBlob.GetHashCode();
+      if (requestCase_ == RequestOneofCase.GetCharacter) hash ^= GetCharacter.GetHashCode();
       if (IpAddr.Length != 0) hash ^= IpAddr.GetHashCode();
       if (Username.Length != 0) hash ^= Username.GetHashCode();
       if (UserId.Length != 0) hash ^= UserId.GetHashCode();
@@ -388,6 +433,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(98);
         output.WriteString(SessionId);
       }
+      if (requestCase_ == RequestOneofCase.GetCharacter) {
+        output.WriteRawTag(106);
+        output.WriteMessage(GetCharacter);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -430,6 +479,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(98);
         output.WriteString(SessionId);
       }
+      if (requestCase_ == RequestOneofCase.GetCharacter) {
+        output.WriteRawTag(106);
+        output.WriteMessage(GetCharacter);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -451,6 +504,9 @@ namespace VirtualfriendsProto {
       }
       if (requestCase_ == RequestOneofCase.DownloadBlob) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(DownloadBlob);
+      }
+      if (requestCase_ == RequestOneofCase.GetCharacter) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetCharacter);
       }
       if (IpAddr.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(IpAddr);
@@ -512,6 +568,12 @@ namespace VirtualfriendsProto {
             DownloadBlob = new global::VirtualfriendsProto.DownloadBlobRequest();
           }
           DownloadBlob.MergeFrom(other.DownloadBlob);
+          break;
+        case RequestOneofCase.GetCharacter:
+          if (GetCharacter == null) {
+            GetCharacter = new global::VirtualfriendsProto.GetCharacterRequest();
+          }
+          GetCharacter.MergeFrom(other.GetCharacter);
           break;
       }
 
@@ -582,6 +644,15 @@ namespace VirtualfriendsProto {
             SessionId = input.ReadString();
             break;
           }
+          case 106: {
+            global::VirtualfriendsProto.GetCharacterRequest subBuilder = new global::VirtualfriendsProto.GetCharacterRequest();
+            if (requestCase_ == RequestOneofCase.GetCharacter) {
+              subBuilder.MergeFrom(GetCharacter);
+            }
+            input.ReadMessage(subBuilder);
+            GetCharacter = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -649,6 +720,15 @@ namespace VirtualfriendsProto {
             SessionId = input.ReadString();
             break;
           }
+          case 106: {
+            global::VirtualfriendsProto.GetCharacterRequest subBuilder = new global::VirtualfriendsProto.GetCharacterRequest();
+            if (requestCase_ == RequestOneofCase.GetCharacter) {
+              subBuilder.MergeFrom(GetCharacter);
+            }
+            input.ReadMessage(subBuilder);
+            GetCharacter = subBuilder;
+            break;
+          }
         }
       }
     }
@@ -657,7 +737,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 9
+  /// Next tag: 10
   /// </summary>
   public sealed partial class VfResponse : pb::IMessage<VfResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -706,6 +786,9 @@ namespace VirtualfriendsProto {
           break;
         case ResponseOneofCase.DownloadBlob:
           DownloadBlob = other.DownloadBlob.Clone();
+          break;
+        case ResponseOneofCase.GetCharacter:
+          GetCharacter = other.GetCharacter.Clone();
           break;
       }
 
@@ -779,6 +862,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "get_character" field.</summary>
+    public const int GetCharacterFieldNumber = 9;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.GetCharacterResponse GetCharacter {
+      get { return responseCase_ == ResponseOneofCase.GetCharacter ? (global::VirtualfriendsProto.GetCharacterResponse) response_ : null; }
+      set {
+        response_ = value;
+        responseCase_ = value == null ? ResponseOneofCase.None : ResponseOneofCase.GetCharacter;
+      }
+    }
+
     private object response_;
     /// <summary>Enum of possible cases for the "response" oneof.</summary>
     public enum ResponseOneofCase {
@@ -787,6 +882,7 @@ namespace VirtualfriendsProto {
       StreamReplyMessage = 6,
       DownloadAssetBundle = 7,
       DownloadBlob = 8,
+      GetCharacter = 9,
     }
     private ResponseOneofCase responseCase_ = ResponseOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -822,6 +918,7 @@ namespace VirtualfriendsProto {
       if (!object.Equals(StreamReplyMessage, other.StreamReplyMessage)) return false;
       if (!object.Equals(DownloadAssetBundle, other.DownloadAssetBundle)) return false;
       if (!object.Equals(DownloadBlob, other.DownloadBlob)) return false;
+      if (!object.Equals(GetCharacter, other.GetCharacter)) return false;
       if (ResponseCase != other.ResponseCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -835,6 +932,7 @@ namespace VirtualfriendsProto {
       if (responseCase_ == ResponseOneofCase.StreamReplyMessage) hash ^= StreamReplyMessage.GetHashCode();
       if (responseCase_ == ResponseOneofCase.DownloadAssetBundle) hash ^= DownloadAssetBundle.GetHashCode();
       if (responseCase_ == ResponseOneofCase.DownloadBlob) hash ^= DownloadBlob.GetHashCode();
+      if (responseCase_ == ResponseOneofCase.GetCharacter) hash ^= GetCharacter.GetHashCode();
       hash ^= (int) responseCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -874,6 +972,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(66);
         output.WriteMessage(DownloadBlob);
       }
+      if (responseCase_ == ResponseOneofCase.GetCharacter) {
+        output.WriteRawTag(74);
+        output.WriteMessage(GetCharacter);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -904,6 +1006,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(66);
         output.WriteMessage(DownloadBlob);
       }
+      if (responseCase_ == ResponseOneofCase.GetCharacter) {
+        output.WriteRawTag(74);
+        output.WriteMessage(GetCharacter);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -928,6 +1034,9 @@ namespace VirtualfriendsProto {
       }
       if (responseCase_ == ResponseOneofCase.DownloadBlob) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(DownloadBlob);
+      }
+      if (responseCase_ == ResponseOneofCase.GetCharacter) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetCharacter);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -971,6 +1080,12 @@ namespace VirtualfriendsProto {
             DownloadBlob = new global::VirtualfriendsProto.DownloadBlobResponse();
           }
           DownloadBlob.MergeFrom(other.DownloadBlob);
+          break;
+        case ResponseOneofCase.GetCharacter:
+          if (GetCharacter == null) {
+            GetCharacter = new global::VirtualfriendsProto.GetCharacterResponse();
+          }
+          GetCharacter.MergeFrom(other.GetCharacter);
           break;
       }
 
@@ -1032,6 +1147,15 @@ namespace VirtualfriendsProto {
             DownloadBlob = subBuilder;
             break;
           }
+          case 74: {
+            global::VirtualfriendsProto.GetCharacterResponse subBuilder = new global::VirtualfriendsProto.GetCharacterResponse();
+            if (responseCase_ == ResponseOneofCase.GetCharacter) {
+              subBuilder.MergeFrom(GetCharacter);
+            }
+            input.ReadMessage(subBuilder);
+            GetCharacter = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -1088,6 +1212,15 @@ namespace VirtualfriendsProto {
             }
             input.ReadMessage(subBuilder);
             DownloadBlob = subBuilder;
+            break;
+          }
+          case 74: {
+            global::VirtualfriendsProto.GetCharacterResponse subBuilder = new global::VirtualfriendsProto.GetCharacterResponse();
+            if (responseCase_ == ResponseOneofCase.GetCharacter) {
+              subBuilder.MergeFrom(GetCharacter);
+            }
+            input.ReadMessage(subBuilder);
+            GetCharacter = subBuilder;
             break;
           }
         }
@@ -1831,7 +1964,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 3
+  /// Next tag: 4
   /// </summary>
   public sealed partial class VoiceConfig : pb::IMessage<VoiceConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -1869,6 +2002,7 @@ namespace VirtualfriendsProto {
     public VoiceConfig(VoiceConfig other) : this() {
       voiceType_ = other.voiceType_;
       octaves_ = other.octaves_;
+      elevenLabId_ = other.elevenLabId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1902,6 +2036,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "eleven_lab_id" field.</summary>
+    public const int ElevenLabIdFieldNumber = 3;
+    private string elevenLabId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ElevenLabId {
+      get { return elevenLabId_; }
+      set {
+        elevenLabId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1919,6 +2065,7 @@ namespace VirtualfriendsProto {
       }
       if (VoiceType != other.VoiceType) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Octaves, other.Octaves)) return false;
+      if (ElevenLabId != other.ElevenLabId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1928,6 +2075,7 @@ namespace VirtualfriendsProto {
       int hash = 1;
       if (VoiceType != global::VirtualfriendsProto.VoiceType.Invalid) hash ^= VoiceType.GetHashCode();
       if (Octaves != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Octaves);
+      if (ElevenLabId.Length != 0) hash ^= ElevenLabId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1954,6 +2102,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(21);
         output.WriteFloat(Octaves);
       }
+      if (ElevenLabId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(ElevenLabId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1972,6 +2124,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(21);
         output.WriteFloat(Octaves);
       }
+      if (ElevenLabId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(ElevenLabId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1987,6 +2143,9 @@ namespace VirtualfriendsProto {
       }
       if (Octaves != 0F) {
         size += 1 + 4;
+      }
+      if (ElevenLabId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ElevenLabId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2005,6 +2164,9 @@ namespace VirtualfriendsProto {
       }
       if (other.Octaves != 0F) {
         Octaves = other.Octaves;
+      }
+      if (other.ElevenLabId.Length != 0) {
+        ElevenLabId = other.ElevenLabId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2029,6 +2191,10 @@ namespace VirtualfriendsProto {
             Octaves = input.ReadFloat();
             break;
           }
+          case 26: {
+            ElevenLabId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -2050,6 +2216,10 @@ namespace VirtualfriendsProto {
           }
           case 21: {
             Octaves = input.ReadFloat();
+            break;
+          }
+          case 26: {
+            ElevenLabId = input.ReadString();
             break;
           }
         }
@@ -4503,6 +4673,990 @@ namespace VirtualfriendsProto {
           }
           case 32: {
             TotalCount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 2
+  /// </summary>
+  public sealed partial class LoaderReadyPlayerMe : pb::IMessage<LoaderReadyPlayerMe>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<LoaderReadyPlayerMe> _parser = new pb::MessageParser<LoaderReadyPlayerMe>(() => new LoaderReadyPlayerMe());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<LoaderReadyPlayerMe> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[14]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderReadyPlayerMe() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderReadyPlayerMe(LoaderReadyPlayerMe other) : this() {
+      avatarUrl_ = other.avatarUrl_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderReadyPlayerMe Clone() {
+      return new LoaderReadyPlayerMe(this);
+    }
+
+    /// <summary>Field number for the "avatar_url" field.</summary>
+    public const int AvatarUrlFieldNumber = 1;
+    private string avatarUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string AvatarUrl {
+      get { return avatarUrl_; }
+      set {
+        avatarUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as LoaderReadyPlayerMe);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(LoaderReadyPlayerMe other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (AvatarUrl != other.AvatarUrl) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (AvatarUrl.Length != 0) hash ^= AvatarUrl.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (AvatarUrl.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(AvatarUrl);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (AvatarUrl.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(AvatarUrl);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (AvatarUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AvatarUrl);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(LoaderReadyPlayerMe other) {
+      if (other == null) {
+        return;
+      }
+      if (other.AvatarUrl.Length != 0) {
+        AvatarUrl = other.AvatarUrl;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            AvatarUrl = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            AvatarUrl = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 2
+  /// </summary>
+  public sealed partial class LoaderBlobDownload : pb::IMessage<LoaderBlobDownload>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<LoaderBlobDownload> _parser = new pb::MessageParser<LoaderBlobDownload>(() => new LoaderBlobDownload());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<LoaderBlobDownload> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[15]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderBlobDownload() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderBlobDownload(LoaderBlobDownload other) : this() {
+      blobName_ = other.blobName_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderBlobDownload Clone() {
+      return new LoaderBlobDownload(this);
+    }
+
+    /// <summary>Field number for the "blob_name" field.</summary>
+    public const int BlobNameFieldNumber = 1;
+    private string blobName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string BlobName {
+      get { return blobName_; }
+      set {
+        blobName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as LoaderBlobDownload);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(LoaderBlobDownload other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (BlobName != other.BlobName) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (BlobName.Length != 0) hash ^= BlobName.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (BlobName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(BlobName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (BlobName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(BlobName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (BlobName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(BlobName);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(LoaderBlobDownload other) {
+      if (other == null) {
+        return;
+      }
+      if (other.BlobName.Length != 0) {
+        BlobName = other.BlobName;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            BlobName = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            BlobName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 2
+  /// </summary>
+  public sealed partial class GetCharacterRequest : pb::IMessage<GetCharacterRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetCharacterRequest> _parser = new pb::MessageParser<GetCharacterRequest>(() => new GetCharacterRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetCharacterRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[16]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCharacterRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCharacterRequest(GetCharacterRequest other) : this() {
+      characterId_ = other.characterId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCharacterRequest Clone() {
+      return new GetCharacterRequest(this);
+    }
+
+    /// <summary>Field number for the "character_id" field.</summary>
+    public const int CharacterIdFieldNumber = 1;
+    private string characterId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CharacterId {
+      get { return characterId_; }
+      set {
+        characterId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetCharacterRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetCharacterRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CharacterId != other.CharacterId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CharacterId.Length != 0) hash ^= CharacterId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CharacterId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CharacterId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CharacterId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CharacterId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (CharacterId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetCharacterRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CharacterId.Length != 0) {
+        CharacterId = other.CharacterId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            CharacterId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            CharacterId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Next tag: 6
+  /// </summary>
+  public sealed partial class GetCharacterResponse : pb::IMessage<GetCharacterResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetCharacterResponse> _parser = new pb::MessageParser<GetCharacterResponse>(() => new GetCharacterResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetCharacterResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VirtualfriendsProto.WsMessageReflection.Descriptor.MessageTypes[17]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCharacterResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCharacterResponse(GetCharacterResponse other) : this() {
+      gender_ = other.gender_;
+      friendName_ = other.friendName_;
+      voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
+      switch (other.LoaderConfigCase) {
+        case LoaderConfigOneofCase.LoaderReadyplayerme:
+          LoaderReadyplayerme = other.LoaderReadyplayerme.Clone();
+          break;
+        case LoaderConfigOneofCase.LoaderBlobDownload:
+          LoaderBlobDownload = other.LoaderBlobDownload.Clone();
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCharacterResponse Clone() {
+      return new GetCharacterResponse(this);
+    }
+
+    /// <summary>Field number for the "loader_readyplayerme" field.</summary>
+    public const int LoaderReadyplayermeFieldNumber = 1;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.LoaderReadyPlayerMe LoaderReadyplayerme {
+      get { return loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme ? (global::VirtualfriendsProto.LoaderReadyPlayerMe) loaderConfig_ : null; }
+      set {
+        loaderConfig_ = value;
+        loaderConfigCase_ = value == null ? LoaderConfigOneofCase.None : LoaderConfigOneofCase.LoaderReadyplayerme;
+      }
+    }
+
+    /// <summary>Field number for the "loader_blob_download" field.</summary>
+    public const int LoaderBlobDownloadFieldNumber = 5;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.LoaderBlobDownload LoaderBlobDownload {
+      get { return loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload ? (global::VirtualfriendsProto.LoaderBlobDownload) loaderConfig_ : null; }
+      set {
+        loaderConfig_ = value;
+        loaderConfigCase_ = value == null ? LoaderConfigOneofCase.None : LoaderConfigOneofCase.LoaderBlobDownload;
+      }
+    }
+
+    /// <summary>Field number for the "gender" field.</summary>
+    public const int GenderFieldNumber = 2;
+    private global::VirtualfriendsProto.Gender gender_ = global::VirtualfriendsProto.Gender.Invalid;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.Gender Gender {
+      get { return gender_; }
+      set {
+        gender_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "friend_name" field.</summary>
+    public const int FriendNameFieldNumber = 3;
+    private string friendName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string FriendName {
+      get { return friendName_; }
+      set {
+        friendName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "voice_config" field.</summary>
+    public const int VoiceConfigFieldNumber = 4;
+    private global::VirtualfriendsProto.VoiceConfig voiceConfig_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.VoiceConfig VoiceConfig {
+      get { return voiceConfig_; }
+      set {
+        voiceConfig_ = value;
+      }
+    }
+
+    private object loaderConfig_;
+    /// <summary>Enum of possible cases for the "loader_config" oneof.</summary>
+    public enum LoaderConfigOneofCase {
+      None = 0,
+      LoaderReadyplayerme = 1,
+      LoaderBlobDownload = 5,
+    }
+    private LoaderConfigOneofCase loaderConfigCase_ = LoaderConfigOneofCase.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoaderConfigOneofCase LoaderConfigCase {
+      get { return loaderConfigCase_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearLoaderConfig() {
+      loaderConfigCase_ = LoaderConfigOneofCase.None;
+      loaderConfig_ = null;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetCharacterResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetCharacterResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(LoaderReadyplayerme, other.LoaderReadyplayerme)) return false;
+      if (!object.Equals(LoaderBlobDownload, other.LoaderBlobDownload)) return false;
+      if (Gender != other.Gender) return false;
+      if (FriendName != other.FriendName) return false;
+      if (!object.Equals(VoiceConfig, other.VoiceConfig)) return false;
+      if (LoaderConfigCase != other.LoaderConfigCase) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) hash ^= LoaderReadyplayerme.GetHashCode();
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) hash ^= LoaderBlobDownload.GetHashCode();
+      if (Gender != global::VirtualfriendsProto.Gender.Invalid) hash ^= Gender.GetHashCode();
+      if (FriendName.Length != 0) hash ^= FriendName.GetHashCode();
+      if (voiceConfig_ != null) hash ^= VoiceConfig.GetHashCode();
+      hash ^= (int) loaderConfigCase_;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) {
+        output.WriteRawTag(10);
+        output.WriteMessage(LoaderReadyplayerme);
+      }
+      if (Gender != global::VirtualfriendsProto.Gender.Invalid) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Gender);
+      }
+      if (FriendName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(FriendName);
+      }
+      if (voiceConfig_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(VoiceConfig);
+      }
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) {
+        output.WriteRawTag(42);
+        output.WriteMessage(LoaderBlobDownload);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) {
+        output.WriteRawTag(10);
+        output.WriteMessage(LoaderReadyplayerme);
+      }
+      if (Gender != global::VirtualfriendsProto.Gender.Invalid) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Gender);
+      }
+      if (FriendName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(FriendName);
+      }
+      if (voiceConfig_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(VoiceConfig);
+      }
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) {
+        output.WriteRawTag(42);
+        output.WriteMessage(LoaderBlobDownload);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoaderReadyplayerme);
+      }
+      if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoaderBlobDownload);
+      }
+      if (Gender != global::VirtualfriendsProto.Gender.Invalid) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Gender);
+      }
+      if (FriendName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FriendName);
+      }
+      if (voiceConfig_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VoiceConfig);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetCharacterResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Gender != global::VirtualfriendsProto.Gender.Invalid) {
+        Gender = other.Gender;
+      }
+      if (other.FriendName.Length != 0) {
+        FriendName = other.FriendName;
+      }
+      if (other.voiceConfig_ != null) {
+        if (voiceConfig_ == null) {
+          VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+        }
+        VoiceConfig.MergeFrom(other.VoiceConfig);
+      }
+      switch (other.LoaderConfigCase) {
+        case LoaderConfigOneofCase.LoaderReadyplayerme:
+          if (LoaderReadyplayerme == null) {
+            LoaderReadyplayerme = new global::VirtualfriendsProto.LoaderReadyPlayerMe();
+          }
+          LoaderReadyplayerme.MergeFrom(other.LoaderReadyplayerme);
+          break;
+        case LoaderConfigOneofCase.LoaderBlobDownload:
+          if (LoaderBlobDownload == null) {
+            LoaderBlobDownload = new global::VirtualfriendsProto.LoaderBlobDownload();
+          }
+          LoaderBlobDownload.MergeFrom(other.LoaderBlobDownload);
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            global::VirtualfriendsProto.LoaderReadyPlayerMe subBuilder = new global::VirtualfriendsProto.LoaderReadyPlayerMe();
+            if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) {
+              subBuilder.MergeFrom(LoaderReadyplayerme);
+            }
+            input.ReadMessage(subBuilder);
+            LoaderReadyplayerme = subBuilder;
+            break;
+          }
+          case 16: {
+            Gender = (global::VirtualfriendsProto.Gender) input.ReadEnum();
+            break;
+          }
+          case 26: {
+            FriendName = input.ReadString();
+            break;
+          }
+          case 34: {
+            if (voiceConfig_ == null) {
+              VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+            }
+            input.ReadMessage(VoiceConfig);
+            break;
+          }
+          case 42: {
+            global::VirtualfriendsProto.LoaderBlobDownload subBuilder = new global::VirtualfriendsProto.LoaderBlobDownload();
+            if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) {
+              subBuilder.MergeFrom(LoaderBlobDownload);
+            }
+            input.ReadMessage(subBuilder);
+            LoaderBlobDownload = subBuilder;
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            global::VirtualfriendsProto.LoaderReadyPlayerMe subBuilder = new global::VirtualfriendsProto.LoaderReadyPlayerMe();
+            if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) {
+              subBuilder.MergeFrom(LoaderReadyplayerme);
+            }
+            input.ReadMessage(subBuilder);
+            LoaderReadyplayerme = subBuilder;
+            break;
+          }
+          case 16: {
+            Gender = (global::VirtualfriendsProto.Gender) input.ReadEnum();
+            break;
+          }
+          case 26: {
+            FriendName = input.ReadString();
+            break;
+          }
+          case 34: {
+            if (voiceConfig_ == null) {
+              VoiceConfig = new global::VirtualfriendsProto.VoiceConfig();
+            }
+            input.ReadMessage(VoiceConfig);
+            break;
+          }
+          case 42: {
+            global::VirtualfriendsProto.LoaderBlobDownload subBuilder = new global::VirtualfriendsProto.LoaderBlobDownload();
+            if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) {
+              subBuilder.MergeFrom(LoaderBlobDownload);
+            }
+            input.ReadMessage(subBuilder);
+            LoaderBlobDownload = subBuilder;
             break;
           }
         }
