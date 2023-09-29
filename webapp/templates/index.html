@@ -24,6 +24,17 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
 
+
+        <!-- Ready Player Me styles and scripts -->
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <style>
+            #modelviewer {
+                height: 400px;
+                width: 600px;
+            」
+        </style>
+        <!-- End of Ready Player Me -->
+
     </head>
 
 
@@ -44,6 +55,7 @@
         </nav>
 
     </section>
+
 
         <header class="masthead text-center text-white">
             <div class="masthead-content">
@@ -87,45 +99,45 @@
         <section>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
+                    <!-- Model Viewer Section -->
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/jack.png') }}" alt="..." /></div>
+                        {% set model_id = "64dc7240cfdd0f000df8c137.glb" %}
+                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
+                            touch-action="pan-y">
+                        </model-viewer>
                     </div>
+
+                    <!-- Button Section -->
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet Jack!</a>
-<!--                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>-->
+                            <!-- Button for Chat -->
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='mina') }}">Chat Now!</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-            <section>
+
+
+        <section>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
+                    <!-- Model Viewer Section -->
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/elena.png') }}" alt="..." /></div>
+                        {% set model_id = "64dc7240cfdd0f000df8c137.glb" %}
+                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
+                            touch-action="pan-y">
+                        </model-viewer>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="p-5">
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='elena') }}">Meet Elena!</a>
-<!--                                <p>Elena is taking vacation with her friends... </p>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-                <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/daniel.png') }}" alt="..." /></div>
-                    </div>
+                    <!-- Button Section -->
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='daniel') }}">Meet Daniel!</a>
-<!--                                <p>Elena is taking vacation with her friends... </p>-->
+                            <!-- Button for Chat -->
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='mina') }}">Chat Now!</a>
                         </div>
                     </div>
                 </div>
@@ -133,38 +145,91 @@
         </section>
 
 
-                <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/bunny.png') }}" alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-5">
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='bunny') }}">Meet Bunny!</a>
-<!--                                <p>Elena is taking vacation with her friends... </p>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--    -->
+<!--        <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/jack.png') }}" alt="..." /></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet Jack!</a>-->
+<!--&lt;!&ndash;                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+
+<!--    -->
 
 
-                <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/cat.png') }}" alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-5">
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='cat') }}">Meet Cat!</a>
-<!--                                <p>Elena is taking vacation with her friends... </p>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--            <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/elena.png') }}" alt="..." /></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='elena') }}">Meet Elena!</a>-->
+<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+
+<!--                <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/daniel.png') }}" alt="..." /></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='daniel') }}">Meet Daniel!</a>-->
+<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+
+
+<!--                <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/bunny.png') }}" alt="..." /></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='bunny') }}">Meet Bunny!</a>-->
+<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+
+
+<!--                <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/cat.png') }}" alt="..." /></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='cat') }}">Meet Cat!</a>-->
+<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
 
 
 
