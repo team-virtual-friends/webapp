@@ -290,6 +290,63 @@ def submit_feedback():
     return redirect(url_for('show_flash_message'))
 
 
+
+# Create character and save it to firestore.
+from google.cloud import datastore
+client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
+@app.route('/create_character', methods=['GET', 'POST'])
+def create_character():
+    if request.method == 'POST':
+        rpm_url = request.form['rpm_url']
+        name = request.form['name']
+        character_greeting = request.form['character_greeting']
+        character_description = request.form['character_description']
+        audio_file = request.files['audioFile']
+
+        # Save the audio file (if needed) and get its name
+        # For now, I'm just getting the filename
+        audio_file_name = audio_file.filename if audio_file else None
+
+
+        # Create a new character entity in the "characters_db" namespace
+        key = client.key('Character', namespace='characters_db')
+        character_entity = datastore.Entity(key=key)
+
+        character_entity.update({
+            'rpm_url': rpm_url,
+            'name': name,
+            'character_greeting': character_greeting,
+            'character_description': character_description,
+            'audio_file_name': audio_file_name
+        })
+
+        # Save the character entity
+        client.put(character_entity)
+
+        return "Character saved successfully!"
+
+    return render_template('create-character.html')
+
+
+#Display character
+def get_character_by_name(character_name):
+    # Create a query to fetch character by name in the "characters_db" namespace
+    query = client.query(kind='Character', namespace='characters_db')
+    query.add_filter('name', '=', character_name)
+
+    # Fetch the result
+    characters = list(query.fetch(limit=1))
+
+    if characters:
+        return characters[0]
+    else:
+        return None
+
+@app.route('/character/<character_name>', methods=['GET'])
+def display_character(character_name):
+    character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
+    return render_template('character-profile.html', character=character)
+
 @app.route('/healthz', methods=['GET'])
 def healthz():
     return "Healthy", 200
@@ -298,4 +355,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, port=5128)
+    app.run(debug=True, port=5129)
