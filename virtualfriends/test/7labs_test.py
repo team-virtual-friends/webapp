@@ -62,7 +62,8 @@ def text_to_audio(text):
 
 
 
-    voice_id = "sij1MJjyxTEZi1YPU3h1"
+    # voice_id = "sij1MJjyxTEZi1YPU3h1"
+    voice_id = "nIXDnpBi9DBfiTvPO0K4"
     url = "https://api.elevenlabs.io/v1/text-to-speech/" + voice_id  # + "?optimize_streaming_latency=3"
 
     headers = {

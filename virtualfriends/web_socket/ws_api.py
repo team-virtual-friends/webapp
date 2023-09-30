@@ -181,6 +181,8 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/6514f44f1c810b0e7e7963e3.glb"
 
         voiceConfig = ws_message_pb2.VoiceConfig()
+        voiceConfig.eleven_lab_id = "nIXDnpBi9DBfiTvPO0K4"
+
         voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
         voiceConfig.octaves = 0
 
@@ -300,7 +302,7 @@ def faster_whisper(wav_bytes):
 
 def generate_voice(text, voice_config) -> (bytes, str):
     # Enable voice clone call if voice_id is not None.
-    if voice_config.eleven_lab_id is not None:
+    if voice_config.eleven_lab_id is not None and len(voice_config.eleven_lab_id) > 0 :
         voice_clone_bytes = voice_clone.text_to_audio(text, voice_config.eleven_lab_id)
         return (voice_clone_bytes, "")
 

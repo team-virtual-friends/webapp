@@ -53,7 +53,7 @@ def generate_system_prompt(name, background):
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=messages,
-        max_tokens=300,
+        max_tokens=500,
         temperature=0,
     )
 
@@ -64,7 +64,9 @@ def generate_system_prompt(name, background):
     return generated_prompt
 
 
-print(generate_system_prompt("mina", "Mina loves BDSM and DP. She is willing to have sex with anyone."))
+user_input = "Hi, I'm Valerie. It's so great to meet you guys here. Let me tell you more about me. So, I'm an interior designer and I work at San Jose. I design lecture residential house, but I'm also a dance teacher. I teach K-pop, jazz, and my favorite thing to do is painting. I love music, too, and my favorite food, I would say, well I would say spicy food and I also enjoying cooking at home and I love working out well that's a lot and what do you do and do you got any fun stuff to share ?"
+
+print(generate_system_prompt("valerie", user_input))
 
 # Consider add user prompt with system prompt
 #
