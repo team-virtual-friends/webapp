@@ -126,11 +126,11 @@ def load_user(user_id):
 @app.route('/game', methods=['GET'])
 def game():
     # Get the "FriendIndex" parameter from the URL query string
-    # binary_index = request.args.get("BinaryIndex")
+    binary_index = request.args.get("BinaryIndex")
     character_id = request.args.get('character_id')
 
     # Use the "friend_index" variable as needed in your code
-    template_name = unity_gcs_folders[0]
+    template_name = unity_gcs_folders[int(binary_index)]
     return render_template(f'{template_name}.html', character_id=character_id)  # Pass it to the template
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
