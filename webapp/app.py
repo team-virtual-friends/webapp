@@ -220,6 +220,10 @@ def home():
     # else:
     return render_template('index.html'), 200
 
+@app.route('/test', methods=['GET'])
+def test():
+    return render_template('index.html'), 200
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
