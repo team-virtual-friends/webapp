@@ -84,16 +84,14 @@
 <!--        <h2 class="text-center">Create Your AI Clone</h2>-->
         <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">
             <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe()" />
-    <p id="avatarUrl">Avatar URL:</p>
+    <p id="avatarUrl">Ready Player Me Avatar URL:</p>
+
     <iframe id="frame" class="frame" allow="camera *; microphone *; clipboard-write" hidden></iframe>
 
             <div class="mb-3">
-                <label for="rpm_url" class="form-label">Ready Player Me URL</label>
+                <label for="rpm_url" class="form-label">Ready Player Me Avatar URL(Copy From Above)</label>
                 <input type="text" class="form-control" id="rpm_url" name="rpm_url" required>
             </div>
-
-
-
 
 
 
@@ -116,16 +114,18 @@
 
             <div class="mb-3">
                 <label for="character_greeting" class="form-label">Character Greeting:</label>
+                <label for="character_greeting" class="form-label">(e.g. hi, I am Virtual Friends assistant. How can I help you?)</label>
+
                 <input type="text" class="form-control" id="character_greeting" name="character_greeting" required>
             </div>
 
             <div class="mb-3">
-                <label for="character_description" class="form-label">Character Description:</label>
+                <label for="character_description" class="form-label">Character Description(e.g. You are Virtual Friends assistant. You always try to be helpful and friendly.):</label>
                 <textarea class="form-control" id="character_description" name="character_description" rows="5" required></textarea>
             </div>
 
             <div class="mb-3">
-                <label for="audioFile" class="form-label">Upload Audio File(Optional):</label>
+                <label for="audioFile" class="form-label">Upload Audio File For Voice Clone(Optional):</label>
                 <input type="file" class="form-control" id="audioFile" name="audioFile" accept="audio/*">
             </div>
 

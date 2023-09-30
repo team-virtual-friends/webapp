@@ -15,6 +15,8 @@ from google.oauth2 import service_account
 import logging
 import concurrent.futures
 import re
+import hashlib
+import requests
 
 
 
@@ -298,8 +300,37 @@ def submit_feedback():
 # Create character and save it to firestore.
 from google.cloud import datastore
 client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
+
+
+def clone_voice(voice_name, voice_description, audio_file):
+    url = "https://api.elevenlabs.io/v1/voices/add"
+    api_key = "4fb91ffd3e3e3cd35cbf2d19a64fd4e9"  # Hardcoded API Key
+
+    headers = {
+        "Accept": "application/json",
+        "xi-api-key": api_key
+    }
+
+    data = {
+        'name': voice_name,
+        'description': voice_description
+    }
+
+    files = [('files', (audio_file.filename, audio_file.stream, 'audio/mpeg'))]
+    response = requests.post(url, headers=headers, data=data, files=files)
+
+    response_json = response.json()  # Parse the JSON content directly
+    # TODO: return err if failed.
+    voice_id = response_json.get('voice_id', 'N/A')  # Extract the voice_id or default to 'N/A' if not found
+
+    return voice_id
+
 @app.route('/create_character', methods=['GET', 'POST'])
 def create_character():
+
+    #TODO: Replace with real user email.
+    user_email = "test@gmail.com"
+
     if request.method == 'POST':
         rpm_url = request.form['rpm_url']
         name = request.form['name']
@@ -308,22 +339,34 @@ def create_character():
         character_description = request.form['character_description']
         audio_file = request.files['audioFile']
 
+
+        character_id_string = f"{user_email}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        character_id = hashlib.md5(character_id_string.encode()).hexdigest()
+
+
         # Save the audio file (if needed) and get its name
         # For now, I'm just getting the filename
         audio_file_name = audio_file.filename if audio_file else None
-
+        # TODO: Store audio file
+        elevanlab_id = ""
+        if audio_file:
+            elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
 
         # Create a new character entity in the "characters_db" namespace
         key = client.key('Character', namespace='characters_db')
         character_entity = datastore.Entity(key=key)
 
         character_entity.update({
+            'character_id': character_id,
             'rpm_url': rpm_url,
             'name': name,
             'gender': gender,  # Added the gender field
             'character_greeting': character_greeting,
             'character_description': character_description,
-            'audio_file_name': audio_file_name
+            'audio_file_name': audio_file_name,
+            'elevanlab_id': elevanlab_id,
+            'created_at': datetime.utcnow(),  # Store the current UTC time as the creation timestamp
+            'user_email': user_email,
         })
 
         # Save the character entity
@@ -334,11 +377,24 @@ def create_character():
     return render_template('create-character.html')
 
 
-#Display character
-def get_character_by_name(character_name):
+# #Display character
+# def get_character_by_name(character_name):
+#     # Create a query to fetch character by name in the "characters_db" namespace
+#     query = client.query(kind='Character', namespace='characters_db')
+#     query.add_filter('name', '=', character_name)
+#
+#     # Fetch the result
+#     characters = list(query.fetch(limit=1))
+#
+#     if characters:
+#         return characters[0]
+#     else:
+#         return None
+
+def get_character_by_id(character_id):
     # Create a query to fetch character by name in the "characters_db" namespace
     query = client.query(kind='Character', namespace='characters_db')
-    query.add_filter('name', '=', character_name)
+    query.add_filter('character_id', '=', character_id)
 
     # Fetch the result
     characters = list(query.fetch(limit=1))
@@ -348,9 +404,10 @@ def get_character_by_name(character_name):
     else:
         return None
 
-@app.route('/character/<character_name>', methods=['GET'])
-def display_character(character_name):
-    character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
+@app.route('/character/<character_id>', methods=['GET'])
+def display_character(character_id):
+    # character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
+    character = get_character_by_id(character_id)  # Assuming you've defined this function earlier
     return render_template('character-profile.html', character=character)
 
 @app.route('/healthz', methods=['GET'])
@@ -361,4 +418,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, port=5131)
+    app.run(debug=True, port=5132)
