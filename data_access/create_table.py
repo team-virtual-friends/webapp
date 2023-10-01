@@ -1,19 +1,24 @@
 from google.cloud import datastore
+import os
+import hashlib
 
 # Initialize client
-client = datastore.Client.from_service_account_json('../ysong-chat-845e43a6c55b.json')
+client = datastore.Client.from_service_account_json('../webapp/ysong-chat-845e43a6c55b.json')
 
 
-def create_and_insert_user():
+def create_and_insert_user(user_id, pwd):
     # Create a new user entity in the "users_db" namespace
     key = client.key('User', namespace='users_db')
     user_entity = datastore.Entity(key=key)
 
+    salt = os.urandom(16)
+    pwd = pwd.encode('utf-8')
+    hashed_password = hashlib.pbkdf2_hmac('sha256', pwd, salt, 100000)
+
     user_entity.update({
-        'first_name': 'John',
-        'last_name': 'Doe',
-        'age': 30,
-        'email': 'john.doe@example.com'
+        'user_id': user_id,
+        'hashed_pwd': hashed_password.hex(),
+        'salt': salt.hex(),
     })
 
     # Save the user entity
@@ -38,6 +43,6 @@ def create_and_insert_character():
 
 
 # Execute the functions
-create_and_insert_user()
-create_and_insert_character()
+create_and_insert_user("test@gmail.com", "123456")
+# create_and_insert_character()
 
