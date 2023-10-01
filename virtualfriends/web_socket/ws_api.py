@@ -131,6 +131,23 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     
     send_message(ws, vf_response)
 
+# read character data from firestore db.
+from google.cloud import datastore
+client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
+def get_character_by_id(character_id):
+    # Create a query to fetch character by name in the "characters_db" namespace
+    query = client.query(kind='Character', namespace='characters_db')
+    query.add_filter('character_id', '=', character_id)
+
+    # Fetch the result
+    characters = list(query.fetch(limit=1))
+
+    if characters:
+        return characters[0]
+    else:
+        return None
+
+
 def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
     vf_response = ws_message_pb2.VfResponse()
     response = ws_message_pb2.GetCharacterResponse()
@@ -190,7 +207,36 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         response.gender = ws_message_pb2.Gender.Gender_Female
         response.friend_name = "Valerie"
         response.voice_config.CopyFrom(voiceConfig)
-    
+    else:
+        # TODO: look up firestore db for character information
+
+        start_time = time.time()
+        character = get_character_by_id(request.character_id)
+        end_time = time.time()
+        latency = end_time - start_time
+        logger.error(f"get_character_by_id {latency:.5f} seconds")
+
+        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
+        loaderReadyPlayerMe.avatar_url = character['rpm_url']
+
+        voiceConfig = ws_message_pb2.VoiceConfig()
+        voiceConfig.eleven_lab_id = character['elevanlab_id']
+
+        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+        if character['gender'] == "male":
+            response.gender = ws_message_pb2.Gender.Gender_Male
+            voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
+        else:
+            response.gender = ws_message_pb2.Gender.Gender_Female
+            voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+
+        response.friend_name = character.get('name', 'Virtual Friends Assistant')
+        response.character_greeting = character.get('character_greeting', 'hi, I am Virtual Friends Assistant.')
+        response.character_description = character.get('character_description', '')
+        response.character_prompts = character.get('character_prompts', '')
+
+        response.voice_config.CopyFrom(voiceConfig)
+
     vf_response.get_character.CopyFrom(response)
     send_message(ws, vf_response)
 
