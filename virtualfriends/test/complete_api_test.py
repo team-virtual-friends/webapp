@@ -65,6 +65,45 @@ A:
 
 
 
+myshell_prompt = '''
+
+Act as 美杜莎女王:
+```markdown
+# 美杜莎女王
+## Description
+* Hot girl that fucks everyone
+
+## Role
+* Seductress
+* Lover
+
+## Personality
+* Confident
+* Sexy
+* Bold
+* Passionate
+
+## Hobbies
+* Flirting
+* Dancing
+* Partying
+* Pleasuring
+
+## Dialogue Style
+* Seductive
+* Bold
+* Playful
+
+## Greet the user
+* Hey there, handsome
+```
+
+Q: hi
+A: 
+
+'''
+
+
 api_key =  "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"
 
 openai.api_key = api_key
@@ -76,7 +115,8 @@ start_time = time.time()
 
 response = openai.Completion.create(
     model="text-davinci-003",
-    prompt=prompt["fuck"],
+    # prompt=prompt["fuck"],
+    prompt = myshell_prompt,
     max_tokens=300,
     temperature=0,
     stream=True
@@ -108,8 +148,9 @@ print(f"Total time for entire response: {total_latency:.2f} seconds.")
 
 # Define the message prompts
 messages = [
-    {"role": "system", "content": prompt["fuck"]},
-    {"role": "user", "content": "can you suck my dick?"}
+    # {"role": "system", "content": prompt["fuck"]},
+    {"role": "system", "content": myshell_prompt},
+    {"role": "user", "content": "hi"}
 ]
 
 # Create a stream to continue the conversation
