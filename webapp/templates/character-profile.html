@@ -106,7 +106,9 @@
 
             <div class="col-lg-6">
                 <div class="p-5">
-                    <a class="btn  btn-dark btn-xl mt-5"  href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet {{ character['name'] }}</a>
+                    <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, character_id=character['character_id']) }}">Meet {{ character['name'] }}</a>
+
+<!--                    <a class="btn  btn-dark btn-xl mt-5"  href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet {{ character['name'] }}</a>-->
 <!--                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>-->
                 </div>
             </div>
