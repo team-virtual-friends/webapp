@@ -13,3 +13,4 @@ google-cloud-storage==2.3.0
 google-cloud-bigquery==3.0.1
 google-cloud-datastore==2.18.0
 PyJWT==2.4.0
+email_validator==1.1.3

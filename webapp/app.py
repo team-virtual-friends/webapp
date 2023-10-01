@@ -8,7 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Email
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 
@@ -23,7 +23,8 @@ import hashlib
 import requests
 
 from data_access.get_data import gen_user_auth_token
-from utils import requires_token
+from data_access.create_table import create_and_insert_user
+from utils import validate_user_token
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -121,6 +122,7 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
     password = PasswordField('Password', validators=[
         DataRequired(),
@@ -190,11 +192,10 @@ def signup():
     #     return redirect(url_for('dashboard'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('login'))
+        created = create_and_insert_user(datastore_client, form.email.data, form.username.data, form.password.data)
+        if created:
+            return redirect(url_for('login'))
+        return "username/email exists"
     return render_template('register.html', form=form)
 
 
@@ -233,8 +234,7 @@ def home():
     return render_template('index.html'), 200
 
 @app.route('/test', methods=['GET'])
-@requires_token()
-def test(user_email):
+def test():
     return render_template('index.html'), 200
 
 
@@ -337,8 +337,11 @@ def clone_voice(voice_name, voice_description, audio_file):
     return voice_id
 
 @app.route('/create_character', methods=['GET', 'POST'])
-@requires_token()
-def create_character(user_email):
+def create_character():
+    user_email = validate_user_token()
+    if user_email is None:
+        return redirect(url_for('login'))
+
     print(f"user_email: {user_email}")
     if request.method == 'POST':
         rpm_url = request.form['rpm_url']
