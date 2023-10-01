@@ -204,7 +204,7 @@ message GetCharacterRequest {
     string character_id = 1;
 }
 
-// Next tag: 6
+// Next tag: 9
 message GetCharacterResponse {
     oneof loader_config {
         LoaderReadyPlayerMe loader_readyplayerme = 1;
@@ -217,4 +217,10 @@ message GetCharacterResponse {
     string friend_name = 3;
 
     VoiceConfig voice_config = 4;
+
+    string character_greeting = 6;
+
+    string character_description = 7;
+
+    string character_prompts = 8;
 }
