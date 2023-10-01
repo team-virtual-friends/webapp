@@ -8,6 +8,13 @@
     <form method="post">
         {{ form.hidden_tag() }}
         <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=20) }}<br>
+            {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.username.label }}<br>
             {{ form.username(size=20) }}<br>
             {% for error in form.username.errors %}

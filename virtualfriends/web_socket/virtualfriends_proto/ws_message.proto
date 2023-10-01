@@ -105,13 +105,17 @@ message MirroredContent {
     int64 session_id = 2;
 }
 
-// Next tag: 8
+// Next tag: 10
 message StreamReplyMessageRequest {
     MirroredContent mirrored_content = 1;
     
     repeated string json_messages = 2;
 
+    // custom_prompts will override base_prompts if it's not empty.
+    string base_prompts = 8;
     string custom_prompts = 7;
+
+    string character_description = 9;
 
     oneof current_message {
         bytes wav = 3;
@@ -204,7 +208,7 @@ message GetCharacterRequest {
     string character_id = 1;
 }
 
-// Next tag: 9
+// Next tag: 10
 message GetCharacterResponse {
     oneof loader_config {
         LoaderReadyPlayerMe loader_readyplayerme = 1;
@@ -218,9 +222,11 @@ message GetCharacterResponse {
 
     VoiceConfig voice_config = 4;
 
-    string character_greeting = 6;
+    string greeting = 6;
 
-    string character_description = 7;
+    bytes greeting_wav = 9;
 
-    string character_prompts = 8;
+    string description = 7;
+
+    string base_prompts = 8;
 }
