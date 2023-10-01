@@ -24,6 +24,17 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
 
+
+        <!-- Ready Player Me styles and scripts -->
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <style>
+            #modelviewer {
+                height: 400px;
+                width: 600px;
+            }
+        </style>
+        <!-- End of Ready Player Me -->
+
     </head>
 
 
@@ -45,13 +56,14 @@
 
     </section>
 
+
         <header class="masthead text-center text-white">
             <div class="masthead-content">
                 <div class="container px-5">
                     <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>
-                    <h2 class="masthead-subheading mb-0">Chat with AI like in person!</h2>
+                    <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>
 <!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>
+                    <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>
@@ -76,8 +88,7 @@
 <!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
 <!--                            <h2 class="display-4">Chat with Mina!</h2>-->
 
-<!--                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=1, FriendIndex=0) }}">Meet Mina!</a>-->
-                            <p> Thanks for visiting Virtual Friends. Sorry, mobile is not supported yet. Please chat with AI friends using computer. </p>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=1, character_id='mina') }}">Meet Mina!</a>
 <!--                            <p>Mina is a k-pop star. </p>-->
                         </div>
                     </div>
@@ -85,6 +96,56 @@
             </div>
         </section>
 
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <!-- Model Viewer Section -->
+                    <div class="col-lg-6">
+                        {% set model_id = "64dc7240cfdd0f000df8c137.glb" %}
+                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
+                            touch-action="pan-y">
+                        </model-viewer>
+                    </div>
+
+                    <!-- Button Section -->
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <!-- Button for Chat -->
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=1, character_id='00001') }}">Chat Now!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <!-- Model Viewer Section -->
+                    <div class="col-lg-6">
+                        {% set model_id = "6514f44f1c810b0e7e7963e3.glb" %}
+                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
+                            touch-action="pan-y">
+                        </model-viewer>
+                    </div>
+
+                    <!-- Button Section -->
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <!-- Button for Chat -->
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=1, character_id='00003') }}">Chat Now!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+<!--    -->
 <!--        <section>-->
 <!--            <div class="container px-5">-->
 <!--                <div class="row gx-5 align-items-center">-->
@@ -93,15 +154,16 @@
 <!--                    </div>-->
 <!--                    <div class="col-lg-6">-->
 <!--                        <div class="p-5">-->
-<!--&lt;!&ndash;                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=1, FriendIndex=1) }}">Meet Jack!</a>&ndash;&gt;-->
-<!--                            <p> Thanks for visiting Virtual Friends. Sorry, mobile is not supported yet. Please chat with AI friends using PC. </p>-->
-
-<!--                            &lt;!&ndash;                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>&ndash;&gt;-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet Jack!</a>-->
+<!--&lt;!&ndash;                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </section>-->
+
+<!--    -->
+
 
 <!--            <section>-->
 <!--            <div class="container px-5">-->
@@ -111,10 +173,8 @@
 <!--                    </div>-->
 <!--                    <div class="col-lg-6">-->
 <!--                        <div class="p-5">-->
-<!--&lt;!&ndash;                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=0, FriendIndex=0) }}">Meet Elena!</a>&ndash;&gt;-->
-<!--                            <p> Thanks for visiting Virtual Friends. Sorry, mobile is not supported yet. Please chat with AI friends using PC. </p>-->
-
-<!--                            &lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='elena') }}">Meet Elena!</a>-->
+<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
@@ -129,8 +189,7 @@
 <!--                    </div>-->
 <!--                    <div class="col-lg-6">-->
 <!--                        <div class="p-5">-->
-<!--&lt;!&ndash;                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=0, FriendIndex=1) }}">Meet Daniel!</a>&ndash;&gt;-->
-<!--                            <p> Thanks for visiting Virtual Friends. Sorry, mobile is not supported yet. Please chat with AI friends using PC. </p>-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='daniel') }}">Meet Daniel!</a>-->
 <!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
@@ -147,10 +206,8 @@
 <!--                    </div>-->
 <!--                    <div class="col-lg-6">-->
 <!--                        <div class="p-5">-->
-<!--&lt;!&ndash;                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=2, FriendIndex=0) }}">Meet Bunny!</a>&ndash;&gt;-->
-<!--                            <p> Thanks for visiting Virtual Friends. Sorry, mobile is not supported yet. Please chat with AI friends using PC. </p>-->
-
-<!--                            &lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='bunny') }}">Meet Bunny!</a>-->
+<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
@@ -166,9 +223,7 @@
 <!--                    </div>-->
 <!--                    <div class="col-lg-6">-->
 <!--                        <div class="p-5">-->
-<!--&lt;!&ndash;                            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{ url_for('game', BinaryIndex=2, FriendIndex=1) }}">Meet Cat!</a>&ndash;&gt;-->
-<!--                            <p> Thanks for visiting Virtual Friends. Sorry, mobile is not supported yet. Please chat with AI friends using PC. </p>-->
-
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='cat') }}">Meet Cat!</a>-->
 <!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
@@ -176,6 +231,38 @@
 <!--            </div>-->
 <!--        </section>-->
 
+
+
+                <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/question.png') }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <a class="btn btn-dark btn-xl mt-5" >Coming Soon!</a>
+<!--                                <p>Elena is taking vacation with her friends... </p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- Feedback and Email Container (Combined) -->
+<div class="feedback-email-container text-center py-xxl-5">
+    <div class="combined-box">
+        <h3>Feedback</h3>
+        <p>We'd love to hear your thoughts! Please provide your feedback below:</p>
+        <form action="/submit_feedback" method="post"> <!-- Updated action attribute -->
+            <textarea name="feedback" rows="10" style="width: 60%;"></textarea>
+            <br>
+            <input type="email" name="email" placeholder="Your Email" style="width: 30%;">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
 
 
     <section class="centered-section">
@@ -193,4 +280,3 @@
         <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     </body>
 </html>
-

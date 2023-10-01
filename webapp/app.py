@@ -1,5 +1,9 @@
+from os.path import dirname, join, abspath
+import sys
+sys.path.insert(0, abspath(join(dirname(__file__), '..')))
+
 import os
-from flask import Flask, render_template, redirect, url_for, request, flash, render_template_string
+from flask import Flask, render_template, redirect, url_for, request, flash, make_response
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -16,7 +20,8 @@ import logging
 import concurrent.futures
 import re
 
-
+from data_access.get_data import gen_user_auth_token
+from utils import requires_token
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -27,10 +32,14 @@ login_manager.login_view = 'login'
 
 logger = logging.getLogger('gunicorn.error')
 
+# Create character and save it to firestore.
+from google.cloud import datastore
+datastore_client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
+
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20230929234931-f904591-b33afab9", # UI changes.
-    "20230930001651-f904591-31e10424", # test runtime optimization.
+    "20230930001651-f904591-31e10424", # desktop.
+    "20230930111027-4e8bcbd-90e4319e", # mobile - no Input Text box.
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
@@ -126,7 +135,7 @@ def load_user(user_id):
 @app.route('/game', methods=['GET'])
 def game():
     # Get the "FriendIndex" parameter from the URL query string
-    binary_index = request.args.get("BinaryIndex")
+    binary_index = request.args.get("binary_index")
     character_id = request.args.get('character_id')
 
     # Use the "friend_index" variable as needed in your code
@@ -226,17 +235,25 @@ def test():
     return render_template('index.html'), 200
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
-
-    if request.method == 'POST':
-        # Here: implement your login logic (e.g., form validation, user authentication, etc.)
-        pass  # Remove this line once you add your implementation
-
+@app.route('/login', methods=['GET'])
+def login_page():
     return render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def login():
+    # Get the username and password from the form
+    email = request.form.get('email')
+    password = request.form.get('password')
+    token = gen_user_auth_token(datastore_client, email, password)
+    if token is None:
+        return "invalid", 404
+    # Create a response object
+    response = make_response(redirect(url_for('home')))
+
+    # Set the token as a cookie in the response
+    response.set_cookie('auth_token', token)
+
+    return response
 
 @app.route('/show_flash_message')
 def show_flash_message():
@@ -295,11 +312,10 @@ def submit_feedback():
 
 
 
-# Create character and save it to firestore.
-from google.cloud import datastore
-client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
 @app.route('/create_character', methods=['GET', 'POST'])
-def create_character():
+@requires_token()
+def create_character(current_email):
+    print(f"current_email: {current_email}")
     if request.method == 'POST':
         rpm_url = request.form['rpm_url']
         name = request.form['name']
@@ -314,7 +330,7 @@ def create_character():
 
 
         # Create a new character entity in the "characters_db" namespace
-        key = client.key('Character', namespace='characters_db')
+        key = datastore_client.key('Character', namespace='characters_db')
         character_entity = datastore.Entity(key=key)
 
         character_entity.update({
@@ -327,7 +343,7 @@ def create_character():
         })
 
         # Save the character entity
-        client.put(character_entity)
+        datastore_client.put(character_entity)
 
         return render_template('character-profile.html', character=character_entity)
 
@@ -337,7 +353,7 @@ def create_character():
 #Display character
 def get_character_by_name(character_name):
     # Create a query to fetch character by name in the "characters_db" namespace
-    query = client.query(kind='Character', namespace='characters_db')
+    query = datastore_client.query(kind='Character', namespace='characters_db')
     query.add_filter('name', '=', character_name)
 
     # Fetch the result

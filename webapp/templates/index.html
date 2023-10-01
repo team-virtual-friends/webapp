@@ -72,6 +72,15 @@
             <div class="bg-circle-4 bg-circle"></div>
         </header>
 
+        <div class="masthead-content">
+            <div class="container px-5">
+                <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>
+                <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>
+<!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
+                <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('login') }}">Login!</a>
+            </div>
+        </div>
+
         <div class="clearfix"></div>
 
 
@@ -88,7 +97,7 @@
 <!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
 <!--                            <h2 class="display-4">Chat with Mina!</h2>-->
 
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', character_id='mina') }}">Meet Mina!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina!</a>
 <!--                            <p>Mina is a k-pop star. </p>-->
                         </div>
                     </div>
@@ -112,7 +121,7 @@
                     <div class="col-lg-6">
                         <div class="p-5">
                             <!-- Button for Chat -->
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', character_id='00001') }}">Chat Now!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00001') }}">Chat Now!</a>
                         </div>
                     </div>
                 </div>
@@ -137,7 +146,7 @@
                     <div class="col-lg-6">
                         <div class="p-5">
                             <!-- Button for Chat -->
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', character_id='00003') }}">Chat Now!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00003') }}">Chat Now!</a>
                         </div>
                     </div>
                 </div>
