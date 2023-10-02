@@ -80,19 +80,6 @@ def infer_sentiment(text, timeout_seconds=1):
         logger.error("infer_sentiment API call to OpenAI timed out")
         return "neutral"
 
-# chronical_messages should be a list of dict; each dict should contain "role" and "content".
-def infer_reply(chronical_messages:list, character_name:str) -> str:
-    chronical_messages.append({"role": "system", "content": prompts.character_prompts[character_name]})
-    reply = ChatCompletion.create(
-        # model="gpt-3.5-turbo",
-        model="gpt-4",
-        messages=chronical_messages,
-        max_tokens=100
-    )
-    # TODO: explore other index.
-    return reply.choices[0].message.content
-
-
 async def log_chat_history(user_id, user_ip, character_id, chat_history, timestamp):
     try:
         # Create a reference to your dataset and table
@@ -111,7 +98,7 @@ async def log_chat_history(user_id, user_ip, character_id, chat_history, timesta
         logger.info(f"An error occurred when logging chat history: {e}")
 
 
-def stream_infer_reply(chronical_messages:list, character_name:str, custom_prompts:str, user_ip:str) -> Iterator:
+def stream_infer_reply(chronical_messages:list, character_name:str, base_prompts:str, custom_prompts:str, user_ip:str) -> Iterator:
     # logger.info("start gpt infer")
 
     #   Testing new api for now.
@@ -123,7 +110,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
     #         stream=True
     #     )
 
-    full_prompt = process_messages(chronical_messages)
+    full_prompts = process_messages(chronical_messages)
 
     env = os.environ.get('ENV', 'LOCAL')
     if env != 'LOCAL':
@@ -132,21 +119,20 @@ def stream_infer_reply(chronical_messages:list, character_name:str, custom_promp
         loop = asyncio.new_event_loop()
         # Run the asynchronous function concurrently
         asyncio.set_event_loop(loop)
-        loop.run_until_complete(log_chat_history("dummy", user_ip, character_name, full_prompt,  current_timestamp))
+        loop.run_until_complete(log_chat_history("dummy", user_ip, character_name, full_prompts, current_timestamp))
         # Close the event loop
         loop.close()
 
-    base_prompt = prompts.character_prompts.get(character_name)
-    if base_prompt is None:
-        base_prompt = "You are an AI assistant created by Virtual Friends Team."
-    if custom_prompts:
-        full_prompt = custom_prompts + '\n' + full_prompt + "\nA:"
+    if custom_prompts is not None and len(custom_prompts) > 0:
+        full_prompts = f"{custom_prompts}\n{full_prompts}\nA:"
+    elif base_prompts is not None and len(base_prompts) > 0:
+        full_prompts = f"{base_prompts}\n{full_prompts}\nA:"
     else:
-        full_prompt = base_prompt + '\n' + full_prompt + "\nA:"
+        full_prompts = f"You are an AI assistant created by Virtual Friends Team.\n{full_prompts}\nA:"
 
     return openai.Completion.create(
         model="text-davinci-003",
-        prompt=full_prompt,
+        prompt=full_prompts,
         max_tokens=100,
         temperature=1,
         stream=True

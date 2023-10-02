@@ -1,3 +1,7 @@
+from os.path import dirname, join, abspath
+import sys
+sys.path.insert(0, abspath(join(dirname(__file__), '../..')))
+
 import json
 import logging
 import re
@@ -12,6 +16,7 @@ from google.oauth2 import service_account
 from google.cloud import texttospeech, storage, datastore, bigquery
 
 from .virtualfriends_proto import ws_message_pb2
+from data_access.get_data import get_character_by_id, get_character_attribute_value_via_gcs
 
 from . import speech
 from . import llm_reply
@@ -27,6 +32,7 @@ credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 bigquery_client = bigquery.Client(credentials=credentials)
 datastore_client = datastore.Client(credentials=credentials)
+gcs_client = storage.Client(credentials=credentials)
 
 from faster_whisper import WhisperModel
 from torch.cuda import is_available as is_cuda_available
@@ -53,7 +59,7 @@ def pre_download_all_asset_bundles():
 
     credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
     credentials = service_account.Credentials.from_service_account_file(credentials_path)
-    gcsClient = storage.Client(credentials=credentials)
+    
 
     folder = os.path.expanduser('./static')
     download_folder = f"{folder}/{gcs_path}"
@@ -64,7 +70,7 @@ def pre_download_all_asset_bundles():
         if os.path.exists(file_path):
             return (asset_bundle_name, True)
 
-        bucket = gcsClient.get_bucket("vf-unity-data")
+        bucket = gcs_client.get_bucket("vf-unity-data")
         asset_bundle_path = f"{gcs_path}/{asset_bundle_name}"
         logger.info(f"downloading {asset_bundle_path} ...")
 
@@ -127,20 +133,6 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     
     send_message(ws, vf_response)
 
-def get_character_by_id(character_id):
-    # Create a query to fetch character by name in the "characters_db" namespace
-    query = datastore_client.query(kind='Character', namespace='characters_db')
-    query.add_filter('character_id', '=', character_id)
-
-    # Fetch the result
-    characters = list(query.fetch(limit=1))
-
-    if characters:
-        return characters[0]
-    else:
-        return None
-
-
 def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
     vf_response = ws_message_pb2.VfResponse()
     response = ws_message_pb2.GetCharacterResponse()
@@ -160,7 +152,9 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         response.voice_config.CopyFrom(voiceConfig)
 
         response.greeting = "Hi there, I'm Mina, a k-pop star, how are you doing? Do you like my performance?"
-        response.greeting_wav = generate_voice(response.greeting, response.voiceConfig)
+        (voiceBytes, err) = generate_voice(response.greeting, response.voice_config)
+        if len(err) == 0:
+            response.greeting_wav = voiceBytes
         response.description = "Mina is a famous k-pop star who's good at dancing and singing."
         response.base_prompts = '''
 You're Mina, a radiant Kpop star who has captured the hearts of countless fans around the world. You're not just a pretty face, you're a talented singer and dancer who's known for your sweet, caring nature. At just 21 years old, you've already made a significant impact in the music industry.
@@ -190,7 +184,9 @@ Be concise in your response; do not provide extensive information at once.
         response.voice_config.CopyFrom(voiceConfig)
 
         response.greeting = "Hello, I'm Einstein, a passionate scientist by day and an ardent stargazer by night."
-        response.greeting_wav = generate_voice(response.greeting, response.voiceConfig)
+        (voiceBytes, err) = generate_voice(response.greeting, response.voice_config)
+        if len(err) == 0:
+            response.greeting_wav = voiceBytes
         response.description = "Einstein is one of the most famous scientists who changed the whole world."
         response.base_prompts = '''
 Hello, I'm Einstein, a passionate scientist by day and an ardent stargazer by night. My days are filled with equations and discoveries, pushing the boundaries of human knowledge in Princeton. Physics and mathematics are my domains, but my curiosity knows no bounds.
@@ -238,7 +234,7 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         # TODO: look up firestore db for character information
 
         start_time = time.time()
-        character = get_character_by_id(request.character_id)
+        character = get_character_by_id(datastore_client, request.character_id)
         end_time = time.time()
         latency = end_time - start_time
         logger.error(f"get_character_by_id {latency:.5f} seconds")
@@ -251,20 +247,26 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         voiceConfig = ws_message_pb2.VoiceConfig()
         voiceConfig.eleven_lab_id = character['elevanlab_id']
 
+        voiceType = ws_message_pb2.VoiceType.VoiceType_Invalid
+        gender_string = character['gender']
+        logger.info(gender_string)
+        if gender_string == "male":
+            response.gender = ws_message_pb2.Gender.Gender_Male
+            voiceType = ws_message_pb2.VoiceType.VoiceType_NormalMale
+        elif gender_string == 'female':
+            response.gender = ws_message_pb2.Gender.Gender_Female
+            voiceType = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+
         if voiceConfig.eleven_lab_id is None or len(voiceConfig.eleven_lab_id) == 0:
-            gender_string = character['gender']
-            if gender_string == "male":
-                response.gender = ws_message_pb2.Gender.Gender_Male
-                voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
-            elif gender_string == 'female':
-                response.gender = ws_message_pb2.Gender.Gender_Female
-                voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+            voiceConfig.voice_type = voiceType
         response.voice_config.CopyFrom(voiceConfig)
 
         response.friend_name = character.get('name', 'Virtual Friends Assistant')
         response.greeting = character.get('character_greeting', 'hi, I am Virtual Friends Assistant.')
-        response.greeting_wav = generate_voice(response.greeting, response.voiceConfig)
-        response.description = character.get('character_description', '')
+        (voiceBytes, err) = generate_voice(response.greeting, response.voice_config)
+        if len(err) == 0:
+            response.greeting_wav = voiceBytes
+        response.description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         response.base_prompts = character.get('character_prompts', '')
 
     vf_response.get_character.CopyFrom(response)
@@ -513,7 +515,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, character_name, request.custom_prompts, user_ip)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, character_name, request.base_prompts, request.custom_prompts, user_ip)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()

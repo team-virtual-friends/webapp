@@ -111,6 +111,9 @@ message StreamReplyMessageRequest {
     
     repeated string json_messages = 2;
 
+    // base_prompts is the prompts that is created by the owner, stored in the DB, and passed to client
+    // in GetCharacter request.
+    // custom_prompts is the prompts that client overwrite through the custom prompts window.
     // custom_prompts will override base_prompts if it's not empty.
     string base_prompts = 8;
     string custom_prompts = 7;

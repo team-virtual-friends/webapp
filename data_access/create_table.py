@@ -6,12 +6,12 @@ import hashlib
 # client = datastore.Client.from_service_account_json('../webapp/ysong-chat-845e43a6c55b.json')
 
 
-def create_and_insert_user(client, user_id, username, pwd):
+def create_and_insert_user(datastore_client, user_id, username, pwd):
     # Check if a user with the same username or user_id already exists
-    query1 = client.query(kind='User', namespace='users_db')
+    query1 = datastore_client.query(kind='User', namespace='users_db')
     query1.add_filter('username', '=', username)
 
-    query2 = client.query(kind='User', namespace='users_db')
+    query2 = datastore_client.query(kind='User', namespace='users_db')
     query2.add_filter('user_id', '=', user_id)
 
     results_query1 = list(query1.fetch(limit=1))
@@ -23,7 +23,7 @@ def create_and_insert_user(client, user_id, username, pwd):
         return False
 
     # If no matching user exists, proceed to create and insert the new user entity
-    key = client.key('User', namespace='users_db')
+    key = datastore_client.key('User', namespace='users_db')
     user_entity = datastore.Entity(key=key)
 
     salt = os.urandom(16)
@@ -38,14 +38,14 @@ def create_and_insert_user(client, user_id, username, pwd):
     })
 
     # Save the user entity
-    client.put(user_entity)
+    datastore_client.put(user_entity)
     print(f"New user added with ID: {user_entity.key.id}")
     return True  # Successfully created and inserted the user entity
 
 
-def create_and_insert_character(client):
+def create_and_insert_character(datastore_client):
     # Create a new character entity in the "characters_db" namespace
-    key = client.key('Character', namespace='characters_db')
+    key = datastore_client.key('Character', namespace='characters_db')
     character_entity = datastore.Entity(key=key)
 
     character_entity.update({
@@ -55,7 +55,7 @@ def create_and_insert_character(client):
     })
 
     # Save the character entity
-    client.put(character_entity)
+    datastore_client.put(character_entity)
     print(f"New character added with ID: {character_entity.key.id}")
 
 

@@ -22,7 +22,7 @@ import re
 import hashlib
 import requests
 
-from data_access.get_data import gen_user_auth_token, get_character_by_id
+from data_access.get_data import gen_user_auth_token, get_character_by_id, save_character_info
 from data_access.create_table import create_and_insert_user
 from utils import validate_user_token
 
@@ -39,6 +39,7 @@ credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 datastore_client = datastore.Client(credentials=credentials)
 bigquery_client = bigquery.Client(credentials=credentials)
+gcs_client = storage.Client(credentials=credentials)
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
@@ -56,8 +57,8 @@ unity_index_html_replacements = {
 def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
     credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
     credentials = service_account.Credentials.from_service_account_file(credentials_path)
-    gcsClient = storage.Client(credentials=credentials)
-    bucket = gcsClient.get_bucket(bucket_name)
+    
+    bucket = gcs_client.get_bucket(bucket_name)
 
     static_folder = "./static/"
     static_folder_full_path = os.path.abspath(static_folder)
@@ -351,23 +352,14 @@ def create_character():
         key = datastore_client.key('Character', namespace='characters_db')
         character_entity = datastore.Entity(key=key)
 
-        character_entity.update({
-            'character_id': character_id,
-            'rpm_url': rpm_url,
-            'name': name,
-            'gender': gender,  # Added the gender field
-            'character_greeting': character_greeting,
-            'character_description': character_description,
-            'audio_file_name': audio_file_name,
-            'elevanlab_id': elevanlab_id,
-            'created_at': datetime.utcnow(),  # Store the current UTC time as the creation timestamp
-            'user_email': user_email,
-        })
+        if save_character_info(
+            datastore_client, gcs_client, key,
+            character_id, rpm_url, name, gender, character_greeting,
+            character_description, audio_file_name, elevanlab_id,
+            user_email):
 
-        # Save the character entity
-        datastore_client.put(character_entity)
-
-        return render_template('character-profile.html', character=character_entity)
+            return render_template('character-profile.html', character=character_entity)
+        return "fail to create the character"
 
     return render_template('create-character.html')
 
