@@ -22,7 +22,7 @@ import re
 import hashlib
 import requests
 
-from data_access.get_data import gen_user_auth_token, get_character_by_id, save_character_info
+from data_access.get_data import gen_user_auth_token, get_character_by_id, get_character_by_email, save_character_info, update_character_info
 from data_access.create_table import create_and_insert_user
 from utils import validate_user_token
 
@@ -239,20 +239,6 @@ def test():
 def login_page():
     return render_template('login.html')
 
-
-# def get_character_by_email(user_email):
-#     # Create a query to fetch character by name in the "characters_db" namespace
-#     query = datastore_client.query(kind='Character', namespace='characters_db')
-#     query.add_filter('user_email', '=', user_email)
-#
-#     # Fetch the result
-#     characters = list(query.fetch(limit=1))
-#
-#     if characters:
-#         return characters[0]
-#     else:
-#         return None
-
 @app.route('/login', methods=['POST'])
 def login():
     # Get the username and password from the form
@@ -261,12 +247,15 @@ def login():
     token = gen_user_auth_token(datastore_client, email, password)
     if token is None:
         return "invalid", 404
-    # Create a response object
-    response = make_response(redirect(url_for('home')))
 
-    # Set the token as a cookie in the response
+    character = get_character_by_email(datastore_client, email)
+    if character:
+        response = make_response(render_template('user-profile.html', character=character))
+        response.set_cookie('auth_token', token)
+        return response
+
+    response = make_response(render_template('create-character.html'))
     response.set_cookie('auth_token', token)
-
     return response
 
 @app.route('/show_flash_message')
@@ -336,9 +325,50 @@ def clone_voice(voice_name, voice_description, audio_file):
 
     return voice_id
 
+@app.route('/edit_character/<character_id>', methods=['GET', 'POST'])
+def edit_character(character_id):
+    user_email = validate_user_token()
+    if user_email is None:
+        return redirect(url_for('login'))
+
+    # Fetch the character entity based on character_id
+    character_entity = get_character_by_id(datastore_client, character_id)
+
+    if character_entity is None:
+        # Handle the case where the character with the given ID doesn't exist
+        return "Character not found", 404
+
+    if request.method == 'POST':
+        # Handle the form submission for editing character data
+        rpm_url = request.form['rpm_url']
+        name = request.form['name']
+        gender = request.form['gender']
+        character_greeting = request.form['character_greeting']
+        character_description = request.form['character_description']
+        audio_file = request.files['audioFile']
+
+        # # TODO: Store audio file
+        elevanlab_id = ""
+        if audio_file:
+            elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+
+        # Update the character data in the datastore and/or storage
+        updated_character = update_character_info(
+            datastore_client, gcs_client, character_entity, rpm_url,
+            name, gender, character_greeting, character_description, audio_file, elevanlab_id)
+
+        if updated_character:
+            return render_template('user-profile.html', character=updated_character)
+        return "Failed to update character data"
+
+    # Render the form for editing character data with the existing data
+    return render_template('edit-character.html', character=character_entity)
+
+
 @app.route('/create_character', methods=['GET', 'POST'])
 def create_character():
     user_email = validate_user_token()
+    print("create_character " + user_email)
     if user_email is None:
         return redirect(url_for('login'))
 
