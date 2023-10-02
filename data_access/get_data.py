@@ -7,6 +7,8 @@ import jwt
 
 secret_key = "chilloutmix_ni64"
 
+large_data_bucket = "datastore_large_data"
+
 # Initialize the Datastore client
 # client = datastore.Client.from_service_account_json('../webapp/ysong-chat-845e43a6c55b.json')
 
@@ -36,24 +38,24 @@ def get_character_by_id(datastore_client, character_id):
     return None
 
 def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name):
-    bucket = gcs_client.get_bucket(attribute_name)
+    bucket = gcs_client.get_bucket(large_data_bucket)
     attribute_path = character.get(attribute_name, "")
     if len(attribute_path) > 0:
-        path = f"{character['name']}/{attribute_path}"
+        path = f"{character['character_id']}/{attribute_name}/{attribute_path}"
         blob = bucket.blob(path)
         if blob.exists():
             return blob.download_as_text()
     return ""
 
-# gs://{attribute_name}/{character['name']}/{timestamp}
+# gs://large_data_bucket/{character['name']}/{attribute_name}/{timestamp}
 def save_character_attribute_value_through_gcs(gcs_client, character, attribute_name, attribute_value):
-    bucket = gcs_client.get_bucket(attribute_name)
-    character_name = character.get('name', "")
-    if len(character_name) > 0:
+    bucket = gcs_client.get_bucket(large_data_bucket)
+    character_id = character.get('character_id', "")
+    if len(character_id) > 0:
         current_datetime = datetime.datetime.now()
         current_timestamp = current_datetime.timestamp()
         filename = str(current_timestamp)
-        path = f"{character_name}/{filename}"
+        path = f"{character_id}/{attribute_name}/{filename}"
         blob = bucket.blob(path)
         if blob.exists():
             return False
