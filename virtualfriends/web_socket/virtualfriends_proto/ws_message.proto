@@ -102,7 +102,7 @@ message VoiceConfig {
 message MirroredContent {
     string character_name = 1;
 
-    int64 session_id = 2;
+    int64 message_id = 2;
 }
 
 // Next tag: 10

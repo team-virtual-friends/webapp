@@ -52,46 +52,47 @@ namespace VirtualfriendsProto {
             "X3dhdhgEIAEoDCJqCgtWb2ljZUNvbmZpZxIzCgp2b2ljZV90eXBlGAEgASgO",
             "Mh8udmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VUeXBlEg8KB29jdGF2ZXMY",
             "AiABKAISFQoNZWxldmVuX2xhYl9pZBgDIAEoCSI9Cg9NaXJyb3JlZENvbnRl",
-            "bnQSFgoOY2hhcmFjdGVyX25hbWUYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEo",
-            "AyL2AQoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVzdBI/ChBtaXJyb3JlZF9j",
+            "bnQSFgoOY2hhcmFjdGVyX25hbWUYASABKAkSEgoKbWVzc2FnZV9pZBgCIAEo",
+            "AyKrAgoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVzdBI/ChBtaXJyb3JlZF9j",
             "b250ZW50GAEgASgLMiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRD",
-            "b250ZW50EhUKDWpzb25fbWVzc2FnZXMYAiADKAkSFgoOY3VzdG9tX3Byb21w",
-            "dHMYByABKAkSDQoDd2F2GAMgASgMSAASDgoEdGV4dBgGIAEoCUgAEjcKDHZv",
-            "aWNlX2NvbmZpZxgFIAEoCzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNl",
-            "Q29uZmlnQhEKD2N1cnJlbnRfbWVzc2FnZSLqAQoaU3RyZWFtUmVwbHlNZXNz",
-            "YWdlUmVzcG9uc2USPwoQbWlycm9yZWRfY29udGVudBgGIAEoCzIlLnZpcnR1",
-            "YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29udGVudBIVCg1yZXBseV9tZXNz",
-            "YWdlGAEgASgJEg4KBmFjdGlvbhgCIAEoCRIRCglzZW50aW1lbnQYAyABKAkS",
-            "EQoJcmVwbHlfd2F2GAQgASgMEhgKEHRyYW5zY3JpYmVkX3RleHQYBSABKAkS",
-            "EwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNfc3RvcBgIIAEoCCJqChpEb3du",
-            "bG9hZEFzc2V0QnVuZGxlUmVxdWVzdBIWCg5wdWJsaXNoZXJfbmFtZRgBIAEo",
-            "CRIWCg5jaGFyYWN0ZXJfbmFtZRgCIAEoCRIYChBydW50aW1lX3BsYXRmb3Jt",
-            "GAMgASgJOgIYASJUChtEb3dubG9hZEFzc2V0QnVuZGxlUmVzcG9uc2USDQoF",
-            "Y2h1bmsYASABKAwSDQoFaW5kZXgYAiABKAUSEwoLdG90YWxfY291bnQYAyAB",
-            "KAU6AhgBIlMKEE1pcnJvcmVkQmxvYkluZm8SEQoJYmxvYl9uYW1lGAEgASgJ",
-            "EhUKDW1ham9yX3ZlcnNpb24YAiABKAUSFQoNbWlub3JfdmVyc2lvbhgDIAEo",
-            "BSJZChNEb3dubG9hZEJsb2JSZXF1ZXN0EkIKEm1pcnJvcmVkX2Jsb2JfaW5m",
-            "bxgBIAEoCzImLnZpcnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQmxvYklu",
-            "Zm8ijQEKFERvd25sb2FkQmxvYlJlc3BvbnNlEkIKEm1pcnJvcmVkX2Jsb2Jf",
-            "aW5mbxgBIAEoCzImLnZpcnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQmxv",
-            "YkluZm8SDQoFY2h1bmsYAiABKAwSDQoFaW5kZXgYAyABKAUSEwoLdG90YWxf",
-            "Y291bnQYBCABKAUiKQoTTG9hZGVyUmVhZHlQbGF5ZXJNZRISCgphdmF0YXJf",
-            "dXJsGAEgASgJIicKEkxvYWRlckJsb2JEb3dubG9hZBIRCglibG9iX25hbWUY",
-            "ASABKAkiKwoTR2V0Q2hhcmFjdGVyUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQY",
-            "ASABKAkijgMKFEdldENoYXJhY3RlclJlc3BvbnNlEkkKFGxvYWRlcl9yZWFk",
-            "eXBsYXllcm1lGAEgASgLMikudmlydHVhbGZyaWVuZHNfcHJvdG8uTG9hZGVy",
-            "UmVhZHlQbGF5ZXJNZUgAEkgKFGxvYWRlcl9ibG9iX2Rvd25sb2FkGAUgASgL",
-            "MigudmlydHVhbGZyaWVuZHNfcHJvdG8uTG9hZGVyQmxvYkRvd25sb2FkSAAS",
-            "LAoGZ2VuZGVyGAIgASgOMhwudmlydHVhbGZyaWVuZHNfcHJvdG8uR2VuZGVy",
-            "EhMKC2ZyaWVuZF9uYW1lGAMgASgJEjcKDHZvaWNlX2NvbmZpZxgEIAEoCzIh",
-            "LnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnEhoKEmNoYXJhY3Rl",
-            "cl9ncmVldGluZxgGIAEoCRIdChVjaGFyYWN0ZXJfZGVzY3JpcHRpb24YByAB",
-            "KAkSGQoRY2hhcmFjdGVyX3Byb21wdHMYCCABKAlCDwoNbG9hZGVyX2NvbmZp",
-            "ZyqJAQoJVm9pY2VUeXBlEhUKEVZvaWNlVHlwZV9JbnZhbGlkEAASGAoUVm9p",
-            "Y2VUeXBlX05vcm1hbE1hbGUQARIbChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxl",
-            "MRACEhsKF1ZvaWNlVHlwZV9Ob3JtYWxGZW1hbGUyEAMSEQoNVm9pY2VUeXBl",
-            "X09yYxAEKkAKBkdlbmRlchISCg5HZW5kZXJfSW52YWxpZBAAEg8KC0dlbmRl",
-            "cl9NYWxlEAESEQoNR2VuZGVyX0ZlbWFsZRACYgZwcm90bzM="));
+            "b250ZW50EhUKDWpzb25fbWVzc2FnZXMYAiADKAkSFAoMYmFzZV9wcm9tcHRz",
+            "GAggASgJEhYKDmN1c3RvbV9wcm9tcHRzGAcgASgJEh0KFWNoYXJhY3Rlcl9k",
+            "ZXNjcmlwdGlvbhgJIAEoCRINCgN3YXYYAyABKAxIABIOCgR0ZXh0GAYgASgJ",
+            "SAASNwoMdm9pY2VfY29uZmlnGAUgASgLMiEudmlydHVhbGZyaWVuZHNfcHJv",
+            "dG8uVm9pY2VDb25maWdCEQoPY3VycmVudF9tZXNzYWdlIuoBChpTdHJlYW1S",
+            "ZXBseU1lc3NhZ2VSZXNwb25zZRI/ChBtaXJyb3JlZF9jb250ZW50GAYgASgL",
+            "MiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRDb250ZW50EhUKDXJl",
+            "cGx5X21lc3NhZ2UYASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVu",
+            "dBgDIAEoCRIRCglyZXBseV93YXYYBCABKAwSGAoQdHJhbnNjcmliZWRfdGV4",
+            "dBgFIAEoCRITCgtjaHVua19pbmRleBgHIAEoBRIPCgdpc19zdG9wGAggASgI",
+            "ImoKGkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0EhYKDnB1Ymxpc2hlcl9u",
+            "YW1lGAEgASgJEhYKDmNoYXJhY3Rlcl9uYW1lGAIgASgJEhgKEHJ1bnRpbWVf",
+            "cGxhdGZvcm0YAyABKAk6AhgBIlQKG0Rvd25sb2FkQXNzZXRCdW5kbGVSZXNw",
+            "b25zZRINCgVjaHVuaxgBIAEoDBINCgVpbmRleBgCIAEoBRITCgt0b3RhbF9j",
+            "b3VudBgDIAEoBToCGAEiUwoQTWlycm9yZWRCbG9iSW5mbxIRCglibG9iX25h",
+            "bWUYASABKAkSFQoNbWFqb3JfdmVyc2lvbhgCIAEoBRIVCg1taW5vcl92ZXJz",
+            "aW9uGAMgASgFIlkKE0Rvd25sb2FkQmxvYlJlcXVlc3QSQgoSbWlycm9yZWRf",
+            "YmxvYl9pbmZvGAEgASgLMiYudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9y",
+            "ZWRCbG9iSW5mbyKNAQoURG93bmxvYWRCbG9iUmVzcG9uc2USQgoSbWlycm9y",
+            "ZWRfYmxvYl9pbmZvGAEgASgLMiYudmlydHVhbGZyaWVuZHNfcHJvdG8uTWly",
+            "cm9yZWRCbG9iSW5mbxINCgVjaHVuaxgCIAEoDBINCgVpbmRleBgDIAEoBRIT",
+            "Cgt0b3RhbF9jb3VudBgEIAEoBSIpChNMb2FkZXJSZWFkeVBsYXllck1lEhIK",
+            "CmF2YXRhcl91cmwYASABKAkiJwoSTG9hZGVyQmxvYkRvd25sb2FkEhEKCWJs",
+            "b2JfbmFtZRgBIAEoCSIrChNHZXRDaGFyYWN0ZXJSZXF1ZXN0EhQKDGNoYXJh",
+            "Y3Rlcl9pZBgBIAEoCSKLAwoUR2V0Q2hhcmFjdGVyUmVzcG9uc2USSQoUbG9h",
+            "ZGVyX3JlYWR5cGxheWVybWUYASABKAsyKS52aXJ0dWFsZnJpZW5kc19wcm90",
+            "by5Mb2FkZXJSZWFkeVBsYXllck1lSAASSAoUbG9hZGVyX2Jsb2JfZG93bmxv",
+            "YWQYBSABKAsyKC52aXJ0dWFsZnJpZW5kc19wcm90by5Mb2FkZXJCbG9iRG93",
+            "bmxvYWRIABIsCgZnZW5kZXIYAiABKA4yHC52aXJ0dWFsZnJpZW5kc19wcm90",
+            "by5HZW5kZXISEwoLZnJpZW5kX25hbWUYAyABKAkSNwoMdm9pY2VfY29uZmln",
+            "GAQgASgLMiEudmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VDb25maWcSEAoI",
+            "Z3JlZXRpbmcYBiABKAkSFAoMZ3JlZXRpbmdfd2F2GAkgASgMEhMKC2Rlc2Ny",
+            "aXB0aW9uGAcgASgJEhQKDGJhc2VfcHJvbXB0cxgIIAEoCUIPCg1sb2FkZXJf",
+            "Y29uZmlnKokBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFsaWQQABIY",
+            "ChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9Ob3JtYWxG",
+            "ZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxIRCg1Wb2lj",
+            "ZVR5cGVfT3JjEAQqQAoGR2VuZGVyEhIKDkdlbmRlcl9JbnZhbGlkEAASDwoL",
+            "R2VuZGVyX01hbGUQARIRCg1HZW5kZXJfRmVtYWxlEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), typeof(global::VirtualfriendsProto.Gender), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -101,8 +102,8 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text", "VoiceConfig" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text", "Action", "Sentiment", "ReplyWav" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves", "ElevenLabId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "SessionId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "CustomPrompts", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "MessageId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "BasePrompts", "CustomPrompts", "CharacterDescription", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadAssetBundleRequest), global::VirtualfriendsProto.DownloadAssetBundleRequest.Parser, new[]{ "PublisherName", "CharacterName", "RuntimePlatform" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadAssetBundleResponse), global::VirtualfriendsProto.DownloadAssetBundleResponse.Parser, new[]{ "Chunk", "Index", "TotalCount" }, null, null, null, null),
@@ -112,7 +113,7 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.LoaderReadyPlayerMe), global::VirtualfriendsProto.LoaderReadyPlayerMe.Parser, new[]{ "AvatarUrl" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.LoaderBlobDownload), global::VirtualfriendsProto.LoaderBlobDownload.Parser, new[]{ "BlobName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterRequest), global::VirtualfriendsProto.GetCharacterRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterResponse), global::VirtualfriendsProto.GetCharacterResponse.Parser, new[]{ "LoaderReadyplayerme", "LoaderBlobDownload", "Gender", "FriendName", "VoiceConfig", "CharacterGreeting", "CharacterDescription", "CharacterPrompts" }, new[]{ "LoaderConfig" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterResponse), global::VirtualfriendsProto.GetCharacterResponse.Parser, new[]{ "LoaderReadyplayerme", "LoaderBlobDownload", "Gender", "FriendName", "VoiceConfig", "Greeting", "GreetingWav", "Description", "BasePrompts" }, new[]{ "LoaderConfig" }, null, null, null)
           }));
     }
     #endregion
@@ -2270,7 +2271,7 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MirroredContent(MirroredContent other) : this() {
       characterName_ = other.characterName_;
-      sessionId_ = other.sessionId_;
+      messageId_ = other.messageId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2292,15 +2293,15 @@ namespace VirtualfriendsProto {
       }
     }
 
-    /// <summary>Field number for the "session_id" field.</summary>
-    public const int SessionIdFieldNumber = 2;
-    private long sessionId_;
+    /// <summary>Field number for the "message_id" field.</summary>
+    public const int MessageIdFieldNumber = 2;
+    private long messageId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long SessionId {
-      get { return sessionId_; }
+    public long MessageId {
+      get { return messageId_; }
       set {
-        sessionId_ = value;
+        messageId_ = value;
       }
     }
 
@@ -2320,7 +2321,7 @@ namespace VirtualfriendsProto {
         return true;
       }
       if (CharacterName != other.CharacterName) return false;
-      if (SessionId != other.SessionId) return false;
+      if (MessageId != other.MessageId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2329,7 +2330,7 @@ namespace VirtualfriendsProto {
     public override int GetHashCode() {
       int hash = 1;
       if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
-      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
+      if (MessageId != 0L) hash ^= MessageId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2352,9 +2353,9 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(10);
         output.WriteString(CharacterName);
       }
-      if (SessionId != 0L) {
+      if (MessageId != 0L) {
         output.WriteRawTag(16);
-        output.WriteInt64(SessionId);
+        output.WriteInt64(MessageId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2370,9 +2371,9 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(10);
         output.WriteString(CharacterName);
       }
-      if (SessionId != 0L) {
+      if (MessageId != 0L) {
         output.WriteRawTag(16);
-        output.WriteInt64(SessionId);
+        output.WriteInt64(MessageId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2387,8 +2388,8 @@ namespace VirtualfriendsProto {
       if (CharacterName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
       }
-      if (SessionId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
+      if (MessageId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MessageId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2405,8 +2406,8 @@ namespace VirtualfriendsProto {
       if (other.CharacterName.Length != 0) {
         CharacterName = other.CharacterName;
       }
-      if (other.SessionId != 0L) {
-        SessionId = other.SessionId;
+      if (other.MessageId != 0L) {
+        MessageId = other.MessageId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2428,7 +2429,7 @@ namespace VirtualfriendsProto {
             break;
           }
           case 16: {
-            SessionId = input.ReadInt64();
+            MessageId = input.ReadInt64();
             break;
           }
         }
@@ -2451,7 +2452,7 @@ namespace VirtualfriendsProto {
             break;
           }
           case 16: {
-            SessionId = input.ReadInt64();
+            MessageId = input.ReadInt64();
             break;
           }
         }
@@ -2462,7 +2463,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 8
+  /// Next tag: 10
   /// </summary>
   public sealed partial class StreamReplyMessageRequest : pb::IMessage<StreamReplyMessageRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -2500,7 +2501,9 @@ namespace VirtualfriendsProto {
     public StreamReplyMessageRequest(StreamReplyMessageRequest other) : this() {
       mirroredContent_ = other.mirroredContent_ != null ? other.mirroredContent_.Clone() : null;
       jsonMessages_ = other.jsonMessages_.Clone();
+      basePrompts_ = other.basePrompts_;
       customPrompts_ = other.customPrompts_;
+      characterDescription_ = other.characterDescription_;
       voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
       switch (other.CurrentMessageCase) {
         case CurrentMessageOneofCase.Wav:
@@ -2543,6 +2546,21 @@ namespace VirtualfriendsProto {
       get { return jsonMessages_; }
     }
 
+    /// <summary>Field number for the "base_prompts" field.</summary>
+    public const int BasePromptsFieldNumber = 8;
+    private string basePrompts_ = "";
+    /// <summary>
+    /// custom_prompts will override base_prompts if it's not empty.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string BasePrompts {
+      get { return basePrompts_; }
+      set {
+        basePrompts_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "custom_prompts" field.</summary>
     public const int CustomPromptsFieldNumber = 7;
     private string customPrompts_ = "";
@@ -2552,6 +2570,18 @@ namespace VirtualfriendsProto {
       get { return customPrompts_; }
       set {
         customPrompts_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "character_description" field.</summary>
+    public const int CharacterDescriptionFieldNumber = 9;
+    private string characterDescription_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CharacterDescription {
+      get { return characterDescription_; }
+      set {
+        characterDescription_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -2657,7 +2687,9 @@ namespace VirtualfriendsProto {
       }
       if (!object.Equals(MirroredContent, other.MirroredContent)) return false;
       if(!jsonMessages_.Equals(other.jsonMessages_)) return false;
+      if (BasePrompts != other.BasePrompts) return false;
       if (CustomPrompts != other.CustomPrompts) return false;
+      if (CharacterDescription != other.CharacterDescription) return false;
       if (Wav != other.Wav) return false;
       if (Text != other.Text) return false;
       if (!object.Equals(VoiceConfig, other.VoiceConfig)) return false;
@@ -2671,7 +2703,9 @@ namespace VirtualfriendsProto {
       int hash = 1;
       if (mirroredContent_ != null) hash ^= MirroredContent.GetHashCode();
       hash ^= jsonMessages_.GetHashCode();
+      if (BasePrompts.Length != 0) hash ^= BasePrompts.GetHashCode();
       if (CustomPrompts.Length != 0) hash ^= CustomPrompts.GetHashCode();
+      if (CharacterDescription.Length != 0) hash ^= CharacterDescription.GetHashCode();
       if (HasWav) hash ^= Wav.GetHashCode();
       if (HasText) hash ^= Text.GetHashCode();
       if (voiceConfig_ != null) hash ^= VoiceConfig.GetHashCode();
@@ -2715,6 +2749,14 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(58);
         output.WriteString(CustomPrompts);
       }
+      if (BasePrompts.Length != 0) {
+        output.WriteRawTag(66);
+        output.WriteString(BasePrompts);
+      }
+      if (CharacterDescription.Length != 0) {
+        output.WriteRawTag(74);
+        output.WriteString(CharacterDescription);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2746,6 +2788,14 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(58);
         output.WriteString(CustomPrompts);
       }
+      if (BasePrompts.Length != 0) {
+        output.WriteRawTag(66);
+        output.WriteString(BasePrompts);
+      }
+      if (CharacterDescription.Length != 0) {
+        output.WriteRawTag(74);
+        output.WriteString(CharacterDescription);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2760,8 +2810,14 @@ namespace VirtualfriendsProto {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MirroredContent);
       }
       size += jsonMessages_.CalculateSize(_repeated_jsonMessages_codec);
+      if (BasePrompts.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(BasePrompts);
+      }
       if (CustomPrompts.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(CustomPrompts);
+      }
+      if (CharacterDescription.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterDescription);
       }
       if (HasWav) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Wav);
@@ -2791,8 +2847,14 @@ namespace VirtualfriendsProto {
         MirroredContent.MergeFrom(other.MirroredContent);
       }
       jsonMessages_.Add(other.jsonMessages_);
+      if (other.BasePrompts.Length != 0) {
+        BasePrompts = other.BasePrompts;
+      }
       if (other.CustomPrompts.Length != 0) {
         CustomPrompts = other.CustomPrompts;
+      }
+      if (other.CharacterDescription.Length != 0) {
+        CharacterDescription = other.CharacterDescription;
       }
       if (other.voiceConfig_ != null) {
         if (voiceConfig_ == null) {
@@ -2854,6 +2916,14 @@ namespace VirtualfriendsProto {
             CustomPrompts = input.ReadString();
             break;
           }
+          case 66: {
+            BasePrompts = input.ReadString();
+            break;
+          }
+          case 74: {
+            CharacterDescription = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -2897,6 +2967,14 @@ namespace VirtualfriendsProto {
           }
           case 58: {
             CustomPrompts = input.ReadString();
+            break;
+          }
+          case 66: {
+            BasePrompts = input.ReadString();
+            break;
+          }
+          case 74: {
+            CharacterDescription = input.ReadString();
             break;
           }
         }
@@ -5261,7 +5339,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 9
+  /// Next tag: 10
   /// </summary>
   public sealed partial class GetCharacterResponse : pb::IMessage<GetCharacterResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -5300,9 +5378,10 @@ namespace VirtualfriendsProto {
       gender_ = other.gender_;
       friendName_ = other.friendName_;
       voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
-      characterGreeting_ = other.characterGreeting_;
-      characterDescription_ = other.characterDescription_;
-      characterPrompts_ = other.characterPrompts_;
+      greeting_ = other.greeting_;
+      greetingWav_ = other.greetingWav_;
+      description_ = other.description_;
+      basePrompts_ = other.basePrompts_;
       switch (other.LoaderConfigCase) {
         case LoaderConfigOneofCase.LoaderReadyplayerme:
           LoaderReadyplayerme = other.LoaderReadyplayerme.Clone();
@@ -5381,39 +5460,51 @@ namespace VirtualfriendsProto {
       }
     }
 
-    /// <summary>Field number for the "character_greeting" field.</summary>
-    public const int CharacterGreetingFieldNumber = 6;
-    private string characterGreeting_ = "";
+    /// <summary>Field number for the "greeting" field.</summary>
+    public const int GreetingFieldNumber = 6;
+    private string greeting_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterGreeting {
-      get { return characterGreeting_; }
+    public string Greeting {
+      get { return greeting_; }
       set {
-        characterGreeting_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        greeting_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "character_description" field.</summary>
-    public const int CharacterDescriptionFieldNumber = 7;
-    private string characterDescription_ = "";
+    /// <summary>Field number for the "greeting_wav" field.</summary>
+    public const int GreetingWavFieldNumber = 9;
+    private pb::ByteString greetingWav_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterDescription {
-      get { return characterDescription_; }
+    public pb::ByteString GreetingWav {
+      get { return greetingWav_; }
       set {
-        characterDescription_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        greetingWav_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "character_prompts" field.</summary>
-    public const int CharacterPromptsFieldNumber = 8;
-    private string characterPrompts_ = "";
+    /// <summary>Field number for the "description" field.</summary>
+    public const int DescriptionFieldNumber = 7;
+    private string description_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterPrompts {
-      get { return characterPrompts_; }
+    public string Description {
+      get { return description_; }
       set {
-        characterPrompts_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "base_prompts" field.</summary>
+    public const int BasePromptsFieldNumber = 8;
+    private string basePrompts_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string BasePrompts {
+      get { return basePrompts_; }
+      set {
+        basePrompts_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -5458,9 +5549,10 @@ namespace VirtualfriendsProto {
       if (Gender != other.Gender) return false;
       if (FriendName != other.FriendName) return false;
       if (!object.Equals(VoiceConfig, other.VoiceConfig)) return false;
-      if (CharacterGreeting != other.CharacterGreeting) return false;
-      if (CharacterDescription != other.CharacterDescription) return false;
-      if (CharacterPrompts != other.CharacterPrompts) return false;
+      if (Greeting != other.Greeting) return false;
+      if (GreetingWav != other.GreetingWav) return false;
+      if (Description != other.Description) return false;
+      if (BasePrompts != other.BasePrompts) return false;
       if (LoaderConfigCase != other.LoaderConfigCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -5474,9 +5566,10 @@ namespace VirtualfriendsProto {
       if (Gender != global::VirtualfriendsProto.Gender.Invalid) hash ^= Gender.GetHashCode();
       if (FriendName.Length != 0) hash ^= FriendName.GetHashCode();
       if (voiceConfig_ != null) hash ^= VoiceConfig.GetHashCode();
-      if (CharacterGreeting.Length != 0) hash ^= CharacterGreeting.GetHashCode();
-      if (CharacterDescription.Length != 0) hash ^= CharacterDescription.GetHashCode();
-      if (CharacterPrompts.Length != 0) hash ^= CharacterPrompts.GetHashCode();
+      if (Greeting.Length != 0) hash ^= Greeting.GetHashCode();
+      if (GreetingWav.Length != 0) hash ^= GreetingWav.GetHashCode();
+      if (Description.Length != 0) hash ^= Description.GetHashCode();
+      if (BasePrompts.Length != 0) hash ^= BasePrompts.GetHashCode();
       hash ^= (int) loaderConfigCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -5516,17 +5609,21 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteMessage(LoaderBlobDownload);
       }
-      if (CharacterGreeting.Length != 0) {
+      if (Greeting.Length != 0) {
         output.WriteRawTag(50);
-        output.WriteString(CharacterGreeting);
+        output.WriteString(Greeting);
       }
-      if (CharacterDescription.Length != 0) {
+      if (Description.Length != 0) {
         output.WriteRawTag(58);
-        output.WriteString(CharacterDescription);
+        output.WriteString(Description);
       }
-      if (CharacterPrompts.Length != 0) {
+      if (BasePrompts.Length != 0) {
         output.WriteRawTag(66);
-        output.WriteString(CharacterPrompts);
+        output.WriteString(BasePrompts);
+      }
+      if (GreetingWav.Length != 0) {
+        output.WriteRawTag(74);
+        output.WriteBytes(GreetingWav);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -5558,17 +5655,21 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(42);
         output.WriteMessage(LoaderBlobDownload);
       }
-      if (CharacterGreeting.Length != 0) {
+      if (Greeting.Length != 0) {
         output.WriteRawTag(50);
-        output.WriteString(CharacterGreeting);
+        output.WriteString(Greeting);
       }
-      if (CharacterDescription.Length != 0) {
+      if (Description.Length != 0) {
         output.WriteRawTag(58);
-        output.WriteString(CharacterDescription);
+        output.WriteString(Description);
       }
-      if (CharacterPrompts.Length != 0) {
+      if (BasePrompts.Length != 0) {
         output.WriteRawTag(66);
-        output.WriteString(CharacterPrompts);
+        output.WriteString(BasePrompts);
+      }
+      if (GreetingWav.Length != 0) {
+        output.WriteRawTag(74);
+        output.WriteBytes(GreetingWav);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -5595,14 +5696,17 @@ namespace VirtualfriendsProto {
       if (voiceConfig_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(VoiceConfig);
       }
-      if (CharacterGreeting.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterGreeting);
+      if (Greeting.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Greeting);
       }
-      if (CharacterDescription.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterDescription);
+      if (GreetingWav.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(GreetingWav);
       }
-      if (CharacterPrompts.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterPrompts);
+      if (Description.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
+      }
+      if (BasePrompts.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(BasePrompts);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -5628,14 +5732,17 @@ namespace VirtualfriendsProto {
         }
         VoiceConfig.MergeFrom(other.VoiceConfig);
       }
-      if (other.CharacterGreeting.Length != 0) {
-        CharacterGreeting = other.CharacterGreeting;
+      if (other.Greeting.Length != 0) {
+        Greeting = other.Greeting;
       }
-      if (other.CharacterDescription.Length != 0) {
-        CharacterDescription = other.CharacterDescription;
+      if (other.GreetingWav.Length != 0) {
+        GreetingWav = other.GreetingWav;
       }
-      if (other.CharacterPrompts.Length != 0) {
-        CharacterPrompts = other.CharacterPrompts;
+      if (other.Description.Length != 0) {
+        Description = other.Description;
+      }
+      if (other.BasePrompts.Length != 0) {
+        BasePrompts = other.BasePrompts;
       }
       switch (other.LoaderConfigCase) {
         case LoaderConfigOneofCase.LoaderReadyplayerme:
@@ -5701,15 +5808,19 @@ namespace VirtualfriendsProto {
             break;
           }
           case 50: {
-            CharacterGreeting = input.ReadString();
+            Greeting = input.ReadString();
             break;
           }
           case 58: {
-            CharacterDescription = input.ReadString();
+            Description = input.ReadString();
             break;
           }
           case 66: {
-            CharacterPrompts = input.ReadString();
+            BasePrompts = input.ReadString();
+            break;
+          }
+          case 74: {
+            GreetingWav = input.ReadBytes();
             break;
           }
         }
@@ -5761,15 +5872,19 @@ namespace VirtualfriendsProto {
             break;
           }
           case 50: {
-            CharacterGreeting = input.ReadString();
+            Greeting = input.ReadString();
             break;
           }
           case 58: {
-            CharacterDescription = input.ReadString();
+            Description = input.ReadString();
             break;
           }
           case 66: {
-            CharacterPrompts = input.ReadString();
+            BasePrompts = input.ReadString();
+            break;
+          }
+          case 74: {
+            GreetingWav = input.ReadBytes();
             break;
           }
         }

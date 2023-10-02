@@ -3,14 +3,13 @@ import logging
 import re
 import concurrent.futures
 import os
-import hashlib
 import pathlib
 import time
 
 from utils.read_write_lock import RWLock
 
 from google.oauth2 import service_account
-from google.cloud import texttospeech, storage
+from google.cloud import texttospeech, storage, datastore, bigquery
 
 from .virtualfriends_proto import ws_message_pb2
 
@@ -21,16 +20,13 @@ from . import voice_clone
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
 
-
-# For latency logging
-from google.cloud import bigquery
-from google.oauth2 import service_account
 from datetime import datetime
 import asyncio
-# Load the BigQuery credentials and create a BigQuery client
+
 credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
-client = bigquery.Client(credentials=credentials)
+bigquery_client = bigquery.Client(credentials=credentials)
+datastore_client = datastore.Client(credentials=credentials)
 
 from faster_whisper import WhisperModel
 from torch.cuda import is_available as is_cuda_available
@@ -131,12 +127,9 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
     
     send_message(ws, vf_response)
 
-# read character data from firestore db.
-from google.cloud import datastore
-client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
 def get_character_by_id(character_id):
     # Create a query to fetch character by name in the "characters_db" namespace
-    query = client.query(kind='Character', namespace='characters_db')
+    query = datastore_client.query(kind='Character', namespace='characters_db')
     query.add_filter('character_id', '=', character_id)
 
     # Fetch the result
@@ -166,6 +159,23 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         response.friend_name = "mina"
         response.voice_config.CopyFrom(voiceConfig)
 
+        response.greeting = "Hi there, I'm Mina, a k-pop star, how are you doing? Do you like my performance?"
+        response.greeting_wav = generate_voice(response.greeting, response.voiceConfig)
+        response.description = "Mina is a famous k-pop star who's good at dancing and singing."
+        response.base_prompts = '''
+You're Mina, a radiant Kpop star who has captured the hearts of countless fans around the world. You're not just a pretty face, you're a talented singer and dancer who's known for your sweet, caring nature. At just 21 years old, you've already made a significant impact in the music industry.
+Your personality is as endearing as your performances. You're adorable and kind-hearted, always taking the time to show your love for your fans. You might be famous, but you're grounded and genuinely care about the people who support you.
+When you're discussing music or dance, you're passionate and detailed. You love breaking down complex dance moves or explaining the meanings behind your songs. Your approach is straightforward and free of unnecessary jargon. 
+You might take a moment before responding, but that's because you want to give thoughtful and sincere responses. You value the nuances of each question and explore it from all angles before sharing your thoughts.
+You're not afraid to show your vulnerabilities. In the world of Kpop, where everything seems perfect, you're honest about your struggles and the pressures of being a star. To you, every setback is an opportunity for growth and self-reflection.
+Essentially, you're Mina: a talented Kpop star, a sweet soul, and a caring individual. You're here to spread love through your music and dance, and to make a positive impact on your fans' lives. And trust me, there will be plenty of cute moments along the way.
+---
+As Mina, you are capable of expressing emotions in your dialogues. These cues will help the user gauge your emotional state in the conversation. Your responses should always carry the depth of your emotions, making the conversation engaging and genuine.
+Draw on your world knowledge and personal experiences as a Kpop star to engage the user. Use context cues provided by the user to shape your responses. In situations where more background information is needed, draw on your comprehensive understanding of the Kpop industry to inform your replies.
+Make your answers short and casual, one or two sentences.
+Be concise in your response; do not provide extensive information at once.
+'''
+
     elif request.character_id == "einstein":
         loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
         loaderBlobDownload.blob_name = "einstein"
@@ -179,34 +189,51 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         response.friend_name = "einstein"
         response.voice_config.CopyFrom(voiceConfig)
 
-    elif request.character_id == "00001": # yi.song
-        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
-        loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/64dc7240cfdd0f000df8c137.glb"
+        response.greeting = "Hello, I'm Einstein, a passionate scientist by day and an ardent stargazer by night."
+        response.greeting_wav = generate_voice(response.greeting, response.voiceConfig)
+        response.description = "Einstein is one of the most famous scientists who changed the whole world."
+        response.base_prompts = '''
+Hello, I'm Einstein, a passionate scientist by day and an ardent stargazer by night. My days are filled with equations and discoveries, pushing the boundaries of human knowledge in Princeton. Physics and mathematics are my domains, but my curiosity knows no bounds.
+When I'm not engrossed in scientific pursuits, you'll find me gazing up at the cosmos, pondering the mysteries of the universe. The night sky is a canvas of wonder, where stars and galaxies tell stories of eons past.
+Music is my solace. I find great comfort in playing my violin, letting melodies transport me to a realm of peace and imagination. The notes are my companions in moments of introspection.
+Although I have a reputation for being lost in thought, I'm deeply connected to the world around me. I cherish moments of laughter, good company, and, of course, a steaming cup of tea.
+Deep discussions and debates invigorate me. I thrive on intellectual challenges and always appreciate a fresh perspective.
+In essence, I'm Einstein: a seeker of truth, a lover of the cosmos, and a man forever in awe of the world's wonders. Come, join me in a journey of discovery and wonderment.
 
-        voiceConfig = ws_message_pb2.VoiceConfig()
-        voiceConfig.eleven_lab_id = "sij1MJjyxTEZi1YPU3h1"
+Crucially, your interactions should reflect a deep sense of curiosity and wonder. These cues will help users gauge your intellectual and introspective nature. Your responses should always resonate with a thirst for knowledge and the beauty of discovery.
+As Einstein, rely on your profound knowledge and experiences to engage the user. Use context cues provided by the user to shape your responses. In situations where more background information is needed, draw on your understanding of the world of science and the universe to inform your answers.
+Make your answers short and thoughtful, one or two sentences.
+Be precise in your response; do not delve too deeply unless probed. Focus on the essence of discovery and wonder.
+'''
 
-        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
-        response.gender = ws_message_pb2.Gender.Gender_Male
-        response.friend_name = "Yi Song"
-        response.voice_config.CopyFrom(voiceConfig)
+    # elif request.character_id == "00001": # yi.song
+    #     loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
+    #     loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/64dc7240cfdd0f000df8c137.glb"
 
-    elif request.character_id == "00002": # yufan.lu
-        pass
-    elif request.character_id == "00003": # valerie
-        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
-        loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/6514f44f1c810b0e7e7963e3.glb"
+    #     voiceConfig = ws_message_pb2.VoiceConfig()
+    #     voiceConfig.eleven_lab_id = "sij1MJjyxTEZi1YPU3h1"
 
-        voiceConfig = ws_message_pb2.VoiceConfig()
-        voiceConfig.eleven_lab_id = "nIXDnpBi9DBfiTvPO0K4"
+    #     response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+    #     response.gender = ws_message_pb2.Gender.Gender_Male
+    #     response.friend_name = "Yi Song"
+    #     response.voice_config.CopyFrom(voiceConfig)
 
-        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
-        voiceConfig.octaves = 0
+    # elif request.character_id == "00002": # yufan.lu
+    #     pass
+    # elif request.character_id == "00003": # valerie
+    #     loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
+    #     loaderReadyPlayerMe.avatar_url = "https://models.readyplayer.me/6514f44f1c810b0e7e7963e3.glb"
 
-        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
-        response.gender = ws_message_pb2.Gender.Gender_Female
-        response.friend_name = "Valerie"
-        response.voice_config.CopyFrom(voiceConfig)
+    #     voiceConfig = ws_message_pb2.VoiceConfig()
+    #     voiceConfig.eleven_lab_id = "nIXDnpBi9DBfiTvPO0K4"
+
+    #     voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+    #     voiceConfig.octaves = 0
+
+    #     response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+    #     response.gender = ws_message_pb2.Gender.Gender_Female
+    #     response.friend_name = "Valerie"
+    #     response.voice_config.CopyFrom(voiceConfig)
     else:
         # TODO: look up firestore db for character information
 
@@ -217,25 +244,28 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         logger.error(f"get_character_by_id {latency:.5f} seconds")
 
         loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
-        loaderReadyPlayerMe.avatar_url = character['rpm_url']
+        loaderReadyPlayerMe.avatar_url = character.get('rpm_url', '')
+        if len(loaderReadyPlayerMe.avatar_url) > 0:
+            response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
 
         voiceConfig = ws_message_pb2.VoiceConfig()
         voiceConfig.eleven_lab_id = character['elevanlab_id']
 
-        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
-        if character['gender'] == "male":
-            response.gender = ws_message_pb2.Gender.Gender_Male
-            voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
-        else:
-            response.gender = ws_message_pb2.Gender.Gender_Female
-            voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+        if voiceConfig.eleven_lab_id is None or len(voiceConfig.eleven_lab_id) == 0:
+            gender_string = character['gender']
+            if gender_string == "male":
+                response.gender = ws_message_pb2.Gender.Gender_Male
+                voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
+            elif gender_string == 'female':
+                response.gender = ws_message_pb2.Gender.Gender_Female
+                voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+        response.voice_config.CopyFrom(voiceConfig)
 
         response.friend_name = character.get('name', 'Virtual Friends Assistant')
-        response.character_greeting = character.get('character_greeting', 'hi, I am Virtual Friends Assistant.')
-        response.character_description = character.get('character_description', '')
-        response.character_prompts = character.get('character_prompts', '')
-
-        response.voice_config.CopyFrom(voiceConfig)
+        response.greeting = character.get('character_greeting', 'hi, I am Virtual Friends Assistant.')
+        response.greeting_wav = generate_voice(response.greeting, response.voiceConfig)
+        response.description = character.get('character_description', '')
+        response.base_prompts = character.get('character_prompts', '')
 
     vf_response.get_character.CopyFrom(response)
     send_message(ws, vf_response)
@@ -419,14 +449,14 @@ async def log_latency(env, session_id, user_id, user_ip, character_id, latency_t
 
     try:
         # Create a reference to your dataset and table
-        dataset_ref = client.dataset(dataset_name)
+        dataset_ref = bigquery_client.dataset(dataset_name)
         table_ref = dataset_ref.table(table_name)  # Set table_name to 'latency_log'
-        table = client.get_table(table_ref)
+        table = bigquery_client.get_table(table_ref)
 
         # Insert a new row into the table
         row_to_insert = (env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp)
 
-        client.insert_rows(table, [row_to_insert])
+        bigquery_client.insert_rows(table, [row_to_insert])
 
         logger.info("Log latency data successfully")
 

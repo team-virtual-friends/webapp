@@ -21,6 +21,18 @@ def get_character_by_name(client, character_name):
         return characters[0]
     return None
 
+def get_character_by_id(client, character_id):
+    # Create a query to fetch character by name in the "characters_db" namespace
+    query = client.query(kind='Character', namespace='characters_db')
+    query.add_filter('character_id', '=', character_id)
+
+    # Fetch the result
+    characters = list(query.fetch(limit=1))
+
+    if characters:
+        return characters[0]
+    return None
+
 def validate_user(client, user_id, pwd):
     query = client.query(kind='User', namespace='users_db')
     query.add_filter('user_id', '=', user_id)

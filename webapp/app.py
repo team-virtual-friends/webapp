@@ -12,7 +12,7 @@ from wtforms.validators import DataRequired, Length, Email
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 
-from google.cloud import bigquery, storage
+from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
 from datetime import datetime
 from google.oauth2 import service_account
@@ -22,7 +22,7 @@ import re
 import hashlib
 import requests
 
-from data_access.get_data import gen_user_auth_token
+from data_access.get_data import gen_user_auth_token, get_character_by_id
 from data_access.create_table import create_and_insert_user
 from utils import validate_user_token
 
@@ -35,9 +35,10 @@ login_manager.login_view = 'login'
 
 logger = logging.getLogger('gunicorn.error')
 
-# Create character and save it to firestore.
-from google.cloud import datastore
-datastore_client = datastore.Client.from_service_account_json('ysong-chat-845e43a6c55b.json')
+credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
+credentials = service_account.Credentials.from_service_account_file(credentials_path)
+datastore_client = datastore.Client(credentials=credentials)
+bigquery_client = bigquery.Client(credentials=credentials)
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
@@ -153,11 +154,6 @@ def join_waitlist():
         email = request.form['email']
         date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Construct the BigQuery client
-        credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
-        credentials = service_account.Credentials.from_service_account_file(credentials_path)
-        client = bigquery.Client(credentials=credentials)
-
         # The SQL query to insert data
         sql = """
             INSERT INTO `ysong-chat.virtualfriends.waitlist_table` (name, email, date)
@@ -174,7 +170,7 @@ def join_waitlist():
         )
 
         try:
-            client.query(sql, job_config=job_config).result()
+            bigquery_client.query(sql, job_config=job_config).result()
             flash("Successfully added to the waitlist!", "success")
         except Conflict:  # Replace with the appropriate exception for duplicate entries
             flash("You're already on the waitlist!", "warning")
@@ -269,42 +265,31 @@ def submit_feedback():
         email = request.form['email']
         date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+        # Define the target table using your dataset and table names
+        dataset_name = 'virtualfriends'  # Replace with your dataset name
+        table_name = 'feedback_table'  # Replace with your table name
+        table_id = f"{bigquery_client.project}.{dataset_name}.{table_name}"
 
-        # Construct the BigQuery client
-        credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
-        credentials = service_account.Credentials.from_service_account_file(credentials_path)
+        # The SQL query to insert data into the 'feedback_table'
+        sql = f"""
+            INSERT INTO `{table_id}` (feedback, email, date)
+            VALUES (@feedback, @email, @date)
+        """
 
-        if credentials:
-            # Construct the BigQuery client
-            client = bigquery.Client(credentials=credentials)
+        # Set the query parameters
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("feedback", "STRING", feedback),
+                bigquery.ScalarQueryParameter("email", "STRING", email),
+                bigquery.ScalarQueryParameter("date", "TIMESTAMP", date)
+            ]
+        )
 
-            # Define the target table using your dataset and table names
-            dataset_name = 'virtualfriends'  # Replace with your dataset name
-            table_name = 'feedback_table'  # Replace with your table name
-            table_id = f"{client.project}.{dataset_name}.{table_name}"
-
-            # The SQL query to insert data into the 'feedback_table'
-            sql = f"""
-                 INSERT INTO `{table_id}` (feedback, email, date)
-                 VALUES (@feedback, @email, @date)
-             """
-
-            # Set the query parameters
-            job_config = bigquery.QueryJobConfig(
-                query_parameters=[
-                    bigquery.ScalarQueryParameter("feedback", "STRING", feedback),
-                    bigquery.ScalarQueryParameter("email", "STRING", email),
-                    bigquery.ScalarQueryParameter("date", "TIMESTAMP", date)
-                ]
-            )
-
-            try:
-                client.query(sql, job_config=job_config).result()
-                flash("Thank you for your feedback!", "success")
-            except Conflict:  # Replace with the appropriate exception for duplicate entries
-                flash("You've already submitted feedback!", "warning")
-        else:
-            flash("BigQuery credentials not found. Data not submitted.", "danger")
+        try:
+            bigquery_client.query(sql, job_config=job_config).result()
+            flash("Thank you for your feedback!", "success")
+        except Conflict:  # Replace with the appropriate exception for duplicate entries
+            flash("You've already submitted feedback!", "warning")
 
         return redirect(url_for('show_flash_message'))
 
@@ -401,23 +386,10 @@ def create_character():
 #     else:
 #         return None
 
-def get_character_by_id(character_id):
-    # Create a query to fetch character by name in the "characters_db" namespace
-    query = datastore_client.query(kind='Character', namespace='characters_db')
-    query.add_filter('character_id', '=', character_id)
-
-    # Fetch the result
-    characters = list(query.fetch(limit=1))
-
-    if characters:
-        return characters[0]
-    else:
-        return None
-
 @app.route('/character/<character_id>', methods=['GET'])
 def display_character(character_id):
     # character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
-    character = get_character_by_id(character_id)  # Assuming you've defined this function earlier
+    character = get_character_by_id(datastore_client, character_id)  # Assuming you've defined this function earlier
     return render_template('character-profile.html', character=character)
 
 @app.route('/healthz', methods=['GET'])
