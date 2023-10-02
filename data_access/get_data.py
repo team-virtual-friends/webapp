@@ -35,6 +35,18 @@ def get_character_by_id(datastore_client, character_id):
         return characters[0]
     return None
 
+def get_character_by_email(datastore_client, user_email):
+    # Create a query to fetch character by name in the "characters_db" namespace
+    query = datastore_client.query(kind='Character', namespace='characters_db')
+    query.add_filter('user_email', '=', user_email)
+
+    # Fetch the result
+    characters = list(query.fetch(limit=1))
+    if characters:
+        return characters[0]
+    else:
+        return None
+
 def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name):
     bucket = gcs_client.get_bucket(attribute_name)
     attribute_path = character.get(attribute_name, "")
@@ -83,6 +95,38 @@ def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url
     datastore_client.put(character_entity)
     return True
 
+
+def update_character_info(datastore_client, gcs_client, character_entity, rpm_url, name, gender, character_greeting, character_description, audio_file, elevanlab_id):
+    # Fetch the existing character entity using the character_id
+    # print(character_id)
+    # character_entity = get_character_by_id(datastore_client, character_id)
+    # print(character_entity)
+    if character_entity is None:
+        # Handle the case where the character with the given ID doesn't exist
+        return False
+
+    # Update the character entity with the new data
+    character_entity['character_id'] = character_entity['character_id']  # Override the character_id
+    character_entity['rpm_url'] = rpm_url
+    character_entity['name'] = name
+    character_entity['gender'] = gender  # Added the gender field
+    character_entity['character_greeting'] = character_greeting
+    character_entity['elevanlab_id'] = elevanlab_id
+    character_entity['updated_at'] = datetime.datetime.utcnow()  # Store the current UTC time as the update timestamp
+
+    # Update character_description and audio_file (if provided) through GCS
+    # if character_description:
+    #     if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_description", character_description):
+    #         return False
+
+    # Handle audio file updates (if provided) here
+    # You can implement the logic to update or replace the existing audio file in GCS
+
+    # Save the updated character entity to Datastore
+    datastore_client.put(character_entity)
+    return character_entity
+
+
 def validate_user(datastore_client, user_id, pwd):
     query = datastore_client.query(kind='User', namespace='users_db')
     query.add_filter('user_id', '=', user_id)
@@ -107,7 +151,7 @@ def gen_user_auth_token(datastore_client, user_id, pwd):
         # Payload (claims) containing user information
         payload = {
             "user_id": user_id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=24)  # Token expiration time
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=2400)  # Token expiration time
         }
 
         # Generate a token
