@@ -1,41 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT5XWFJV12"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-GT5XWFJV12');
+    </script>
+
+    <meta charset="utf-8">
     <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px; /* Adjust the width as needed */
+            max-width: 90%; /* Ensure it doesn't exceed the viewport width */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="submit"],
+        button.signup-btn { /* Added button style */
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Added style for the "Sign Up" button */
+        button.signup-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Register</h1>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.email.label }}<br>
+    <div class="container">
+        <h2>Register</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <label for="email">Email:</label>
             {{ form.email(size=20) }}<br>
             {% for error in form.email.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.username.label }}<br>
+            <br>
+            <label for="username">Username:</label>
             {{ form.username(size=20) }}<br>
             {% for error in form.username.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
+            <br>
+            <label for="password">Password:</label>
             {{ form.password(size=20) }}<br>
             {% for error in form.password.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.confirm.label }}<br>
+            <br>
+            <label for="confirm">Confirm Password:</label>
             {{ form.confirm(size=20) }}<br>
             {% for error in form.confirm.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+            <br>
+            <input type="submit" value="Register">
+            <button class="signup-btn" onclick="window.location.href='/login'">Log In</button>
+        </form>
+    </div>
 </body>
 </html>

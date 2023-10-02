@@ -242,6 +242,20 @@ def test():
 def login_page():
     return render_template('login.html')
 
+
+# def get_character_by_email(user_email):
+#     # Create a query to fetch character by name in the "characters_db" namespace
+#     query = datastore_client.query(kind='Character', namespace='characters_db')
+#     query.add_filter('user_email', '=', user_email)
+#
+#     # Fetch the result
+#     characters = list(query.fetch(limit=1))
+#
+#     if characters:
+#         return characters[0]
+#     else:
+#         return None
+
 @app.route('/login', methods=['POST'])
 def login():
     # Get the username and password from the form
@@ -428,4 +442,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, port=5132)
+    app.run(debug=True, port=5133)

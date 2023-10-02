@@ -47,8 +47,8 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-<!--                        <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>-->
-<!--                        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>-->
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,10 +60,10 @@
         <header class="masthead text-center text-white">
             <div class="masthead-content">
                 <div class="container px-5">
-                    <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>
-                    <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>
+                    <h1 class="masthead-heading mb-0"> Virtual Friends</h1>
+                    <h2 class="masthead-subheading mb-0">Create Your Own AI Clone!</h2>
 <!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
-                    <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>
+                    <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('create_character') }}">Create Now!</a>
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>
@@ -72,16 +72,18 @@
             <div class="bg-circle-4 bg-circle"></div>
         </header>
 
-        <div class="masthead-content">
-            <div class="container px-5">
-                <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>
-                <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>
-<!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
-                <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('login') }}">Login!</a>
-            </div>
-        </div>
 
-        <div class="clearfix"></div>
+<!--    -->
+<!--        <div class="masthead-content">-->
+<!--            <div class="container px-5">-->
+<!--                <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>-->
+<!--                <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>-->
+<!--&lt;!&ndash;                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>&ndash;&gt;-->
+<!--                <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('login') }}">Login!</a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="clearfix"></div>-->
 
 
             <!-- Content section 2-->
@@ -97,7 +99,7 @@
 <!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
 <!--                            <h2 class="display-4">Chat with Mina!</h2>-->
 
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina!</a>
+                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>
 <!--                            <p>Mina is a k-pop star. </p>-->
                         </div>
                     </div>
@@ -105,54 +107,55 @@
             </div>
         </section>
 
-        <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <!-- Model Viewer Section -->
-                    <div class="col-lg-6">
-                        {% set model_id = "64dc7240cfdd0f000df8c137.glb" %}
-                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
-                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
-                            touch-action="pan-y">
-                        </model-viewer>
-                    </div>
+<!--        <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    &lt;!&ndash; Model Viewer Section &ndash;&gt;-->
+<!--                    <div class="col-lg-6">-->
+<!--                        {% set model_id = "64dc7240cfdd0f000df8c137.glb" %}-->
+<!--                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"-->
+<!--                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls-->
+<!--                            touch-action="pan-y">-->
+<!--                        </model-viewer>-->
+<!--                    </div>-->
 
-                    <!-- Button Section -->
-                    <div class="col-lg-6">
-                        <div class="p-5">
-                            <!-- Button for Chat -->
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00001') }}">Chat Now!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--                    &lt;!&ndash; Button Section &ndash;&gt;-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            &lt;!&ndash; Button for Chat &ndash;&gt;-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00001') }}">Meet Yi</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
 
 
 
-        <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <!-- Model Viewer Section -->
-                    <div class="col-lg-6">
-                        {% set model_id = "6514f44f1c810b0e7e7963e3.glb" %}
-                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
-                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
-                            touch-action="pan-y">
-                        </model-viewer>
-                    </div>
+<!--        <section>-->
+<!--            <div class="container px-5">-->
+<!--                <div class="row gx-5 align-items-center">-->
+<!--                    &lt;!&ndash; Model Viewer Section &ndash;&gt;-->
+<!--                    <div class="col-lg-6">-->
+<!--                        {% set model_id = "6514f44f1c810b0e7e7963e3.glb" %}-->
+<!--                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"-->
+<!--                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls-->
+<!--                            touch-action="pan-y">-->
+<!--                        </model-viewer>-->
+<!--                    </div>-->
 
-                    <!-- Button Section -->
-                    <div class="col-lg-6">
-                        <div class="p-5">
-                            <!-- Button for Chat -->
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00003') }}">Chat Now!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--                    &lt;!&ndash; Button Section &ndash;&gt;-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
+<!--                            &lt;!&ndash; Button for Chat &ndash;&gt;-->
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00003') }}">Meet Valerie</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
 
+<!--    -->
 
 <!--    -->
 <!--        <section>-->
