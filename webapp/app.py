@@ -2,6 +2,10 @@ import os
 from flask import Flask, render_template, redirect, url_for, request, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, Email
+from flask_wtf import FlaskForm
+
 
 from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
@@ -138,6 +142,16 @@ def join_waitlist():
     return render_template('waitlist.html')
 
 
+class RegistrationForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
+    password = PasswordField('Password', validators=[
+        DataRequired(),
+        EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    submit = SubmitField('Register')
+
 # @app.route('/register', methods=['GET', 'POST'])
 # def register():
 @app.route('/signup', methods=['GET', 'POST'])
@@ -191,7 +205,9 @@ def login():
 
     character = get_character_by_email(datastore_client, email)
     if character:
-        return redirect(url_for('display_user', character_id=character['character_id']))
+        response = make_response(redirect(url_for('display_user', character_id=character['character_id'])))
+        response.set_cookie('auth_token', token)
+        return response
 
     response = make_response(render_template('create-character.html'))
     response.set_cookie('auth_token', token)
@@ -395,4 +411,4 @@ def healthz():
     return "Healthy", 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5133)
+    app.run(debug=True, port=5235)
