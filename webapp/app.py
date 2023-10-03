@@ -1,7 +1,3 @@
-from os.path import dirname, join, abspath
-import sys
-sys.path.insert(0, abspath(join(dirname(__file__), '..')))
-
 import os
 from flask import Flask, render_template, redirect, url_for, request, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
