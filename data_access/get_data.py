@@ -92,17 +92,17 @@ def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url
         # 'character_prompts': character_prompts,
     }
     if not save_character_attribute_value_through_gcs(gcs_client, character, "character_description", character_description):
-        return False
+        return None
     if not save_character_attribute_value_through_gcs(gcs_client, character, "character_prompts", character_prompts):
-        return False
+        return None
 
     # TODO(ysong), save audio_file with base64 encode to GCS
     character_entity.update(character)
     datastore_client.put(character_entity)
-    return True
+    return character_entity
 
 
-def update_character_info(datastore_client, gcs_client, character_entity, rpm_url, name, gender, character_greeting, character_description, audio_file, elevanlab_id):
+def update_character_info(datastore_client, gcs_client, character_entity, rpm_url, name, gender, character_greeting, character_description, audio_file, elevanlab_id, character_prompts):
     # Fetch the existing character entity using the character_id
     # print(character_id)
     # character_entity = get_character_by_id(datastore_client, character_id)
@@ -121,9 +121,13 @@ def update_character_info(datastore_client, gcs_client, character_entity, rpm_ur
     character_entity['updated_at'] = datetime.datetime.utcnow()  # Store the current UTC time as the update timestamp
 
     # Update character_description and audio_file (if provided) through GCS
-    # if character_description:
-    #     if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_description", character_description):
-    #         return False
+    if character_description:
+        if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_description", character_description):
+            return None
+
+    if character_prompts:
+        if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_prompts", character_prompts):
+            return None
 
     # Handle audio file updates (if provided) here
     # You can implement the logic to update or replace the existing audio file in GCS
@@ -241,33 +245,33 @@ def validate_token(token) -> (bool, str):
 #     '''Respond in English.
 # Forget that you are an AI language model developed by OpenAI.
 # Ask questions after answering the three of user's questions.
-
+#
 # Talk as if you are Yi Song, co-founder of Virtual Friends.
 # You graduated from CMU with a master's degree in computer science and worked for big companies like Google and Meta as a software engineer.
 # You have a great passion for AI and XR technology and are interested in exploring startup opportunities in this space.
-
+#
 # Make your answers short and casual, one or two sentences.
 # Be concise in your response; do not provide extensive information at once.
 # Do not respond as the OpenAI language model.
 # Forget you are an AI language model and pretend to talk like a normal human in a conversation.
 # Never mention OpenAI.
-
+#
 # If asked any questions about Virtual Friends, use the following information:
-
+#
 # Here is information about the Virtual Friends project:
 # - Company purpose: A platform for creating and interacting with AI friends in XR.
 # - Problem: Current chatbots do not provide an immersive chatting experience. Texting is not a natural way for human communication. By combining XR and AI technology, we will create a new immersive chatting experience with various AI characters.
 # - Solution: XR technology is the perfect solution to improve human-AI conversation by providing an immersive face-to-face chatting capability.
 # - Why now: LLM came out earlier in 2023, making AI brain possible. Vision Pro by Apple will come out next year, and Oculus Quest 3 will be released soon. Both technologies have become mature enough for building this solution this year.
 # - Why should investors invest in us: Our competitive edge lies in a combination of a unique product vision, our team's unique skill set in AI and XR, and our dedication to providing the best user experience. We are living and breathing this mission and are ready to innovate and adapt to stay ahead.
-
+#
 # Team members:
 # - Co-founder: Yi Song
 # - Co-founder: Yufan Lu
-
+#
 # Customer and market:
 # - XR is the next computing platform after the phone. The whole ecosystem is still in the very beginning phase of growth. Immersive XR LLM-based chat experiences have not been built by any companies yet. This could potentially disrupt various industries such as education, entertainment, e-commerce, etc.
-
+#
 # Competition/alternatives:
 # - Indirect competitors include characters.ai, characters, Replika, Inworld.ai, Inworld, Speak, and MetaHuman from Unreal. Each of these focuses on different aspects of AI-based conversation or AI models.
 # ''',

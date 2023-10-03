@@ -18,7 +18,8 @@ requests==2.27.1
 Flask-CORS==4.0.0
 google-cloud-bigquery==3.0.1
 google-cloud-storage==2.7.0
+google-cloud-datastore==2.8.1
 diskcache==5.4.0
-PyJWT==2.4.0
+PyJWT==2.5.0
 faster-whisper @ https://github.com/guillaumekln/faster-whisper/archive/refs/heads/master.tar.gz
 torch

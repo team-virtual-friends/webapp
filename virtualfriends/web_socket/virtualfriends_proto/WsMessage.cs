@@ -2550,6 +2550,9 @@ namespace VirtualfriendsProto {
     public const int BasePromptsFieldNumber = 8;
     private string basePrompts_ = "";
     /// <summary>
+    /// base_prompts is the prompts that is created by the owner, stored in the DB, and passed to client
+    /// in GetCharacter request.
+    /// custom_prompts is the prompts that client overwrite through the custom prompts window.
     /// custom_prompts will override base_prompts if it's not empty.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
