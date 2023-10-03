@@ -161,7 +161,7 @@ def gen_user_auth_token(datastore_client, user_id, pwd):
         # Payload (claims) containing user information
         payload = {
             "user_id": user_id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=2400)  # Token expiration time
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=48)  # Token expiration time
         }
 
         # Generate a token

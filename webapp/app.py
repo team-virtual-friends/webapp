@@ -2,6 +2,10 @@ import os
 from flask import Flask, render_template, redirect, url_for, request, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, Email
+from flask_wtf import FlaskForm
+
 
 from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
@@ -30,8 +34,8 @@ gcs_client = storage.Client(credentials=credentials)
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20230930001651-f904591-31e10424", # desktop.
-    "20230930111027-4e8bcbd-90e4319e", # mobile - no Input Text box.
+    "20231002205259-ce829a6-a2f82cb1", # desktop.
+    "20231002222116-ce829a6-841aa765", # mobile - no Input Text box.
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
@@ -136,6 +140,16 @@ def join_waitlist():
     return render_template('waitlist.html')
 
 
+class RegistrationForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
+    password = PasswordField('Password', validators=[
+        DataRequired(),
+        EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    submit = SubmitField('Register')
+
 # @app.route('/register', methods=['GET', 'POST'])
 # def register():
 @app.route('/signup', methods=['GET', 'POST'])
@@ -189,7 +203,9 @@ def login():
 
     character = get_character_by_email(datastore_client, email)
     if character:
-        return redirect(url_for('display_user', character_id=character['character_id']))
+        response = make_response(redirect(url_for('display_user', character_id=character['character_id'])))
+        response.set_cookie('auth_token', token)
+        return response
 
     response = make_response(render_template('create-character.html'))
     response.set_cookie('auth_token', token)
@@ -393,4 +409,4 @@ def healthz():
     return "Healthy", 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5133)
+    app.run(debug=True, port=5235)
