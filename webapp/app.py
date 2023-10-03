@@ -4,11 +4,6 @@ sys.path.insert(0, abspath(join(dirname(__file__), '..')))
 
 import os
 from flask import Flask, render_template, redirect, url_for, request, flash, make_response
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, Email
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 
@@ -22,16 +17,12 @@ import re
 import hashlib
 import requests
 
-from data_access.get_data import gen_user_auth_token, get_character_by_id, get_character_by_email, save_character_info, update_character_info
+from data_access.get_data import gen_user_auth_token, get_character_by_id, get_character_by_email, save_character_info, update_character_info, get_character_attribute_value_via_gcs
 from data_access.create_table import create_and_insert_user
 from utils import validate_user_token
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-db = SQLAlchemy(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
 
 logger = logging.getLogger('gunicorn.error')
 
@@ -106,38 +97,6 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
 print("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
 load_all_unity_builds(unity_gcs_bucket, unity_gcs_folders)
 
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(120), nullable=False)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
-
-
-class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
-    password = PasswordField('Password', validators=[
-        DataRequired(),
-        EqualTo('confirm', message='Passwords must match')
-    ])
-    confirm = PasswordField('Repeat Password')
-    submit = SubmitField('Register')
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
 @app.route('/game', methods=['GET'])
 def game():
     # Get the "FriendIndex" parameter from the URL query string
@@ -185,8 +144,6 @@ def join_waitlist():
 # def register():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('dashboard'))
     form = RegistrationForm()
     if form.validate_on_submit():
         created = create_and_insert_user(datastore_client, form.email.data, form.username.data, form.password.data)
@@ -194,20 +151,6 @@ def signup():
             return redirect(url_for('login'))
         return "username/email exists"
     return render_template('register.html', form=form)
-
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return f'Welcome to the dashboard, {current_user.username}!'
-
 
 def is_mobile(user_agent):
     mobile_keywords = ['mobile', 'android', 'iphone', 'ipad', 'windows phone']
@@ -250,9 +193,7 @@ def login():
 
     character = get_character_by_email(datastore_client, email)
     if character:
-        response = make_response(render_template('user-profile.html', character=character))
-        response.set_cookie('auth_token', token)
-        return response
+        return redirect(url_for('display_user', character_id=character['character_id']))
 
     response = make_response(render_template('create-character.html'))
     response.set_cookie('auth_token', token)
@@ -333,6 +274,11 @@ def edit_character(character_id):
 
     # Fetch the character entity based on character_id
     character_entity = get_character_by_id(datastore_client, character_id)
+    character_description = get_character_attribute_value_via_gcs(gcs_client, character_entity, "character_description")
+    character_prompts = get_character_attribute_value_via_gcs(gcs_client, character_entity, "character_prompts")
+
+    character_entity["character_description"] = character_description
+    character_entity["character_prompts"] = character_prompts
 
     if character_entity is None:
         # Handle the case where the character with the given ID doesn't exist
@@ -349,7 +295,7 @@ def edit_character(character_id):
         audio_file = request.files['audioFile']
 
         # # TODO: Store audio file
-        elevanlab_id = ""
+        elevanlab_id = character_entity['elevanlab_id']
         if audio_file:
             elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
 
@@ -359,7 +305,8 @@ def edit_character(character_id):
             name, gender, character_greeting, character_description, audio_file, elevanlab_id, character_prompts)
 
         if updated_character:
-            return render_template('user-profile.html', character=updated_character)
+            return redirect(url_for('display_user', character_id=character_id))
+
         return "Failed to update character data"
 
     # Render the form for editing character data with the existing data
@@ -369,9 +316,13 @@ def edit_character(character_id):
 @app.route('/create_character', methods=['GET', 'POST'])
 def create_character():
     user_email = validate_user_token()
-    print("create_character " + user_email)
     if user_email is None:
         return redirect(url_for('login'))
+
+
+    character = get_character_by_email(datastore_client, user_email)
+    if character:
+        return redirect(url_for('display_user', character_id=character['character_id']))
 
     print(f"user_email: {user_email}")
     if request.method == 'POST':
@@ -396,15 +347,15 @@ def create_character():
 
         # Create a new character entity in the "characters_db" namespace
         key = datastore_client.key('Character', namespace='characters_db')
-        character_entity = datastore.Entity(key=key)
-
-        if save_character_info(
+        character_entity = save_character_info(
             datastore_client, gcs_client, key,
             character_id, rpm_url, name, gender, character_greeting,
             character_description, audio_file_name, elevanlab_id,
-            user_email, character_prompts):
+            user_email, character_prompts)
 
-            return render_template('character-profile.html', character=character_entity)
+        if character_entity:
+            return redirect(url_for('display_user', character_id=character_id))
+
         return "fail to create the character"
 
     return render_template('create-character.html')
@@ -428,14 +379,22 @@ def create_character():
 def display_character(character_id):
     # character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
     character = get_character_by_id(datastore_client, character_id)  # Assuming you've defined this function earlier
+    character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+    character["character_description"] = character_description
+
     return render_template('character-profile.html', character=character)
+
+@app.route('/user/<character_id>', methods=['GET'])
+def display_user(character_id):
+    # character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
+    character = get_character_by_id(datastore_client, character_id)  # Assuming you've defined this function earlier
+    character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+    character["character_description"] = character_description
+    return render_template('user-profile.html', character=character)
 
 @app.route('/healthz', methods=['GET'])
 def healthz():
     return "Healthy", 200
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-
     app.run(debug=True, port=5133)
