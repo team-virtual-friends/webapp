@@ -345,6 +345,7 @@ def edit_character(character_id):
         gender = request.form['gender']
         character_greeting = request.form['character_greeting']
         character_description = request.form['character_description']
+        character_prompts = request.form['character_prompts']
         audio_file = request.files['audioFile']
 
         # # TODO: Store audio file
@@ -355,7 +356,7 @@ def edit_character(character_id):
         # Update the character data in the datastore and/or storage
         updated_character = update_character_info(
             datastore_client, gcs_client, character_entity, rpm_url,
-            name, gender, character_greeting, character_description, audio_file, elevanlab_id)
+            name, gender, character_greeting, character_description, audio_file, elevanlab_id, character_prompts)
 
         if updated_character:
             return render_template('user-profile.html', character=updated_character)
@@ -379,6 +380,7 @@ def create_character():
         gender = request.form['gender']
         character_greeting = request.form['character_greeting']
         character_description = request.form['character_description']
+        character_prompts = request.form['character_prompts']
         audio_file = request.files['audioFile']
 
         character_id_string = f"{user_email}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
@@ -400,7 +402,7 @@ def create_character():
             datastore_client, gcs_client, key,
             character_id, rpm_url, name, gender, character_greeting,
             character_description, audio_file_name, elevanlab_id,
-            user_email):
+            user_email, character_prompts):
 
             return render_template('character-profile.html', character=character_entity)
         return "fail to create the character"

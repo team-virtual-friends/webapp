@@ -267,7 +267,7 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         if len(err) == 0:
             response.greeting_wav = voiceBytes
         response.description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
-        response.base_prompts = character.get('character_prompts', '')
+        response.base_prompts = get_character_attribute_value_via_gcs(gcs_client, character, "character_prompts")
 
     vf_response.get_character.CopyFrom(response)
     send_message(ws, vf_response)
@@ -334,25 +334,25 @@ def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
 
 def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor() as executor:
         futures = [executor.submit(wrapper_function, wav_bytes) for _ in range(repetitions)]
 
-        # Wait for the first future to complete and get its result
         done, not_done = concurrent.futures.wait(
             futures,
             return_when=concurrent.futures.FIRST_COMPLETED
         )
 
-        # Retrieve the result of the first completed future
         for future in done:
             try:
                 text, err = future.result()
                 if not err:  # Assuming a 'None' or 'False' value indicates success
+                    # Cancel all other futures to free up resources
+                    for other_future in not_done:
+                        other_future.cancel()
                     return text, err
             except Exception as e:
                 logger.error(f"An error occurred: {e}")
 
-    # In case all executions have issues, return None or an appropriate value
     return None, "All attempts failed"
 
 

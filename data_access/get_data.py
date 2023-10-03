@@ -59,7 +59,7 @@ def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name)
             return blob.download_as_text()
     return ""
 
-# gs://large_data_bucket/{character['name']}/{attribute_name}/{timestamp}
+# gs://large_data_bucket/{character['character_id']}/{attribute_name}/{timestamp}
 def save_character_attribute_value_through_gcs(gcs_client, character, attribute_name, attribute_value):
     bucket = gcs_client.get_bucket(large_data_bucket)
     character_id = character.get('character_id', "")
@@ -76,7 +76,7 @@ def save_character_attribute_value_through_gcs(gcs_client, character, attribute_
         return True
     return False
 
-def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url, name, gender, character_greeting, character_description, audio_file_name, elevanlab_id, user_email):
+def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url, name, gender, character_greeting, character_description, audio_file_name, elevanlab_id, user_email, character_prompts):
     character_entity = datastore.Entity(key=key)
     character = {
         'character_id': character_id,
@@ -89,9 +89,13 @@ def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url
         'elevanlab_id': elevanlab_id,
         'created_at': datetime.datetime.utcnow(),  # Store the current UTC time as the creation timestamp
         'user_email': user_email,
+        # 'character_prompts': character_prompts,
     }
     if not save_character_attribute_value_through_gcs(gcs_client, character, "character_description", character_description):
         return False
+    if not save_character_attribute_value_through_gcs(gcs_client, character, "character_prompts", character_prompts):
+        return False
+
     # TODO(ysong), save audio_file with base64 encode to GCS
     character_entity.update(character)
     datastore_client.put(character_entity)
@@ -184,10 +188,10 @@ def validate_token(token) -> (bool, str):
 #     print(token)
 #     print(validate_token(token))
 
-# credentials_path = os.path.expanduser('../webapp/ysong-chat-845e43a6c55b.json')
-# credentials = service_account.Credentials.from_service_account_file(credentials_path)
-# datastore_client = datastore.Client(credentials=credentials)
-# gcs_client = storage.Client(credentials=credentials)
+credentials_path = os.path.expanduser('../webapp/ysong-chat-845e43a6c55b.json')
+credentials = service_account.Credentials.from_service_account_file(credentials_path)
+datastore_client = datastore.Client(credentials=credentials)
+gcs_client = storage.Client(credentials=credentials)
 
 # key = datastore_client.key('Character', namespace='characters_db')
 
@@ -197,32 +201,34 @@ def validate_token(token) -> (bool, str):
 # character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
 # print(character_description)
 
-# key = datastore_client.key('Character', namespace='characters_db')
+key = datastore_client.key('Character', namespace='characters_db')
 
-# save_character_info(
-#     datastore_client, gcs_client, key,
-#     '2bde7f4722a58e2eb1dcbf6785dbb987',
-#     'https://models.readyplayer.me/6514f44f1c810b0e7e7963e3.glb',
-#     'Valerie',
-#     "female",
-#     "Hi, I'm Valerie. It's so great to meet you guys here. Let me tell you more about me. So, I'm an interior designer and I work at San Jose. I design lecture residential house, but I'm also a dance teacher. I teach K-pop, jazz, and my favorite thing to do is painting. I love music, too, and my favorite food, I would say, well I would say spicy food and I also enjoying cooking at home and I love working out well that's a lot and what do you do and do you got any fun stuff to share ?",
-#     '''Hello, I'm Valerie, an interior designer by day and a dance teacher by night. I'm passionate about creating beautiful spaces that inspire and comfort, and I love to bring my creativity to life in the homes I design in San Jose. I specialize in residential houses, but my creativity doesn't stop there. 
-# When I'm not designing, I'm dancing. I teach K-pop and jazz, and I find that dance is a wonderful way to express myself and connect with others. It's a joy to share my love for dance with my students and see them grow in their skills and confidence.
-# Art is a big part of my life, and painting is my favorite way to unwind. I love to lose myself in the colors and shapes, and each piece I create is a reflection of my thoughts and feelings. 
-# Music is another passion of mine. It's the soundtrack to my life, and it inspires me in my work and dance. I enjoy a wide range of genres, but I have a special place in my heart for K-pop.
-# I'm a foodie at heart, and I love to cook. Spicy food is my favorite, and I enjoy experimenting with different flavors and ingredients in the kitchen. Cooking is another creative outlet for me, and I find it incredibly satisfying to create a delicious meal from scratch.
-# Fitness is important to me, and I make it a point to work out regularly. It keeps me energized and focused, and it's a great way to relieve stress.
-# In essence, I'm Valerie: a creative spirit, a passionate dancer, and a dedicated designer. I'm here to inspire, to create, and to bring beauty into the world. And trust me, we'll have a lot of fun along the way.
-# ---
+save_character_info(
+    datastore_client, gcs_client, key,
+    '2bde7f4722a58e2eb1dcbf6785dbb987',
+    'https://models.readyplayer.me/6514f44f1c810b0e7e7963e3.glb',
+    'Valerie',
+    "female",
+    "Hi, I'm Valerie.",
+    " It's so great to meet you guys here. Let me tell you more about me. So, I'm an interior designer and I work at San Jose. I design lecture residential house, but I'm also a dance teacher. I teach K-pop, jazz, and my favorite thing to do is painting. I love music, too, and my favorite food, I would say, well I would say spicy food and I also enjoying cooking at home and I love working out well that's a lot and what do you do and do you got any fun stuff to share ?",
+    'valerie-0.m4a',
+    'nIXDnpBi9DBfiTvPO0K4',
+    'test2@gmail.com',
+    '''Hello, I'm Valerie, an interior designer by day and a dance teacher by night. I'm passionate about creating beautiful spaces that inspire and comfort, and I love to bring my creativity to life in the homes I design in San Jose. I specialize in residential houses, but my creativity doesn't stop there. 
+    When I'm not designing, I'm dancing. I teach K-pop and jazz, and I find that dance is a wonderful way to express myself and connect with others. It's a joy to share my love for dance with my students and see them grow in their skills and confidence.
+    Art is a big part of my life, and painting is my favorite way to unwind. I love to lose myself in the colors and shapes, and each piece I create is a reflection of my thoughts and feelings. 
+    Music is another passion of mine. It's the soundtrack to my life, and it inspires me in my work and dance. I enjoy a wide range of genres, but I have a special place in my heart for K-pop.
+    I'm a foodie at heart, and I love to cook. Spicy food is my favorite, and I enjoy experimenting with different flavors and ingredients in the kitchen. Cooking is another creative outlet for me, and I find it incredibly satisfying to create a delicious meal from scratch.
+    Fitness is important to me, and I make it a point to work out regularly. It keeps me energized and focused, and it's a great way to relieve stress.
+    In essence, I'm Valerie: a creative spirit, a passionate dancer, and a dedicated designer. I'm here to inspire, to create, and to bring beauty into the world. And trust me, we'll have a lot of fun along the way.
+    ---
+    
+    Crucially, you are capable of expressing emotions in your dialogues. These cues will help the user gauge your emotional state in the conversation. Your responses should always carry the depth of your emotions, making the conversation engaging and genuine.
+    As Valerie, draw on your world knowledge and personal experiences to engage the user. Use context cues provided by the user to shape your responses. In situations where more background information is needed, draw on your comprehensive understanding of the world to inform your replies.
+    Make your answers short and casual, one or two sentences.
+    Be concise in your response; do not provide extensive information at once.'''
+)
 
-# Crucially, you are capable of expressing emotions in your dialogues. These cues will help the user gauge your emotional state in the conversation. Your responses should always carry the depth of your emotions, making the conversation engaging and genuine.
-# As Valerie, draw on your world knowledge and personal experiences to engage the user. Use context cues provided by the user to shape your responses. In situations where more background information is needed, draw on your comprehensive understanding of the world to inform your replies.
-# Make your answers short and casual, one or two sentences.
-# Be concise in your response; do not provide extensive information at once.''',
-#     'valerie-0.m4a',
-#     'nIXDnpBi9DBfiTvPO0K4',
-#     'test2@gmail.com',
-# )
 
 # save_character_info(
 #     datastore_client, gcs_client, key,
