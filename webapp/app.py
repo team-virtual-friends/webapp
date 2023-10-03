@@ -55,9 +55,11 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
     # for folder_path in unity_gcs_folders:
     def load_unity_build(folder_path:str) -> (str, bool):
         if len(folder_path) == 0:
+            logger.error("empty folder_path")
             return (folder_path, False)
         local_folder = static_folder_full_path + '/' + folder_path
         if os.path.exists(local_folder) and os.path.isdir(local_folder):
+            logger.error(f"local_folder ({local_folder}) already exists")
             return (folder_path, False)
         blobs = bucket.list_blobs(prefix = folder_path)
         for blob in blobs:

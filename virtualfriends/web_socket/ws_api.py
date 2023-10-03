@@ -334,7 +334,7 @@ def wrapper_function(*args, **kwargs):
     return speech.speech_to_text_whisper(*args, **kwargs)
 
 def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
-    with concurrent.futures.ProcessPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = [executor.submit(wrapper_function, wav_bytes) for _ in range(repetitions)]
 
         done, not_done = concurrent.futures.wait(
