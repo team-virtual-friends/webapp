@@ -51,7 +51,7 @@ def text_to_audio(text, voice_id) -> bytes:
 
 #        play_audio_from_bytes(wav)
     else:
-        logger.error(f"Request failed. Status code: {response.status_code}" )
+        logger.error(f"Request failed with data {data}. Status code: {response.status_code}" )
 
     # logger.error(f"wav: {wav}" )
     return wav

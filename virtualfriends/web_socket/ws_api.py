@@ -264,7 +264,7 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         response.friend_name = character.get('name', 'Virtual Friends Assistant')
         response.greeting = character.get('character_greeting', 'hi, I am Virtual Friends Assistant.')
         (voiceBytes, err) = generate_voice(response.greeting, response.voice_config)
-        if len(err) == 0:
+        if len(err) == 0 and voiceBytes is not None and len(voiceBytes) > 0:
             response.greeting_wav = voiceBytes
         response.description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         response.base_prompts = get_character_attribute_value_via_gcs(gcs_client, character, "character_prompts")
@@ -443,7 +443,7 @@ def gen_reply_package(reply_text: str, voice_config, character_name) -> (str, st
     return (sentiment, action, wav, None)
 
 
-async def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp):
+def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp):
     # Using the 'env' argument directly. Removed the os.environ.get('ENV', 'LOCAL') line.
 
     dataset_name = 'virtualfriends'
@@ -468,14 +468,8 @@ async def log_latency(env, session_id, user_id, user_ip, character_id, latency_t
 
 def log_current_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value):
     current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    loop = asyncio.new_event_loop()
-    # Run the asynchronous function concurrently
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(
-        log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp))
-    # Close the event loop
-    loop.close()
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        executor.submit(log_latency, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp)
 
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, user_ip, ws):
     env = os.environ.get('ENV', 'LOCAL')
@@ -490,8 +484,8 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         start_time = time.time()
 
 #       Need GPU  machine to reduce the latency.
-#         (text, err) = faster_whisper(wav_bytes)
-        (text, err) = execute_speech2text_in_parallel(wav_bytes)
+        (text, err) = faster_whisper(wav_bytes)
+        # (text, err) = execute_speech2text_in_parallel(wav_bytes)
 
         end_time = time.time()
         latency = end_time - start_time
