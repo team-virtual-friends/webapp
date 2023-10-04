@@ -402,6 +402,10 @@ def display_user(character_id):
     # character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
     character = get_character_by_id(datastore_client, character_id)  # Assuming you've defined this function earlier
     character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+    user_email = validate_user_token()
+    if character["user_email"] != user_email:
+        return redirect(url_for('display_character', character_id=character['character_id']))
+
     character["character_description"] = character_description
     return render_template('user-profile.html', character=character)
 
@@ -410,4 +414,4 @@ def healthz():
     return "Healthy", 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5235)
+    app.run(debug=True, port=5556)
