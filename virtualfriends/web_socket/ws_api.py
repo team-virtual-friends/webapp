@@ -429,9 +429,9 @@ def gen_reply_package(reply_text: str, voice_config, character_name) -> (str, st
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         results = fetch_results()
 
-    if 'sentiment' in results:
+    if 'sentiment' in results and len(results['sentiment']) > 1 and results['sentiment'][1] is not None:
         sentiment = results['sentiment'][1]
-    if 'action' in results:
+    if 'action' in results and len(results['action']) > 1 and results['action'][1] is not None:
         action = results['action'][1]
     if 'voice' in results:
         (wav, err) = results['voice']

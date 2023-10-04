@@ -34,8 +34,7 @@ gcs_client = storage.Client(credentials=credentials)
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20231004095344-ce829a6-3e8eb76a", # desktop.
-    "20231004104322-ce829a6-ceec7095", # mobile - no Input Text box.
+    "20231004112232-ce829a6-e2a1c591",
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
@@ -106,7 +105,7 @@ def game():
     character_id = request.args.get('character_id')
 
     # Use the "friend_index" variable as needed in your code
-    template_name = unity_gcs_folders[int(binary_index)]
+    template_name = unity_gcs_folders[0] #unity_gcs_folders[int(binary_index)]
     return render_template(f'{template_name}.html', character_id=character_id)  # Pass it to the template
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
