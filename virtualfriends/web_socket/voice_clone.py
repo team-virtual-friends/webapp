@@ -19,7 +19,7 @@ def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
 
 def text_to_audio(text, voice_id) -> bytes:
     api_key = "4fb91ffd3e3e3cd35cbf2d19a64fd4e9"
-    url = "https://api.elevenlabs.io/v1/text-to-speech/" + voice_id
+    url = "https://api.elevenlabs.io/v1/text-to-speech/" + voice_id + "?optimize_streaming_latency=3"
 
     headers = {
         "Accept": "audio/mpeg",
