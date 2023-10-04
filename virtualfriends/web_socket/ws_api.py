@@ -17,6 +17,7 @@ from google.cloud import texttospeech, storage, datastore, bigquery
 
 from .virtualfriends_proto import ws_message_pb2
 from data_access.get_data import get_character_by_id, get_character_attribute_value_via_gcs
+from utils.utils import fire_and_forget
 
 from . import speech
 from . import llm_reply
@@ -442,8 +443,7 @@ def gen_reply_package(reply_text: str, voice_config, character_name) -> (str, st
         return (sentiment, action, wav, err)
     return (sentiment, action, wav, None)
 
-
-def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp):
+async def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, timestamp):
     # Using the 'env' argument directly. Removed the os.environ.get('ENV', 'LOCAL') line.
 
     dataset_name = 'virtualfriends'
@@ -465,11 +465,9 @@ def log_latency(env, session_id, user_id, user_ip, character_id, latency_type, l
     except Exception as e:
         logger.error(f"An error occurred when logging latency: {e}")
 
-
 def log_current_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value):
     current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        executor.submit(log_latency, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp)
+    asyncio.run(log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp))
 
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, user_ip, ws):
     env = os.environ.get('ENV', 'LOCAL')
