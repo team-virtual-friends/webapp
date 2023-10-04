@@ -120,11 +120,11 @@
               <div class="row mt-4">
                 <!-- Text Box on the Left -->
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="sharableLink" value="{{ request.url_root }}character/{{ character['character_id'] }}" readonly>
+                    <input type="text" class="form-control" id="sharableLink" value="{{ (request.url_root ~ 'character/' ~ character['character_id']) | replace('http:', 'https:') }}" readonly>
                 </div>
                 <!-- Copy Link Button on the Right -->
                 <div class="col-md-4">
-                    <button class="btn btn-primary" onclick="copyLinkToClipboard()">Copy Link</button>
+                    <button class="btn btn-primary" onclick="copyLinkToClipboard()">Copy Link And Share!</button>
                 </div>
             </div>
 
