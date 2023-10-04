@@ -9,6 +9,7 @@ import concurrent.futures
 import os
 import pathlib
 import time
+from multiprocessing import Process
 
 from utils.read_write_lock import RWLock
 
@@ -331,10 +332,10 @@ def download_blob_handler(request:ws_message_pb2.DownloadBlobRequest, ws):
         index += 1
     logger.info(f"{file_path} chunks sent")
 
-def wrapper_function(*args, **kwargs):
-    return speech.speech_to_text_whisper(*args, **kwargs)
-
 def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
+    def wrapper_function(*args, **kwargs):
+        return speech.speech_to_text_whisper(*args, **kwargs)
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = [executor.submit(wrapper_function, wav_bytes) for _ in range(repetitions)]
 
@@ -355,7 +356,6 @@ def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
                 logger.error(f"An error occurred: {e}")
 
     return None, "All attempts failed"
-
 
 # Infer whisper model locally
 def faster_whisper(wav_bytes):
@@ -482,8 +482,9 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         start_time = time.time()
 
 #       Need GPU  machine to reduce the latency.
-        (text, err) = faster_whisper(wav_bytes)
+        # (text, err) = faster_whisper(wav_bytes)
         # (text, err) = execute_speech2text_in_parallel(wav_bytes)
+        (text, err) = speech.speech_to_text_whisper(wav_bytes)
 
         end_time = time.time()
         latency = end_time - start_time
