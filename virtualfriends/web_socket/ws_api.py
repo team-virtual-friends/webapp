@@ -18,7 +18,6 @@ from google.cloud import texttospeech, storage, datastore, bigquery
 
 from .virtualfriends_proto import ws_message_pb2
 from data_access.get_data import get_character_by_id, get_character_attribute_value_via_gcs
-from utils.utils import fire_and_forget
 
 from . import speech
 from . import llm_reply
