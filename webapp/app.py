@@ -34,7 +34,7 @@ gcs_client = storage.Client(credentials=credentials)
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20231004112232-ce829a6-e2a1c591",
+    "20231004200252-2066f89-72d79329",
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
