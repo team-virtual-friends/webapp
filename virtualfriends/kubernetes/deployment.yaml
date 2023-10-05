@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: virtual-friends-app
-        image: gcr.io/ysong-chat/flask-app:3984531-da5b0c20
+        image: gcr.io/ysong-chat/flask-app:2a728c5-01ef91e4
         ports:
         - containerPort: 8080
         env:
