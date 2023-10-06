@@ -17,7 +17,7 @@ import re
 import hashlib
 import requests
 
-from data_access.get_data import gen_user_auth_token, get_character_by_id, get_character_by_email, save_character_info, update_character_info, get_character_attribute_value_via_gcs
+from data_access.get_data import *
 from data_access.create_table import create_and_insert_user
 from utils import validate_user_token
 
@@ -408,6 +408,11 @@ def display_user(character_id):
 
     character["character_description"] = character_description
     return render_template('user-profile.html', character=character)
+
+@app.route('/search/character/<prefix>')
+def display_search_results(prefix):
+    characters = search_characters_by_prefix(datastore_client, prefix)
+    return render_template('search_character_results.html', characters=characters)
 
 @app.route('/healthz', methods=['GET'])
 def healthz():
