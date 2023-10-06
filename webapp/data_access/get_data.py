@@ -13,10 +13,27 @@ large_data_bucket = "datastore_large_data"
 # client = datastore.Client.from_service_account_json('../webapp/ysong-chat-845e43a6c55b.json')
 
 
-def get_character_by_name(datastore_client, character_name):
+def increment_last_character(input_string):
+    # Check if the input string is not empty
+    if input_string:
+        # Get the last character
+        last_char = input_string[-1]
+
+        incremented_char = chr(ord(last_char) + 1)
+
+        # Replace the last character with the incremented character
+        modified_string = input_string[:-1] + incremented_char
+
+        return modified_string
+    else:
+        # If the input string is empty, return an empty string
+        return ""
+
+
+def get_character_by_name(datastore_client, character_name_prefix):
     # Create a query to fetch character by name in the "characters_db" namespace
     query = datastore_client.query(kind='Character', namespace='characters_db')
-    query.add_filter('name', '=', character_name)
+    query.add_filter('name', '=', character_name_prefix)
 
     # Fetch the result
     characters = list(query.fetch(limit=1))
@@ -24,6 +41,16 @@ def get_character_by_name(datastore_client, character_name):
     if characters:
         return characters[0]
     return None
+
+def search_characters_by_prefix(datastore_client, character_name, limit=10):
+    if len(character_name) == 0:
+        return
+    query = datastore_client.query(kind='Character', namespace='characters_db')
+    query.add_filter('name', '>=', character_name)
+    query.add_filter('name', '<', increment_last_character(character_name))
+
+    characters = list(query.fetch(limit=limit))
+    return characters
 
 def get_character_by_id(datastore_client, character_id):
     # Create a query to fetch character by name in the "characters_db" namespace
