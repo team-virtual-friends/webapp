@@ -10986,7 +10986,7 @@ header.masthead .bg-circle-4 {
 #search-characters-input {
     height: 40px;
     line-height: 30px;
-    width: 100%;
+    width: calc(100% - 60px);  /* Adjusted width to leave space for the search icon */
 }
 
 .search-icon {
