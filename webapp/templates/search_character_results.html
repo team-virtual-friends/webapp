@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Page</title>
+</head>
+<body>
+    <h1>Character Page</h1>
+    
+    <!-- Generate links for each character using a loop -->
+    {% for character in characters %}
+        <a href="{{ url_for('display_character', character_id=character['character_id']) }}">{{ character['name'] }}</a><br>
+    {% endfor %}
+</body>
+</html>
