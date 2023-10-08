@@ -74,36 +74,44 @@
             }
         </style>
         <!-- End of Ready Player Me -->
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
 
 
-    <section id="page-top">
-        <!-- Navigation-->
 
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-            <div class="container px-5">
-                <a class="navbar-brand" href="{{ url_for('home') }}">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Virtual Friends Logo" height="40" style="margin-right: 10px;">Virtual Friends
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<section id="page-top">
+    <!-- Navigation-->
 
-    </section>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container-fluid px-5 d-flex align-items-center"> <!-- Switched to container-fluid and added padding -->
+        <a class="navbar-brand flex-shrink-0" href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Virtual Friends Logo" height="40" style="margin-right: 10px;">Virtual Friends
+        </a>
+
+        <div class="search-container flex-grow-1 d-flex">
+            <input type="text" id="search-characters-input" class="form-control w-100" placeholder="Search Friend By Name..."> <!-- Set width to 100% -->
+            <i class="fas fa-search search-icon" onclick="performSearch()"></i>
+        </div>
+
+        <button class="navbar-toggler flex-shrink-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">SignUp</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">LogIn</a></li>
+        </ul>
+    </div>
+</nav>
+
+</section>
 
 
         <header class="masthead text-center text-white">
             <div class="masthead-content">
                 <div class="container px-5">
                     <h1 class="masthead-heading mb-0"> Virtual Friends</h1>
-                    <h2 class="masthead-subheading mb-0">Create Your Own AI Clone!</h2>
+                    <h2 class="masthead-subheading mb-0">Create Your Own AI Friend!</h2>
 <!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
                     <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('create_character') }}">Create Now!</a>
                 </div>
@@ -111,10 +119,6 @@
 
             <br><br>
 
-            <div class="search-container">
-                <input type="text" id="search-characters-input" class="search-input" placeholder="Search Character...">
-                <button class="search-button" onclick="performSearch()">Search</button>
-            </div>
 
             <div class="bg-circle-1 bg-circle"></div>
             <div class="bg-circle-2 bg-circle"></div>
