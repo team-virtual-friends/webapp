@@ -34,7 +34,7 @@ gcs_client = storage.Client(credentials=credentials)
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20231004200252-2066f89-72d79329",
+    "20231009142713-ad8e90c-cb3fbc4b",
 ]
 unity_index_html_replacements = {
     "href=\"TemplateData/favicon.ico\"": "href=\"{{{{ url_for('static', filename='{folder_name}/TemplateData/favicon.ico') }}}}\"",
@@ -412,6 +412,10 @@ def display_user(character_id):
 @app.route('/search/character/<prefix>')
 def display_search_results(prefix):
     characters = search_characters_by_prefix(datastore_client, prefix)
+    for character in characters:
+        character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+        character["character_description"] = character_description
+
     return render_template('search_character_results.html', characters=characters)
 
 @app.route('/healthz', methods=['GET'])

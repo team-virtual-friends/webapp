@@ -46,8 +46,9 @@ def search_characters_by_prefix(datastore_client, character_name, limit=10):
     if len(character_name) == 0:
         return
     query = datastore_client.query(kind='Character', namespace='characters_db')
-    query.add_filter('name', '>=', character_name)
-    query.add_filter('name', '<', increment_last_character(character_name))
+    character_name = character_name.lower()
+    query.add_filter('search_name', '>=', character_name)
+    query.add_filter('search_name', '<', increment_last_character(character_name))
 
     characters = list(query.fetch(limit=limit))
     return characters
@@ -116,6 +117,7 @@ def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url
         'elevanlab_id': elevanlab_id,
         'created_at': datetime.datetime.utcnow(),  # Store the current UTC time as the creation timestamp
         'user_email': user_email,
+        'search_name': name.lower(),
         # 'character_prompts': character_prompts,
     }
     if not save_character_attribute_value_through_gcs(gcs_client, character, "character_description", character_description):
@@ -146,6 +148,7 @@ def update_character_info(datastore_client, gcs_client, character_entity, rpm_ur
     character_entity['character_greeting'] = character_greeting
     character_entity['elevanlab_id'] = elevanlab_id
     character_entity['updated_at'] = datetime.datetime.utcnow()  # Store the current UTC time as the update timestamp
+    character_entity['search_name'] = name.lower()
 
     # Update character_description and audio_file (if provided) through GCS
     if character_description:

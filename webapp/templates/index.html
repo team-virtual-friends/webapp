@@ -38,6 +38,13 @@
                 // Redirect to the constructed URL
                 window.location.href = searchUrl;
             }
+            function checkForEnter(event) {
+                // Check if the pressed key is the Enter key
+                if (event.keyCode === 13) {  // 13 is the keycode for the Enter key
+                    performSearch();
+                }
+            }
+
         </script>
         <style>
             #modelviewer {
@@ -89,7 +96,7 @@
         </a>
 
         <div class="search-container flex-grow-1 d-flex">
-            <input type="text" id="search-characters-input" class="form-control w-100" placeholder="Search Friend By Name..."> <!-- Set width to 100% -->
+            <input type="text" id="search-characters-input" class="form-control w-100" placeholder="Search Friend By Name..." onkeydown="checkForEnter(event)">
             <i class="fas fa-search search-icon" onclick="performSearch()"></i>
         </div>
 
@@ -127,19 +134,6 @@
         </header>
 
 
-<!--    -->
-<!--        <div class="masthead-content">-->
-<!--            <div class="container px-5">-->
-<!--                <h1 class="masthead-heading mb-0">Your Virtual Friends</h1>-->
-<!--                <h2 class="masthead-subheading mb-0">Chat with AI Face2Face!</h2>-->
-<!--&lt;!&ndash;                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>&ndash;&gt;-->
-<!--                <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('login') }}">Login!</a>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="clearfix"></div>-->
-
-
             <!-- Content section 2-->
         <section>
             <div class="container px-5">
@@ -147,173 +141,41 @@
                     <div class="col-lg-6">
                         <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/mina.png') }}" alt="..." /></div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="p-5">
 
-<!--                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>-->
-<!--                            <h2 class="display-4">Chat with Mina!</h2>-->
+<!--                    -->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="p-5">-->
 
-                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>
-<!--                            <p>Mina is a k-pop star. </p>-->
-                        </div>
-                    </div>
+<!--&lt;!&ndash;                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <h2 class="display-4">Chat with Mina!</h2>&ndash;&gt;-->
+
+<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>-->
+<!--&lt;!&ndash;                            <p>Mina is a k-pop star. </p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+
+                            <!-- Character's Details Section -->
+        <div class="col-md-6 mt-4">
+            <div class="card fixed-card">
+                <div class="card-body">
+                    <h5 class="card-title">Mina</h5>
+                    <p class="card-text"><strong>Description: </strong> Mina is an AI assistant of the Virtual Friends team</p>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="p-5">
+                     <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>
+                </div>
+            </div>
+
+        </div>
                 </div>
             </div>
         </section>
 
-<!--        <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    &lt;!&ndash; Model Viewer Section &ndash;&gt;-->
-<!--                    <div class="col-lg-6">-->
-<!--                        {% set model_id = "64dc7240cfdd0f000df8c137.glb" %}-->
-<!--                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"-->
-<!--                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls-->
-<!--                            touch-action="pan-y">-->
-<!--                        </model-viewer>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Button Section &ndash;&gt;-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            &lt;!&ndash; Button for Chat &ndash;&gt;-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00001') }}">Meet Yi</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-
-
-<!--        <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    &lt;!&ndash; Model Viewer Section &ndash;&gt;-->
-<!--                    <div class="col-lg-6">-->
-<!--                        {% set model_id = "6514f44f1c810b0e7e7963e3.glb" %}-->
-<!--                        <model-viewer id="modelviewer" alt="Ready Player Me Avatar"-->
-<!--                            src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls-->
-<!--                            touch-action="pan-y">-->
-<!--                        </model-viewer>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Button Section &ndash;&gt;-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            &lt;!&ndash; Button for Chat &ndash;&gt;-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='00003') }}">Meet Valerie</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-<!--    -->
-
-<!--    -->
-<!--        <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/jack.png') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet Jack!</a>-->
-<!--&lt;!&ndash;                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-<!--    -->
-
-
-<!--            <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/elena.png') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='elena') }}">Meet Elena!</a>-->
-<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-<!--                <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/daniel.png') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='daniel') }}">Meet Daniel!</a>-->
-<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-
-<!--                <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/bunny.png') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='bunny') }}">Meet Bunny!</a>-->
-<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-
-<!--                <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/cat.png') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='cat') }}">Meet Cat!</a>-->
-<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-
-
-<!--                <section>-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/question.png') }}" alt="..." /></div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
-<!--                            <a class="btn btn-dark btn-xl mt-5" >Coming Soon!</a>-->
-<!--&lt;!&ndash;                                <p>Elena is taking vacation with her friends... </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
 
 
 <!-- Feedback and Email Container (Combined) -->
