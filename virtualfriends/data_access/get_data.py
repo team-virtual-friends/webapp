@@ -9,14 +9,32 @@ secret_key = "chilloutmix_ni64"
 
 large_data_bucket = "datastore_large_data"
 
+
 # Initialize the Datastore client
 # client = datastore.Client.from_service_account_json('../webapp/ysong-chat-845e43a6c55b.json')
 
 
-def get_character_by_name(datastore_client, character_name):
+def increment_last_character(input_string):
+    # Check if the input string is not empty
+    if input_string:
+        # Get the last character
+        last_char = input_string[-1]
+
+        incremented_char = chr(ord(last_char) + 1)
+
+        # Replace the last character with the incremented character
+        modified_string = input_string[:-1] + incremented_char
+
+        return modified_string
+    else:
+        # If the input string is empty, return an empty string
+        return ""
+
+
+def get_character_by_name(datastore_client, character_name_prefix):
     # Create a query to fetch character by name in the "characters_db" namespace
     query = datastore_client.query(kind='Character', namespace='characters_db')
-    query.add_filter('name', '=', character_name)
+    query.add_filter('name', '=', character_name_prefix)
 
     # Fetch the result
     characters = list(query.fetch(limit=1))
@@ -24,6 +42,19 @@ def get_character_by_name(datastore_client, character_name):
     if characters:
         return characters[0]
     return None
+
+
+def search_characters_by_prefix(datastore_client, character_name, limit=10):
+    if len(character_name) == 0:
+        return
+    query = datastore_client.query(kind='Character', namespace='characters_db')
+    character_name = character_name.lower()
+    query.add_filter('name', '>=', character_name)
+    query.add_filter('name', '<', increment_last_character(character_name))
+
+    characters = list(query.fetch(limit=limit))
+    return characters
+
 
 def get_character_by_id(datastore_client, character_id):
     # Create a query to fetch character by name in the "characters_db" namespace
@@ -37,6 +68,7 @@ def get_character_by_id(datastore_client, character_id):
         return characters[0]
     return None
 
+
 def get_character_by_email(datastore_client, user_email):
     # Create a query to fetch character by name in the "characters_db" namespace
     query = datastore_client.query(kind='Character', namespace='characters_db')
@@ -49,6 +81,7 @@ def get_character_by_email(datastore_client, user_email):
     else:
         return None
 
+
 def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name):
     bucket = gcs_client.get_bucket(large_data_bucket)
     attribute_path = character.get(attribute_name, "")
@@ -58,6 +91,7 @@ def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name)
         if blob.exists():
             return blob.download_as_text()
     return ""
+
 
 # gs://large_data_bucket/{character['character_id']}/{attribute_name}/{timestamp}
 def save_character_attribute_value_through_gcs(gcs_client, character, attribute_name, attribute_value):
@@ -76,7 +110,9 @@ def save_character_attribute_value_through_gcs(gcs_client, character, attribute_
         return True
     return False
 
-def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url, name, gender, character_greeting, character_description, audio_file_name, elevanlab_id, user_email, character_prompts):
+
+def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url, name, gender, character_greeting,
+                        character_description, audio_file_name, elevanlab_id, user_email, character_prompts):
     character_entity = datastore.Entity(key=key)
     character = {
         'character_id': character_id,
@@ -89,9 +125,11 @@ def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url
         'elevanlab_id': elevanlab_id,
         'created_at': datetime.datetime.utcnow(),  # Store the current UTC time as the creation timestamp
         'user_email': user_email,
+        'search_name': name.lower(),
         # 'character_prompts': character_prompts,
     }
-    if not save_character_attribute_value_through_gcs(gcs_client, character, "character_description", character_description):
+    if not save_character_attribute_value_through_gcs(gcs_client, character, "character_description",
+                                                      character_description):
         return None
     if not save_character_attribute_value_through_gcs(gcs_client, character, "character_prompts", character_prompts):
         return None
@@ -102,7 +140,8 @@ def save_character_info(datastore_client, gcs_client, key, character_id, rpm_url
     return character_entity
 
 
-def update_character_info(datastore_client, gcs_client, character_entity, rpm_url, name, gender, character_greeting, character_description, audio_file, elevanlab_id, character_prompts):
+def update_character_info(datastore_client, gcs_client, character_entity, rpm_url, name, gender, character_greeting,
+                          character_description, audio_file, elevanlab_id, character_prompts):
     # Fetch the existing character entity using the character_id
     # print(character_id)
     # character_entity = get_character_by_id(datastore_client, character_id)
@@ -119,14 +158,17 @@ def update_character_info(datastore_client, gcs_client, character_entity, rpm_ur
     character_entity['character_greeting'] = character_greeting
     character_entity['elevanlab_id'] = elevanlab_id
     character_entity['updated_at'] = datetime.datetime.utcnow()  # Store the current UTC time as the update timestamp
+    character_entity['search_name'] = name.lower()
 
     # Update character_description and audio_file (if provided) through GCS
     if character_description:
-        if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_description", character_description):
+        if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_description",
+                                                          character_description):
             return None
 
     if character_prompts:
-        if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_prompts", character_prompts):
+        if not save_character_attribute_value_through_gcs(gcs_client, character_entity, "character_prompts",
+                                                          character_prompts):
             return None
 
     # Handle audio file updates (if provided) here
@@ -155,18 +197,20 @@ def validate_user(datastore_client, user_id, pwd):
     # Convert the computed hash to hexadecimal for comparison
     hashed_password_attempt_hex = hashed_password_attempt.hex()
     return hashed_password_attempt_hex == stored_hashed_pwd
-    
+
+
 def gen_user_auth_token(datastore_client, user_id, pwd):
     if validate_user(datastore_client, user_id, pwd):
         # Payload (claims) containing user information
         payload = {
             "user_id": user_id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=48)  # Token expiration time
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=2400)  # Token expiration time
         }
 
         # Generate a token
         return jwt.encode(payload, secret_key, algorithm="HS256")
     return None
+
 
 def validate_token(token) -> (bool, str):
     if token is None or len(token) == 0:
