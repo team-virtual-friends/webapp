@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10ws_message.proto\x12\x14virtualfriends_proto\"\xc3\x03\n\tVfRequest\x12\x31\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.EchoRequestH\x00\x12O\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32/.virtualfriends_proto.StreamReplyMessageRequestH\x00\x12Q\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x30.virtualfriends_proto.DownloadAssetBundleRequestH\x00\x12\x42\n\rdownload_blob\x18\t \x01(\x0b\x32).virtualfriends_proto.DownloadBlobRequestH\x00\x12\x42\n\rget_character\x18\r \x01(\x0b\x32).virtualfriends_proto.GetCharacterRequestH\x00\x12\x0f\n\x07ip_addr\x18\x08 \x01(\t\x12\x10\n\x08username\x18\n \x01(\t\x12\x0f\n\x07user_id\x18\x0b \x01(\t\x12\x12\n\nsession_id\x18\x0c \x01(\tB\t\n\x07requestJ\x04\x08\x01\x10\x02\"\xae\x03\n\nVfResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.virtualfriends_proto.CustomError\x12\x32\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32\".virtualfriends_proto.EchoResponseH\x00\x12P\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32\x30.virtualfriends_proto.StreamReplyMessageResponseH\x00\x12R\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x31.virtualfriends_proto.DownloadAssetBundleResponseH\x00\x12\x43\n\rdownload_blob\x18\x08 \x01(\x0b\x32*.virtualfriends_proto.DownloadBlobResponseH\x00\x12\x43\n\rget_character\x18\t \x01(\x0b\x32*.virtualfriends_proto.GetCharacterResponseH\x00\x42\n\n\x08response\"$\n\x0b\x43ustomError\x12\x15\n\rerror_message\x18\x01 \x01(\t\"T\n\x0b\x45\x63hoRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x37\n\x0cvoice_config\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfig\"R\n\x0c\x45\x63hoResponse\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\"j\n\x0bVoiceConfig\x12\x33\n\nvoice_type\x18\x01 \x01(\x0e\x32\x1f.virtualfriends_proto.VoiceType\x12\x0f\n\x07octaves\x18\x02 \x01(\x02\x12\x15\n\releven_lab_id\x18\x03 \x01(\t\"=\n\x0fMirroredContent\x12\x16\n\x0e\x63haracter_name\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\x03\"\xab\x02\n\x19StreamReplyMessageRequest\x12?\n\x10mirrored_content\x18\x01 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rjson_messages\x18\x02 \x03(\t\x12\x14\n\x0c\x62\x61se_prompts\x18\x08 \x01(\t\x12\x16\n\x0e\x63ustom_prompts\x18\x07 \x01(\t\x12\x1d\n\x15\x63haracter_description\x18\t \x01(\t\x12\r\n\x03wav\x18\x03 \x01(\x0cH\x00\x12\x0e\n\x04text\x18\x06 \x01(\tH\x00\x12\x37\n\x0cvoice_config\x18\x05 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfigB\x11\n\x0f\x63urrent_message\"\xea\x01\n\x1aStreamReplyMessageResponse\x12?\n\x10mirrored_content\x18\x06 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rreply_message\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\x12\x18\n\x10transcribed_text\x18\x05 \x01(\t\x12\x13\n\x0b\x63hunk_index\x18\x07 \x01(\x05\x12\x0f\n\x07is_stop\x18\x08 \x01(\x08\"j\n\x1a\x44ownloadAssetBundleRequest\x12\x16\n\x0epublisher_name\x18\x01 \x01(\t\x12\x16\n\x0e\x63haracter_name\x18\x02 \x01(\t\x12\x18\n\x10runtime_platform\x18\x03 \x01(\t:\x02\x18\x01\"T\n\x1b\x44ownloadAssetBundleResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\x0c\x12\r\n\x05index\x18\x02 \x01(\x05\x12\x13\n\x0btotal_count\x18\x03 \x01(\x05:\x02\x18\x01\"S\n\x10MirroredBlobInfo\x12\x11\n\tblob_name\x18\x01 \x01(\t\x12\x15\n\rmajor_version\x18\x02 \x01(\x05\x12\x15\n\rminor_version\x18\x03 \x01(\x05\"Y\n\x13\x44ownloadBlobRequest\x12\x42\n\x12mirrored_blob_info\x18\x01 \x01(\x0b\x32&.virtualfriends_proto.MirroredBlobInfo\"\x8d\x01\n\x14\x44ownloadBlobResponse\x12\x42\n\x12mirrored_blob_info\x18\x01 \x01(\x0b\x32&.virtualfriends_proto.MirroredBlobInfo\x12\r\n\x05\x63hunk\x18\x02 \x01(\x0c\x12\r\n\x05index\x18\x03 \x01(\x05\x12\x13\n\x0btotal_count\x18\x04 \x01(\x05\")\n\x13LoaderReadyPlayerMe\x12\x12\n\navatar_url\x18\x01 \x01(\t\"\'\n\x12LoaderBlobDownload\x12\x11\n\tblob_name\x18\x01 \x01(\t\"+\n\x13GetCharacterRequest\x12\x14\n\x0c\x63haracter_id\x18\x01 \x01(\t\"\x8b\x03\n\x14GetCharacterResponse\x12I\n\x14loader_readyplayerme\x18\x01 \x01(\x0b\x32).virtualfriends_proto.LoaderReadyPlayerMeH\x00\x12H\n\x14loader_blob_download\x18\x05 \x01(\x0b\x32(.virtualfriends_proto.LoaderBlobDownloadH\x00\x12,\n\x06gender\x18\x02 \x01(\x0e\x32\x1c.virtualfriends_proto.Gender\x12\x13\n\x0b\x66riend_name\x18\x03 \x01(\t\x12\x37\n\x0cvoice_config\x18\x04 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfig\x12\x10\n\x08greeting\x18\x06 \x01(\t\x12\x14\n\x0cgreeting_wav\x18\t \x01(\x0c\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x14\n\x0c\x62\x61se_prompts\x18\x08 \x01(\tB\x0f\n\rloader_config*\x89\x01\n\tVoiceType\x12\x15\n\x11VoiceType_Invalid\x10\x00\x12\x18\n\x14VoiceType_NormalMale\x10\x01\x12\x1b\n\x17VoiceType_NormalFemale1\x10\x02\x12\x1b\n\x17VoiceType_NormalFemale2\x10\x03\x12\x11\n\rVoiceType_Orc\x10\x04*@\n\x06Gender\x12\x12\n\x0eGender_Invalid\x10\x00\x12\x0f\n\x0bGender_Male\x10\x01\x12\x11\n\rGender_Female\x10\x02\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10ws_message.proto\x12\x14virtualfriends_proto\"\xfa\x03\n\tVfRequest\x12\x31\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.EchoRequestH\x00\x12O\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32/.virtualfriends_proto.StreamReplyMessageRequestH\x00\x12Q\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x30.virtualfriends_proto.DownloadAssetBundleRequestH\x00\x12\x42\n\rdownload_blob\x18\t \x01(\x0b\x32).virtualfriends_proto.DownloadBlobRequestH\x00\x12\x42\n\rget_character\x18\r \x01(\x0b\x32).virtualfriends_proto.GetCharacterRequestH\x00\x12\x0f\n\x07ip_addr\x18\x08 \x01(\t\x12\x10\n\x08username\x18\n \x01(\t\x12\x0f\n\x07user_id\x18\x0b \x01(\t\x12\x12\n\nsession_id\x18\x0c \x01(\t\x12\x35\n\x0bruntime_env\x18\x0e \x01(\x0e\x32 .virtualfriends_proto.RuntimeEnvB\t\n\x07requestJ\x04\x08\x01\x10\x02\"\xae\x03\n\nVfResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.virtualfriends_proto.CustomError\x12\x32\n\x04\x65\x63ho\x18\x02 \x01(\x0b\x32\".virtualfriends_proto.EchoResponseH\x00\x12P\n\x14stream_reply_message\x18\x06 \x01(\x0b\x32\x30.virtualfriends_proto.StreamReplyMessageResponseH\x00\x12R\n\x15\x64ownload_asset_bundle\x18\x07 \x01(\x0b\x32\x31.virtualfriends_proto.DownloadAssetBundleResponseH\x00\x12\x43\n\rdownload_blob\x18\x08 \x01(\x0b\x32*.virtualfriends_proto.DownloadBlobResponseH\x00\x12\x43\n\rget_character\x18\t \x01(\x0b\x32*.virtualfriends_proto.GetCharacterResponseH\x00\x42\n\n\x08response\"$\n\x0b\x43ustomError\x12\x15\n\rerror_message\x18\x01 \x01(\t\"T\n\x0b\x45\x63hoRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x37\n\x0cvoice_config\x18\x02 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfig\"R\n\x0c\x45\x63hoResponse\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\"j\n\x0bVoiceConfig\x12\x33\n\nvoice_type\x18\x01 \x01(\x0e\x32\x1f.virtualfriends_proto.VoiceType\x12\x0f\n\x07octaves\x18\x02 \x01(\x02\x12\x15\n\releven_lab_id\x18\x03 \x01(\t\"=\n\x0fMirroredContent\x12\x16\n\x0e\x63haracter_name\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\x03\"\xab\x02\n\x19StreamReplyMessageRequest\x12?\n\x10mirrored_content\x18\x01 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rjson_messages\x18\x02 \x03(\t\x12\x14\n\x0c\x62\x61se_prompts\x18\x08 \x01(\t\x12\x16\n\x0e\x63ustom_prompts\x18\x07 \x01(\t\x12\x1d\n\x15\x63haracter_description\x18\t \x01(\t\x12\r\n\x03wav\x18\x03 \x01(\x0cH\x00\x12\x0e\n\x04text\x18\x06 \x01(\tH\x00\x12\x37\n\x0cvoice_config\x18\x05 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfigB\x11\n\x0f\x63urrent_message\"\xea\x01\n\x1aStreamReplyMessageResponse\x12?\n\x10mirrored_content\x18\x06 \x01(\x0b\x32%.virtualfriends_proto.MirroredContent\x12\x15\n\rreply_message\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\x11\n\tsentiment\x18\x03 \x01(\t\x12\x11\n\treply_wav\x18\x04 \x01(\x0c\x12\x18\n\x10transcribed_text\x18\x05 \x01(\t\x12\x13\n\x0b\x63hunk_index\x18\x07 \x01(\x05\x12\x0f\n\x07is_stop\x18\x08 \x01(\x08\"j\n\x1a\x44ownloadAssetBundleRequest\x12\x16\n\x0epublisher_name\x18\x01 \x01(\t\x12\x16\n\x0e\x63haracter_name\x18\x02 \x01(\t\x12\x18\n\x10runtime_platform\x18\x03 \x01(\t:\x02\x18\x01\"T\n\x1b\x44ownloadAssetBundleResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\x0c\x12\r\n\x05index\x18\x02 \x01(\x05\x12\x13\n\x0btotal_count\x18\x03 \x01(\x05:\x02\x18\x01\"S\n\x10MirroredBlobInfo\x12\x11\n\tblob_name\x18\x01 \x01(\t\x12\x15\n\rmajor_version\x18\x02 \x01(\x05\x12\x15\n\rminor_version\x18\x03 \x01(\x05\"Y\n\x13\x44ownloadBlobRequest\x12\x42\n\x12mirrored_blob_info\x18\x01 \x01(\x0b\x32&.virtualfriends_proto.MirroredBlobInfo\"\x8d\x01\n\x14\x44ownloadBlobResponse\x12\x42\n\x12mirrored_blob_info\x18\x01 \x01(\x0b\x32&.virtualfriends_proto.MirroredBlobInfo\x12\r\n\x05\x63hunk\x18\x02 \x01(\x0c\x12\r\n\x05index\x18\x03 \x01(\x05\x12\x13\n\x0btotal_count\x18\x04 \x01(\x05\")\n\x13LoaderReadyPlayerMe\x12\x12\n\navatar_url\x18\x01 \x01(\t\"\'\n\x12LoaderBlobDownload\x12\x11\n\tblob_name\x18\x01 \x01(\t\"+\n\x13GetCharacterRequest\x12\x14\n\x0c\x63haracter_id\x18\x01 \x01(\t\"\xa9\x03\n\x14GetCharacterResponse\x12\x1c\n\x14generated_session_id\x18\n \x01(\t\x12I\n\x14loader_readyplayerme\x18\x01 \x01(\x0b\x32).virtualfriends_proto.LoaderReadyPlayerMeH\x00\x12H\n\x14loader_blob_download\x18\x05 \x01(\x0b\x32(.virtualfriends_proto.LoaderBlobDownloadH\x00\x12,\n\x06gender\x18\x02 \x01(\x0e\x32\x1c.virtualfriends_proto.Gender\x12\x13\n\x0b\x66riend_name\x18\x03 \x01(\t\x12\x37\n\x0cvoice_config\x18\x04 \x01(\x0b\x32!.virtualfriends_proto.VoiceConfig\x12\x10\n\x08greeting\x18\x06 \x01(\t\x12\x14\n\x0cgreeting_wav\x18\t \x01(\x0c\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\x14\n\x0c\x62\x61se_prompts\x18\x08 \x01(\tB\x0f\n\rloader_config*c\n\nRuntimeEnv\x12\x16\n\x12RuntimeEnv_Invalid\x10\x00\x12\x1e\n\x1aRuntimeEnv_Webpage_Desktop\x10\x01\x12\x1d\n\x19RuntimeEnv_Webpage_Mobile\x10\x02*\x89\x01\n\tVoiceType\x12\x15\n\x11VoiceType_Invalid\x10\x00\x12\x18\n\x14VoiceType_NormalMale\x10\x01\x12\x1b\n\x17VoiceType_NormalFemale1\x10\x02\x12\x1b\n\x17VoiceType_NormalFemale2\x10\x03\x12\x11\n\rVoiceType_Orc\x10\x04*@\n\x06Gender\x12\x12\n\x0eGender_Invalid\x10\x00\x12\x0f\n\x0bGender_Male\x10\x01\x12\x11\n\rGender_Female\x10\x02\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,44 +24,46 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _DOWNLOADASSETBUNDLEREQUEST._serialized_options = b'\030\001'
   _DOWNLOADASSETBUNDLERESPONSE._options = None
   _DOWNLOADASSETBUNDLERESPONSE._serialized_options = b'\030\001'
-  _globals['_VOICETYPE']._serialized_start=2889
-  _globals['_VOICETYPE']._serialized_end=3026
-  _globals['_GENDER']._serialized_start=3028
-  _globals['_GENDER']._serialized_end=3092
+  _globals['_RUNTIMEENV']._serialized_start=2973
+  _globals['_RUNTIMEENV']._serialized_end=3072
+  _globals['_VOICETYPE']._serialized_start=3075
+  _globals['_VOICETYPE']._serialized_end=3212
+  _globals['_GENDER']._serialized_start=3214
+  _globals['_GENDER']._serialized_end=3278
   _globals['_VFREQUEST']._serialized_start=43
-  _globals['_VFREQUEST']._serialized_end=494
-  _globals['_VFRESPONSE']._serialized_start=497
-  _globals['_VFRESPONSE']._serialized_end=927
-  _globals['_CUSTOMERROR']._serialized_start=929
-  _globals['_CUSTOMERROR']._serialized_end=965
-  _globals['_ECHOREQUEST']._serialized_start=967
-  _globals['_ECHOREQUEST']._serialized_end=1051
-  _globals['_ECHORESPONSE']._serialized_start=1053
-  _globals['_ECHORESPONSE']._serialized_end=1135
-  _globals['_VOICECONFIG']._serialized_start=1137
-  _globals['_VOICECONFIG']._serialized_end=1243
-  _globals['_MIRROREDCONTENT']._serialized_start=1245
-  _globals['_MIRROREDCONTENT']._serialized_end=1306
-  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_start=1309
-  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_end=1608
-  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_start=1611
-  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_end=1845
-  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_start=1847
-  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_end=1953
-  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_start=1955
-  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_end=2039
-  _globals['_MIRROREDBLOBINFO']._serialized_start=2041
-  _globals['_MIRROREDBLOBINFO']._serialized_end=2124
-  _globals['_DOWNLOADBLOBREQUEST']._serialized_start=2126
-  _globals['_DOWNLOADBLOBREQUEST']._serialized_end=2215
-  _globals['_DOWNLOADBLOBRESPONSE']._serialized_start=2218
-  _globals['_DOWNLOADBLOBRESPONSE']._serialized_end=2359
-  _globals['_LOADERREADYPLAYERME']._serialized_start=2361
-  _globals['_LOADERREADYPLAYERME']._serialized_end=2402
-  _globals['_LOADERBLOBDOWNLOAD']._serialized_start=2404
-  _globals['_LOADERBLOBDOWNLOAD']._serialized_end=2443
-  _globals['_GETCHARACTERREQUEST']._serialized_start=2445
-  _globals['_GETCHARACTERREQUEST']._serialized_end=2488
-  _globals['_GETCHARACTERRESPONSE']._serialized_start=2491
-  _globals['_GETCHARACTERRESPONSE']._serialized_end=2886
+  _globals['_VFREQUEST']._serialized_end=549
+  _globals['_VFRESPONSE']._serialized_start=552
+  _globals['_VFRESPONSE']._serialized_end=982
+  _globals['_CUSTOMERROR']._serialized_start=984
+  _globals['_CUSTOMERROR']._serialized_end=1020
+  _globals['_ECHOREQUEST']._serialized_start=1022
+  _globals['_ECHOREQUEST']._serialized_end=1106
+  _globals['_ECHORESPONSE']._serialized_start=1108
+  _globals['_ECHORESPONSE']._serialized_end=1190
+  _globals['_VOICECONFIG']._serialized_start=1192
+  _globals['_VOICECONFIG']._serialized_end=1298
+  _globals['_MIRROREDCONTENT']._serialized_start=1300
+  _globals['_MIRROREDCONTENT']._serialized_end=1361
+  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_start=1364
+  _globals['_STREAMREPLYMESSAGEREQUEST']._serialized_end=1663
+  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_start=1666
+  _globals['_STREAMREPLYMESSAGERESPONSE']._serialized_end=1900
+  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_start=1902
+  _globals['_DOWNLOADASSETBUNDLEREQUEST']._serialized_end=2008
+  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_start=2010
+  _globals['_DOWNLOADASSETBUNDLERESPONSE']._serialized_end=2094
+  _globals['_MIRROREDBLOBINFO']._serialized_start=2096
+  _globals['_MIRROREDBLOBINFO']._serialized_end=2179
+  _globals['_DOWNLOADBLOBREQUEST']._serialized_start=2181
+  _globals['_DOWNLOADBLOBREQUEST']._serialized_end=2270
+  _globals['_DOWNLOADBLOBRESPONSE']._serialized_start=2273
+  _globals['_DOWNLOADBLOBRESPONSE']._serialized_end=2414
+  _globals['_LOADERREADYPLAYERME']._serialized_start=2416
+  _globals['_LOADERREADYPLAYERME']._serialized_end=2457
+  _globals['_LOADERBLOBDOWNLOAD']._serialized_start=2459
+  _globals['_LOADERBLOBDOWNLOAD']._serialized_end=2498
+  _globals['_GETCHARACTERREQUEST']._serialized_start=2500
+  _globals['_GETCHARACTERREQUEST']._serialized_end=2543
+  _globals['_GETCHARACTERRESPONSE']._serialized_start=2546
+  _globals['_GETCHARACTERRESPONSE']._serialized_end=2971
 # @@protoc_insertion_point(module_scope)

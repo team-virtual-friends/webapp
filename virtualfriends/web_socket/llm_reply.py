@@ -15,12 +15,14 @@ from google.oauth2 import service_account
 from datetime import datetime
 import asyncio
 
+from web_socket.virtualfriends_proto import ws_message_pb2
+
 # Load the BigQuery credentials and create a BigQuery client
 credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
 print(credentials_path)
 
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
-client = bigquery.Client(credentials=credentials)
+bigquery_client = bigquery.Client(credentials=credentials)
 
 # Define your dataset and table names
 dataset_name = 'virtualfriends'
@@ -80,17 +82,17 @@ def infer_sentiment(text, timeout_seconds=1):
         logger.error("infer_sentiment API call to OpenAI timed out")
         return "neutral"
 
-async def log_chat_history(user_id, user_ip, character_id, chat_history, timestamp):
+async def log_chat_history(user_id, user_ip, character_id, chat_history, timestamp, chat_session_id, runtime_env):
     try:
         # Create a reference to your dataset and table
-        dataset_ref = client.dataset(dataset_name)
+        dataset_ref = bigquery_client.dataset(dataset_name)
         table_ref = dataset_ref.table(table_name)
-        table = client.get_table(table_ref)
+        table = bigquery_client.get_table(table_ref)
 
         # Insert a new row into the table
-        row_to_insert = (user_id, user_ip, character_id, chat_history, timestamp)
+        row_to_insert = (user_id, user_ip, character_id, chat_history, timestamp, chat_session_id, ws_message_pb2.RuntimeEnv.Name(runtime_env))
 
-        client.insert_rows(table, [row_to_insert])
+        bigquery_client.insert_rows(table, [row_to_insert])
 
         logger.info("Log chat history data successfully")
 
@@ -98,7 +100,7 @@ async def log_chat_history(user_id, user_ip, character_id, chat_history, timesta
         logger.info(f"An error occurred when logging chat history: {e}")
 
 
-def stream_infer_reply(chronical_messages:list, character_name:str, base_prompts:str, custom_prompts:str, user_ip:str) -> Iterator:
+def stream_infer_reply(chronical_messages:list, character_name:str, base_prompts:str, custom_prompts:str, user_ip:str, chat_session_id:str, runtimeEnv) -> Iterator:
     # logger.info("start gpt infer")
 
     #   Testing new api for now.
@@ -119,7 +121,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, base_prompts
         loop = asyncio.new_event_loop()
         # Run the asynchronous function concurrently
         asyncio.set_event_loop(loop)
-        loop.run_until_complete(log_chat_history("dummy", user_ip, character_name, full_prompts, current_timestamp))
+        loop.run_until_complete(log_chat_history("dummy", user_ip, character_name, full_prompts, current_timestamp, chat_session_id, runtimeEnv))
         # Close the event loop
         loop.close()
 

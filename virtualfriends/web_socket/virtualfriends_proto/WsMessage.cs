@@ -24,7 +24,7 @@ namespace VirtualfriendsProto {
     static WsMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byLDAwoJ",
+            "ChB3c19tZXNzYWdlLnByb3RvEhR2aXJ0dWFsZnJpZW5kc19wcm90byL6AwoJ",
             "VmZSZXF1ZXN0EjEKBGVjaG8YAiABKAsyIS52aXJ0dWFsZnJpZW5kc19wcm90",
             "by5FY2hvUmVxdWVzdEgAEk8KFHN0cmVhbV9yZXBseV9tZXNzYWdlGAYgASgL",
             "Mi8udmlydHVhbGZyaWVuZHNfcHJvdG8uU3RyZWFtUmVwbHlNZXNzYWdlUmVx",
@@ -34,69 +34,74 @@ namespace VirtualfriendsProto {
             "LkRvd25sb2FkQmxvYlJlcXVlc3RIABJCCg1nZXRfY2hhcmFjdGVyGA0gASgL",
             "MikudmlydHVhbGZyaWVuZHNfcHJvdG8uR2V0Q2hhcmFjdGVyUmVxdWVzdEgA",
             "Eg8KB2lwX2FkZHIYCCABKAkSEAoIdXNlcm5hbWUYCiABKAkSDwoHdXNlcl9p",
-            "ZBgLIAEoCRISCgpzZXNzaW9uX2lkGAwgASgJQgkKB3JlcXVlc3RKBAgBEAIi",
-            "rgMKClZmUmVzcG9uc2USMAoFZXJyb3IYASABKAsyIS52aXJ0dWFsZnJpZW5k",
-            "c19wcm90by5DdXN0b21FcnJvchIyCgRlY2hvGAIgASgLMiIudmlydHVhbGZy",
-            "aWVuZHNfcHJvdG8uRWNob1Jlc3BvbnNlSAASUAoUc3RyZWFtX3JlcGx5X21l",
-            "c3NhZ2UYBiABKAsyMC52aXJ0dWFsZnJpZW5kc19wcm90by5TdHJlYW1SZXBs",
-            "eU1lc3NhZ2VSZXNwb25zZUgAElIKFWRvd25sb2FkX2Fzc2V0X2J1bmRsZRgH",
-            "IAEoCzIxLnZpcnR1YWxmcmllbmRzX3Byb3RvLkRvd25sb2FkQXNzZXRCdW5k",
-            "bGVSZXNwb25zZUgAEkMKDWRvd25sb2FkX2Jsb2IYCCABKAsyKi52aXJ0dWFs",
-            "ZnJpZW5kc19wcm90by5Eb3dubG9hZEJsb2JSZXNwb25zZUgAEkMKDWdldF9j",
-            "aGFyYWN0ZXIYCSABKAsyKi52aXJ0dWFsZnJpZW5kc19wcm90by5HZXRDaGFy",
-            "YWN0ZXJSZXNwb25zZUgAQgoKCHJlc3BvbnNlIiQKC0N1c3RvbUVycm9yEhUK",
-            "DWVycm9yX21lc3NhZ2UYASABKAkiVAoLRWNob1JlcXVlc3QSDAoEdGV4dBgB",
-            "IAEoCRI3Cgx2b2ljZV9jb25maWcYAiABKAsyIS52aXJ0dWFsZnJpZW5kc19w",
-            "cm90by5Wb2ljZUNvbmZpZyJSCgxFY2hvUmVzcG9uc2USDAoEdGV4dBgBIAEo",
-            "CRIOCgZhY3Rpb24YAiABKAkSEQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5",
-            "X3dhdhgEIAEoDCJqCgtWb2ljZUNvbmZpZxIzCgp2b2ljZV90eXBlGAEgASgO",
-            "Mh8udmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VUeXBlEg8KB29jdGF2ZXMY",
-            "AiABKAISFQoNZWxldmVuX2xhYl9pZBgDIAEoCSI9Cg9NaXJyb3JlZENvbnRl",
-            "bnQSFgoOY2hhcmFjdGVyX25hbWUYASABKAkSEgoKbWVzc2FnZV9pZBgCIAEo",
-            "AyKrAgoZU3RyZWFtUmVwbHlNZXNzYWdlUmVxdWVzdBI/ChBtaXJyb3JlZF9j",
-            "b250ZW50GAEgASgLMiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRD",
-            "b250ZW50EhUKDWpzb25fbWVzc2FnZXMYAiADKAkSFAoMYmFzZV9wcm9tcHRz",
-            "GAggASgJEhYKDmN1c3RvbV9wcm9tcHRzGAcgASgJEh0KFWNoYXJhY3Rlcl9k",
-            "ZXNjcmlwdGlvbhgJIAEoCRINCgN3YXYYAyABKAxIABIOCgR0ZXh0GAYgASgJ",
-            "SAASNwoMdm9pY2VfY29uZmlnGAUgASgLMiEudmlydHVhbGZyaWVuZHNfcHJv",
-            "dG8uVm9pY2VDb25maWdCEQoPY3VycmVudF9tZXNzYWdlIuoBChpTdHJlYW1S",
-            "ZXBseU1lc3NhZ2VSZXNwb25zZRI/ChBtaXJyb3JlZF9jb250ZW50GAYgASgL",
-            "MiUudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9yZWRDb250ZW50EhUKDXJl",
-            "cGx5X21lc3NhZ2UYASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVu",
-            "dBgDIAEoCRIRCglyZXBseV93YXYYBCABKAwSGAoQdHJhbnNjcmliZWRfdGV4",
-            "dBgFIAEoCRITCgtjaHVua19pbmRleBgHIAEoBRIPCgdpc19zdG9wGAggASgI",
-            "ImoKGkRvd25sb2FkQXNzZXRCdW5kbGVSZXF1ZXN0EhYKDnB1Ymxpc2hlcl9u",
-            "YW1lGAEgASgJEhYKDmNoYXJhY3Rlcl9uYW1lGAIgASgJEhgKEHJ1bnRpbWVf",
-            "cGxhdGZvcm0YAyABKAk6AhgBIlQKG0Rvd25sb2FkQXNzZXRCdW5kbGVSZXNw",
-            "b25zZRINCgVjaHVuaxgBIAEoDBINCgVpbmRleBgCIAEoBRITCgt0b3RhbF9j",
-            "b3VudBgDIAEoBToCGAEiUwoQTWlycm9yZWRCbG9iSW5mbxIRCglibG9iX25h",
-            "bWUYASABKAkSFQoNbWFqb3JfdmVyc2lvbhgCIAEoBRIVCg1taW5vcl92ZXJz",
-            "aW9uGAMgASgFIlkKE0Rvd25sb2FkQmxvYlJlcXVlc3QSQgoSbWlycm9yZWRf",
-            "YmxvYl9pbmZvGAEgASgLMiYudmlydHVhbGZyaWVuZHNfcHJvdG8uTWlycm9y",
-            "ZWRCbG9iSW5mbyKNAQoURG93bmxvYWRCbG9iUmVzcG9uc2USQgoSbWlycm9y",
-            "ZWRfYmxvYl9pbmZvGAEgASgLMiYudmlydHVhbGZyaWVuZHNfcHJvdG8uTWly",
-            "cm9yZWRCbG9iSW5mbxINCgVjaHVuaxgCIAEoDBINCgVpbmRleBgDIAEoBRIT",
-            "Cgt0b3RhbF9jb3VudBgEIAEoBSIpChNMb2FkZXJSZWFkeVBsYXllck1lEhIK",
-            "CmF2YXRhcl91cmwYASABKAkiJwoSTG9hZGVyQmxvYkRvd25sb2FkEhEKCWJs",
-            "b2JfbmFtZRgBIAEoCSIrChNHZXRDaGFyYWN0ZXJSZXF1ZXN0EhQKDGNoYXJh",
-            "Y3Rlcl9pZBgBIAEoCSKLAwoUR2V0Q2hhcmFjdGVyUmVzcG9uc2USSQoUbG9h",
-            "ZGVyX3JlYWR5cGxheWVybWUYASABKAsyKS52aXJ0dWFsZnJpZW5kc19wcm90",
-            "by5Mb2FkZXJSZWFkeVBsYXllck1lSAASSAoUbG9hZGVyX2Jsb2JfZG93bmxv",
-            "YWQYBSABKAsyKC52aXJ0dWFsZnJpZW5kc19wcm90by5Mb2FkZXJCbG9iRG93",
-            "bmxvYWRIABIsCgZnZW5kZXIYAiABKA4yHC52aXJ0dWFsZnJpZW5kc19wcm90",
-            "by5HZW5kZXISEwoLZnJpZW5kX25hbWUYAyABKAkSNwoMdm9pY2VfY29uZmln",
-            "GAQgASgLMiEudmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VDb25maWcSEAoI",
-            "Z3JlZXRpbmcYBiABKAkSFAoMZ3JlZXRpbmdfd2F2GAkgASgMEhMKC2Rlc2Ny",
-            "aXB0aW9uGAcgASgJEhQKDGJhc2VfcHJvbXB0cxgIIAEoCUIPCg1sb2FkZXJf",
-            "Y29uZmlnKokBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFsaWQQABIY",
-            "ChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9Ob3JtYWxG",
-            "ZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxIRCg1Wb2lj",
-            "ZVR5cGVfT3JjEAQqQAoGR2VuZGVyEhIKDkdlbmRlcl9JbnZhbGlkEAASDwoL",
-            "R2VuZGVyX01hbGUQARIRCg1HZW5kZXJfRmVtYWxlEAJiBnByb3RvMw=="));
+            "ZBgLIAEoCRISCgpzZXNzaW9uX2lkGAwgASgJEjUKC3J1bnRpbWVfZW52GA4g",
+            "ASgOMiAudmlydHVhbGZyaWVuZHNfcHJvdG8uUnVudGltZUVudkIJCgdyZXF1",
+            "ZXN0SgQIARACIq4DCgpWZlJlc3BvbnNlEjAKBWVycm9yGAEgASgLMiEudmly",
+            "dHVhbGZyaWVuZHNfcHJvdG8uQ3VzdG9tRXJyb3ISMgoEZWNobxgCIAEoCzIi",
+            "LnZpcnR1YWxmcmllbmRzX3Byb3RvLkVjaG9SZXNwb25zZUgAElAKFHN0cmVh",
+            "bV9yZXBseV9tZXNzYWdlGAYgASgLMjAudmlydHVhbGZyaWVuZHNfcHJvdG8u",
+            "U3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9uc2VIABJSChVkb3dubG9hZF9hc3Nl",
+            "dF9idW5kbGUYByABKAsyMS52aXJ0dWFsZnJpZW5kc19wcm90by5Eb3dubG9h",
+            "ZEFzc2V0QnVuZGxlUmVzcG9uc2VIABJDCg1kb3dubG9hZF9ibG9iGAggASgL",
+            "MioudmlydHVhbGZyaWVuZHNfcHJvdG8uRG93bmxvYWRCbG9iUmVzcG9uc2VI",
+            "ABJDCg1nZXRfY2hhcmFjdGVyGAkgASgLMioudmlydHVhbGZyaWVuZHNfcHJv",
+            "dG8uR2V0Q2hhcmFjdGVyUmVzcG9uc2VIAEIKCghyZXNwb25zZSIkCgtDdXN0",
+            "b21FcnJvchIVCg1lcnJvcl9tZXNzYWdlGAEgASgJIlQKC0VjaG9SZXF1ZXN0",
+            "EgwKBHRleHQYASABKAkSNwoMdm9pY2VfY29uZmlnGAIgASgLMiEudmlydHVh",
+            "bGZyaWVuZHNfcHJvdG8uVm9pY2VDb25maWciUgoMRWNob1Jlc3BvbnNlEgwK",
+            "BHRleHQYASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVudBgDIAEo",
+            "CRIRCglyZXBseV93YXYYBCABKAwiagoLVm9pY2VDb25maWcSMwoKdm9pY2Vf",
+            "dHlwZRgBIAEoDjIfLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlVHlwZRIP",
+            "CgdvY3RhdmVzGAIgASgCEhUKDWVsZXZlbl9sYWJfaWQYAyABKAkiPQoPTWly",
+            "cm9yZWRDb250ZW50EhYKDmNoYXJhY3Rlcl9uYW1lGAEgASgJEhIKCm1lc3Nh",
+            "Z2VfaWQYAiABKAMiqwIKGVN0cmVhbVJlcGx5TWVzc2FnZVJlcXVlc3QSPwoQ",
+            "bWlycm9yZWRfY29udGVudBgBIAEoCzIlLnZpcnR1YWxmcmllbmRzX3Byb3Rv",
+            "Lk1pcnJvcmVkQ29udGVudBIVCg1qc29uX21lc3NhZ2VzGAIgAygJEhQKDGJh",
+            "c2VfcHJvbXB0cxgIIAEoCRIWCg5jdXN0b21fcHJvbXB0cxgHIAEoCRIdChVj",
+            "aGFyYWN0ZXJfZGVzY3JpcHRpb24YCSABKAkSDQoDd2F2GAMgASgMSAASDgoE",
+            "dGV4dBgGIAEoCUgAEjcKDHZvaWNlX2NvbmZpZxgFIAEoCzIhLnZpcnR1YWxm",
+            "cmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnQhEKD2N1cnJlbnRfbWVzc2FnZSLq",
+            "AQoaU3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9uc2USPwoQbWlycm9yZWRfY29u",
+            "dGVudBgGIAEoCzIlLnZpcnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29u",
+            "dGVudBIVCg1yZXBseV9tZXNzYWdlGAEgASgJEg4KBmFjdGlvbhgCIAEoCRIR",
+            "CglzZW50aW1lbnQYAyABKAkSEQoJcmVwbHlfd2F2GAQgASgMEhgKEHRyYW5z",
+            "Y3JpYmVkX3RleHQYBSABKAkSEwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNf",
+            "c3RvcBgIIAEoCCJqChpEb3dubG9hZEFzc2V0QnVuZGxlUmVxdWVzdBIWCg5w",
+            "dWJsaXNoZXJfbmFtZRgBIAEoCRIWCg5jaGFyYWN0ZXJfbmFtZRgCIAEoCRIY",
+            "ChBydW50aW1lX3BsYXRmb3JtGAMgASgJOgIYASJUChtEb3dubG9hZEFzc2V0",
+            "QnVuZGxlUmVzcG9uc2USDQoFY2h1bmsYASABKAwSDQoFaW5kZXgYAiABKAUS",
+            "EwoLdG90YWxfY291bnQYAyABKAU6AhgBIlMKEE1pcnJvcmVkQmxvYkluZm8S",
+            "EQoJYmxvYl9uYW1lGAEgASgJEhUKDW1ham9yX3ZlcnNpb24YAiABKAUSFQoN",
+            "bWlub3JfdmVyc2lvbhgDIAEoBSJZChNEb3dubG9hZEJsb2JSZXF1ZXN0EkIK",
+            "Em1pcnJvcmVkX2Jsb2JfaW5mbxgBIAEoCzImLnZpcnR1YWxmcmllbmRzX3By",
+            "b3RvLk1pcnJvcmVkQmxvYkluZm8ijQEKFERvd25sb2FkQmxvYlJlc3BvbnNl",
+            "EkIKEm1pcnJvcmVkX2Jsb2JfaW5mbxgBIAEoCzImLnZpcnR1YWxmcmllbmRz",
+            "X3Byb3RvLk1pcnJvcmVkQmxvYkluZm8SDQoFY2h1bmsYAiABKAwSDQoFaW5k",
+            "ZXgYAyABKAUSEwoLdG90YWxfY291bnQYBCABKAUiKQoTTG9hZGVyUmVhZHlQ",
+            "bGF5ZXJNZRISCgphdmF0YXJfdXJsGAEgASgJIicKEkxvYWRlckJsb2JEb3du",
+            "bG9hZBIRCglibG9iX25hbWUYASABKAkiKwoTR2V0Q2hhcmFjdGVyUmVxdWVz",
+            "dBIUCgxjaGFyYWN0ZXJfaWQYASABKAkiqQMKFEdldENoYXJhY3RlclJlc3Bv",
+            "bnNlEhwKFGdlbmVyYXRlZF9zZXNzaW9uX2lkGAogASgJEkkKFGxvYWRlcl9y",
+            "ZWFkeXBsYXllcm1lGAEgASgLMikudmlydHVhbGZyaWVuZHNfcHJvdG8uTG9h",
+            "ZGVyUmVhZHlQbGF5ZXJNZUgAEkgKFGxvYWRlcl9ibG9iX2Rvd25sb2FkGAUg",
+            "ASgLMigudmlydHVhbGZyaWVuZHNfcHJvdG8uTG9hZGVyQmxvYkRvd25sb2Fk",
+            "SAASLAoGZ2VuZGVyGAIgASgOMhwudmlydHVhbGZyaWVuZHNfcHJvdG8uR2Vu",
+            "ZGVyEhMKC2ZyaWVuZF9uYW1lGAMgASgJEjcKDHZvaWNlX2NvbmZpZxgEIAEo",
+            "CzIhLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnEhAKCGdyZWV0",
+            "aW5nGAYgASgJEhQKDGdyZWV0aW5nX3dhdhgJIAEoDBITCgtkZXNjcmlwdGlv",
+            "bhgHIAEoCRIUCgxiYXNlX3Byb21wdHMYCCABKAlCDwoNbG9hZGVyX2NvbmZp",
+            "ZypjCgpSdW50aW1lRW52EhYKElJ1bnRpbWVFbnZfSW52YWxpZBAAEh4KGlJ1",
+            "bnRpbWVFbnZfV2VicGFnZV9EZXNrdG9wEAESHQoZUnVudGltZUVudl9XZWJw",
+            "YWdlX01vYmlsZRACKokBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFs",
+            "aWQQABIYChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9O",
+            "b3JtYWxGZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxIR",
+            "Cg1Wb2ljZVR5cGVfT3JjEAQqQAoGR2VuZGVyEhIKDkdlbmRlcl9JbnZhbGlk",
+            "EAASDwoLR2VuZGVyX01hbGUQARIRCg1HZW5kZXJfRmVtYWxlEAJiBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.VoiceType), typeof(global::VirtualfriendsProto.Gender), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob", "GetCharacter", "IpAddr", "Username", "UserId", "SessionId" }, new[]{ "Request" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.RuntimeEnv), typeof(global::VirtualfriendsProto.VoiceType), typeof(global::VirtualfriendsProto.Gender), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfRequest), global::VirtualfriendsProto.VfRequest.Parser, new[]{ "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob", "GetCharacter", "IpAddr", "Username", "UserId", "SessionId", "RuntimeEnv" }, new[]{ "Request" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VfResponse), global::VirtualfriendsProto.VfResponse.Parser, new[]{ "Error", "Echo", "StreamReplyMessage", "DownloadAssetBundle", "DownloadBlob", "GetCharacter" }, new[]{ "Response" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.CustomError), global::VirtualfriendsProto.CustomError.Parser, new[]{ "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text", "VoiceConfig" }, null, null, null, null),
@@ -113,13 +118,22 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.LoaderReadyPlayerMe), global::VirtualfriendsProto.LoaderReadyPlayerMe.Parser, new[]{ "AvatarUrl" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.LoaderBlobDownload), global::VirtualfriendsProto.LoaderBlobDownload.Parser, new[]{ "BlobName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterRequest), global::VirtualfriendsProto.GetCharacterRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterResponse), global::VirtualfriendsProto.GetCharacterResponse.Parser, new[]{ "LoaderReadyplayerme", "LoaderBlobDownload", "Gender", "FriendName", "VoiceConfig", "Greeting", "GreetingWav", "Description", "BasePrompts" }, new[]{ "LoaderConfig" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.GetCharacterResponse), global::VirtualfriendsProto.GetCharacterResponse.Parser, new[]{ "GeneratedSessionId", "LoaderReadyplayerme", "LoaderBlobDownload", "Gender", "FriendName", "VoiceConfig", "Greeting", "GreetingWav", "Description", "BasePrompts" }, new[]{ "LoaderConfig" }, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Enums
+  /// <summary>
+  /// Next tag: 3
+  /// </summary>
+  public enum RuntimeEnv {
+    [pbr::OriginalName("RuntimeEnv_Invalid")] Invalid = 0,
+    [pbr::OriginalName("RuntimeEnv_Webpage_Desktop")] WebpageDesktop = 1,
+    [pbr::OriginalName("RuntimeEnv_Webpage_Mobile")] WebpageMobile = 2,
+  }
+
   /// <summary>
   /// Next tag: 3
   /// </summary>
@@ -144,7 +158,7 @@ namespace VirtualfriendsProto {
 
   #region Messages
   /// <summary>
-  /// Next tag: 14
+  /// Next tag: 15
   /// </summary>
   public sealed partial class VfRequest : pb::IMessage<VfRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -184,6 +198,7 @@ namespace VirtualfriendsProto {
       username_ = other.username_;
       userId_ = other.userId_;
       sessionId_ = other.sessionId_;
+      runtimeEnv_ = other.runtimeEnv_;
       switch (other.RequestCase) {
         case RequestOneofCase.Echo:
           Echo = other.Echo.Clone();
@@ -320,6 +335,18 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "runtime_env" field.</summary>
+    public const int RuntimeEnvFieldNumber = 14;
+    private global::VirtualfriendsProto.RuntimeEnv runtimeEnv_ = global::VirtualfriendsProto.RuntimeEnv.Invalid;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::VirtualfriendsProto.RuntimeEnv RuntimeEnv {
+      get { return runtimeEnv_; }
+      set {
+        runtimeEnv_ = value;
+      }
+    }
+
     private object request_;
     /// <summary>Enum of possible cases for the "request" oneof.</summary>
     public enum RequestOneofCase {
@@ -368,6 +395,7 @@ namespace VirtualfriendsProto {
       if (Username != other.Username) return false;
       if (UserId != other.UserId) return false;
       if (SessionId != other.SessionId) return false;
+      if (RuntimeEnv != other.RuntimeEnv) return false;
       if (RequestCase != other.RequestCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -385,6 +413,7 @@ namespace VirtualfriendsProto {
       if (Username.Length != 0) hash ^= Username.GetHashCode();
       if (UserId.Length != 0) hash ^= UserId.GetHashCode();
       if (SessionId.Length != 0) hash ^= SessionId.GetHashCode();
+      if (RuntimeEnv != global::VirtualfriendsProto.RuntimeEnv.Invalid) hash ^= RuntimeEnv.GetHashCode();
       hash ^= (int) requestCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -440,6 +469,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(106);
         output.WriteMessage(GetCharacter);
       }
+      if (RuntimeEnv != global::VirtualfriendsProto.RuntimeEnv.Invalid) {
+        output.WriteRawTag(112);
+        output.WriteEnum((int) RuntimeEnv);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -486,6 +519,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(106);
         output.WriteMessage(GetCharacter);
       }
+      if (RuntimeEnv != global::VirtualfriendsProto.RuntimeEnv.Invalid) {
+        output.WriteRawTag(112);
+        output.WriteEnum((int) RuntimeEnv);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -523,6 +560,9 @@ namespace VirtualfriendsProto {
       if (SessionId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(SessionId);
       }
+      if (RuntimeEnv != global::VirtualfriendsProto.RuntimeEnv.Invalid) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RuntimeEnv);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -546,6 +586,9 @@ namespace VirtualfriendsProto {
       }
       if (other.SessionId.Length != 0) {
         SessionId = other.SessionId;
+      }
+      if (other.RuntimeEnv != global::VirtualfriendsProto.RuntimeEnv.Invalid) {
+        RuntimeEnv = other.RuntimeEnv;
       }
       switch (other.RequestCase) {
         case RequestOneofCase.Echo:
@@ -656,6 +699,10 @@ namespace VirtualfriendsProto {
             GetCharacter = subBuilder;
             break;
           }
+          case 112: {
+            RuntimeEnv = (global::VirtualfriendsProto.RuntimeEnv) input.ReadEnum();
+            break;
+          }
         }
       }
     #endif
@@ -730,6 +777,10 @@ namespace VirtualfriendsProto {
             }
             input.ReadMessage(subBuilder);
             GetCharacter = subBuilder;
+            break;
+          }
+          case 112: {
+            RuntimeEnv = (global::VirtualfriendsProto.RuntimeEnv) input.ReadEnum();
             break;
           }
         }
@@ -5342,7 +5393,7 @@ namespace VirtualfriendsProto {
   }
 
   /// <summary>
-  /// Next tag: 10
+  /// Next tag: 11
   /// </summary>
   public sealed partial class GetCharacterResponse : pb::IMessage<GetCharacterResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -5378,6 +5429,7 @@ namespace VirtualfriendsProto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetCharacterResponse(GetCharacterResponse other) : this() {
+      generatedSessionId_ = other.generatedSessionId_;
       gender_ = other.gender_;
       friendName_ = other.friendName_;
       voiceConfig_ = other.voiceConfig_ != null ? other.voiceConfig_.Clone() : null;
@@ -5401,6 +5453,18 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetCharacterResponse Clone() {
       return new GetCharacterResponse(this);
+    }
+
+    /// <summary>Field number for the "generated_session_id" field.</summary>
+    public const int GeneratedSessionIdFieldNumber = 10;
+    private string generatedSessionId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string GeneratedSessionId {
+      get { return generatedSessionId_; }
+      set {
+        generatedSessionId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     /// <summary>Field number for the "loader_readyplayerme" field.</summary>
@@ -5547,6 +5611,7 @@ namespace VirtualfriendsProto {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (GeneratedSessionId != other.GeneratedSessionId) return false;
       if (!object.Equals(LoaderReadyplayerme, other.LoaderReadyplayerme)) return false;
       if (!object.Equals(LoaderBlobDownload, other.LoaderBlobDownload)) return false;
       if (Gender != other.Gender) return false;
@@ -5564,6 +5629,7 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (GeneratedSessionId.Length != 0) hash ^= GeneratedSessionId.GetHashCode();
       if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) hash ^= LoaderReadyplayerme.GetHashCode();
       if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderBlobDownload) hash ^= LoaderBlobDownload.GetHashCode();
       if (Gender != global::VirtualfriendsProto.Gender.Invalid) hash ^= Gender.GetHashCode();
@@ -5628,6 +5694,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(74);
         output.WriteBytes(GreetingWav);
       }
+      if (GeneratedSessionId.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(GeneratedSessionId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -5674,6 +5744,10 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(74);
         output.WriteBytes(GreetingWav);
       }
+      if (GeneratedSessionId.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(GeneratedSessionId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -5684,6 +5758,9 @@ namespace VirtualfriendsProto {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (GeneratedSessionId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(GeneratedSessionId);
+      }
       if (loaderConfigCase_ == LoaderConfigOneofCase.LoaderReadyplayerme) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoaderReadyplayerme);
       }
@@ -5722,6 +5799,9 @@ namespace VirtualfriendsProto {
     public void MergeFrom(GetCharacterResponse other) {
       if (other == null) {
         return;
+      }
+      if (other.GeneratedSessionId.Length != 0) {
+        GeneratedSessionId = other.GeneratedSessionId;
       }
       if (other.Gender != global::VirtualfriendsProto.Gender.Invalid) {
         Gender = other.Gender;
@@ -5826,6 +5906,10 @@ namespace VirtualfriendsProto {
             GreetingWav = input.ReadBytes();
             break;
           }
+          case 82: {
+            GeneratedSessionId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -5888,6 +5972,10 @@ namespace VirtualfriendsProto {
           }
           case 74: {
             GreetingWav = input.ReadBytes();
+            break;
+          }
+          case 82: {
+            GeneratedSessionId = input.ReadString();
             break;
           }
         }

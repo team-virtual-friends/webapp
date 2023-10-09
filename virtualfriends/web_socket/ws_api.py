@@ -9,7 +9,7 @@ import concurrent.futures
 import os
 import pathlib
 import time
-from multiprocessing import Process
+import uuid
 
 from utils.read_write_lock import RWLock
 
@@ -137,6 +137,8 @@ def echo_handler(echo_request:ws_message_pb2.EchoRequest, ws):
 def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
     vf_response = ws_message_pb2.VfResponse()
     response = ws_message_pb2.GetCharacterResponse()
+    new_uuid = uuid.uuid4()
+    response.generated_session_id = str(new_uuid)
 
     # TODO(yufan.lu, ysong): replace with actual DB call.
     if request.character_id == "mina":
@@ -468,7 +470,7 @@ def log_current_latency(env, session_id, user_id, user_ip, character_id, latency
     current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     asyncio.run(log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp))
 
-def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, user_ip, ws):
+def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, user_ip, session_id, runtime_env, ws):
     env = os.environ.get('ENV', 'LOCAL')
 
     character_name = request.mirrored_content.character_name.lower()
@@ -507,7 +509,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, character_name, request.base_prompts, request.custom_prompts, user_ip)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, character_name, request.base_prompts, request.custom_prompts, user_ip, session_id, runtime_env)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()

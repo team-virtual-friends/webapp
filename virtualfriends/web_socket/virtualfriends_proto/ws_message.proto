@@ -2,7 +2,16 @@ syntax = "proto3";
 
 package virtualfriends_proto;
 
-// Next tag: 14
+// Next tag: 3
+enum RuntimeEnv {
+    RuntimeEnv_Invalid = 0;
+
+    RuntimeEnv_Webpage_Desktop = 1;
+
+    RuntimeEnv_Webpage_Mobile = 2;
+}
+
+// Next tag: 15
 message VfRequest {
     reserved 1;
 
@@ -25,6 +34,8 @@ message VfRequest {
     string user_id = 11;
 
     string session_id = 12;
+
+    RuntimeEnv runtime_env = 14;
 }
 
 // Next tag: 10
@@ -211,8 +222,10 @@ message GetCharacterRequest {
     string character_id = 1;
 }
 
-// Next tag: 10
+// Next tag: 11
 message GetCharacterResponse {
+    string generated_session_id = 10;
+
     oneof loader_config {
         LoaderReadyPlayerMe loader_readyplayerme = 1;
 
