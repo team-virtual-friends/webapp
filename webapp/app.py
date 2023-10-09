@@ -9,7 +9,8 @@ from flask_wtf import FlaskForm
 
 from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
-from datetime import datetime
+from datetime import datetime as dt
+
 from google.oauth2 import service_account
 import logging
 import concurrent.futures
@@ -113,7 +114,7 @@ def join_waitlist():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
-        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = dt.now().strftime("%Y-%m-%d %H:%M:%S")
 
         # The SQL query to insert data
         sql = """
@@ -221,7 +222,7 @@ def submit_feedback():
     if request.method == 'POST':
         feedback = request.form['feedback']
         email = request.form['email']
-        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = dt.now().strftime("%Y-%m-%d %H:%M:%S")
 
         # Define the target table using your dataset and table names
         dataset_name = 'virtualfriends'  # Replace with your dataset name
@@ -347,7 +348,9 @@ def create_character():
         character_prompts = request.form['character_prompts']
         audio_file = request.files['audioFile']
 
-        character_id_string = f"{user_email}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        date = dt.now().strftime('%Y%m%d%H%M%S')
+
+        character_id_string = f"{user_email}_{date}"
         character_id = hashlib.md5(character_id_string.encode()).hexdigest()
 
         # Save the audio file (if needed) and get its name
@@ -423,4 +426,4 @@ def healthz():
     return "Healthy", 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5556)
+    app.run(debug=True, port=5557)
