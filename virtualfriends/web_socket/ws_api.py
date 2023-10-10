@@ -269,8 +269,12 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         if len(err) == 0 and voiceBytes is not None and len(voiceBytes) > 0:
             response.greeting_wav = voiceBytes
         response.description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
-        response.base_prompts = get_character_attribute_value_via_gcs(gcs_client, character, "character_prompts")
-
+        response.base_prompts = (
+            f"name: {response.friend_name}\n"
+            f"description: {response.description}\n"
+            f"{get_character_attribute_value_via_gcs(gcs_client, character, 'character_prompts')}\n"
+            f"Act as {response.friend_name}\n"
+        )
     vf_response.get_character.CopyFrom(response)
     send_message(ws, vf_response)
 
