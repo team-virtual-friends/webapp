@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, url_for, request, flash, make_response
+from flask import Flask, render_template, redirect, url_for, request, flash, make_response, Response
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 from wtforms import StringField, PasswordField, SubmitField
@@ -413,6 +413,23 @@ def display_user(character_id):
 def display_search_results(prefix):
     characters = search_characters_by_prefix(datastore_client, prefix)
     return render_template('search_character_results.html', characters=characters)
+
+@app.route('/fbx')
+def fbx_loader():
+    return render_template("fbx_loader.html")
+
+@app.route('/fbx_files/<file_name>')
+def get_file(file_name):
+    with open(f'templates/fbx_files/{file_name}', 'rb') as file:
+        file_data = file.read()
+        
+        # Set the content type and disposition headers for the response
+        headers = {
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': 'attachment; filename="your_file.ext"'
+        }
+        
+        return Response(file_data, headers=headers)
 
 @app.route('/healthz', methods=['GET'])
 def healthz():
