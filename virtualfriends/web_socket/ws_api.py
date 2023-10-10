@@ -45,6 +45,20 @@ logger.error(f"Faster Whisper Model device: {device}")
 faster_whisper_model = WhisperModel("base", device=device, compute_type="int8")
 
 
+def determine_loader(url, response):
+    rpm_regex = r"https:\/\/models\.readyplayer\.me\/[0-9a-z]+\.glb"
+    matches = re.finditer(rpm_regex, url, re.MULTILINE)
+    if any(matches):
+        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
+        loaderReadyPlayerMe.avatar_url = url
+        response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+    
+    blob_download_prefix = "vf://blob/"
+    if url.startswith(blob_download_prefix):
+        loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
+        loaderBlobDownload.blob_name = url[len(blob_download_prefix):]
+        response.loader_blob_download.CopyFrom(loaderBlobDownload)
+
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
     try:
         ws.send(vf_response.SerializeToString())
@@ -56,6 +70,25 @@ def pre_download_all_asset_bundles():
     asset_bundle_names = [
         "mina",
         "einstein",
+
+        "m-00001",
+        "m-00002",
+        "m-00003",
+        "m-00004",
+        "m-00005",
+
+        "w-00001",
+        "w-00002",
+        "w-00003",
+        "w-00004",
+        "w-00005",
+        "w-00006",
+        "w-00007",
+        "w-00008",
+        "w-00009",
+        "w-00010",
+        "w-00011",
+        "w-00012",
     ]
 
     credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
@@ -142,14 +175,12 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
 
     # TODO(yufan.lu, ysong): replace with actual DB call.
     if request.character_id == "mina":
-        loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
-        loaderBlobDownload.blob_name = "mina"
+        determine_loader("vf://blob/mina", response)
 
         voiceConfig = ws_message_pb2.VoiceConfig()
         voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale1
         voiceConfig.octaves = 0.3
 
-        response.loader_blob_download.CopyFrom(loaderBlobDownload)
         response.gender = ws_message_pb2.Gender.Gender_Female
         response.friend_name = "mina"
         response.voice_config.CopyFrom(voiceConfig)
@@ -173,14 +204,12 @@ Be concise in your response; do not provide extensive information at once.
 '''
 
     elif request.character_id == "einstein":
-        loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
-        loaderBlobDownload.blob_name = "einstein"
+        determine_loader("vf://blob/einstein", response)
 
         voiceConfig = ws_message_pb2.VoiceConfig()
         voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalMale
         voiceConfig.octaves = -0.2
 
-        response.loader_blob_download.CopyFrom(loaderBlobDownload)
         response.gender = ws_message_pb2.Gender.Gender_Male
         response.friend_name = "einstein"
         response.voice_config.CopyFrom(voiceConfig)
@@ -241,10 +270,7 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         latency = end_time - start_time
         logger.error(f"get_character_by_id {latency:.5f} seconds")
 
-        loaderReadyPlayerMe = ws_message_pb2.LoaderReadyPlayerMe()
-        loaderReadyPlayerMe.avatar_url = character.get('rpm_url', '')
-        if len(loaderReadyPlayerMe.avatar_url) > 0:
-            response.loader_readyplayerme.CopyFrom(loaderReadyPlayerMe)
+        determine_loader(character.get('rpm_url', ''), response)
 
         voiceConfig = ws_message_pb2.VoiceConfig()
         voiceConfig.eleven_lab_id = character['elevanlab_id']
