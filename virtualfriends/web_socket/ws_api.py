@@ -56,7 +56,10 @@ def determine_loader(url, response):
     blob_download_prefix = "vf://blob/"
     if url.startswith(blob_download_prefix):
         loaderBlobDownload = ws_message_pb2.LoaderBlobDownload()
-        loaderBlobDownload.blob_name = url[len(blob_download_prefix):]
+        blob_name = url[len(blob_download_prefix):]
+        loaderBlobDownload.blob_name = blob_name
+        # TODO(yufan.lu), make this changeable too.
+        loaderBlobDownload.in_bundle_object_name = blob_name
         response.loader_blob_download.CopyFrom(loaderBlobDownload)
 
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
@@ -89,10 +92,6 @@ def pre_download_all_asset_bundles():
         "w-00010",
         "w-00011",
     ]
-
-    credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')
-    credentials = service_account.Credentials.from_service_account_file(credentials_path)
-    
 
     folder = os.path.expanduser('./static')
     download_folder = f"{folder}/{gcs_path}"

@@ -212,9 +212,11 @@ message DownloadBlobResponse {
 message LoaderReadyPlayerMe {
     string avatar_url = 1;
 }
-// Next tag: 2
+// Next tag: 3
 message LoaderBlobDownload {
     string blob_name = 1;
+
+    string in_bundle_object_name = 2;
 }
 
 // Next tag: 2
