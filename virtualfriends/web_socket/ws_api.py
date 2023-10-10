@@ -88,7 +88,6 @@ def pre_download_all_asset_bundles():
         "w-00009",
         "w-00010",
         "w-00011",
-        "w-00012",
     ]
 
     credentials_path = os.path.expanduser('ysong-chat-845e43a6c55b.json')

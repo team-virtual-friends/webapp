@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Gallery</title>
+    <style>
+        /* Style for the picture container */
+        .picture-container {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+        }
+
+        /* Style for the picture */
+        .picture {
+            max-width: 600px;
+            max-height: 600px;
+        }
+
+        /* Style for the text below the picture */
+        .picture-text {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Picture Gallery</h1>
+
+    {% for entry in model_infos %}
+    <div class="picture-container">
+        <img class="picture" src="{{ entry['image_url'] }}" alt="Image">
+        <div class="picture-text">{{ entry['url'] }}</div>
+    </div>
+    {% endfor %}
+
+</body>
+</html>

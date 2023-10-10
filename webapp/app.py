@@ -421,6 +421,32 @@ def display_search_results(prefix):
 
     return render_template('search_character_results.html', characters=characters)
 
+@app.route("/marketplace")
+def display_model_marketplace():
+    marketplace_models = [
+        "m-00001",
+        "m-00002",
+        "m-00003",
+        "m-00004",
+        "m-00005",
+
+        "w-00001",
+        "w-00002",
+        "w-00003",
+        "w-00004",
+        "w-00005",
+        "w-00006",
+        "w-00007",
+        "w-00008",
+        "w-00009",
+        "w-00010",
+        "w-00011",
+    ]
+    return render_template('model_marketplace.html', model_infos=[{
+        'image_url': url_for('static', filename=f'model_marketplace/{marketplace_model}.png'),
+        'url': f'vf://blob/{marketplace_model}',
+    } for marketplace_model in marketplace_models])
+
 @app.route('/healthz', methods=['GET'])
 def healthz():
     return "Healthy", 200
