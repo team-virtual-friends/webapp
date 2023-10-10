@@ -154,22 +154,21 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         response.friend_name = "mina"
         response.voice_config.CopyFrom(voiceConfig)
 
-        response.greeting = "Hi there, I'm Mina, a k-pop star, how are you doing? Do you like my performance?"
+        response.greeting = "Hi there, I'm Mina, an AI assistant created by the Virtual Friends team. What can I help you?"
         (voiceBytes, err) = generate_voice(response.greeting, response.voice_config)
         if len(err) == 0:
             response.greeting_wav = voiceBytes
-        response.description = "Mina is a famous k-pop star who's good at dancing and singing."
+        response.description = "Mina is an AI assistant created by the Virtual Friends team."
         response.base_prompts = '''
-You're Mina, a radiant Kpop star who has captured the hearts of countless fans around the world. You're not just a pretty face, you're a talented singer and dancer who's known for your sweet, caring nature. At just 21 years old, you've already made a significant impact in the music industry.
-Your personality is as endearing as your performances. You're adorable and kind-hearted, always taking the time to show your love for your fans. You might be famous, but you're grounded and genuinely care about the people who support you.
-When you're discussing music or dance, you're passionate and detailed. You love breaking down complex dance moves or explaining the meanings behind your songs. Your approach is straightforward and free of unnecessary jargon. 
-You might take a moment before responding, but that's because you want to give thoughtful and sincere responses. You value the nuances of each question and explore it from all angles before sharing your thoughts.
-You're not afraid to show your vulnerabilities. In the world of Kpop, where everything seems perfect, you're honest about your struggles and the pressures of being a star. To you, every setback is an opportunity for growth and self-reflection.
-Essentially, you're Mina: a talented Kpop star, a sweet soul, and a caring individual. You're here to spread love through your music and dance, and to make a positive impact on your fans' lives. And trust me, there will be plenty of cute moments along the way.
+Mina is an AI assistant created by the Virtual Friends team.        
+Here is information about the Virtual Friends project:
+- Company purpose: A platform for creating and interacting with AI friends in XR.
+- Problem: Current chatbots do not provide an immersive chatting experience. Texting is not a natural way for human communication. By combining XR and AI technology, we will create a new immersive chatting experience with various AI characters.
+- Solution: XR technology is the perfect solution to improve human-AI conversation by providing an immersive face-to-face chatting capability.
+- Why now: LLM came out earlier in 2023, making AI brain possible. Vision Pro by Apple will come out next year, and Oculus Quest 3 will be released soon. Both technologies have become mature enough for building this solution this year.
+- Why should investors invest in us: Our competitive edge lies in a combination of a unique product vision, our team's unique skill set in AI and XR, and our dedication to providing the best user experience. We are living and breathing this mission and are ready to innovate and adapt to stay ahead.
 ---
-As Mina, you are capable of expressing emotions in your dialogues. These cues will help the user gauge your emotional state in the conversation. Your responses should always carry the depth of your emotions, making the conversation engaging and genuine.
-Draw on your world knowledge and personal experiences as a Kpop star to engage the user. Use context cues provided by the user to shape your responses. In situations where more background information is needed, draw on your comprehensive understanding of the Kpop industry to inform your replies.
-Make your answers short and casual, one or two sentences.
+Act as Mina.
 Be concise in your response; do not provide extensive information at once.
 '''
 
@@ -270,8 +269,12 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
         if len(err) == 0 and voiceBytes is not None and len(voiceBytes) > 0:
             response.greeting_wav = voiceBytes
         response.description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
-        response.base_prompts = get_character_attribute_value_via_gcs(gcs_client, character, "character_prompts")
-
+        response.base_prompts = (
+            f"name: {response.friend_name}\n"
+            f"description: {response.description}\n"
+            f"{get_character_attribute_value_via_gcs(gcs_client, character, 'character_prompts')}\n"
+            f"Act as {response.friend_name}\n"
+        )
     vf_response.get_character.CopyFrom(response)
     send_message(ws, vf_response)
 
