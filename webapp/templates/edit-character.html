@@ -86,7 +86,9 @@
         <h2 class="text-center">Edit Character</h2>
         <form id="editCharacterForm" action="/edit_character/{{ character['character_id'] }}" method="post" enctype="multipart/form-data" class="mt-4">
             <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe()" />
-            <p id="avatarUrl">Ready Player Me Avatar URL:</p>
+            <p id="avatarUrl">URL:</p>
+
+            <iframe id="frame" class="frame" allow="camera *; microphone *; clipboard-write" hidden></iframe>
 
             <!-- Ready Player Me Avatar URL -->
             <div class="mb-3">
@@ -125,7 +127,7 @@
 
             <!-- Character Prompt -->
             <div class="mb-3">
-                <label for="character_description" class="form-label">Character Prompts <br> Give instructions to your AI clone. (e.g. Virtual Friends assistant is always helpful and supportive. Act as virtual friends assistant.):</label>
+                <label for="character_description" class="form-label">Character Prompts <br> Give instructions to your AI friend. tell him/her how/what to chat with people. <br> (e.g. Virtual Friends assistant is always helpful and supportive. Ask clarification question when you are confused.):</label>
                 <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required>{{ character['character_prompts'] }}</textarea>
             </div>
 
@@ -141,67 +143,6 @@
             </div>
         </form>
     </div>
-
-
-
-
-
-<!--    <div class="container mt-5 mb-5">-->
-<!--&lt;!&ndash;        <h2 class="text-center">Create Your AI Clone</h2>&ndash;&gt;-->
-<!--        <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">-->
-
-<!--            <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe()" />-->
-<!--            <p id="avatarUrl">Ready Player Me Avatar URL:</p>-->
-
-<!--    <iframe id="frame" class="frame" allow="camera *; microphone *; clipboard-write" hidden></iframe>-->
-
-<!--            <div class="mb-3">-->
-<!--                <label for="rpm_url" class="form-label">Ready Player Me Avatar URL(Copy From Above)</label>-->
-<!--                <input type="text" class="form-control" id="rpm_url" name="rpm_url" required>-->
-<!--            </div>-->
-
-
-
-
-
-<!--            <div class="mb-3">-->
-<!--                <label for="name" class="form-label">Name:</label>-->
-<!--                <input type="text" class="form-control" id="name" name="name" required>-->
-<!--            </div>-->
-
-<!--            <div class="mb-3">-->
-<!--                <label for="gender" class="form-label">Gender:</label>-->
-<!--                <select class="form-control" id="gender" name="gender">-->
-<!--                    <option value="male">Male</option>-->
-<!--                    <option value="female">Female</option>-->
-<!--                    <option value="nonbinary">Non-Binary</option>-->
-<!--                    <option value="prefer_not_to_say">Prefer Not to Say</option>-->
-<!--                </select>-->
-<!--            </div>-->
-
-<!--            <div class="mb-3">-->
-<!--                <label for="character_greeting" class="form-label">Character Greeting:</label>-->
-<!--                <label for="character_greeting" class="form-label">(e.g. hi, I am Virtual Friends assistant. How can I help you?)</label>-->
-
-<!--                <input type="text" class="form-control" id="character_greeting" name="character_greeting" required>-->
-<!--            </div>-->
-
-<!--            <div class="mb-3">-->
-<!--                <label for="character_description" class="form-label">Character Description(e.g. You are Virtual Friends assistant. You always try to be helpful and friendly.):</label>-->
-<!--                <textarea class="form-control" id="character_description" name="character_description" rows="5" required></textarea>-->
-<!--            </div>-->
-
-<!--            <div class="mb-3">-->
-<!--                <label for="audioFile" class="form-label">Upload Audio File For Voice Clone(Optional):</label>-->
-<!--                <input type="file" class="form-control" id="audioFile" name="audioFile" accept="audio/*">-->
-<!--            </div>-->
-
-<!--            <div class="text-center">-->
-<!--                <input type="submit" class="btn btn-primary" value="Submit">-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-
 
 
     <script>
@@ -235,7 +176,7 @@
             // Get avatar GLB URL
             if (json.eventName === 'v1.avatar.exported') {
                 console.log(`Avatar URL: ${json.data.url}`);
-                document.getElementById('avatarUrl').innerHTML = `Avatar URL: ${json.data.url}`;
+                document.getElementById('avatarUrl').innerHTML = `${json.data.url}`;
                 document.getElementById('frame').hidden = true;
             }
 

@@ -86,7 +86,7 @@
 <!--        <h2 class="text-center">Create Your AI Clone</h2>-->
         <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">
             <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe()" />
-    <p id="avatarUrl">Ready Player Me Avatar URL:</p>
+    <p id="avatarUrl">URL:</p>
 
     <iframe id="frame" class="frame" allow="camera *; microphone *; clipboard-write" hidden></iframe>
 
@@ -125,7 +125,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="character_description" class="form-label">Character Prompts <br> Give instructions to your AI clone. (e.g. Virtual Friends assistant is always helpful and supportive. Act as virtual friends assistant.):</label>
+                <label for="character_description" class="form-label">Character Prompts <br> Give instructions to your AI friend. tell him/her how/what to chat with people. <br> (e.g. Virtual Friends assistant is always helpful and supportive. Ask clarification question when you are confused.):</label>
                 <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required></textarea>
             </div>
 
@@ -174,7 +174,7 @@
             // Get avatar GLB URL
             if (json.eventName === 'v1.avatar.exported') {
                 console.log(`Avatar URL: ${json.data.url}`);
-                document.getElementById('avatarUrl').innerHTML = `Avatar URL: ${json.data.url}`;
+                document.getElementById('avatarUrl').innerHTML = `${json.data.url}`;
                 document.getElementById('frame').hidden = true;
             }
 
