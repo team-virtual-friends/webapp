@@ -77,7 +77,7 @@
 <style>
     .fixed-card {
         width: 600px;
-        height: 200px;
+        height: 400px;
         overflow-y: auto;  /* Makes the card scrollable if content overflows */
     }
 </style>
@@ -99,11 +99,7 @@
             <div class="card fixed-card">
                 <div class="card-body">
                     <h5 class="card-title">{{ character['name'] }}</h5>
-<!--                    <p class="card-text"><strong>Ready Player Me URL:</strong> {{ character['rpm_url'] }}</p>-->
-<!--                    <p class="card-text"><strong>Character Greeting:</strong> {{ character['character_greeting'] }}</p>-->
-                    <p class="card-text"><strong>Description: </strong> {{ character['character_description'] }}</p>
-<!--                    <p class="card-text"> {{ character['character_description'] }}</p>-->
-<!--                    <p class="card-text"><strong>Audio File:</strong> {{ character.get('audio_file_name', 'No audio file') }}</p>-->
+                    <p class="card-text"><strong>Description:<br> </strong> {{ character['character_description']|replace("\n", "<br>")|safe }}</p>
                 </div>
             </div>
 
