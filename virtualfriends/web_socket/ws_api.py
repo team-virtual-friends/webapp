@@ -44,6 +44,9 @@ from faster_whisper import WhisperModel
 # Initialize the Whisper ASR model
 faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
 
+# for local testing, use cpu.
+#faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
+
 
 def determine_loader(url, response):
     rpm_regex = r"https:\/\/models\.readyplayer\.me\/[0-9a-z]+\.glb"
@@ -516,8 +519,14 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
 
         end_time = time.time()
         latency = end_time - start_time
-        log_current_latency(env, "session_id", "user_id", user_ip, character_name, "speech2text", latency)
         logger.info(f"speech2text latency is: {latency:.2f} seconds.")
+
+        # start_time = time.time()
+        # log_current_latency(env, "session_id", "user_id", user_ip, character_name, "speech2text", latency)
+        # end_time = time.time()
+        # latency = end_time - start_time
+        # logger.info(f"log_current_latency latency is: {latency:.2f} seconds.")
+
 
         if err is not None:
             logger.error("failed to speech to text: " + str(err))
@@ -550,8 +559,14 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config, character_name)
             end_time = time.time()
             latency = end_time - start_time
-            log_current_latency(env, "session_id", "user_id", user_ip, character_name, "gen_reply_package", latency)
             logger.info(f"gen_reply_package latency is: {latency:.2f} seconds.")
+
+            # start_time = time.time()
+            # log_current_latency(env, "session_id", "user_id", user_ip, character_name, "gen_reply_package", latency)
+            # end_time = time.time()
+            # latency = end_time - start_time
+            # logger.info(f"log_current_latency latency is: {latency:.2f} seconds.")
+
 
             if err is not None > 0:
                 logger.error(err)
