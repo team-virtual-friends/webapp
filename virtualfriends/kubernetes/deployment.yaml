@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: virtual-friends-app
-        image: gcr.io/ysong-chat/flask-app:2a728c5-01ef91e4
+        image: gcr.io/ysong-chat/flask-app:5fd3623-4743a991
         ports:
         - containerPort: 8080
         env:
@@ -23,11 +23,18 @@ spec:
         resources:
           requests:
             memory: "2Gi"
-            cpu: "3"
-            ephemeral-storage: "5Gi"
-#            nvidia.com/gpu: "1" # Requesting 1 T4 GPU
-          # limits:
-          #   memory: "2Gi"
-          #   cpu: "3"
-          #   ephemeral-storage: "5Gi"
-#            nvidia.com/gpu: "1" # Limiting to 1 T4 GPU
+            cpu: "1"
+            ephemeral-storage: "2Gi"
+            nvidia.com/gpu: "1"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+            ephemeral-storage: "2Gi"
+            nvidia.com/gpu: "1"
+      tolerations:
+      - key: "nvidia.com/gpu"
+        operator: "Equal"
+        value: "present"
+        effect: "NoSchedule"
+#      nodeSelector:
+#        nvidia.com/gpu: present

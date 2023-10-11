@@ -36,13 +36,13 @@ datastore_client = datastore.Client(credentials=credentials)
 gcs_client = storage.Client(credentials=credentials)
 
 from faster_whisper import WhisperModel
-from torch.cuda import is_available as is_cuda_available
-
-device = 'cuda' if is_cuda_available() else 'cpu'
-logger.error(f"Faster Whisper Model device: {device}")
+# from torch.cuda import is_available as is_cuda_available
+#
+# device = 'cuda' if is_cuda_available() else 'cpu'
+# logger.error(f"Faster Whisper Model device: {device}")
 
 # Initialize the Whisper ASR model
-faster_whisper_model = WhisperModel("base", device=device, compute_type="int8")
+faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
 
 
 def determine_loader(url, response):
@@ -510,9 +510,9 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         start_time = time.time()
 
 #       Need GPU  machine to reduce the latency.
-        # (text, err) = faster_whisper(wav_bytes)
+        (text, err) = faster_whisper(wav_bytes)
         # (text, err) = execute_speech2text_in_parallel(wav_bytes)
-        (text, err) = speech.speech_to_text_whisper(wav_bytes)
+        # (text, err) = speech.speech_to_text_whisper(wav_bytes)
 
         end_time = time.time()
         latency = end_time - start_time
