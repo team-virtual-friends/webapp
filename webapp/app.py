@@ -447,6 +447,20 @@ def display_model_marketplace():
         'url': f'vf://blob/{marketplace_model}',
     } for marketplace_model in marketplace_models])
 
+
+@app.route('/process_tip', methods=['POST'])
+def process_tip():
+    try:
+        # Get the amount from the form
+        amount = request.form.get('amount')
+
+        # TODO: Integrate with your payment gateway or service
+
+        return jsonify({'status': 'success', 'message': 'Thank you for your tip!'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
+
 @app.route('/healthz', methods=['GET'])
 def healthz():
     return "Healthy", 200
