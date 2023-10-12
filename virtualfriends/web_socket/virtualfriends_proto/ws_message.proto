@@ -218,13 +218,17 @@ message LoaderBlobDownload {
 
     string in_bundle_object_name = 2;
 }
+// Next tag: 2
+message LoaderAvaturn {
+    string avatar_url = 1;
+}
 
 // Next tag: 2
 message GetCharacterRequest {
     string character_id = 1;
 }
 
-// Next tag: 11
+// Next tag: 12
 message GetCharacterResponse {
     string generated_session_id = 10;
 
@@ -232,6 +236,8 @@ message GetCharacterResponse {
         LoaderReadyPlayerMe loader_readyplayerme = 1;
 
         LoaderBlobDownload loader_blob_download = 5;
+
+        LoaderAvaturn loader_avaturn = 11;
     }
 
     Gender gender = 2;
