@@ -78,9 +78,7 @@ pre_download_all_asset_bundles()
 
 if __name__ == '__main__':
     env = os.environ.get('ENV', 'LOCAL')
-    if env == 'PROD':
-        pass
-    elif env == 'STAGING':
+    if env == 'PROD' or env == 'STAGING':
         from waitress import serve
         serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8107)))
     else:

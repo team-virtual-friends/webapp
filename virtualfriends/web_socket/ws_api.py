@@ -41,11 +41,13 @@ from faster_whisper import WhisperModel
 # device = 'cuda' if is_cuda_available() else 'cpu'
 # logger.error(f"Faster Whisper Model device: {device}")
 
-# Initialize the Whisper ASR model
-# faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
-
-# for local testing, use cpu.
-faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
+env = os.environ.get('ENV', 'LOCAL')
+if env == 'PROD' or env == 'STAGING':
+    # Initialize the Whisper ASR model
+    faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
+else:
+    # for local testing, use cpu.
+    faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
 
 
 def determine_loader(url, response):
