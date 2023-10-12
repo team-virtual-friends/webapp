@@ -19,6 +19,21 @@ credentials_path = os.path.expanduser('./ysong-chat-845e43a6c55b.json')
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 text_to_speech_client = texttospeech.TextToSpeechClient(credentials=credentials)
 
+from faster_whisper import WhisperModel
+# from torch.cuda import is_available as is_cuda_available
+#
+# device = 'cuda' if is_cuda_available() else 'cpu'
+# logger.error(f"Faster Whisper Model device: {device}")
+
+env = os.environ.get('ENV', 'LOCAL')
+if env == 'PROD' or env == 'STAGING':
+    # Initialize the Whisper ASR model
+    faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
+else:
+    # for local testing, use cpu.
+    faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
+
+
 def speech_to_text_google(wav_bytes:bytes) -> (str, Exception):
     try:
         audio_source = sr.AudioData(wav_bytes, 44100, 2)
@@ -45,6 +60,26 @@ def speech_to_text_whisper(wav_bytes:bytes) -> (str, Exception):
     except Exception as e:
         logger.error(f"error when trying to call whisper: {e}")
         return ("", e)
+    
+def speech_to_text_whisper_gpu(wav_bytes:bytes) -> (str, Exception):
+    # Create a NamedBytesIO object from WAV bytes
+    audio_buffer = NamedBytesIO(wav_bytes, name="audio.wav")
+
+    # Transcribe the audio
+    # start_time = time.time()
+    segments, info = faster_whisper_model.transcribe(audio_buffer, beam_size=5)
+    # end_time = time.time()
+    # latency = end_time - start_time
+
+    # print(f"faster whisper took {latency:.5f} seconds")
+    # print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+
+    # transcribed_segments = []
+    # for segment in segments:
+    #     transcribed_segments.append([segment.start, segment.end, segment.text])
+
+    transcribed_text = " ".join(segment.text for segment in segments)
+    return transcribed_text, None
 
 def convert_mp3_to_wav(mp3_bytes: bytes) -> bytes:
     seg = AudioSegment.from_mp3(io.BytesIO(mp3_bytes))

@@ -35,20 +35,6 @@ bigquery_client = bigquery.Client(credentials=credentials)
 datastore_client = datastore.Client(credentials=credentials)
 gcs_client = storage.Client(credentials=credentials)
 
-from faster_whisper import WhisperModel
-# from torch.cuda import is_available as is_cuda_available
-#
-# device = 'cuda' if is_cuda_available() else 'cpu'
-# logger.error(f"Faster Whisper Model device: {device}")
-
-env = os.environ.get('ENV', 'LOCAL')
-if env == 'PROD' or env == 'STAGING':
-    # Initialize the Whisper ASR model
-    faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
-else:
-    # for local testing, use cpu.
-    faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
-
 
 def determine_loader(url, response):
     rpm_regex = r"https:\/\/models\.readyplayer\.me\/[0-9a-z]+\.glb"
@@ -397,28 +383,6 @@ def execute_speech2text_in_parallel(wav_bytes, repetitions=3):
 
     return None, "All attempts failed"
 
-# Infer whisper model locally
-def faster_whisper(wav_bytes):
-    # Create a NamedBytesIO object from WAV bytes
-    audio_buffer = speech.NamedBytesIO(wav_bytes, name="audio.wav")
-
-    # Transcribe the audio
-    # start_time = time.time()
-    segments, info = faster_whisper_model.transcribe(audio_buffer, beam_size=5)
-    # end_time = time.time()
-    # latency = end_time - start_time
-
-    # print(f"faster whisper took {latency:.5f} seconds")
-    # print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
-
-    # transcribed_segments = []
-    # for segment in segments:
-    #     transcribed_segments.append([segment.start, segment.end, segment.text])
-
-    transcribed_text = " ".join(segment.text for segment in segments)
-    return transcribed_text, None
-
-
 def generate_voice(text, voice_config) -> (bytes, str):
     # Enable voice clone call if voice_id is not None.
     if voice_config.eleven_lab_id is not None and len(voice_config.eleven_lab_id) > 0 :
@@ -522,7 +486,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
         start_time = time.time()
 
 #       Need GPU  machine to reduce the latency.
-        (text, err) = faster_whisper(wav_bytes)
+        (text, err) = speech.speech_to_text_whisper_gpu(wav_bytes)
         # (text, err) = execute_speech2text_in_parallel(wav_bytes)
         # (text, err) = speech.speech_to_text_whisper(wav_bytes)
 
