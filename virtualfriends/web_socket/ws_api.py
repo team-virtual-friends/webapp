@@ -42,10 +42,10 @@ from faster_whisper import WhisperModel
 # logger.error(f"Faster Whisper Model device: {device}")
 
 # Initialize the Whisper ASR model
-faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
+# faster_whisper_model = WhisperModel("base", device="cuda", compute_type="float16")
 
 # for local testing, use cpu.
-#faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
+faster_whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
 
 
 def determine_loader(url, response):
@@ -64,6 +64,13 @@ def determine_loader(url, response):
         # TODO(yufan.lu), make this changeable too.
         loaderBlobDownload.in_bundle_object_name = blob_name
         response.loader_blob_download.CopyFrom(loaderBlobDownload)
+
+    avaturn_regex = r"https:\/\/api\.avaturn\.me\/[a-z0-9\/\-]+"
+    matches = re.finditer(avaturn_regex, url, re.MULTILINE)
+    if any(matches):
+        loaderAvaturn = ws_message_pb2.LoaderAvaturn()
+        loaderAvaturn.avatar_url = url
+        response.loader_avaturn.CopyFrom(loaderAvaturn)
 
 def send_message(ws, vf_response:ws_message_pb2.VfResponse):
     try:

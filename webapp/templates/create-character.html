@@ -39,7 +39,6 @@
 
     </style>
 
-
     </head>
 
     <body>
@@ -69,7 +68,7 @@
             <div class="masthead-content">
                 <div class="container px-5">
 <!--                    <h1 class="masthead-heading mb-0">Create Your Virtual Friends</h1>-->
-                    <h2 class="masthead-subheading mb-0">Create Your AI Clone</h2>
+                    <h2 class="masthead-subheading mb-0">{{ page_config['action'] }} Your AI Clone</h2>
 <!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
 <!--                    <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>-->
                 </div>
@@ -85,48 +84,63 @@
     <div class="container mt-5 mb-5">
 <!--        <h2 class="text-center">Create Your AI Clone</h2>-->
         <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">
-            <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe()" />
-    <p id="avatarUrl">URL:</p>
+            <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe('rpmFrame')" />
+            <input type="button" value="Create Avaturn Avatar" onClick="displayIframe('avaturnFrame')" />
 
-    <iframe id="frame" class="frame" allow="camera *; microphone *; clipboard-write" hidden></iframe>
+        <iframe
+            name="avaturnFrame"
+            id="frame"
+            class="frame"
+            src="https://virtualfriends.avaturn.dev"
+            frameborder="0"
+            allow="camera *; clipboard-write"
+            hidden
+          ></iframe>
+
+          <iframe
+            name="rpmFrame"
+            id="frame"
+            class="frame"
+            src="https://demo.readyplayer.me/avatar?frameApi"
+            allow="camera *; microphone *; clipboard-write"
+            hidden>
+          </iframe>
+            <p id="avatarUrl">URL:</p>
+
 
             <div class="mb-3">
-                <label for="rpm_url" class="form-label">Ready Player Me Avatar URL(Copy From Above)</label>
-                <input type="text" class="form-control" id="rpm_url" name="rpm_url" required>
+                <label for="rpm_url" class="form-label">Avatar URL:</label>
+                <input type="text" class="form-control" id="rpm_url" name="rpm_url" value="{{ character['rpm_url'] }}" required readonly>
             </div>
-
-
-
-
 
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" required value="{{ character['name'] }}">
             </div>
 
             <div class="mb-3">
                 <label for="gender" class="form-label">Gender:</label>
                 <select class="form-control" id="gender" name="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="nonbinary">Non-Binary</option>
-                    <option value="prefer_not_to_say">Prefer Not to Say</option>
+                    <option value="male" {% if character['gender'] == 'male' %}selected{% endif %}>Male</option>
+                    <option value="female" {% if character['gender'] == 'female' %}selected{% endif %}>Female</option>
+                    <option value="nonbinary" {% if character['gender'] == 'nonbinary' %}selected{% endif %}>Non-Binary</option>
+                    <option value="prefer_not_to_say" {% if character['gender'] == 'prefer_not_to_say' %}selected{% endif %}>Prefer Not to Say</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="character_greeting" class="form-label">Character Greeting:  <br> (e.g. hi, I am Virtual Friends assistant. How can I help you?)</label>
-                <input type="text" class="form-control" id="character_greeting" name="character_greeting" required>
+                <input type="text" class="form-control" id="character_greeting" name="character_greeting" required value="{{ character['character_greeting'] }}">
             </div>
 
             <div class="mb-3">
                 <label for="character_description" class="form-label">Character Description <br> (e.g. I am Virtual Friends assistant.):</label>
-                <textarea class="form-control" id="character_description" name="character_description" rows="5" required></textarea>
+                <textarea class="form-control" id="character_description" name="character_description" rows="5" required>{{ character['character_description'] }}</textarea>
             </div>
 
             <div class="mb-3">
                 <label for="character_description" class="form-label">Character Prompts <br> Give instructions to your AI friend. tell him/her how/what to chat with people. <br> (e.g. Virtual Friends assistant is always helpful and supportive. Ask clarification question when you are confused.):</label>
-                <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required></textarea>
+                <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required>{{ character['character_prompts'] }}</textarea>
             </div>
 
 
@@ -136,7 +150,7 @@
             </div>
 
             <div class="text-center">
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="submit" class="btn btn-primary" value="{{ page_config['finish'] }}">
             </div>
         </form>
     </div>
@@ -144,44 +158,54 @@
 
 
     <script>
-        const subdomain = 'demo'; // Replace with your custom subdomain
-        const frame = document.getElementById('frame');
-
-        frame.src = `https://${subdomain}.readyplayer.me/avatar?frameApi`;
-
         window.addEventListener('message', subscribe);
         document.addEventListener('message', subscribe);
 
-        function subscribe(event) {
-            const json = parse(event);
+        function hideAllCreateFrame() {
+            document.getElementsByName('avaturnFrame')[0].hidden = true;
+            document.getElementsByName('rpmFrame')[0].hidden = true;
+        }
 
-            if (json?.source !== 'readyplayerme') {
+        function subscribe(event) {
+            let json;
+            try {
+                json = JSON.parse(event.data);
+            } catch (error) {
+                console.log("Error parsing the event data.");
                 return;
             }
 
-            // Susbribe to all events sent from Ready Player Me once frame is ready
-            if (json.eventName === 'v1.frame.ready') {
-                frame.contentWindow.postMessage(
-                    JSON.stringify({
-                        target: 'readyplayerme',
-                        type: 'subscribe',
-                        eventName: 'v1.**'
-                    }),
-                    '*'
-                );
+            if (json.source === "avaturn" && json.eventName === "v2.avatar.exported") {
+                // alert("Received an export message from avaturn. GLB link should appear.");
+                console.log(`Avaturn Avatar URL: ${json.data.url}`);
+                // document.getElementById('avatarUrl').innerHTML = `${json.data.url}`;
+                document.getElementsByName('rpm_url')[0].value = `${json.data.url}`;
+                hideAllCreateFrame();
+
+                // let glb_el = document.getElementById("glb");
+                // glb_el.href = json.data.url;
+                // glb_el.download = "avaturn_demo_avatar.glb";
+                // glb_el.hidden = false;
             }
 
-            // Get avatar GLB URL
-            if (json.eventName === 'v1.avatar.exported') {
-                console.log(`Avatar URL: ${json.data.url}`);
-                document.getElementById('avatarUrl').innerHTML = `${json.data.url}`;
-                document.getElementById('frame').hidden = true;
+            if (json?.source === 'readyplayerme' && json.eventName === 'v1.avatar.exported') {
+                console.log(`RPM Avatar URL: ${json.data.url}`);
+                // document.getElementById('avatarUrl').innerHTML = `${json.data.url}`;
+                document.getElementsByName('rpm_url')[0].value = `${json.data.url}`;
+                hideAllCreateFrame();
             }
 
-            // Get user id
-            if (json.eventName === 'v1.user.set') {
-                console.log(`User with id ${json.data.id} set: ${JSON.stringify(json)}`);
-            }
+            // // Susbribe to all events sent from Ready Player Me once frame is ready
+            // if (json.eventName === 'v1.frame.ready') {
+            //     frame.contentWindow.postMessage(
+            //         JSON.stringify({
+            //             target: 'readyplayerme',
+            //             type: 'subscribe',
+            //             eventName: 'v1.**'
+            //         }),
+            //         '*'
+            //     );
+            // }
         }
 
         function parse(event) {
@@ -192,8 +216,9 @@
             }
         }
 
-        function displayIframe() {
-            document.getElementById('frame').hidden = false;
+        function displayIframe(name) {
+            hideAllCreateFrame();
+            document.getElementsByName(name)[0].hidden = false;
         }
     </script>
 

@@ -324,7 +324,11 @@ def edit_character(character_id):
         return "Failed to update character data"
 
     # Render the form for editing character data with the existing data
-    return render_template('edit-character.html', character=character_entity)
+    page_config = {
+        'action': 'Update',
+        'finish': 'Update',
+    }
+    return render_template('create-character.html', character=character_entity, page_config=page_config)
 
 
 @app.route('/create_character', methods=['GET', 'POST'])
@@ -374,7 +378,11 @@ def create_character():
 
         return "fail to create the character"
 
-    return render_template('create-character.html')
+    page_config = {
+        'action': 'Create',
+        'finish': 'Submit',
+    }
+    return render_template('create-character.html', page_config=page_config)
 
 
 # #Display character
