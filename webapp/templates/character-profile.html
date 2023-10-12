@@ -78,9 +78,18 @@
 <style>
     .fixed-card {
         width: 600px;
-        height: 200px;
+        height: 400px;
         overflow-y: auto;  /* Makes the card scrollable if content overflows */
     }
+
+    .custom-btn {
+        width: 200px;  /* Adjust this value based on your design needs */
+        height: 50px; /* Adjust this value based on your design needs */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 </style>
 
 
@@ -100,47 +109,37 @@
             <div class="card fixed-card">
                 <div class="card-body">
                     <h5 class="card-title">{{ character['name'] }}</h5>
-<!--                    <p class="card-text"><strong>Ready Player Me URL:</strong> {{ character['rpm_url'] }}</p>-->
-<!--                    <p class="card-text"><strong>Character Greeting:</strong> {{ character['character_greeting'] }}</p>-->
-                    <p class="card-text"><strong>Description: </strong> {{ character['character_description'] }}</p>
-<!--                    <p class="card-text"> {{ character['character_description'] }}</p>-->
-<!--                    <p class="card-text"><strong>Audio File:</strong> {{ character.get('audio_file_name', 'No audio file') }}</p>-->
+                    <p class="card-text"><strong>Description:<br></strong> {{ character['character_description']|replace("\n", "<br>")|safe }}</p>
                 </div>
             </div>
 
-            <div class="col-lg-6">
-                <div class="p-5">
-                     <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id=character['character_id']) }}">Meet {{ character['name'] }}</a>
-
-<!--                    <a class="btn  btn-dark btn-xl mt-5"  href="{{ url_for('game', BinaryIndex=0, publisher='idafaber', friend='jack') }}">Meet {{ character['name'] }}</a>-->
-<!--                                <p>Yi is co-founder of the virtual friends team. Ask any question about the product, company and himself. </p>-->
-                </div>
+            <div class="p-5">
+                <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id=character['character_id']) }}">Meet {{ character['name'] }}</a>
+                <a class="btn btn-success btn-xl mt-5" href="https://buy.stripe.com/28obJl9zSh1l89idQQ?client_reference_id={{ character['character_id'] }}">Super Thanks $$$</a>
             </div>
-
         </div>
     </div>
 
-              <div class="row mt-4">
-                <!-- Text Box on the Left -->
-                <div class="col-md-8">
-                    <input type="text" class="form-control" id="sharableLink" value="{{ (request.url_root ~ 'character/' ~ character['character_id']) | replace('http:', 'https:') }}" readonly>
-                </div>
-                <!-- Copy Link Button on the Right -->
-                <div class="col-md-4">
-                    <button class="btn btn-primary" onclick="copyLinkToClipboard()">Copy Link And Share!</button>
-                </div>
-            </div>
-
+    <div class="row mt-4">
+        <!-- Text Box for Sharable Link -->
+        <div class="col-md-8">
+            <input type="text" class="form-control" id="sharableLink" value="{{ (request.url_root ~ 'character/' ~ character['character_id']) | replace('http:', 'https:') }}" readonly>
+        </div>
+        <!-- Copy Link Button -->
+        <div class="col-md-4">
+            <button class="btn btn-primary custom-btn" onclick="copyLinkToClipboard()">Copy Link And Share!</button>
+        </div>
+    </div>
 </div>
 
 
     <script>
-function copyLinkToClipboard() {
-    const sharableLinkElement = document.getElementById('sharableLink');
-    sharableLinkElement.select();
-    document.execCommand('copy');
-    alert("Link copied to clipboard!");
-}
+    function copyLinkToClipboard() {
+        const sharableLinkElement = document.getElementById('sharableLink');
+        sharableLinkElement.select();
+        document.execCommand('copy');
+        alert("Link copied to clipboard!");
+    }
     </script>
 
 
