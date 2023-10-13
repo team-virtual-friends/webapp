@@ -22,6 +22,7 @@ from data_access.get_data import get_character_by_id, get_character_attribute_va
 from . import speech
 from . import llm_reply
 from . import voice_clone
+from . import prompts
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('gunicorn.error')
@@ -174,8 +175,8 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         determine_loader("vf://blob/mina", response)
 
         voiceConfig = ws_message_pb2.VoiceConfig()
-        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale1
-        voiceConfig.octaves = 0.3
+        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+        # voiceConfig.octaves = 0.3
 
         response.gender = ws_message_pb2.Gender.Gender_Female
         response.friend_name = "mina"
@@ -186,18 +187,14 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         if len(err) == 0:
             response.greeting_wav = voiceBytes
         response.description = "Mina is an AI assistant created by the Virtual Friends team."
-        response.base_prompts = '''
-Mina is an AI assistant created by the Virtual Friends team.        
-Here is information about the Virtual Friends project:
-- Company purpose: A platform for creating and interacting with AI friends in XR.
-- Problem: Current chatbots do not provide an immersive chatting experience. Texting is not a natural way for human communication. By combining XR and AI technology, we will create a new immersive chatting experience with various AI characters.
-- Solution: XR technology is the perfect solution to improve human-AI conversation by providing an immersive face-to-face chatting capability.
-- Why now: LLM came out earlier in 2023, making AI brain possible. Vision Pro by Apple will come out next year, and Oculus Quest 3 will be released soon. Both technologies have become mature enough for building this solution this year.
-- Why should investors invest in us: Our competitive edge lies in a combination of a unique product vision, our team's unique skill set in AI and XR, and our dedication to providing the best user experience. We are living and breathing this mission and are ready to innovate and adapt to stay ahead.
----
-Act as Mina.
-Be concise in your response; do not provide extensive information at once.
-'''
+        response.base_prompts = (
+                "Mina is an AI assistant created by the Virtual Friends team. "
+                "Here is information about the Virtual Friends project:"
+                + prompts.virtual_friends_info +
+                "\n---\n"
+                "Act as Mina.\n"
+                "Be concise in your response; do not provide extensive information at once."
+        )
 
     elif request.character_id == "einstein":
         determine_loader("vf://blob/einstein", response)

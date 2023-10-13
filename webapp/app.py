@@ -405,6 +405,10 @@ def create_character():
 
 @app.route('/character/<character_id>', methods=['GET'])
 def display_character(character_id):
+    user_agent = request.headers.get('User-Agent')
+    if is_mobile(user_agent):
+        return render_template('mobile-index.html'), 200
+
     # character = get_character_by_name(character_name)  # Assuming you've defined this function earlier
     character = get_character_by_id(datastore_client, character_id)  # Assuming you've defined this function earlier
     character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")

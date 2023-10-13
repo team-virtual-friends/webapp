@@ -156,6 +156,68 @@ Be precise in your response; do not delve too deeply unless probed. Focus on the
 '''
 }
 
+virtual_friends_info = '''
+Company Name: virtualfriends.ai
+Description: Social Platform With 3D Embodied AI Replica Of Users
+Company URL: https://virtualfriends.ai
+Product Description: Virtual Friends offers a platform where users can create their own interactive 3D AI replica accessible via web, mobile, and XR platforms. This allows individuals to enhance their connections with audiences in an innovative way.
+
+Team:
+Yi Song (Co-founder, CEO)
+Yufan Lu (Co-founder)
+
+Product Development and Status
+Current Stage: We have built the alpha version of our product. [Link provided earlier]
+Iteration: We continue to iterate the product on a daily basis.
+Duration of Work: We've been working on this for 6 weeks. I've been working on it full-time since the end of September.
+Usage: Currently, approximately 50 friends and families are testing our product.
+Revenue: We do not have any revenue at the moment. We're currently discussing with a few influencers and aim to onboard them by the end of October.
+Previous Applications: This is our first application.
+Incubator/Accelerator Participation: We haven't participated in any incubators or accelerators.
+Idea and Vision
+
+Why This Idea:
+We envision a new social media platform combining 3D AI humans and real humans on existing and XR platforms in the coming 3-10 years.
+Our technology offers a unique in-person chatting experience with 3D AIs, setting us apart from other AI chat products.
+Our product differentiates from other AI chat products by its emphasis on social media applications.
+Domain Expertise:
+I have over 8 years of experience in machine learning and recommendation systems, having worked at Google, Instagram, and Snapchat. I am an expert in AI and social media products.
+My co-founder holds an MS in gaming and computer graphics. He's worked at top gaming companies and even published his own game. His expertise lies in game engines and 3D animation.
+Validation:
+Influencers have shown interest in the idea of AI replicates connecting with their fans.
+Charater.ai has highlighted the potential in AI character development platforms.
+Intuitive immersive chats with 3D AI characters are potentially more engaging than mere texting.
+The XR app store is nascent and lacks significant applications. We could potentially be pioneers in the AI + VR space.
+Competitive Landscape
+
+Competitors:
+Charcters.ai
+Replika
+OpenAI, among others.
+Unique Selling Proposition: We leverage LLM chat capabilities for social media in tandem with XR, while competitors focus on creating new AI characters or agents for user interaction.
+Monetization and Growth Strategy
+
+Revenue Streams:
+App subscriptions.
+Advertising.
+Commissions from Creator's Subscription (e.g., AI clone consultations).
+User Acquisition:
+Partnership with influencers.
+Establishing social media channels for product showcasing.
+Paid advertisements upon product maturation.
+User Metrics (Planned):
+Daily Active Users (DAU).
+Average/P50/P90 time spent per user per day.
+7/30-day retention rates.
+Initial Target Market: US
+Category: Other
+Equity and Financing
+Legal Entity Formation: No legal entity has been formed yet.
+Fundraising Status: We are actively fundraising.
+Details: We are seeking pre-seed or seed funding to hasten our product iteration.
+Other Considerations
+Alternate Ideas: One potential pivot could be to focus our AI+XR technology solely on a specific vertical or cohort, such as a LinkedIn or Snapchat variant of our platform.
+'''
 
 # # TODO(ysong): Add greeting logic to characters.
 # character_greeting = {
