@@ -46,6 +46,11 @@
             }
 
         </script>
+
+                <!-- Ready Player Me styles and scripts -->
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+
         <style>
             #modelviewer {
                 height: 400px;
@@ -78,6 +83,10 @@
                 border-radius: 4px;
                 cursor: pointer;
                 font-size: 16px;
+            }
+
+            .spacing-below {
+                margin-bottom: 100px;  /* Adjust this value as needed */
             }
         </style>
         <!-- End of Ready Player Me -->
@@ -113,8 +122,7 @@
 
 </section>
 
-
-        <header class="masthead text-center text-white">
+        <header class="masthead text-center text-white spacing-below">
             <div class="masthead-content">
                 <div class="container px-5">
                     <h1 class="masthead-heading mb-0"> Virtual Friends</h1>
@@ -135,46 +143,40 @@
 
 
             <!-- Content section 2-->
-        <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid" src="{{ url_for('static', filename='images/mina.png') }}" alt="..." /></div>
-                    </div>
 
-<!--                    -->
-<!--                    <div class="col-lg-6">-->
-<!--                        <div class="p-5">-->
+ <section>
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center">
 
-<!--&lt;!&ndash;                            <li class="nav-item"><a class="nav-link" href="{{ url_for('game') }}">Chat with Mina!</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <h2 class="display-4">Chat with Mina!</h2>&ndash;&gt;-->
-
-<!--                            <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>-->
-<!--&lt;!&ndash;                            <p>Mina is a k-pop star. </p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-
-
-                            <!-- Character's Details Section -->
-        <div class="col-md-6 mt-4">
-            <div class="card fixed-card">
-                <div class="card-body">
-                    <h5 class="card-title">Mina</h5>
-                    <p class="card-text"><strong>Description: </strong> Mina is an AI assistant of the Virtual Friends team</p>
-                </div>
-            </div>
-
+            <!-- Model Viewer Section -->
             <div class="col-lg-6">
-                <div class="p-5">
-                     <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>
-                </div>
+                <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                              src="{{ url_for('static', filename='mina-white.glb') }}"
+                              shadow-intensity="1" camera-controls
+                              touch-action="pan-y">
+                </model-viewer>
             </div>
 
-        </div>
+            <!-- Character's Details Section -->
+            <div class="col-md-6 mt-4">
+                <div class="card fixed-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Mina</h5>
+                        <p class="card-text">
+                            <strong>Description: </strong> Mina is an AI assistant of the Virtual Friends team
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="p-5">
+                        <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
 
 
