@@ -82,10 +82,23 @@
 
 
     <div class="container mt-5 mb-5">
-<!--        <h2 class="text-center">Create Your AI Clone</h2>-->
-        <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">
-            <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe('rpmFrame')" />
-            <input type="button" value="Create Avaturn Avatar" onClick="displayIframe('avaturnFrame')" />
+            <!--        <h2 class="text-center">Create Your AI Clone</h2>-->
+            {% if page_config['action'] == "Create" %}
+                <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">
+            {% elif page_config['action'] == "Update" %}
+                <form id="editCharacterForm" action="/edit_character/{{ character['character_id'] }}" method="post" enctype="multipart/form-data" class="mt-4">
+            {% endif %}
+
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div style="flex: 1;">
+                    <p>Create a Ready Player Me avatar (cartoon style):</p>
+                    <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe('rpmFrame')" />
+                </div>
+                <div style="flex: 1;">
+                    <p>OR Create an Avaturn avatar (more human realistic style):</p>
+                    <input type="button" value="Create Avaturn Avatar" onClick="displayIframe('avaturnFrame')" />
+                </div>
+            </div>
 
         <iframe
             name="avaturnFrame"
@@ -105,12 +118,12 @@
             allow="camera *; microphone *; clipboard-write"
             hidden>
           </iframe>
-            <p id="avatarUrl">URL:</p>
+<!--            <p id="avatarUrl">URL:</p>-->
 
 
             <div class="mb-3">
                 <label for="rpm_url" class="form-label">Avatar URL:</label>
-                <input type="text" class="form-control" id="rpm_url" name="rpm_url" value="{{ character['rpm_url'] }}" required readonly>
+                <input type="text" class="form-control" id="rpm_url" name="rpm_url" value="{{ character['rpm_url'] }}" required >
             </div>
 
             <div class="mb-3">

@@ -209,7 +209,7 @@ def login():
         response.set_cookie('auth_token', token)
         return response
 
-    response = make_response(render_template('create-character.html'))
+    response = make_response(redirect(url_for('create_character')))
     response.set_cookie('auth_token', token)
     return response
 
@@ -382,7 +382,8 @@ def create_character():
         'action': 'Create',
         'finish': 'Submit',
     }
-    return render_template('create-character.html', page_config=page_config)
+    character_entity = {}
+    return  render_template('create-character.html', character=character_entity, page_config=page_config)
 
 
 # #Display character
