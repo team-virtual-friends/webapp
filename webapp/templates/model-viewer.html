@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add any necessary meta tags, title, and other head content here -->
+</head>
+<body>
+    <!-- Ready Player Me styles and scripts -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        #modelviewer {
+            height: 400px;
+            width: 600px;
+        }
+    </style>
+
+    <model-viewer
+        id="modelviewer"
+        camera-controls
+        touch-action="pan-y"
+        autoplay
+        ar
+        ar-modes="webxr scene-viewer"
+        scale="0.2 0.2 0.2"
+        shadow-intensity="1"
+        src="../static/mina-white.glb"
+        alt="An animated 3D model of a robot">
+    </model-viewer>
+
+    <!-- Add any additional content or scripts here -->
+</body>
+</html>
