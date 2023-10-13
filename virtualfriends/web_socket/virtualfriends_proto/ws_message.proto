@@ -109,11 +109,15 @@ message VoiceConfig {
 }
 
 // MirroredContent contains the content that is copied from request to response.
-// Next tag: 3
+// Next tag: 5
 message MirroredContent {
     string character_name = 1;
 
     int64 message_id = 2;
+
+    string character_id = 3;
+    
+    string viewer_user_id = 4;
 }
 
 // Next tag: 10

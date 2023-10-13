@@ -52,54 +52,55 @@ namespace VirtualfriendsProto {
             "BHRleHQYASABKAkSDgoGYWN0aW9uGAIgASgJEhEKCXNlbnRpbWVudBgDIAEo",
             "CRIRCglyZXBseV93YXYYBCABKAwiagoLVm9pY2VDb25maWcSMwoKdm9pY2Vf",
             "dHlwZRgBIAEoDjIfLnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlVHlwZRIP",
-            "CgdvY3RhdmVzGAIgASgCEhUKDWVsZXZlbl9sYWJfaWQYAyABKAkiPQoPTWly",
+            "CgdvY3RhdmVzGAIgASgCEhUKDWVsZXZlbl9sYWJfaWQYAyABKAkiawoPTWly",
             "cm9yZWRDb250ZW50EhYKDmNoYXJhY3Rlcl9uYW1lGAEgASgJEhIKCm1lc3Nh",
-            "Z2VfaWQYAiABKAMiqwIKGVN0cmVhbVJlcGx5TWVzc2FnZVJlcXVlc3QSPwoQ",
-            "bWlycm9yZWRfY29udGVudBgBIAEoCzIlLnZpcnR1YWxmcmllbmRzX3Byb3Rv",
-            "Lk1pcnJvcmVkQ29udGVudBIVCg1qc29uX21lc3NhZ2VzGAIgAygJEhQKDGJh",
-            "c2VfcHJvbXB0cxgIIAEoCRIWCg5jdXN0b21fcHJvbXB0cxgHIAEoCRIdChVj",
-            "aGFyYWN0ZXJfZGVzY3JpcHRpb24YCSABKAkSDQoDd2F2GAMgASgMSAASDgoE",
-            "dGV4dBgGIAEoCUgAEjcKDHZvaWNlX2NvbmZpZxgFIAEoCzIhLnZpcnR1YWxm",
-            "cmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnQhEKD2N1cnJlbnRfbWVzc2FnZSLq",
-            "AQoaU3RyZWFtUmVwbHlNZXNzYWdlUmVzcG9uc2USPwoQbWlycm9yZWRfY29u",
-            "dGVudBgGIAEoCzIlLnZpcnR1YWxmcmllbmRzX3Byb3RvLk1pcnJvcmVkQ29u",
-            "dGVudBIVCg1yZXBseV9tZXNzYWdlGAEgASgJEg4KBmFjdGlvbhgCIAEoCRIR",
-            "CglzZW50aW1lbnQYAyABKAkSEQoJcmVwbHlfd2F2GAQgASgMEhgKEHRyYW5z",
-            "Y3JpYmVkX3RleHQYBSABKAkSEwoLY2h1bmtfaW5kZXgYByABKAUSDwoHaXNf",
-            "c3RvcBgIIAEoCCJqChpEb3dubG9hZEFzc2V0QnVuZGxlUmVxdWVzdBIWCg5w",
-            "dWJsaXNoZXJfbmFtZRgBIAEoCRIWCg5jaGFyYWN0ZXJfbmFtZRgCIAEoCRIY",
-            "ChBydW50aW1lX3BsYXRmb3JtGAMgASgJOgIYASJUChtEb3dubG9hZEFzc2V0",
-            "QnVuZGxlUmVzcG9uc2USDQoFY2h1bmsYASABKAwSDQoFaW5kZXgYAiABKAUS",
-            "EwoLdG90YWxfY291bnQYAyABKAU6AhgBIlMKEE1pcnJvcmVkQmxvYkluZm8S",
-            "EQoJYmxvYl9uYW1lGAEgASgJEhUKDW1ham9yX3ZlcnNpb24YAiABKAUSFQoN",
-            "bWlub3JfdmVyc2lvbhgDIAEoBSJZChNEb3dubG9hZEJsb2JSZXF1ZXN0EkIK",
-            "Em1pcnJvcmVkX2Jsb2JfaW5mbxgBIAEoCzImLnZpcnR1YWxmcmllbmRzX3By",
-            "b3RvLk1pcnJvcmVkQmxvYkluZm8ijQEKFERvd25sb2FkQmxvYlJlc3BvbnNl",
-            "EkIKEm1pcnJvcmVkX2Jsb2JfaW5mbxgBIAEoCzImLnZpcnR1YWxmcmllbmRz",
-            "X3Byb3RvLk1pcnJvcmVkQmxvYkluZm8SDQoFY2h1bmsYAiABKAwSDQoFaW5k",
-            "ZXgYAyABKAUSEwoLdG90YWxfY291bnQYBCABKAUiKQoTTG9hZGVyUmVhZHlQ",
-            "bGF5ZXJNZRISCgphdmF0YXJfdXJsGAEgASgJIkYKEkxvYWRlckJsb2JEb3du",
-            "bG9hZBIRCglibG9iX25hbWUYASABKAkSHQoVaW5fYnVuZGxlX29iamVjdF9u",
-            "YW1lGAIgASgJIiMKDUxvYWRlckF2YXR1cm4SEgoKYXZhdGFyX3VybBgBIAEo",
-            "CSIrChNHZXRDaGFyYWN0ZXJSZXF1ZXN0EhQKDGNoYXJhY3Rlcl9pZBgBIAEo",
-            "CSLoAwoUR2V0Q2hhcmFjdGVyUmVzcG9uc2USHAoUZ2VuZXJhdGVkX3Nlc3Np",
-            "b25faWQYCiABKAkSSQoUbG9hZGVyX3JlYWR5cGxheWVybWUYASABKAsyKS52",
-            "aXJ0dWFsZnJpZW5kc19wcm90by5Mb2FkZXJSZWFkeVBsYXllck1lSAASSAoU",
-            "bG9hZGVyX2Jsb2JfZG93bmxvYWQYBSABKAsyKC52aXJ0dWFsZnJpZW5kc19w",
-            "cm90by5Mb2FkZXJCbG9iRG93bmxvYWRIABI9Cg5sb2FkZXJfYXZhdHVybhgL",
-            "IAEoCzIjLnZpcnR1YWxmcmllbmRzX3Byb3RvLkxvYWRlckF2YXR1cm5IABIs",
-            "CgZnZW5kZXIYAiABKA4yHC52aXJ0dWFsZnJpZW5kc19wcm90by5HZW5kZXIS",
-            "EwoLZnJpZW5kX25hbWUYAyABKAkSNwoMdm9pY2VfY29uZmlnGAQgASgLMiEu",
-            "dmlydHVhbGZyaWVuZHNfcHJvdG8uVm9pY2VDb25maWcSEAoIZ3JlZXRpbmcY",
-            "BiABKAkSFAoMZ3JlZXRpbmdfd2F2GAkgASgMEhMKC2Rlc2NyaXB0aW9uGAcg",
-            "ASgJEhQKDGJhc2VfcHJvbXB0cxgIIAEoCUIPCg1sb2FkZXJfY29uZmlnKmMK",
-            "ClJ1bnRpbWVFbnYSFgoSUnVudGltZUVudl9JbnZhbGlkEAASHgoaUnVudGlt",
-            "ZUVudl9XZWJwYWdlX0Rlc2t0b3AQARIdChlSdW50aW1lRW52X1dlYnBhZ2Vf",
-            "TW9iaWxlEAIqiQEKCVZvaWNlVHlwZRIVChFWb2ljZVR5cGVfSW52YWxpZBAA",
-            "EhgKFFZvaWNlVHlwZV9Ob3JtYWxNYWxlEAESGwoXVm9pY2VUeXBlX05vcm1h",
-            "bEZlbWFsZTEQAhIbChdWb2ljZVR5cGVfTm9ybWFsRmVtYWxlMhADEhEKDVZv",
-            "aWNlVHlwZV9PcmMQBCpACgZHZW5kZXISEgoOR2VuZGVyX0ludmFsaWQQABIP",
-            "CgtHZW5kZXJfTWFsZRABEhEKDUdlbmRlcl9GZW1hbGUQAmIGcHJvdG8z"));
+            "Z2VfaWQYAiABKAMSFAoMY2hhcmFjdGVyX2lkGAMgASgJEhYKDnZpZXdlcl91",
+            "c2VyX2lkGAQgASgJIqsCChlTdHJlYW1SZXBseU1lc3NhZ2VSZXF1ZXN0Ej8K",
+            "EG1pcnJvcmVkX2NvbnRlbnQYASABKAsyJS52aXJ0dWFsZnJpZW5kc19wcm90",
+            "by5NaXJyb3JlZENvbnRlbnQSFQoNanNvbl9tZXNzYWdlcxgCIAMoCRIUCgxi",
+            "YXNlX3Byb21wdHMYCCABKAkSFgoOY3VzdG9tX3Byb21wdHMYByABKAkSHQoV",
+            "Y2hhcmFjdGVyX2Rlc2NyaXB0aW9uGAkgASgJEg0KA3dhdhgDIAEoDEgAEg4K",
+            "BHRleHQYBiABKAlIABI3Cgx2b2ljZV9jb25maWcYBSABKAsyIS52aXJ0dWFs",
+            "ZnJpZW5kc19wcm90by5Wb2ljZUNvbmZpZ0IRCg9jdXJyZW50X21lc3NhZ2Ui",
+            "6gEKGlN0cmVhbVJlcGx5TWVzc2FnZVJlc3BvbnNlEj8KEG1pcnJvcmVkX2Nv",
+            "bnRlbnQYBiABKAsyJS52aXJ0dWFsZnJpZW5kc19wcm90by5NaXJyb3JlZENv",
+            "bnRlbnQSFQoNcmVwbHlfbWVzc2FnZRgBIAEoCRIOCgZhY3Rpb24YAiABKAkS",
+            "EQoJc2VudGltZW50GAMgASgJEhEKCXJlcGx5X3dhdhgEIAEoDBIYChB0cmFu",
+            "c2NyaWJlZF90ZXh0GAUgASgJEhMKC2NodW5rX2luZGV4GAcgASgFEg8KB2lz",
+            "X3N0b3AYCCABKAgiagoaRG93bmxvYWRBc3NldEJ1bmRsZVJlcXVlc3QSFgoO",
+            "cHVibGlzaGVyX25hbWUYASABKAkSFgoOY2hhcmFjdGVyX25hbWUYAiABKAkS",
+            "GAoQcnVudGltZV9wbGF0Zm9ybRgDIAEoCToCGAEiVAobRG93bmxvYWRBc3Nl",
+            "dEJ1bmRsZVJlc3BvbnNlEg0KBWNodW5rGAEgASgMEg0KBWluZGV4GAIgASgF",
+            "EhMKC3RvdGFsX2NvdW50GAMgASgFOgIYASJTChBNaXJyb3JlZEJsb2JJbmZv",
+            "EhEKCWJsb2JfbmFtZRgBIAEoCRIVCg1tYWpvcl92ZXJzaW9uGAIgASgFEhUK",
+            "DW1pbm9yX3ZlcnNpb24YAyABKAUiWQoTRG93bmxvYWRCbG9iUmVxdWVzdBJC",
+            "ChJtaXJyb3JlZF9ibG9iX2luZm8YASABKAsyJi52aXJ0dWFsZnJpZW5kc19w",
+            "cm90by5NaXJyb3JlZEJsb2JJbmZvIo0BChREb3dubG9hZEJsb2JSZXNwb25z",
+            "ZRJCChJtaXJyb3JlZF9ibG9iX2luZm8YASABKAsyJi52aXJ0dWFsZnJpZW5k",
+            "c19wcm90by5NaXJyb3JlZEJsb2JJbmZvEg0KBWNodW5rGAIgASgMEg0KBWlu",
+            "ZGV4GAMgASgFEhMKC3RvdGFsX2NvdW50GAQgASgFIikKE0xvYWRlclJlYWR5",
+            "UGxheWVyTWUSEgoKYXZhdGFyX3VybBgBIAEoCSJGChJMb2FkZXJCbG9iRG93",
+            "bmxvYWQSEQoJYmxvYl9uYW1lGAEgASgJEh0KFWluX2J1bmRsZV9vYmplY3Rf",
+            "bmFtZRgCIAEoCSIjCg1Mb2FkZXJBdmF0dXJuEhIKCmF2YXRhcl91cmwYASAB",
+            "KAkiKwoTR2V0Q2hhcmFjdGVyUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQYASAB",
+            "KAki6AMKFEdldENoYXJhY3RlclJlc3BvbnNlEhwKFGdlbmVyYXRlZF9zZXNz",
+            "aW9uX2lkGAogASgJEkkKFGxvYWRlcl9yZWFkeXBsYXllcm1lGAEgASgLMiku",
+            "dmlydHVhbGZyaWVuZHNfcHJvdG8uTG9hZGVyUmVhZHlQbGF5ZXJNZUgAEkgK",
+            "FGxvYWRlcl9ibG9iX2Rvd25sb2FkGAUgASgLMigudmlydHVhbGZyaWVuZHNf",
+            "cHJvdG8uTG9hZGVyQmxvYkRvd25sb2FkSAASPQoObG9hZGVyX2F2YXR1cm4Y",
+            "CyABKAsyIy52aXJ0dWFsZnJpZW5kc19wcm90by5Mb2FkZXJBdmF0dXJuSAAS",
+            "LAoGZ2VuZGVyGAIgASgOMhwudmlydHVhbGZyaWVuZHNfcHJvdG8uR2VuZGVy",
+            "EhMKC2ZyaWVuZF9uYW1lGAMgASgJEjcKDHZvaWNlX2NvbmZpZxgEIAEoCzIh",
+            "LnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnEhAKCGdyZWV0aW5n",
+            "GAYgASgJEhQKDGdyZWV0aW5nX3dhdhgJIAEoDBITCgtkZXNjcmlwdGlvbhgH",
+            "IAEoCRIUCgxiYXNlX3Byb21wdHMYCCABKAlCDwoNbG9hZGVyX2NvbmZpZypj",
+            "CgpSdW50aW1lRW52EhYKElJ1bnRpbWVFbnZfSW52YWxpZBAAEh4KGlJ1bnRp",
+            "bWVFbnZfV2VicGFnZV9EZXNrdG9wEAESHQoZUnVudGltZUVudl9XZWJwYWdl",
+            "X01vYmlsZRACKokBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFsaWQQ",
+            "ABIYChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9Ob3Jt",
+            "YWxGZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxIRCg1W",
+            "b2ljZVR5cGVfT3JjEAQqQAoGR2VuZGVyEhIKDkdlbmRlcl9JbnZhbGlkEAAS",
+            "DwoLR2VuZGVyX01hbGUQARIRCg1HZW5kZXJfRmVtYWxlEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.RuntimeEnv), typeof(global::VirtualfriendsProto.VoiceType), typeof(global::VirtualfriendsProto.Gender), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -109,7 +110,7 @@ namespace VirtualfriendsProto {
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoRequest), global::VirtualfriendsProto.EchoRequest.Parser, new[]{ "Text", "VoiceConfig" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.EchoResponse), global::VirtualfriendsProto.EchoResponse.Parser, new[]{ "Text", "Action", "Sentiment", "ReplyWav" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.VoiceConfig), global::VirtualfriendsProto.VoiceConfig.Parser, new[]{ "VoiceType", "Octaves", "ElevenLabId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "MessageId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.MirroredContent), global::VirtualfriendsProto.MirroredContent.Parser, new[]{ "CharacterName", "MessageId", "CharacterId", "ViewerUserId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageRequest), global::VirtualfriendsProto.StreamReplyMessageRequest.Parser, new[]{ "MirroredContent", "JsonMessages", "BasePrompts", "CustomPrompts", "CharacterDescription", "Wav", "Text", "VoiceConfig" }, new[]{ "CurrentMessage" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.StreamReplyMessageResponse), global::VirtualfriendsProto.StreamReplyMessageResponse.Parser, new[]{ "MirroredContent", "ReplyMessage", "Action", "Sentiment", "ReplyWav", "TranscribedText", "ChunkIndex", "IsStop" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VirtualfriendsProto.DownloadAssetBundleRequest), global::VirtualfriendsProto.DownloadAssetBundleRequest.Parser, new[]{ "PublisherName", "CharacterName", "RuntimePlatform" }, null, null, null, null),
@@ -2288,7 +2289,7 @@ namespace VirtualfriendsProto {
 
   /// <summary>
   /// MirroredContent contains the content that is copied from request to response.
-  /// Next tag: 3
+  /// Next tag: 5
   /// </summary>
   public sealed partial class MirroredContent : pb::IMessage<MirroredContent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -2326,6 +2327,8 @@ namespace VirtualfriendsProto {
     public MirroredContent(MirroredContent other) : this() {
       characterName_ = other.characterName_;
       messageId_ = other.messageId_;
+      characterId_ = other.characterId_;
+      viewerUserId_ = other.viewerUserId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2359,6 +2362,30 @@ namespace VirtualfriendsProto {
       }
     }
 
+    /// <summary>Field number for the "character_id" field.</summary>
+    public const int CharacterIdFieldNumber = 3;
+    private string characterId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CharacterId {
+      get { return characterId_; }
+      set {
+        characterId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "viewer_user_id" field.</summary>
+    public const int ViewerUserIdFieldNumber = 4;
+    private string viewerUserId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ViewerUserId {
+      get { return viewerUserId_; }
+      set {
+        viewerUserId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2376,6 +2403,8 @@ namespace VirtualfriendsProto {
       }
       if (CharacterName != other.CharacterName) return false;
       if (MessageId != other.MessageId) return false;
+      if (CharacterId != other.CharacterId) return false;
+      if (ViewerUserId != other.ViewerUserId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2385,6 +2414,8 @@ namespace VirtualfriendsProto {
       int hash = 1;
       if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
       if (MessageId != 0L) hash ^= MessageId.GetHashCode();
+      if (CharacterId.Length != 0) hash ^= CharacterId.GetHashCode();
+      if (ViewerUserId.Length != 0) hash ^= ViewerUserId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2411,6 +2442,14 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(16);
         output.WriteInt64(MessageId);
       }
+      if (CharacterId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(CharacterId);
+      }
+      if (ViewerUserId.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ViewerUserId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2429,6 +2468,14 @@ namespace VirtualfriendsProto {
         output.WriteRawTag(16);
         output.WriteInt64(MessageId);
       }
+      if (CharacterId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(CharacterId);
+      }
+      if (ViewerUserId.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ViewerUserId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2444,6 +2491,12 @@ namespace VirtualfriendsProto {
       }
       if (MessageId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(MessageId);
+      }
+      if (CharacterId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterId);
+      }
+      if (ViewerUserId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ViewerUserId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2462,6 +2515,12 @@ namespace VirtualfriendsProto {
       }
       if (other.MessageId != 0L) {
         MessageId = other.MessageId;
+      }
+      if (other.CharacterId.Length != 0) {
+        CharacterId = other.CharacterId;
+      }
+      if (other.ViewerUserId.Length != 0) {
+        ViewerUserId = other.ViewerUserId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2486,6 +2545,14 @@ namespace VirtualfriendsProto {
             MessageId = input.ReadInt64();
             break;
           }
+          case 26: {
+            CharacterId = input.ReadString();
+            break;
+          }
+          case 34: {
+            ViewerUserId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -2507,6 +2574,14 @@ namespace VirtualfriendsProto {
           }
           case 16: {
             MessageId = input.ReadInt64();
+            break;
+          }
+          case 26: {
+            CharacterId = input.ReadString();
+            break;
+          }
+          case 34: {
+            ViewerUserId = input.ReadString();
             break;
           }
         }

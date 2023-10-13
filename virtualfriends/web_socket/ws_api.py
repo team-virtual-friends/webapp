@@ -406,7 +406,7 @@ def generate_voice(text, voice_config) -> (bytes, str):
     else:
         return (speech.tweak_sound(voice_bytes, voice_config.octaves), "")
 
-def gen_reply_package(reply_text: str, voice_config, character_name) -> (str, str, bytes, ws_message_pb2.CustomError):
+def gen_reply_package(reply_text: str, voice_config) -> (str, str, bytes, ws_message_pb2.CustomError):
     sentiment = ""
     action = ""
     err = None
@@ -474,9 +474,8 @@ def log_current_latency(env, session_id, user_id, user_ip, character_id, latency
     asyncio.run(log_latency(env, session_id, user_id, user_ip, character_id, latency_type, latency_value, current_timestamp))
 
 def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest, user_ip, session_id, runtime_env, ws):
-    env = os.environ.get('ENV', 'LOCAL')
-
-    character_name = request.mirrored_content.character_name.lower()
+    character_id = request.mirrored_content.character_id.lower()
+    viewer_id = request.mirrored_content.viewer_user_id.lower()
 
     logger.info(ws)
     text = ""
@@ -518,7 +517,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
     
-    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, character_name, request.base_prompts, request.custom_prompts, user_ip, session_id, runtime_env)
+    reply_message_iter = llm_reply.stream_infer_reply(message_dicts, viewer_id, character_id, request.base_prompts, request.custom_prompts, user_ip, session_id, runtime_env)
 
     def send_reply(reply_text:str, index:int, is_stop:bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
@@ -529,7 +528,7 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
                 response.transcribed_text = text
 
             start_time = time.time()
-            (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config, character_name)
+            (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config)
             end_time = time.time()
             latency = end_time - start_time
             logger.info(f"gen_reply_package latency is: {latency:.2f} seconds.")

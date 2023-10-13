@@ -82,7 +82,7 @@ def infer_sentiment(text, timeout_seconds=1):
         logger.error("infer_sentiment API call to OpenAI timed out")
         return "neutral"
 
-async def log_chat_history(user_id, user_ip, character_id, chat_history, timestamp, chat_session_id, runtime_env):
+async def log_chat_history(viewer_id, user_ip, character_id, chat_history, timestamp, chat_session_id, runtime_env):
     try:
         # Create a reference to your dataset and table
         dataset_ref = bigquery_client.dataset(dataset_name)
@@ -90,7 +90,7 @@ async def log_chat_history(user_id, user_ip, character_id, chat_history, timesta
         table = bigquery_client.get_table(table_ref)
 
         # Insert a new row into the table
-        row_to_insert = (user_id, user_ip, character_id, chat_history, timestamp, chat_session_id, ws_message_pb2.RuntimeEnv.Name(runtime_env))
+        row_to_insert = (viewer_id, user_ip, character_id, chat_history, timestamp, chat_session_id, ws_message_pb2.RuntimeEnv.Name(runtime_env))
 
         bigquery_client.insert_rows(table, [row_to_insert])
 
@@ -100,7 +100,7 @@ async def log_chat_history(user_id, user_ip, character_id, chat_history, timesta
         logger.info(f"An error occurred when logging chat history: {e}")
 
 
-def stream_infer_reply(chronical_messages:list, character_name:str, base_prompts:str, custom_prompts:str, user_ip:str, chat_session_id:str, runtimeEnv) -> Iterator:
+def stream_infer_reply(chronical_messages:list, viewer_id:str, character_id:str, base_prompts:str, custom_prompts:str, user_ip:str, chat_session_id:str, runtimeEnv) -> Iterator:
     # logger.info("start gpt infer")
 
     #   Testing new api for now.
@@ -121,7 +121,7 @@ def stream_infer_reply(chronical_messages:list, character_name:str, base_prompts
         loop = asyncio.new_event_loop()
         # Run the asynchronous function concurrently
         asyncio.set_event_loop(loop)
-        loop.run_until_complete(log_chat_history("dummy", user_ip, character_name, full_prompts, current_timestamp, chat_session_id, runtimeEnv))
+        loop.run_until_complete(log_chat_history(viewer_id, user_ip, character_id, full_prompts, current_timestamp, chat_session_id, runtimeEnv))
         # Close the event loop
         loop.close()
 
