@@ -87,11 +87,19 @@
     <div class="row">
         <!-- Model Viewer Section -->
         <div class="col-md-6 text-center">
-            {% set model_id = character['rpm_url'].split('/')[-1] %}
-            <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
-                src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
-                touch-action="pan-y">
-            </model-viewer>
+            {% set model_url = character['rpm_url'] %}
+            {% if "avaturn" in model_url %}
+                <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                    src="{{ model_url }}" shadow-intensity="1" camera-controls
+                    touch-action="pan-y">
+                </model-viewer>
+            {% else %}
+                {% set model_id = model_url.split('/')[-1] %}
+                <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
+                    src="https://api.readyplayer.me/v1/avatars/{{model_id}}" shadow-intensity="1" camera-controls
+                    touch-action="pan-y">
+                </model-viewer>
+            {% endif %}
         </div>
 
         <!-- Character's Details Section -->
