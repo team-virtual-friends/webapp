@@ -2904,6 +2904,13 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #ff6a00;
   --bs-btn-disabled-border-color: #ff6a00;
+
+
+
+  /* Set fixed width and height */
+  width: 300px; /* Adjust the width to your preferred value */
+  height: 70px; /* Adjust the height to your preferred value */
+
 }
 
 .btn-success {
