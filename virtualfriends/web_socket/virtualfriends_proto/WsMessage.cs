@@ -100,7 +100,8 @@ namespace VirtualfriendsProto {
             "ABIYChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9Ob3Jt",
             "YWxGZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxIRCg1W",
             "b2ljZVR5cGVfT3JjEAQqQAoGR2VuZGVyEhIKDkdlbmRlcl9JbnZhbGlkEAAS",
-            "DwoLR2VuZGVyX01hbGUQARIRCg1HZW5kZXJfRmVtYWxlEAJiBnByb3RvMw=="));
+            "DwoLR2VuZGVyX01hbGUQARIRCg1HZW5kZXJfRmVtYWxlEAJCFVoTLi92aXJ0",
+            "dWFsZnJpZW5kc19nb2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VirtualfriendsProto.RuntimeEnv), typeof(global::VirtualfriendsProto.VoiceType), typeof(global::VirtualfriendsProto.Gender), }, null, new pbr::GeneratedClrTypeInfo[] {

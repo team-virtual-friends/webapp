@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "./virtualfriends_go";
+
 package virtualfriends_proto;
 
 // Next tag: 3
