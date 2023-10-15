@@ -45,7 +45,11 @@ from requests.exceptions import Timeout
 def infer_action(text, timeout_seconds=1):
     payload = {
         'messages': [
-            {"role": "system", "content": "You are a helpful assistant that identifies the asked action in the input text. The output should be either 1. no action 2. dance 3. sit 4. stand. Only output one of the above 4 strings. Example: Text: can you dance? OUTPUT: dance"},
+            {"role": "system", "content": """
+You are a helpful assistant that identifies the asked action in the input text.
+The output should be one of no_action, dance, get_angry, laugh, clap, charm, make_heart, surprise, blow_kiss, backflip, cry, jump, spin.
+Only output one of the above strings. Example: Text: can you dance? OUTPUT: dance
+             """},
             {"role": "user", "content": f'Detect the asked action of the following text: {text}'}
         ],
         'model': "gpt-3.5-turbo",
