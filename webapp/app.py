@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, url_for, request, flash, make_response
+from flask import Flask, render_template, redirect, url_for, request, flash, make_response, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import EqualTo
 from wtforms import StringField, PasswordField, SubmitField
@@ -462,6 +462,60 @@ def display_model_marketplace():
         'image_url': url_for('static', filename=f'model_marketplace/{marketplace_model}.png'),
         'url': f'vf://blob/{marketplace_model}',
     } for marketplace_model in marketplace_models])
+
+
+@app.route('/get_chat_history/<character_id>', methods=['GET'])
+def get_chat_history(character_id):
+
+    # Ensure character_id is present
+    if not character_id:
+        return jsonify({"error": "character_id is required"}), 400
+
+    character_entity = get_character_by_id(datastore_client, character_id)
+    name = character_entity.get('name', 'Assistant')
+
+    # The SQL query to fetch chat history
+    sql = """
+    WITH MaxTimestamps AS (
+        SELECT chat_session_id, MAX(timestamp) AS max_timestamp
+        FROM `ysong-chat.virtualfriends.chat_history`
+        WHERE character_id = @character_id
+        GROUP BY chat_session_id
+    )
+
+    SELECT ch.*
+    FROM `ysong-chat.virtualfriends.chat_history` AS ch
+    JOIN MaxTimestamps AS mt ON ch.chat_session_id = mt.chat_session_id AND ch.timestamp = mt.max_timestamp
+    WHERE ch.character_id = @character_id
+    LIMIT 100;
+    """
+
+    # Set the query parameters
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("character_id", "STRING", character_id)
+        ]
+    )
+
+    try:
+        results = bigquery_client.query(sql, job_config=job_config).result()
+
+        chat_history_data = []
+        for row in results:
+            row_dict = {}
+            for key, value in row.items():
+                row_dict[key] = value
+            print(row_dict)
+
+            cleaned_chat_history = re.sub(r'user:\s*\n', '', row['chat_history'].replace("A:", name + ":"))
+            row_dict['chat_history'] =cleaned_chat_history
+            chat_history_data.append(row_dict)
+
+        # Return the rendered HTML with the chat history data
+        return render_template('chat_history.html', chat_history=chat_history_data)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/healthz', methods=['GET'])
 def healthz():
