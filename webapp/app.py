@@ -17,6 +17,7 @@ import concurrent.futures
 import re
 import hashlib
 import requests
+import json
 
 from data_access.get_data import *
 from data_access.create_table import create_and_insert_user
@@ -434,6 +435,14 @@ def display_search_results(prefix):
     for character in characters:
         character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         character["character_description"] = character_description
+
+    if request.args.get('format') == 'json':
+        return json.dumps([{
+            'user_email': ch['user_email'],
+            'name': ch['name'],
+            'character_id': ch['character_id'],
+            'character_description': ch['character_description'],
+        } for ch in characters])
 
     return render_template('search_character_results.html', characters=characters)
 
