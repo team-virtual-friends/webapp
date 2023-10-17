@@ -93,6 +93,8 @@
             <span style="font-size: 1.2em; font-weight: bold;">1. Avatar</span>
                         <br>
             <span>Pick One Avatar Style: </span>
+
+
         </label>
 
         <br>
@@ -113,7 +115,8 @@
 
         <iframe name="avaturnFrame" id="frame" class="frame" src="https://virtualfriends.avaturn.dev" frameborder="0" allow="camera *; clipboard-write" hidden></iframe>
         <iframe name="rpmFrame" id="frame" class="frame" src="https://demo.readyplayer.me/avatar?frameApi" allow="camera *; microphone *; clipboard-write" hidden></iframe>
-
+        <br>
+        <span> Copy the above avatar link here: </span>
         <input type="text" class="form-control" id="rpm_url" name="rpm_url" value="{{ character['rpm_url'] }}" required>
     </div>
 
@@ -177,7 +180,7 @@
                 <br> (e.g. Virtual Friends assistant is always helpful and supportive. Ask clarification question when you are confused.):
 
             </label>
-            <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required>{{ character['character_prompts'] }}</textarea>
+            <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5">{{ character['character_prompts'] }}</textarea>
         </div>
     </div>
 
