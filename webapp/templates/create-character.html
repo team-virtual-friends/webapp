@@ -91,12 +91,12 @@
 
             <div style="display: flex; flex-direction: row; justify-content: space-between;">
                 <div style="flex: 1;">
-                    <p>Create a Ready Player Me avatar (cartoon style):</p>
-                    <input type="button" value="Create Ready Player Me Avatar" onClick="displayIframe('rpmFrame')" />
+                    <p>Create Cartoon Avatar:</p>
+                    <input type="button" value="Create Cartoon Avatar" onClick="displayIframe('rpmFrame')" />
                 </div>
                 <div style="flex: 1;">
-                    <p>OR Create an Avaturn avatar (more human realistic style):</p>
-                    <input type="button" value="Create Avaturn Avatar" onClick="displayIframe('avaturnFrame')" />
+                    <p>Create  Realistic Avatar:</p>
+                    <input type="button" value="Create  Realistic Avatar" onClick="displayIframe('avaturnFrame')" />
                 </div>
             </div>
 
@@ -141,19 +141,15 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="character_greeting" class="form-label">Character Greeting:  <br> (e.g. hi, I am Virtual Friends assistant. How can I help you?)</label>
-                <input type="text" class="form-control" id="character_greeting" name="character_greeting" required value="{{ character['character_greeting'] }}">
-            </div>
 
             <div class="mb-3">
-                <label for="character_description" class="form-label">Character Description <br> (e.g. I am Virtual Friends assistant.):</label>
+                <label for="character_description" class="form-label">Description <br> What would you say to introduce yourself? You can also add your social media links here. </label>
                 <textarea class="form-control" id="character_description" name="character_description" rows="5" required>{{ character['character_description'] }}</textarea>
             </div>
 
             <div class="mb-3">
-                <label for="character_description" class="form-label">Character Prompts <br> Give instructions to your AI friend. tell him/her how/what to chat with people. <br> (e.g. Virtual Friends assistant is always helpful and supportive. Ask clarification question when you are confused.):</label>
-                <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required>{{ character['character_prompts'] }}</textarea>
+                <label for="character_greeting" class="form-label">Character Greeting:  <br>  What would say to start a conversation? </label>
+                <input type="text" class="form-control" id="character_greeting" name="character_greeting" required value="{{ character['character_greeting'] }}">
             </div>
 
 
@@ -161,6 +157,22 @@
                 <label for="audioFile" class="form-label">Upload Audio File For Voice Clone(Optional):</label>
                 <input type="file" class="form-control" id="audioFile" name="audioFile" accept="audio/*">
             </div>
+
+
+            <!-- Advanced button -->
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptions">
+                Advanced Configuration
+            </button>
+
+            <!-- Input boxes wrapped inside a div with collapse functionality -->
+            <div id="advancedOptions" class="collapse">
+
+                <div class="mb-3">
+                    <label for="character_description" class="form-label">Character Long Description: <br> Give instructions to your AI friend. tell him/her how/what to chat with people. <br> (e.g. Virtual Friends assistant is always helpful and supportive. Ask clarification question when you are confused.):</label>
+                    <textarea class="form-control" id="character_prompts" name="character_prompts" rows="5" required>{{ character['character_prompts'] }}</textarea>
+                </div>
+            </div>
+
 
             <div class="text-center">
                 <input type="submit" class="btn btn-primary" value="{{ page_config['finish'] }}">
