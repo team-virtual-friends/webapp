@@ -4,13 +4,17 @@ option go_package = "./virtualfriends_go";
 
 package virtualfriends_proto;
 
-// Next tag: 3
+// Next tag: 5
 enum RuntimeEnv {
     RuntimeEnv_Invalid = 0;
 
     RuntimeEnv_Webpage_Desktop = 1;
 
     RuntimeEnv_Webpage_Mobile = 2;
+
+    RuntimeEnv_IOS = 3;
+
+    RuntimeEnv_Android = 4;
 }
 
 // Next tag: 15

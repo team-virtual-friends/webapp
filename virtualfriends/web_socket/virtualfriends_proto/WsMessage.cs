@@ -93,10 +93,11 @@ namespace VirtualfriendsProto {
             "EhMKC2ZyaWVuZF9uYW1lGAMgASgJEjcKDHZvaWNlX2NvbmZpZxgEIAEoCzIh",
             "LnZpcnR1YWxmcmllbmRzX3Byb3RvLlZvaWNlQ29uZmlnEhAKCGdyZWV0aW5n",
             "GAYgASgJEhQKDGdyZWV0aW5nX3dhdhgJIAEoDBITCgtkZXNjcmlwdGlvbhgH",
-            "IAEoCRIUCgxiYXNlX3Byb21wdHMYCCABKAlCDwoNbG9hZGVyX2NvbmZpZypj",
-            "CgpSdW50aW1lRW52EhYKElJ1bnRpbWVFbnZfSW52YWxpZBAAEh4KGlJ1bnRp",
-            "bWVFbnZfV2VicGFnZV9EZXNrdG9wEAESHQoZUnVudGltZUVudl9XZWJwYWdl",
-            "X01vYmlsZRACKokBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFsaWQQ",
+            "IAEoCRIUCgxiYXNlX3Byb21wdHMYCCABKAlCDwoNbG9hZGVyX2NvbmZpZyqP",
+            "AQoKUnVudGltZUVudhIWChJSdW50aW1lRW52X0ludmFsaWQQABIeChpSdW50",
+            "aW1lRW52X1dlYnBhZ2VfRGVza3RvcBABEh0KGVJ1bnRpbWVFbnZfV2VicGFn",
+            "ZV9Nb2JpbGUQAhISCg5SdW50aW1lRW52X0lPUxADEhYKElJ1bnRpbWVFbnZf",
+            "QW5kcm9pZBAEKokBCglWb2ljZVR5cGUSFQoRVm9pY2VUeXBlX0ludmFsaWQQ",
             "ABIYChRWb2ljZVR5cGVfTm9ybWFsTWFsZRABEhsKF1ZvaWNlVHlwZV9Ob3Jt",
             "YWxGZW1hbGUxEAISGwoXVm9pY2VUeXBlX05vcm1hbEZlbWFsZTIQAxIRCg1W",
             "b2ljZVR5cGVfT3JjEAQqQAoGR2VuZGVyEhIKDkdlbmRlcl9JbnZhbGlkEAAS",
@@ -131,12 +132,14 @@ namespace VirtualfriendsProto {
   }
   #region Enums
   /// <summary>
-  /// Next tag: 3
+  /// Next tag: 5
   /// </summary>
   public enum RuntimeEnv {
     [pbr::OriginalName("RuntimeEnv_Invalid")] Invalid = 0,
     [pbr::OriginalName("RuntimeEnv_Webpage_Desktop")] WebpageDesktop = 1,
     [pbr::OriginalName("RuntimeEnv_Webpage_Mobile")] WebpageMobile = 2,
+    [pbr::OriginalName("RuntimeEnv_IOS")] Ios = 3,
+    [pbr::OriginalName("RuntimeEnv_Android")] Android = 4,
   }
 
   /// <summary>
