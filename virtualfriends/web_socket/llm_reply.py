@@ -167,8 +167,56 @@ def process_messages(messages):
     return "\n".join(result).replace("assistant:", "A:")
 
 # This is for old ChatCompletion api.
-# def get_content_from_chunk(chunk) -> str:
-#     return chunk["choices"][0].get("delta", {}).get("content")
+def get_content_from_chunk_gpt4(chunk) -> str:
+    return chunk["choices"][0].get("delta", {}).get("content")
 
 def get_content_from_chunk(chunk) -> str:
     return chunk['choices'][0]['text']
+
+def new_stream_infer_reply(chronical_messages:list, viewer_id:str, character_id:str, base_prompts:str, custom_prompts:str, user_ip:str, chat_session_id:str, runtimeEnv) -> Iterator:
+    logger.info("start gpt4 infer")
+
+    chronical_messages = [message for message in chronical_messages if message['content'].strip()]
+
+    for message in chronical_messages:
+        logger.info("----")
+        logger.info(message)
+
+    messages_for_logging = process_messages(chronical_messages)
+    infer_sentiment_action_prompt = '''
+
+---------
+In the end of sentence, based on the conversation, always infer action like [dance], [jump] and  sentiment from the conversation like <happy>, <sad>...
+The action should be one of no_action, dance, get_angry, laugh, clap, charm, make_heart, surprise, blow_kiss, backflip, cry, jump, spin.
+The sentiment should be one of happy, neutral, sad, angry.
+Add the action and sentiment before line separators like .,!?
+e.g.
+Q: can you show me a dance?
+A: sure, I am glad to do it [dance] <happy>.    
+    '''
+
+    if base_prompts is None:
+        base_prompts = "You are an AI assistant created by Virtual Friends Team."
+    else:
+        base_prompts = base_prompts + infer_sentiment_action_prompt
+
+    #   Testing new api for now.
+    chronical_messages.insert(0, {"role": "system", "content": base_prompts})
+
+    env = os.environ.get('ENV', 'LOCAL')
+    if env != 'LOCAL':
+        # log chat history
+        current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        loop = asyncio.new_event_loop()
+        # Run the asynchronous function concurrently
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(log_chat_history(viewer_id, user_ip, character_id, messages_for_logging, current_timestamp, chat_session_id, runtimeEnv))
+        # Close the event loop
+        loop.close()
+
+    return ChatCompletion.create(
+        model="gpt-4",
+        messages=chronical_messages,
+        max_tokens=100,
+        stream=True
+    )
