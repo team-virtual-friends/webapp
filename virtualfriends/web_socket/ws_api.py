@@ -640,15 +640,6 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
         logger.error(err)
         send_message(ws, error_response(custom_error(err)))
 
-    if len(text) == 0:
-        return
-
-    message_dicts = [json.loads(m) for m in request.json_messages]
-    message_dicts.append({"role": "user", "content": text})
-
-    reply_message_iter = llm_reply.new_stream_infer_reply(message_dicts, viewer_id, character_id, request.base_prompts,
-                                                      request.custom_prompts, user_ip, session_id, runtime_env)
-
     def send_reply(reply_text: str, index: int, is_stop: bool):
         response = ws_message_pb2.StreamReplyMessageResponse()
         response.mirrored_content.CopyFrom(request.mirrored_content)
@@ -669,7 +660,7 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
             logger.info(f"generate_voice latency is: {latency:.2f} seconds.")
             logger.info(f"err is :" + err)
 
-            if len(err) > 0:
+            if err is not None and len(err) > 0:
                 logger.error(err)
                 response.is_stop = True
                 vf_response = ws_message_pb2.VfResponse()
@@ -692,6 +683,16 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
         # vf_response.error.CopyFrom(custom_error(err))
         logger.info("sending out: " + reply_text)
         send_message(ws, vf_response)
+
+    if len(text) == 0:
+        send_reply("", index + 1, True)
+        return
+
+    message_dicts = [json.loads(m) for m in request.json_messages]
+    message_dicts.append({"role": "user", "content": text})
+
+    reply_message_iter = llm_reply.new_stream_infer_reply(message_dicts, viewer_id, character_id, request.base_prompts,
+                                                      request.custom_prompts, user_ip, session_id, runtime_env)
 
     buffer = ""
     index = 0
