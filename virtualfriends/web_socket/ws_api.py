@@ -175,7 +175,7 @@ def get_character_handler(request:ws_message_pb2.GetCharacterRequest, ws):
         determine_loader("vf://blob/mina", response)
 
         voiceConfig = ws_message_pb2.VoiceConfig()
-        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale2
+        voiceConfig.voice_type = ws_message_pb2.VoiceType.VoiceType_NormalFemale1
         # voiceConfig.octaves = 0.3
 
         response.gender = ws_message_pb2.Gender.Gender_Female
@@ -590,4 +590,133 @@ def stream_reply_speech_handler(request:ws_message_pb2.StreamReplyMessageRequest
             index += 1
     if len(buffer.strip()) > 0:
         send_reply(buffer, index, True)
+    send_reply("", index + 1, True)
+
+
+def extract_action_and_sentiment(text):
+    # Extract action inside []
+    action = re.findall(r'\[(.*?)\]', text)
+
+    # Extract sentiment inside <>
+    sentiment = re.findall(r'\<(.*?)\>', text)
+
+    # Extract text without content inside [] and <>
+    remaining_text = re.sub(r'\[.*?\]', '', text)
+    remaining_text = re.sub(r'\<.*?\>', '', remaining_text).strip()
+
+    # Return only the first element or an empty string if not found
+    action = action[0] if action else ''
+    sentiment = sentiment[0] if sentiment else ''
+
+    return action, sentiment, remaining_text
+
+
+def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRequest, user_ip, session_id, runtime_env,
+                                ws):
+    character_id = request.mirrored_content.character_id.lower()
+    viewer_id = request.mirrored_content.viewer_user_id.lower()
+
+    logger.info(ws)
+    text = ""
+    if request.HasField("wav"):
+        wav_bytes = request.wav
+
+        start_time = time.time()
+        #       Need GPU  machine to reduce the latency.
+        (text, err) = speech.speech_to_text_whisper_gpu(wav_bytes)
+        end_time = time.time()
+        latency = end_time - start_time
+        logger.info(f"speech2text latency is: {latency:.2f} seconds.")
+        # log_current_latency(env, "session_id", "user_id", user_ip, character_name, "speech2text", latency)
+
+        if err is not None:
+            logger.error("failed to speech to text: " + str(err))
+            send_message(ws, error_response(custom_error(err)))
+            return
+    elif request.HasField("text"):
+        text = request.text
+    else:
+        err = "invalid current_message field"
+        logger.error(err)
+        send_message(ws, error_response(custom_error(err)))
+
+    if len(text) == 0:
+        return
+
+    message_dicts = [json.loads(m) for m in request.json_messages]
+    message_dicts.append({"role": "user", "content": text})
+
+    reply_message_iter = llm_reply.new_stream_infer_reply(message_dicts, viewer_id, character_id, request.base_prompts,
+                                                      request.custom_prompts, user_ip, session_id, runtime_env)
+
+    def send_reply(reply_text: str, index: int, is_stop: bool):
+        response = ws_message_pb2.StreamReplyMessageResponse()
+        response.mirrored_content.CopyFrom(request.mirrored_content)
+        if len(reply_text) > 0:
+            action, sentiment, reply_text = extract_action_and_sentiment(reply_text)
+            logger.info(f"action + sentiment + reply_text : " + action + "|" + sentiment + "|" + reply_text)
+            response.reply_message = reply_text
+            if index == 0:
+                response.transcribed_text = text
+
+            if len(reply_text.strip()) == 0:
+                reply_text = " "
+            start_time = time.time()
+            (reply_wav, err) = generate_voice(reply_text, request.voice_config)
+            # (sentiment, action, reply_wav, err) = gen_reply_package(reply_text, request.voice_config)
+            end_time = time.time()
+            latency = end_time - start_time
+            logger.info(f"generate_voice latency is: {latency:.2f} seconds.")
+            logger.info(f"err is :" + err)
+
+            if len(err) > 0:
+                logger.error(err)
+                response.is_stop = True
+                vf_response = ws_message_pb2.VfResponse()
+                vf_response.stream_reply_message.CopyFrom(response)
+                # vf_response.error.CopyFrom(custom_error(err))
+                logger.info("sending out: " + reply_text)
+                send_message(ws, vf_response)
+                return
+            response.sentiment = sentiment
+            response.action = action
+            response.reply_wav = reply_wav
+
+        # we need to send this even if the reply_text is empty
+        # so client can know this is the last chunk of reply.
+        response.chunk_index = index
+        response.is_stop = is_stop
+
+        vf_response = ws_message_pb2.VfResponse()
+        vf_response.stream_reply_message.CopyFrom(response)
+        # vf_response.error.CopyFrom(custom_error(err))
+        logger.info("sending out: " + reply_text)
+        send_message(ws, vf_response)
+
+    buffer = ""
+    index = 0
+
+    # stream_start_time = time.time()
+    for chunk in reply_message_iter:
+        current = llm_reply.get_content_from_chunk_gpt4(chunk)
+        if current == None or len(current) == 0:
+            continue
+
+        splited = re.split("\.|;|\!|\?|:|,|。|；|！|？|：|，", current)
+        if len(splited) == 0:
+            pass
+        elif len(splited) == 1:
+            buffer = buffer + splited[0]
+        else:
+            for msg in splited[:-1]:
+                buffer = buffer + msg
+
+            logger.info(f"Buffer data: {buffer}")
+
+            send_reply(buffer, index, False)
+
+            buffer = splited[-1]
+            index += 1
+    if len(buffer.strip()) > 0:
+        send_reply(buffer, index, False)
     send_reply("", index + 1, True)
