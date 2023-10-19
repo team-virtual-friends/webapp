@@ -173,7 +173,7 @@ def get_content_from_chunk_gpt4(chunk) -> str:
 def get_content_from_chunk(chunk) -> str:
     return chunk['choices'][0]['text']
 
-def new_stream_infer_reply(chronical_messages:list, viewer_id:str, character_id:str, base_prompts:str, custom_prompts:str, user_ip:str, chat_session_id:str, runtimeEnv) -> Iterator:
+def new_stream_infer_reply(chronical_messages:list, viewer_id:str, character_id:str, base_prompts:str, custom_prompts:str, user_ip:str, chat_session_id:str, runtimeEnv) -> (Iterator, Exception):
     logger.info("start gpt4 infer")
 
     chronical_messages = [message for message in chronical_messages if message['content'].strip()]
@@ -214,9 +214,14 @@ A: sure, I am glad to do it [dance] <happy>.
         # Close the event loop
         loop.close()
 
-    return ChatCompletion.create(
-        model="gpt-4",
-        messages=chronical_messages,
-        max_tokens=100,
-        stream=True
-    )
+    logger.info("starting gpt4 response")
+    try:
+        iter = ChatCompletion.create(
+            model="gpt-4",
+            messages=chronical_messages,
+            max_tokens=100,
+            stream=True
+        )
+        return (iter, None)
+    except Exception as ex:
+        return (None, ex)

@@ -691,8 +691,13 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
     message_dicts = [json.loads(m) for m in request.json_messages]
     message_dicts.append({"role": "user", "content": text})
 
-    reply_message_iter = llm_reply.new_stream_infer_reply(message_dicts, viewer_id, character_id, request.base_prompts,
+    (reply_message_iter, err) = llm_reply.new_stream_infer_reply(message_dicts, viewer_id, character_id, request.base_prompts,
                                                       request.custom_prompts, user_ip, session_id, runtime_env)
+    
+    if err is not None:
+        send_reply("sorry I'm having troubles, can you try talk again?", 0, False)
+        send_reply("", 1, True)
+        return
 
     buffer = ""
     index = 0
@@ -700,6 +705,7 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
     # stream_start_time = time.time()
     for chunk in reply_message_iter:
         current = llm_reply.get_content_from_chunk_gpt4(chunk)
+        logger.info(f"current: {current}")
         if current == None or len(current) == 0:
             continue
 
