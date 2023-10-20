@@ -68,63 +68,68 @@ def send_message(ws, vf_response:ws_message_pb2.VfResponse):
         logger.error(f"Error sending WebSocket message: {str(e)}")
 
 def pre_download_all_asset_bundles():
-    gcs_path = "raw-characters/WebGL"
-    asset_bundle_names = [
-        "mina",
-        "einstein",
+    platforms = ["WebGL", "iOS"]
+    
+    def download_platformed_blobs(platform):
+        gcs_path = f"raw-characters/{platform}"
+        asset_bundle_names = [
+            "mina",
+            "einstein",
 
-        "m-00001",
-        "m-00002",
-        "m-00003",
-        "m-00004",
-        "m-00005",
+            # "m-00001",
+            # "m-00002",
+            # "m-00003",
+            # "m-00004",
+            # "m-00005",
 
-        "w-00001",
-        "w-00002",
-        "w-00003",
-        "w-00004",
-        "w-00005",
-        "w-00006",
-        "w-00007",
-        "w-00008",
-        "w-00009",
-        "w-00010",
-        "w-00011",
-    ]
+            # "w-00001",
+            # "w-00002",
+            # "w-00003",
+            # "w-00004",
+            # "w-00005",
+            # "w-00006",
+            # "w-00007",
+            # "w-00008",
+            # "w-00009",
+            # "w-00010",
+            # "w-00011",
+        ]
 
-    folder = os.path.expanduser('./static')
-    download_folder = f"{folder}/{gcs_path}"
-    pathlib.Path(download_folder).mkdir(parents=True, exist_ok=True)
+        folder = os.path.expanduser('./static')
+        download_folder = f"{folder}/{gcs_path}"
+        pathlib.Path(download_folder).mkdir(parents=True, exist_ok=True)
 
-    def download_blob(asset_bundle_name):
-        file_path = f"{download_folder}/{asset_bundle_name}"
-        if os.path.exists(file_path):
-            return (asset_bundle_name, True)
+        def download_blob(asset_bundle_name):
+            file_path = f"{download_folder}/{asset_bundle_name}"
+            if os.path.exists(file_path):
+                return (asset_bundle_name, True)
 
-        bucket = gcs_client.get_bucket("vf-unity-data")
-        asset_bundle_path = f"{gcs_path}/{asset_bundle_name}"
-        logger.info(f"downloading {asset_bundle_path} ...")
+            bucket = gcs_client.get_bucket("vf-unity-data")
+            asset_bundle_path = f"{gcs_path}/{asset_bundle_name}"
+            logger.info(f"downloading {asset_bundle_path} ...")
 
-        asset_bundle_blob = bucket.blob(asset_bundle_path)
-        if asset_bundle_blob.exists():
-            asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
-            with open(file_path, "wb") as file:
-                file.write(asset_bundle_bytes)
-            # checksum = hashlib.md5(asset_bundle_bytes).hexdigest()
-            return (asset_bundle_name, True)
-        return (asset_bundle_name, False)
+            asset_bundle_blob = bucket.blob(asset_bundle_path)
+            if asset_bundle_blob.exists():
+                asset_bundle_bytes = asset_bundle_blob.download_as_bytes()
+                with open(file_path, "wb") as file:
+                    file.write(asset_bundle_bytes)
+                # checksum = hashlib.md5(asset_bundle_bytes).hexdigest()
+                return (asset_bundle_name, True)
+            return (asset_bundle_name, False)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        futures = []
-        for asset_bundle_name in asset_bundle_names:
-            futures.append(executor.submit(download_blob, asset_bundle_name))
-        
-        for future in concurrent.futures.as_completed(futures):
-            try:
-                result = future.result()
-                print(f"loaded {result[0]} result: {result[1]}")
-            except Exception as e:
-                print(f"failed to load coroutine result: {e}")
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            futures = []
+            for asset_bundle_name in asset_bundle_names:
+                futures.append(executor.submit(download_blob, asset_bundle_name))
+            
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    result = future.result()
+                    print(f"loaded {result[0]} result: {result[1]}")
+                except Exception as e:
+                    print(f"failed to load coroutine result: {e}")
+    for platform in platforms:
+        download_platformed_blobs(platform)
 
 def custom_error(exp:Exception) -> ws_message_pb2.CustomError:
     ret = ws_message_pb2.CustomError()
@@ -326,6 +331,7 @@ def download_asset_bundle_handler(request:ws_message_pb2.DownloadAssetBundleRequ
 
 def download_blob_handler(request:ws_message_pb2.DownloadBlobRequest, ws):
     file_path = f"./static/raw-characters/{request.mirrored_blob_info.blob_name}"
+    logger.info(f"requested {file_path}")
     with open(file_path, "rb") as file:
         blob_bytes = file.read()
 
