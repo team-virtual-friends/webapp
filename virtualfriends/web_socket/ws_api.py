@@ -690,6 +690,7 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
         logger.info("sending out: " + reply_text)
         send_message(ws, vf_response)
 
+    index = 0
     if len(text) == 0:
         send_reply("", index + 1, True)
         return
@@ -706,7 +707,6 @@ def new_stream_reply_speech_handler(request: ws_message_pb2.StreamReplyMessageRe
         return
 
     buffer = ""
-    index = 0
 
     # stream_start_time = time.time()
     for chunk in reply_message_iter:

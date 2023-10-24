@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: virtual-friends-app
-        image: gcr.io/ysong-chat/flask-app:ed7375b-76486cc5
+        image: gcr.io/ysong-chat/flask-app:3d258e9-1d66cf3b
         # gcr.io/ysong-chat/flask-app:07c3f63-094e3004
         ports:
         - containerPort: 8080
@@ -23,14 +23,14 @@ spec:
             value: "8080"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "1"
-            ephemeral-storage: "2Gi"
+            memory: "10Gi"
+            cpu: "2"
+            ephemeral-storage: "10Gi"
             nvidia.com/gpu: "1"
           limits:
-            memory: "2Gi"
-            cpu: "1"
-            ephemeral-storage: "2Gi"
+            memory: "10Gi"
+            cpu: "2"
+            ephemeral-storage: "10Gi"
             nvidia.com/gpu: "1"
       tolerations:
       - key: "nvidia.com/gpu"
