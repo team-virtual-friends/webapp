@@ -186,6 +186,8 @@ def new_stream_infer_reply(chronical_messages:list, viewer_id:str, character_id:
     infer_sentiment_action_prompt = '''
 
 ---------
+Do not answer any medical related questions. 
+
 In the end of sentence, based on the conversation, always infer action like [dance], [jump] and  sentiment from the conversation like <happy>, <sad>...
 The action should be one of no_action, dance, get_angry, laugh, clap, charm, make_heart, surprise, blow_kiss, backflip, cry, jump, spin.
 The sentiment should be one of happy, neutral, sad, angry.
@@ -196,9 +198,9 @@ A: sure, I am glad to do it [dance] <happy>.
     '''
 
     if base_prompts is None:
-        base_prompts = "You are an AI assistant created by Virtual Friends Team."
+        base_prompts = "Do not answer any medical related questions. \n" + "You are an AI assistant created by Virtual Friends Team."
     else:
-        base_prompts = base_prompts + infer_sentiment_action_prompt
+        base_prompts = "Do not answer any medical related questions. \n" + base_prompts + infer_sentiment_action_prompt
 
     #   Testing new api for now.
     chronical_messages.insert(0, {"role": "system", "content": base_prompts})
