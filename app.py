@@ -6,6 +6,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email
 from flask_wtf import FlaskForm
 
+import multiprocessing
 
 from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
@@ -445,6 +446,24 @@ def display_search_results(prefix):
         } for ch in characters])
 
     return render_template('search_character_results.html', characters=characters)
+
+@app.route('/recommend', methods=['GET'])
+def recommend_users():
+    if 'count' in request.args:
+        count = int(request.args.get('count'))
+    else:
+        count = 10
+    
+    random_characters = get_random_characters(datastore_client, limit=count)
+    for character in random_characters:
+        character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+        character["character_description"] = character_description
+    return json.dumps([{
+        'user_email': ch['user_email'],
+        'name': ch['name'],
+        'character_id': ch['character_id'],
+        'character_description': ch['character_description'],
+    } for ch in random_characters])
 
 @app.route("/marketplace")
 def display_model_marketplace():

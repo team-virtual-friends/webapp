@@ -4,6 +4,7 @@ import os
 import hashlib
 import datetime
 import jwt
+import random
 
 secret_key = "chilloutmix_ni64"
 
@@ -29,6 +30,16 @@ def increment_last_character(input_string):
         # If the input string is empty, return an empty string
         return ""
 
+def get_random_characters(datastore_client, limit = 10):
+    query = datastore_client.query(kind='Character', namespace='characters_db')
+    random_number = str(random.randint(0, 9))
+    print(random_number)
+    print(increment_last_character(random_number))
+    query.add_filter('character_id', '>=', random_number)
+    query.add_filter('character_id', '<', increment_last_character(random_number))
+
+    characters = list(query.fetch(limit=limit))
+    return characters
 
 def get_character_by_name(datastore_client, character_name_prefix):
     # Create a query to fetch character by name in the "characters_db" namespace
