@@ -1,7 +1,0 @@
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: virtual-friends-cert-new
-spec:
-  domains:
-    - virtualfriends.app  # Replace with your domain
