@@ -32,11 +32,11 @@ def increment_last_character(input_string):
 
 def get_random_characters(datastore_client, limit = 10):
     query = datastore_client.query(kind='Character', namespace='characters_db')
-    random_number = str(random.randint(0, 9))
-    print(random_number)
-    print(increment_last_character(random_number))
-    query.add_filter('character_id', '>=', random_number)
-    query.add_filter('character_id', '<', increment_last_character(random_number))
+    random_number = random.randint(0, 15)
+    hex_string = hex(random_number)[2:]
+
+    query.add_filter('character_id', '>=', hex_string)
+    query.add_filter('character_id', '<', increment_last_character(hex_string))
 
     characters = list(query.fetch(limit=limit))
     return characters
