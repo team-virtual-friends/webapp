@@ -22,7 +22,7 @@ import json
 
 from data_access.get_data import *
 from data_access.create_table import create_and_insert_user
-from utils import validate_user_token
+from utils import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -437,15 +437,19 @@ def display_search_results(prefix):
         character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         character["character_description"] = character_description
 
+    result = []
+    for ch in characters:
+        if validate_avatar_url(ch['rpm_url']):
+            result.append({
+                'user_email': ch['user_email'],
+                'name': ch['name'],
+                'character_id': ch['character_id'],
+                'character_description': ch['character_description'],
+            })
     if request.args.get('format') == 'json':
-        return json.dumps([{
-            'user_email': ch['user_email'],
-            'name': ch['name'],
-            'character_id': ch['character_id'],
-            'character_description': ch['character_description'],
-        } for ch in characters])
+        return json.dumps(result)
 
-    return render_template('search_character_results.html', characters=characters)
+    return render_template('search_character_results.html', characters=result)
 
 @app.route('/recommend', methods=['GET'])
 def recommend_users():
@@ -458,12 +462,17 @@ def recommend_users():
     for character in random_characters:
         character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         character["character_description"] = character_description
-    return json.dumps([{
-        'user_email': ch['user_email'],
-        'name': ch['name'],
-        'character_id': ch['character_id'],
-        'character_description': ch['character_description'],
-    } for ch in random_characters])
+    
+    result = []
+    for ch in random_characters:
+        if validate_avatar_url(ch['rpm_url']):
+            result.append({
+                'user_email': ch['user_email'],
+                'name': ch['name'],
+                'character_id': ch['character_id'],
+                'character_description': ch['character_description'],
+            })
+    return json.dumps(result)
 
 @app.route("/marketplace")
 def display_model_marketplace():
