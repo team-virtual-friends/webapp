@@ -430,7 +430,7 @@ def display_user(character_id):
     character["character_description"] = character_description
     return render_template('user-profile.html', character=character)
 
-@app.route('/search/character/<prefix>')
+@app.route('/search/character/<prefix>', methods=['GET'])
 def display_search_results(prefix):
     characters = search_characters_by_prefix(datastore_client, prefix)
     for character in characters:
@@ -500,12 +500,22 @@ def display_model_marketplace():
         'url': f'vf://blob/{marketplace_model}',
     } for marketplace_model in marketplace_models])
 
+@app.route('/get_chat_history', methods=['GET'])
+def get_chat_history():
+    return_json = request.args.get('format') == 'json'
 
-@app.route('/get_chat_history/<character_id>', methods=['GET'])
-def get_chat_history(character_id):
+    user_email = validate_user_token()
+    if user_email is None:
+        if return_json:
+            return jsonify({"error": "unauthorized"}), 500
+        return redirect(url_for('login'))
+    
+    print(f"user_email: {user_email}")
+    character = get_character_by_email(datastore_client, user_email)
+    character_id = character.get('character_id', '')
 
     # Ensure character_id is present
-    if not character_id:
+    if len(character_id) == 0:
         return jsonify({"error": "character_id is required"}), 400
 
     character_entity = get_character_by_id(datastore_client, character_id)
@@ -547,6 +557,9 @@ def get_chat_history(character_id):
             cleaned_chat_history = re.sub(r'user:\s*\n', '', row['chat_history'].replace("A:", name + ":"))
             row_dict['chat_history'] =cleaned_chat_history
             chat_history_data.append(row_dict)
+        
+        if return_json:
+            return jsonify(chat_history_data)
 
         # Return the rendered HTML with the chat history data
         return render_template('chat_history.html', chat_history=chat_history_data)
