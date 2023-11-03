@@ -201,7 +201,7 @@ def login_page():
 
 @app.route('/login', methods=['POST'])
 def login():
-    return_json = request.args.get('format') == 'json'
+    return_json = request.form.get('format') == 'json'
 
     # Get the username and password from the form
     email = request.form.get('email')
@@ -215,7 +215,14 @@ def login():
     character = get_character_by_email(datastore_client, email)
     if character:
         if return_json:
-            response = make_response(json.dumps(character))
+            character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+            character["character_description"] = character_description
+            response = make_response(json.dumps({
+                'user_email': character['user_email'],
+                'name': character['name'],
+                'character_id': character['character_id'],
+                'character_description': character['character_description'],
+            }))
         else:
             response = make_response(redirect(url_for('display_user', character_id=character['character_id'])))
         response.set_cookie('auth_token', token)
