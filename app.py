@@ -201,20 +201,30 @@ def login_page():
 
 @app.route('/login', methods=['POST'])
 def login():
+    return_json = request.args.get('format') == 'json'
+
     # Get the username and password from the form
     email = request.form.get('email')
     password = request.form.get('password')
     token = gen_user_auth_token(datastore_client, email, password)
     if token is None:
+        if return_json:
+            return jsonify({"error": "invalid"}), 404
         return "invalid", 404
 
     character = get_character_by_email(datastore_client, email)
     if character:
-        response = make_response(redirect(url_for('display_user', character_id=character['character_id'])))
+        if return_json:
+            response = make_response(json.dumps(character))
+        else:
+            response = make_response(redirect(url_for('display_user', character_id=character['character_id'])))
         response.set_cookie('auth_token', token)
         return response
 
-    response = make_response(redirect(url_for('create_character')))
+    if return_json:
+        response = make_response(jsonify({}))
+    else:
+        response = make_response(redirect(url_for('create_character')))
     response.set_cookie('auth_token', token)
     return response
 
