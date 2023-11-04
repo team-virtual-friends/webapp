@@ -369,9 +369,9 @@ def create_character():
         rpm_url = request.form['rpm_url']
         name = request.form['name']
         gender = request.form['gender']
-        character_greeting = request.form['character_greeting']
-        character_description = request.form['character_description']
-        character_prompts = request.form['character_prompts']
+        character_greeting = request.form['character_greeting'].replace('"', '\\"')
+        character_description = request.form['character_description'].replace('"', '\\"')
+        character_prompts = request.form['character_prompts'].replace('"', '\\"')
         audio_file = request.files['audioFile']
 
         date = dt.now().strftime('%Y%m%d%H%M%S')
