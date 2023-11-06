@@ -19,6 +19,7 @@ import re
 import hashlib
 import requests
 import json
+import base64
 
 from data_access.get_data import *
 from data_access.create_table import create_and_insert_user
@@ -480,6 +481,10 @@ def recommend_users():
     for character in random_characters:
         character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         character["character_description"] = character_description
+        profile_picture_path = character.get("profile_picture")
+        if profile_picture_path is not None:
+            profile_picture_bytes = get_character_attribute_bytes_via_gcs(gcs_client, character, "profile_picture")
+            character["profile_picture"] = base64.b64encode(profile_picture_bytes)
     
     result = []
     for ch in random_characters:

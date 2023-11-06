@@ -87,16 +87,28 @@ def get_character_by_email(datastore_client, user_email):
         return characters[0]
     else:
         return None
-
-def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name):
+    
+def get_character_attribute_blob_via_gcs(gcs_client, character, attribute_name):
     bucket = gcs_client.get_bucket(large_data_bucket)
     attribute_path = character.get(attribute_name, "")
     if len(attribute_path) > 0:
         path = f"{character['character_id']}/{attribute_name}/{attribute_path}"
         blob = bucket.blob(path)
         if blob.exists():
-            return blob.download_as_text()
+            return blob
+    return None
+
+def get_character_attribute_value_via_gcs(gcs_client, character, attribute_name):
+    blob = get_character_attribute_blob_via_gcs(gcs_client, character, attribute_name)
+    if blob is not None:
+        return blob.download_as_text()
     return ""
+
+def get_character_attribute_bytes_via_gcs(gcs_client, character, attribute_name):
+    blob = get_character_attribute_blob_via_gcs(gcs_client, character, attribute_name)
+    if blob is not None:
+        return blob.download_as_bytes()
+    return None
 
 # gs://large_data_bucket/{character['character_id']}/{attribute_name}/{timestamp}
 def save_character_attribute_value_through_gcs(gcs_client, character, attribute_name, attribute_value):
