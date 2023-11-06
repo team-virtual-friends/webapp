@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: webapp0910
-        image: gcr.io/ysong-chat/webapp:195b357-33cb620a
+        image: gcr.io/ysong-chat/webapp:f445f62-bc5df476
         # gcr.io/ysong-chat/webapp:dba6aca-ca05f86b
         ports:
         - containerPort: 8000

@@ -490,7 +490,7 @@ def recommend_users():
             profile_picture_bytes = get_character_attribute_bytes_via_gcs(gcs_client, character, "profile_picture")
             character["profile_picture"] = base64.b64encode(profile_picture_bytes)
 
-    pinned_characters = [get_character_by_id(character) for character in [
+    pinned_characters = [get_character_by_id(datastore_client, character) for character in [
         "2bc098d7b8f35d45f86a2f778f5dd89d", # mina
         "e75d8532c413d425307ef7d42b5ccd94", # einstein
     ]]
