@@ -184,7 +184,6 @@ def is_mobile(user_agent):
             return True
     return False
 
-
 @app.route('/', methods=['GET'])
 def home():
     user_agent = request.headers.get('User-Agent')
@@ -192,10 +191,30 @@ def home():
     if is_mobile(user_agent):
         return render_template('mobile-index.html'), 200
 
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('dashboard'))
-    # else:
-    return render_template('index.html'), 200
+    def get_characters():
+        blocklist = ['0611090e6ccc0e08b5668a1a143238ad', 'c9b6b1876c369f35a340f436a426a66e']
+
+        latest_characters  = get_latest_characters(datastore_client, limit=30, blocklist=blocklist)
+        for character in latest_characters:
+            character_description = get_character_attribute_value_via_gcs(gcs_client, character,
+                                                                          "character_description")
+            character["character_description"] = character_description
+
+        result = []
+        for ch in latest_characters:
+            if validate_avatar_url(ch['rpm_url']):
+                result.append({
+                    'rpm_url': ch['rpm_url'],
+                    'user_email': ch['user_email'],
+                    'name': ch['name'],
+                    'character_id': ch['character_id'],
+                    'character_description': ch['character_description'],
+                })
+        return result
+
+    recommended_characters = get_characters()
+
+    return render_template('index.html', recommended_characters=recommended_characters), 200
 
 @app.route('/test', methods=['GET'])
 def test():
