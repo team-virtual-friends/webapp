@@ -41,6 +41,30 @@ def get_random_characters(datastore_client, limit = 10):
     characters = list(query.fetch(limit=limit))
     return characters
 
+
+def get_latest_characters(datastore_client, limit=10, blocklist=None):
+    # Query the Character kind within the characters_db namespace
+    query = datastore_client.query(kind='Character', namespace='characters_db')
+
+    # Order the results by the 'created_at' property in descending order
+    query.order = ['-created_at']
+
+    # Initialize an empty list for the results
+    latest_characters = []
+
+    # Fetch the characters from the datastore
+    characters = list(query.fetch(limit=limit))
+
+    # Filter out characters based on blocklist
+    for character in characters:
+        if blocklist and character['character_id'] in blocklist:
+            continue  # Skip this character if it's in the blocklist
+        latest_characters.append(character)
+        if len(latest_characters) == limit:
+            break  # We have enough characters, no need to continue
+
+    return latest_characters
+
 def get_character_by_name(datastore_client, character_name_prefix):
     # Create a query to fetch character by name in the "characters_db" namespace
     query = datastore_client.query(kind='Character', namespace='characters_db')
