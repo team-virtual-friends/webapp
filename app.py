@@ -36,6 +36,11 @@ datastore_client = datastore.Client(credentials=credentials)
 bigquery_client = bigquery.Client(credentials=credentials)
 gcs_client = storage.Client(credentials=credentials)
 
+specialCharacters = {
+    "2bc098d7b8f35d45f86a2f778f5dd89d": "mina",
+    "e75d8532c413d425307ef7d42b5ccd94": "einstein",
+}
+
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
     "20231104090324-b425fab-99c4dfd7",
@@ -476,25 +481,47 @@ def recommend_users():
         count = int(request.args.get('count'))
     else:
         count = 10
-    
-    random_characters = get_random_characters(datastore_client, limit=count)
-    for character in random_characters:
+
+    def extend_character_info(character):
         character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
         character["character_description"] = character_description
         profile_picture_path = character.get("profile_picture")
         if profile_picture_path is not None:
             profile_picture_bytes = get_character_attribute_bytes_via_gcs(gcs_client, character, "profile_picture")
             character["profile_picture"] = base64.b64encode(profile_picture_bytes)
+
+    pinned_characters = [get_character_by_id(character) for character in [
+        "2bc098d7b8f35d45f86a2f778f5dd89d", # mina
+        "e75d8532c413d425307ef7d42b5ccd94", # einstein
+    ]]
+    for character in pinned_characters:
+        extend_character_info(character)
+    
+    random_characters = get_random_characters(datastore_client, limit=count)
+    for character in random_characters:
+        extend_character_info(character)
     
     result = []
-    for ch in random_characters:
+    for ch in pinned_characters:
         if validate_avatar_url(ch['rpm_url']):
             result.append({
                 'user_email': ch['user_email'],
                 'name': ch['name'],
                 'character_id': ch['character_id'],
                 'character_description': ch['character_description'],
+                'recommend_type': "pinned",
             })
+    for ch in random_characters:
+        characterId = ch['character_id']
+        if not characterId in pinned_characters and validate_avatar_url(ch['rpm_url']):
+            result.append({
+                'user_email': ch['user_email'],
+                'name': ch['name'],
+                'character_id': characterId,
+                'character_description': ch['character_description'],
+                'recommend_type': "random",
+            })
+
     return json.dumps(result)
 
 @app.route("/marketplace")

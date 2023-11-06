@@ -17,9 +17,9 @@ def validate_avatar_url(url):
     if any(matches):
         return True
     
-    # blob_download_prefix = "vf://blob/"
-    # if url.startswith(blob_download_prefix):
-    #     return True
+    blob_download_prefix = "vf://blob/"
+    if url.startswith(blob_download_prefix):
+        return True
 
     avaturn_regex = r"https:\/\/api\.avaturn\.me\/[a-z0-9\/\-]+"
     matches = re.finditer(avaturn_regex, url, re.MULTILINE)
