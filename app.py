@@ -473,25 +473,33 @@ def display_user(character_id):
     character["character_description"] = character_description
     return render_template('user-profile.html', character=character)
 
+def make_character_list(characters, characterType):
+    result = []
+    for character in characters:
+        if validate_avatar_url(character['rpm_url']):
+            character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
+            character["character_description"] = character_description
+            profile_picture_path = character.get("profile_picture")
+            if profile_picture_path is not None:
+                profile_picture_bytes = get_character_attribute_bytes_via_gcs(gcs_client, character, "profile_picture")
+                character["profile_picture"] = base64.b64encode(profile_picture_bytes).decode("utf-8")
+
+            result.append({
+                'user_email': character['user_email'],
+                'name': character['name'],
+                'character_id': character['character_id'],
+                'character_description': character['character_description'],
+                'profile_picture': character.get("profile_picture", ""),
+                'recommend_type': characterType,
+            })
+    return result
+
 @app.route('/search/character/<prefix>', methods=['GET'])
 def display_search_results(prefix):
     characters = search_characters_by_prefix(datastore_client, prefix)
-    for character in characters:
-        character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
-        character["character_description"] = character_description
-
-    result = []
-    for ch in characters:
-        if validate_avatar_url(ch['rpm_url']):
-            result.append({
-                'user_email': ch['user_email'],
-                'name': ch['name'],
-                'character_id': ch['character_id'],
-                'character_description': ch['character_description'],
-            })
+    result = make_character_list(characters, "search")
     if request.args.get('format') == 'json':
         return json.dumps(result)
-
     return render_template('search_character_results.html', characters=result)
 
 @app.route('/recommend', methods=['GET'])
@@ -501,49 +509,22 @@ def recommend_users():
     else:
         count = 10
 
-    def extend_character_info(character):
-        character_description = get_character_attribute_value_via_gcs(gcs_client, character, "character_description")
-        character["character_description"] = character_description
-        profile_picture_path = character.get("profile_picture")
-        if profile_picture_path is not None:
-            profile_picture_bytes = get_character_attribute_bytes_via_gcs(gcs_client, character, "profile_picture")
-            character["profile_picture"] = base64.b64encode(profile_picture_bytes).decode("utf-8")
-
     pinned_characters = [get_character_by_id(datastore_client, character) for character in [
         "2bc098d7b8f35d45f86a2f778f5dd89d", # mina
         "e75d8532c413d425307ef7d42b5ccd94", # einstein
     ]]
     pinned_character_dict = {}
     for character in pinned_characters:
-        extend_character_info(character)
         pinned_character_dict[character["character_id"]] = character
+    result = make_character_list(pinned_characters, "pinned")
     
     random_characters = get_random_characters(datastore_client, limit=count)
-    for character in random_characters:
-        extend_character_info(character)
-    
-    result = []
-    for ch in pinned_characters:
-        if validate_avatar_url(ch['rpm_url']):
-            result.append({
-                'user_email': ch['user_email'],
-                'name': ch['name'],
-                'character_id': ch['character_id'],
-                'character_description': ch['character_description'],
-                'profile_picture': str(ch.get("profile_picture", "")),
-                'recommend_type': "pinned",
-            })
-    for ch in random_characters:
+    random_result = make_character_list(random_characters, "random")
+
+    for ch in random_result:
         characterId = ch['character_id']
-        if not characterId in pinned_character_dict and validate_avatar_url(ch['rpm_url']):
-            result.append({
-                'user_email': ch['user_email'],
-                'name': ch['name'],
-                'character_id': characterId,
-                'character_description': ch['character_description'],
-                'profile_picture': str(ch.get("profile_picture", "")),
-                'recommend_type': "random",
-            })
+        if not characterId in pinned_character_dict:
+            result.append(ch)
 
     return json.dumps(result)
 
