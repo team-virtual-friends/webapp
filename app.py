@@ -509,6 +509,7 @@ def recommend_users():
                 'name': ch['name'],
                 'character_id': ch['character_id'],
                 'character_description': ch['character_description'],
+                'profile_picture': str(ch.get("profile_picture", "")),
                 'recommend_type': "pinned",
             })
     for ch in random_characters:
@@ -519,9 +520,10 @@ def recommend_users():
                 'name': ch['name'],
                 'character_id': characterId,
                 'character_description': ch['character_description'],
+                'profile_picture': str(ch.get("profile_picture", "")),
                 'recommend_type': "random",
             })
-
+    print(result)
     return json.dumps(result)
 
 @app.route("/marketplace")
