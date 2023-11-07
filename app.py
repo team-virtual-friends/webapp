@@ -328,23 +328,24 @@ def clone_voice(voice_name, voice_description, audio_file):
 
     return voice_id
 
-@app.route('/edit_character/<character_id>', methods=['GET', 'POST'])
-def edit_character(character_id):
+@app.route('/edit_character', methods=['GET', 'POST'])
+def edit_character():
     user_email = validate_user_token()
     if user_email is None:
         return redirect(url_for('login'))
 
     # Fetch the character entity based on character_id
-    character_entity = get_character_by_id(datastore_client, character_id)
-    character_description = get_character_attribute_value_via_gcs(gcs_client, character_entity, "character_description")
-    character_prompts = get_character_attribute_value_via_gcs(gcs_client, character_entity, "character_prompts")
-
-    character_entity["character_description"] = character_description
-    character_entity["character_prompts"] = character_prompts
-
+    character_entity = get_character_by_email(datastore_client, user_email)
     if character_entity is None:
         # Handle the case where the character with the given ID doesn't exist
         return "Character not found", 404
+
+    character_description = get_character_attribute_value_via_gcs(gcs_client, character_entity, "character_description")
+    character_prompts = get_character_attribute_value_via_gcs(gcs_client, character_entity, "character_prompts")
+    character_id = character_entity["character_id"]
+
+    character_entity["character_description"] = character_description
+    character_entity["character_prompts"] = character_prompts
 
     if request.method == 'POST':
         # Handle the form submission for editing character data
@@ -507,14 +508,16 @@ def recommend_users():
         profile_picture_path = character.get("profile_picture")
         if profile_picture_path is not None:
             profile_picture_bytes = get_character_attribute_bytes_via_gcs(gcs_client, character, "profile_picture")
-            character["profile_picture"] = base64.b64encode(profile_picture_bytes)
+            character["profile_picture"] = base64.b64encode(profile_picture_bytes).decode("utf-8")
 
     pinned_characters = [get_character_by_id(datastore_client, character) for character in [
         "2bc098d7b8f35d45f86a2f778f5dd89d", # mina
         "e75d8532c413d425307ef7d42b5ccd94", # einstein
     ]]
+    pinned_character_dict = {}
     for character in pinned_characters:
         extend_character_info(character)
+        pinned_character_dict[character["character_id"]] = character
     
     random_characters = get_random_characters(datastore_client, limit=count)
     for character in random_characters:
@@ -533,7 +536,7 @@ def recommend_users():
             })
     for ch in random_characters:
         characterId = ch['character_id']
-        if not characterId in pinned_characters and validate_avatar_url(ch['rpm_url']):
+        if not characterId in pinned_character_dict and validate_avatar_url(ch['rpm_url']):
             result.append({
                 'user_email': ch['user_email'],
                 'name': ch['name'],
@@ -542,7 +545,7 @@ def recommend_users():
                 'profile_picture': str(ch.get("profile_picture", "")),
                 'recommend_type': "random",
             })
-    print(result)
+
     return json.dumps(result)
 
 @app.route("/marketplace")
