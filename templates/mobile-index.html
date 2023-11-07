@@ -126,8 +126,7 @@
             <div class="masthead-content">
                 <div class="container px-5">
                     <h1 class="masthead-heading mb-0"> Virtual Friends</h1>
-                    <h2 class="masthead-subheading mb-0">Create Your Own AI Replica!</h2>
-<!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
+                    <h2 class="masthead-subheading mb-0">Create Your 3D Embodied AI!</h2>
                     <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('create_character') }}">Create Now!</a>
                 </div>
             </div>
@@ -142,45 +141,20 @@
         </header>
 
 
-            <!-- Content section 2-->
 
- <section>
-    <div class="container px-5">
-        <div class="row gx-5 align-items-center">
 
-            <!-- Model Viewer Section -->
-            <div class="col-lg-6">
-                <model-viewer id="modelviewer" alt="Ready Player Me Avatar"
-                              src="{{ url_for('static', filename='mina-white.glb') }}"
-                              shadow-intensity="1" camera-controls
-                              touch-action="pan-y">
-                </model-viewer>
-            </div>
-
-            <!-- Character's Details Section -->
-            <div class="col-md-6 mt-4">
-                <div class="card fixed-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Mina</h5>
-                        <p class="card-text">
-                            <strong>Description: </strong> Mina is an AI assistant of the Virtual Friends team
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="p-5">
-                        <strong>Thanks for visiting Virtual Friends! Apologies, but our product is currently not compatible with mobile devices. Please access it using a personal computer.</strong>
-                        <!-- Uncomment the following line if you want to include a "Meet Mina" button:
-                        <a class="btn btn-dark btn-xl mt-5" href="{{ url_for('game', binary_index=0, character_id='mina') }}">Meet Mina</a>
-                        -->
-                    </div>
-                </div>
-            </div>
+<section class="download-app-section">
+    <div class="container px-5 py-5 text-center">
+        <h2>Get the App</h2>
+        <p class="lead">Our app is currently available for iOS devices. For character creation, please use a desktop or laptop computer.</p>
+        <div class="mt-4">
+            <a href="https://apps.apple.com/us/app/virutal-friends-ai/id6471184627" target="_blank" class="btn btn-primary btn-lg">
+                Download on the App Store
+            </a>
+            <p class="small mt-3"><em>Note: The app is exclusively available on the App Store for iOS users.</em></p>
         </div>
     </div>
 </section>
-
 
 
 <!--&lt;!&ndash; Feedback and Email Container (Combined) &ndash;&gt;-->

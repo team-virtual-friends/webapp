@@ -188,7 +188,7 @@ def is_mobile(user_agent):
 def home():
     user_agent = request.headers.get('User-Agent')
 
-    if is_mobile(user_agent):
+    if not is_mobile(user_agent):
         return render_template('mobile-index.html'), 200
 
     def get_characters():
@@ -605,7 +605,8 @@ def get_chat_history():
     FROM `ysong-chat.virtualfriends.chat_history` AS ch
     JOIN MaxTimestamps AS mt ON ch.chat_session_id = mt.chat_session_id AND ch.timestamp = mt.max_timestamp
     WHERE ch.character_id = @character_id
-    LIMIT 100;
+    ORDER BY ch.timestamp DESC
+    LIMIT 30;
     """
 
     # Set the query parameters
@@ -625,7 +626,9 @@ def get_chat_history():
                 row_dict[key] = value
             print(row_dict)
 
-            cleaned_chat_history = re.sub(r'user:\s*\n', '', row['chat_history'].replace("A:", name + ":"))
+            cleaned_chat_history = re.sub(r'user:\s*\n', '', row['chat_history'].replace("A:", "\n" + name + ":"))
+            cleaned_chat_history = re.sub(r'user:', r'\nUser:', cleaned_chat_history)
+
             row_dict['chat_history'] =cleaned_chat_history
             chat_history_data.append(row_dict)
         
@@ -643,4 +646,4 @@ def healthz():
     return "Healthy", 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5557)
+    app.run(debug=True, port=5558)
