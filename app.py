@@ -188,9 +188,8 @@ def is_mobile(user_agent):
 def home():
     user_agent = request.headers.get('User-Agent')
 
-    if not is_mobile(user_agent):
+    if is_mobile(user_agent):
         return render_template('mobile-index.html'), 200
-
     def get_characters():
         blocklist = ['0611090e6ccc0e08b5668a1a143238ad', 'c9b6b1876c369f35a340f436a426a66e']
 
