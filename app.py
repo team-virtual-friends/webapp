@@ -155,6 +155,9 @@ def join_waitlist():
 
 
 class RegistrationForm(FlaskForm):
+    class Meta:
+        csrf = False  # Disable CSRF for this form
+
     email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
     password = PasswordField('Password', validators=[
@@ -168,12 +171,24 @@ class RegistrationForm(FlaskForm):
 # def register():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    return_json = request.form.get('format') == 'json'
+
     form = RegistrationForm()
     if form.validate_on_submit():
         created = create_and_insert_user(datastore_client, form.email.data, form.username.data, form.password.data)
         if created:
+            if return_json:
+                return json.dumps({"name": form.username.data, "user_email": form.email.data})
             return redirect(url_for('login'))
+        
+        if return_json:
+            return jsonify({"error": "username/email exists"}), 404
         return "username/email exists"
+
+    if return_json:
+        for field, errors in form.errors.items():
+            for error in errors:
+                return jsonify({"error": f"{str(field)}: {str(error)}"}), 404
     return render_template('register.html', form=form)
 
 def is_mobile(user_agent):
