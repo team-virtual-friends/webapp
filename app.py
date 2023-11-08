@@ -23,6 +23,7 @@ import base64
 
 from data_access.get_data import *
 from data_access.create_table import create_and_insert_user
+from data_access.delete_data import *
 from utils import *
 
 app = Flask(__name__)
@@ -488,6 +489,21 @@ def display_user(character_id):
     character["character_description"] = character_description
     return render_template('user-profile.html', character=character)
 
+@app.route('/delete/user', methods=['GET'])
+def delete_user():
+    return_json = request.args.get('format') == 'json'
+
+    user_email = validate_user_token()
+    if user_email is None:
+        if return_json:
+            return jsonify({"error": "unauthorized"}), 500
+        return "unauthorized", 500
+    if delete_account_via_email(datastore_client, user_email):
+        return ""
+    if return_json:
+        return "failed", 500
+    return jsonify({"error": "failed"}), 500
+
 def make_character_list(characters, characterType):
     result = []
     for character in characters:
@@ -581,6 +597,10 @@ def get_chat_history():
     
     print(f"user_email: {user_email}")
     character = get_character_by_email(datastore_client, user_email)
+    if character is None:
+        if return_json:
+            return jsonify({})
+        return make_response(redirect(url_for('create_character')))
     character_id = character.get('character_id', '')
 
     # Ensure character_id is present
