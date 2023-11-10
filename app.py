@@ -594,12 +594,13 @@ def recommend_users():
 @app.route("/marketplace")
 def display_model_marketplace():
     marketplace_models = [
+        "mina",
+        "einstein",
         "m-00001",
         "m-00002",
         "m-00003",
         "m-00004",
         "m-00005",
-
         "w-00001",
         "w-00002",
         "w-00003",
@@ -611,6 +612,11 @@ def display_model_marketplace():
         "w-00009",
         "w-00010",
         "w-00011",
+        "w-00012",
+        "w-00013",
+        "w-00014",
+        "w-00015",
+        "w-00016",
     ]
     return render_template('model_marketplace.html', model_infos=[{
         'image_url': url_for('static', filename=f'model_marketplace/{marketplace_model}.png'),
