@@ -46,7 +46,7 @@ specialCharacters = {
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20231104090324-b425fab-99c4dfd7",
+    "20231110005947-456be4d-8c9808f5",
     "20231105171240-3cccaa0-04e46593",
 ]
 unity_index_html_replacements = {
