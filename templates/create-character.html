@@ -85,33 +85,51 @@
     {% if page_config['action'] == "Create" %}
         <form id="createCharacterForm" action="/create_character" method="post" enctype="multipart/form-data" class="mt-4">
     {% elif page_config['action'] == "Update" %}
-        <form id="editCharacterForm" action="/edit_character/{{ character['character_id'] }}" method="post" enctype="multipart/form-data" class="mt-4">
+        <form id="editCharacterForm" action="/edit_character" method="post" enctype="multipart/form-data" class="mt-4">
     {% endif %}
 
     <div class="mb-3">
         <label for="rpm_url" class="form-label">
             <span style="font-size: 1.2em; font-weight: bold;">1. Avatar</span>
                         <br>
-            <span>Pick One Avatar Style: </span>
-
 
         </label>
 
         <br>
+        <span>(Option A) Create Cartoon Avatar: </span>
+        <br>
+
           <!-- First Image -->
         <img src="{{ url_for('static', filename='images/rpm.png') }}" alt="Cartoon Style Avatar" width="600">
+        <div style="flex: 1;">
+            <input type="button" value="Create Cartoon Avatar" onClick="displayIframe('rpmFrame')" />
+        </div>
+
+        <br>
+
+        <span>(Option B) Create Realistic Avatar: </span>
+        <br>
+
         <!-- Second Image -->
         <img src="{{ url_for('static', filename='images/avaturn.png') }}" alt="Human Realistic Style Avatar" width="600">
 
-
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div style="flex: 1;">
-                <input type="button" value="Create Cartoon Avatar" onClick="displayIframe('rpmFrame')" />
-            </div>
-            <div style="flex: 1;">
-                <input type="button" value="Create Realistic Avatar" onClick="displayIframe('avaturnFrame')" />
-            </div>
+        <div style="flex: 1;">
+            <input type="button" value="Create Realistic Avatar" onClick="displayIframe('avaturnFrame')" />
         </div>
+
+        <br>
+
+
+        <span>(Option C) Pick From Avatar Store: </span>
+        <div style="flex: 1;">
+            <input type="button" value="Pick From Avatar Store" onclick="redirectToDisplayModelMarketplace()" />
+
+
+<!--            <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('display_model_marketplace') }}">Pick From Avatar Store</a>-->
+<!--            <input type="button" value="Pick From Avatar Store" onClick="" />-->
+        </div>
+
+
 
         <iframe name="avaturnFrame" id="frame" class="frame" src="https://virtualfriends.avaturn.dev" frameborder="0" allow="camera *; clipboard-write" hidden></iframe>
         <iframe name="rpmFrame" id="frame" class="frame" src="https://demo.readyplayer.me/avatar?frameApi" allow="camera *; microphone *; clipboard-write" hidden></iframe>
@@ -245,6 +263,11 @@
 
     <script>
         // avatars
+        function redirectToDisplayModelMarketplace() {
+            // Opens a new window or tab and navigates to the specified URL
+            window.open("{{ url_for('display_model_marketplace') }}", '_blank');
+        }
+
         window.addEventListener('message', subscribe);
         document.addEventListener('message', subscribe);
 

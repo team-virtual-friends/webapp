@@ -1,38 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Picture Gallery</title>
-    <style>
-        /* Style for the picture container */
-        .picture-container {
-            display: inline-block;
-            text-align: center;
-            margin: 10px;
-        }
+     <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT5XWFJV12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-        /* Style for the picture */
-        .picture {
-            max-width: 600px;
-            max-height: 600px;
-        }
+      gtag('config', 'G-GT5XWFJV12');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Virtual Friends - Avatar Store </title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
 
-        /* Style for the text below the picture */
-        .picture-text {
-            margin-top: 5px;
-        }
+
+        <style>
+
+          /* Style for the picture container */
+    .picture-container {
+        display: inline-block;
+        text-align: center;
+        margin: 50px;
+    }
+
+    /* Style for the picture */
+    .picture {
+        max-width: 400px;
+        max-height: 400px;
+    }
+
+    /* Style for the text below the picture */
+    .picture-text {
+        margin-top: 5px;
+    }
+
     </style>
 </head>
 <body>
-    <h1>Picture Gallery</h1>
 
-    {% for entry in model_infos %}
-    <div class="picture-container">
-        <img class="picture" src="{{ entry['image_url'] }}" alt="Image">
-        <div class="picture-text">{{ entry['url'] }}</div>
-    </div>
-    {% endfor %}
+
+        <section id="page-top">
+            <!-- Navigation-->
+
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+                <div class="container px-5">
+                <a class="navbar-brand" href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Virtual Friends Logo" height="40" style="margin-right: 10px;">Virtual Friends
+                </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ms-auto">
+    <!--                        <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>-->
+    <!--                        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </section>
+
+
+        <header class="masthead text-center text-white">
+            <div class="masthead-content">
+                <div class="container px-5">
+<!--                    <h1 class="masthead-heading mb-0">Create Your Virtual Friends</h1>-->
+                    <h2 class="masthead-subheading mb-0"> Avatar Store </h2>
+<!--                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Join waitlist to create your own virtual friend!</a>-->
+<!--                    <a class="btn btn-primary btn-xl mt-5" href="{{ url_for('join_waitlist') }}">Join waitlist to create your own virtual friend!</a>-->
+                </div>
+            </div>
+            <div class="bg-circle-1 bg-circle"></div>
+            <div class="bg-circle-2 bg-circle"></div>
+            <div class="bg-circle-3 bg-circle"></div>
+            <div class="bg-circle-4 bg-circle"></div>
+        </header>
+
+
+
+{% for entry in model_infos %}
+<div class="picture-container">
+    <img class="picture" src="{{ entry['image_url'] }}" alt="Image">
+    <div class="picture-text">{{ entry['url'] }}</div>
+    <a class="btn btn-primary" href="javascript:void(0)" onclick="copyToClipboard('{{ entry['url'] }}', 'copy-notification-{{ loop.index }}')">Copy Avatar URL</a>
+    <!-- Notification span placed right after the button -->
+    <br>
+    <span id="copy-notification-{{ loop.index }}" class="copy-notification" style="display:none; margin-left: 10px;"></span>
+    <br>
+</div>
+{% endfor %}
+
+<script>
+function copyToClipboard(url, notificationId) {
+    // Create a temporary textarea element
+    const tempTextArea = document.createElement('textarea');
+    // Set the value to the URL we want to copy
+    tempTextArea.value = url;
+    // Append it to the body
+    document.body.appendChild(tempTextArea);
+    // Select the value (the URL)
+    tempTextArea.select();
+    // Execute the copy command
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            // Select the notification span by id
+            var notificationSpan = document.getElementById(notificationId);
+            // Set the message
+            notificationSpan.innerText = 'Avatar URL copied! Paste it to the creation page.';
+            // Set the notification span to be visible
+            notificationSpan.style.display = 'inline';
+            // Set a timeout to hide the notification after 2 seconds
+            setTimeout(() => {
+                notificationSpan.style.display = 'none';
+            }, 2000);
+        } else {
+            console.log('Copying text command was unsuccessful');
+        }
+    } catch (err) {
+        console.error('Oops, unable to copy', err);
+    }
+    // Remove the temporary textarea
+    document.body.removeChild(tempTextArea);
+}
+</script>
+
+<style>
+/* Style for the copy notification message */
+.copy-notification {
+    display: none; /* Hidden by default */
+    margin-left: 10px;
+    color: green;
+    font-size: 0.9em;
+}
+</style>
+
 
 </body>
 </html>
