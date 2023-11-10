@@ -9,6 +9,12 @@ LABEL maintainer="yisong0623@gmail.com"
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
+# Update and install dependencies
+RUN apt update && \
+    apt install -y python3 python3-pip ffmpeg && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set the working directory in the container to /app
 WORKDIR /app
 

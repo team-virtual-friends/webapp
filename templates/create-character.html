@@ -161,13 +161,14 @@
         <label for="audioFile" class="form-label">
             <span style="font-size: 1.2em; font-weight: bold;">6. Voice (Optional)</span>
             <br>
-            <span>Upload Audio File For Voice Clone</span>
-        </label>
-        <input type="file" class="form-control" id="audioFile" name="audioFile" accept="audio/*">
+            <span>Hold to Recrod Audio For Voice Clone</span>
+        </label><br>
+        <button type="button" id="recordAudioButton" name="recordAudio" class="btn btn-outline-primary">Tap & Hold to Record</button>
+        <input type="file" class="form-control" id="audioFileForClone" name="audioFile" >
     </div>
 
     <!-- Advanced button -->
-    <button type="button" data-bs-toggle="collapse" data-bs-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptions">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptions">
         Advanced Configuration
     </button>
 
@@ -190,9 +191,60 @@
     </form>
 </div>
 
+    <script>
+        const recordButton = document.getElementById('recordAudioButton');
+        const audioFileInput = document.getElementById('audioFileForClone');
 
+        window.onload = function () {
+            // get audio stream from user's mic
+            navigator.mediaDevices.getUserMedia({
+                audio: true
+            })
+            .then(function (stream) {
+                recordButton.addEventListener('mousedown', startRecording);
+                recordButton.addEventListener('mouseup', stopRecording);
+                recordButton.addEventListener('touchstart', startRecording);
+                recordButton.addEventListener('touchend', stopRecording);
+                recorder = new MediaRecorder(stream);
+
+                // listen to dataavailable, which gets triggered whenever we have
+                // an audio blob available
+                recorder.addEventListener('dataavailable', onRecordingReady);
+            });
+        };
+
+        function startRecording() {
+            recordButton.innerText = 'Recording... Release to Stop';
+            recorder.start();
+        }
+
+        function stopRecording() {
+            // Stopping the recorder will eventually trigger the `dataavailable` event and we can complete the recording process
+            recorder.stop();
+            recordButton.innerText = 'Tap & Hold to Record';
+        }
+
+        function onRecordingReady(e) {
+            const objectUrl = URL.createObjectURL(e.data);
+            fetch(objectUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const file = new File([blob], 'recording.wav');  // Set the desired filename
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+
+                    audioFileInput.files = dataTransfer.files;
+
+                    // Optionally, you can trigger an input change event
+                    const event = new Event('change');
+                    audioFileInput.dispatchEvent(event);
+                })
+                .catch(error => console.error('Error fetching file:', error));
+        }
+    </script>
 
     <script>
+        // avatars
         window.addEventListener('message', subscribe);
         document.addEventListener('message', subscribe);
 

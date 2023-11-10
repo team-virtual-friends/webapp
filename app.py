@@ -6,7 +6,8 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email
 from flask_wtf import FlaskForm
 
-import multiprocessing
+import io, tempfile
+from pydub import AudioSegment
 
 from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
@@ -370,12 +371,25 @@ def edit_character():
         character_greeting = request.form['character_greeting']
         character_description = request.form['character_description']
         character_prompts = request.form['character_prompts']
-        audio_file = request.files['audioFile']
+        webm_audio_file = request.files['audioFile']
 
-        # # TODO: Store audio file
         elevanlab_id = character_entity['elevanlab_id']
-        if audio_file:
-            elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+        audio_file = None
+        if webm_audio_file:
+            mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
+            with tempfile.NamedTemporaryFile(mode='wb', delete=True) as audio_file:
+                # Write some data to the temporary file
+                audio_file.write(mp3_bytes)
+
+                # Move the file pointer to the beginning of the file
+                audio_file.seek(0)
+
+                # TODO: Store audio file
+                elevanlab_id = ""
+                if audio_file:
+                    elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+        else:
+            elevanlab_id = ""
 
         # Update the character data in the datastore and/or storage
         updated_character = update_character_info(
@@ -394,6 +408,14 @@ def edit_character():
     }
     return render_template('create-character.html', character=character_entity, page_config=page_config)
 
+def convert_webm_stream_to_mp3(webm_stream):
+    # Convert WebM stream to AudioSegment
+    webm_audio = AudioSegment.from_file(io.BytesIO(webm_stream), format="webm")
+
+    # Export the audio as an MP3 file
+    mp3_bytes = webm_audio.export(format="mp3").read()
+
+    return mp3_bytes
 
 @app.route('/create_character', methods=['GET', 'POST'])
 def create_character():
@@ -414,20 +436,30 @@ def create_character():
         character_greeting = request.form['character_greeting'].replace('"', '\\"')
         character_description = request.form['character_description'].replace('"', '\\"')
         character_prompts = request.form['character_prompts'].replace('"', '\\"')
-        audio_file = request.files['audioFile']
+        webm_audio_file = request.files['audioFile']
 
         date = dt.now().strftime('%Y%m%d%H%M%S')
 
         character_id_string = f"{user_email}_{date}"
         character_id = hashlib.md5(character_id_string.encode()).hexdigest()
 
-        # Save the audio file (if needed) and get its name
-        # For now, I'm just getting the filename
-        audio_file_name = audio_file.filename if audio_file else None
-        # TODO: Store audio file
+        audio_file_name = None
         elevanlab_id = ""
-        if audio_file:
-            elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+        if webm_audio_file:
+            mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
+            with tempfile.NamedTemporaryFile(mode='wb', delete=True) as audio_file:
+                # Write some data to the temporary file
+                audio_file.write(mp3_bytes)
+
+                # Move the file pointer to the beginning of the file
+                audio_file.seek(0)
+                # Save the audio file (if needed) and get its name
+                # For now, I'm just getting the filename
+                audio_file_name = audio_file.filename if audio_file else None
+                # TODO: Store audio file
+                elevanlab_id = ""
+                if audio_file:
+                    elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
 
         # Create a new character entity in the "characters_db" namespace
         key = datastore_client.key('Character', namespace='characters_db')
