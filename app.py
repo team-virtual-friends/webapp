@@ -8,6 +8,7 @@ from flask_wtf import FlaskForm
 
 import io, tempfile
 from pydub import AudioSegment
+from werkzeug.datastructures import FileStorage
 
 from google.cloud import bigquery, storage, datastore
 from google.cloud.exceptions import Conflict
@@ -377,17 +378,11 @@ def edit_character():
         audio_file = None
         if webm_audio_file:
             mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
-            with tempfile.NamedTemporaryFile(mode='wb', delete=True) as audio_file:
-                # Write some data to the temporary file
-                audio_file.write(mp3_bytes)
-
-                # Move the file pointer to the beginning of the file
-                audio_file.seek(0)
-
-                # TODO: Store audio file
-                elevanlab_id = ""
-                if audio_file:
-                    elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+            mp3_bytes_io = io.BytesIO(mp3_bytes)
+            audio_file = FileStorage(stream=mp3_bytes_io, filename='example.txt', content_type='application/octet-stream')
+            elevanlab_id = ""
+            if audio_file:
+                elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
         else:
             elevanlab_id = ""
 
@@ -447,19 +442,15 @@ def create_character():
         elevanlab_id = ""
         if webm_audio_file:
             mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
-            with tempfile.NamedTemporaryFile(mode='wb', delete=True) as audio_file:
-                # Write some data to the temporary file
-                audio_file.write(mp3_bytes)
-
-                # Move the file pointer to the beginning of the file
-                audio_file.seek(0)
-                # Save the audio file (if needed) and get its name
-                # For now, I'm just getting the filename
-                audio_file_name = audio_file.filename if audio_file else None
-                # TODO: Store audio file
-                elevanlab_id = ""
-                if audio_file:
-                    elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+            mp3_bytes_io = io.BytesIO(mp3_bytes)
+            audio_file = FileStorage(stream=mp3_bytes_io, filename='example.txt', content_type='application/octet-stream')
+            # Save the audio file (if needed) and get its name
+            # For now, I'm just getting the filename
+            audio_file_name = audio_file.name if audio_file else None
+            # TODO: Store audio file
+            elevanlab_id = ""
+            if audio_file:
+                elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
 
         # Create a new character entity in the "characters_db" namespace
         key = datastore_client.key('Character', namespace='characters_db')
