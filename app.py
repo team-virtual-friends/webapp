@@ -379,10 +379,11 @@ def edit_character():
         if webm_audio_file:
             mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
             mp3_bytes_io = io.BytesIO(mp3_bytes)
-            audio_file = FileStorage(stream=mp3_bytes_io, filename='example.txt', content_type='application/octet-stream')
+            audio_file = FileStorage(stream=mp3_bytes_io, filename=f'{character_id}.mp3', content_type='application/octet-stream')
             elevanlab_id = ""
             if audio_file:
                 elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+            audio_file.close()
         else:
             elevanlab_id = ""
 
@@ -443,7 +444,7 @@ def create_character():
         if webm_audio_file:
             mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
             mp3_bytes_io = io.BytesIO(mp3_bytes)
-            audio_file = FileStorage(stream=mp3_bytes_io, filename='example.txt', content_type='application/octet-stream')
+            audio_file = FileStorage(stream=mp3_bytes_io, filename=f'{character_id}.txt', content_type='application/octet-stream')
             # Save the audio file (if needed) and get its name
             # For now, I'm just getting the filename
             audio_file_name = audio_file.name if audio_file else None
@@ -451,6 +452,7 @@ def create_character():
             elevanlab_id = ""
             if audio_file:
                 elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
+            audio_file.close()
 
         # Create a new character entity in the "characters_db" namespace
         key = datastore_client.key('Character', namespace='characters_db')
