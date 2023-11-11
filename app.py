@@ -46,7 +46,7 @@ specialCharacters = {
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20231110114117-3b82ad4-181c640a",
+    "20231110201059-3b82ad4-63dbee77",
     "20231105171240-3cccaa0-04e46593",
 ]
 unity_index_html_replacements = {
@@ -372,14 +372,19 @@ def edit_character():
         character_greeting = request.form['character_greeting']
         character_description = request.form['character_description']
         character_prompts = request.form['character_prompts']
-        webm_audio_file = request.files['audioFile']
+        typed_audio_file = request.files['audioFile']
 
         elevanlab_id = character_entity['elevanlab_id']
         audio_file = None
-        if webm_audio_file:
-            mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
-            mp3_bytes_io = io.BytesIO(mp3_bytes)
-            audio_file = FileStorage(stream=mp3_bytes_io, filename=f'{character_id}.mp3', content_type='application/octet-stream')
+
+        if typed_audio_file:
+            if typed_audio_file.filename.endswith(".webm"):
+                webm_audio_file = typed_audio_file
+                mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
+                mp3_bytes_io = io.BytesIO(mp3_bytes)
+                audio_file = FileStorage(stream=mp3_bytes_io, filename=f'{character_id}.mp3', content_type='application/octet-stream')
+            elif typed_audio_file.filename.endswith(".mp3"):
+                audio_file = typed_audio_file
             elevanlab_id = ""
             if audio_file:
                 elevanlab_id = clone_voice(name, user_email+" "+character_id, audio_file)
@@ -432,7 +437,7 @@ def create_character():
         character_greeting = request.form['character_greeting'].replace('"', '\\"')
         character_description = request.form['character_description'].replace('"', '\\"')
         character_prompts = request.form['character_prompts'].replace('"', '\\"')
-        webm_audio_file = request.files['audioFile']
+        typed_audio_file = request.files['audioFile']
 
         date = dt.now().strftime('%Y%m%d%H%M%S')
 
@@ -441,12 +446,15 @@ def create_character():
 
         audio_file_name = None
         elevanlab_id = ""
-        if webm_audio_file:
-            mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
-            mp3_bytes_io = io.BytesIO(mp3_bytes)
-            audio_file = FileStorage(stream=mp3_bytes_io, filename=f'{character_id}.txt', content_type='application/octet-stream')
-            # Save the audio file (if needed) and get its name
-            # For now, I'm just getting the filename
+
+        if typed_audio_file:
+            if typed_audio_file.filename.endswith(".webm"):
+                webm_audio_file = typed_audio_file
+                mp3_bytes = convert_webm_stream_to_mp3(webm_audio_file.read())
+                mp3_bytes_io = io.BytesIO(mp3_bytes)
+                audio_file = FileStorage(stream=mp3_bytes_io, filename=f'{character_id}.txt', content_type='application/octet-stream')
+            elif typed_audio_file.filename.endswith(".mp3"):
+                audio_file = typed_audio_file
             audio_file_name = audio_file.name if audio_file else None
             # TODO: Store audio file
             elevanlab_id = ""
