@@ -5,7 +5,7 @@ metadata:
   labels:
     app: webapp0910
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: webapp0910
@@ -16,10 +16,18 @@ spec:
     spec:
       containers:
       - name: webapp0910
-        image: gcr.io/ysong-chat/webapp:fd2b7a0-19002456
-        # gcr.io/ysong-chat/webapp:dba6aca-ca05f86b
+        image: gcr.io/ysong-chat/webapp:816df0f-4c48e257
         ports:
         - containerPort: 8000
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "300m"
+            ephemeral-storage: "2Gi"
+          limits:
+            memory: "2Gi"
+            cpu: "500m"
+            ephemeral-storage: "4Gi"
         livenessProbe:
           httpGet:
             path: /healthz

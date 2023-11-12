@@ -96,15 +96,14 @@
         </label>
 
         <br>
-        <span>(Option A) Create Cartoon Avatar: </span>
+        <span>(Option A) Create Cartoon Avatar (Only full-body avatar supported): </span>
         <br>
-
           <!-- First Image -->
         <img src="{{ url_for('static', filename='images/rpm.png') }}" alt="Cartoon Style Avatar" width="600">
         <div style="flex: 1;">
             <input type="button" value="Create Cartoon Avatar" onClick="displayIframe('rpmFrame')" />
         </div>
-
+        <iframe name="rpmFrame" id="frame" class="frame" src="https://demo.readyplayer.me/avatar?frameApi" allow="camera *; microphone *; clipboard-write" hidden></iframe>
         <br>
 
         <span>(Option B) Create Realistic Avatar: </span>
@@ -116,9 +115,8 @@
         <div style="flex: 1;">
             <input type="button" value="Create Realistic Avatar" onClick="displayIframe('avaturnFrame')" />
         </div>
-
+        <iframe name="avaturnFrame" id="frame" class="frame" src="https://virtualfriends.avaturn.dev" frameborder="0" allow="camera *; clipboard-write" hidden></iframe>
         <br>
-
 
         <span>(Option C) Pick From Avatar Store: </span>
         <br>
@@ -134,8 +132,6 @@
 
 
 
-        <iframe name="avaturnFrame" id="frame" class="frame" src="https://virtualfriends.avaturn.dev" frameborder="0" allow="camera *; clipboard-write" hidden></iframe>
-        <iframe name="rpmFrame" id="frame" class="frame" src="https://demo.readyplayer.me/avatar?frameApi" allow="camera *; microphone *; clipboard-write" hidden></iframe>
         <br>
         <span> Copy the above avatar link here: </span>
         <input type="text" class="form-control" id="rpm_url" name="rpm_url" value="{{ character['rpm_url'] }}" required>
@@ -155,8 +151,8 @@
         <select class="form-control" id="gender" name="gender">
             <option value="male" {% if character['gender'] == 'male' %}selected{% endif %}>Male</option>
             <option value="female" {% if character['gender'] == 'female' %}selected{% endif %}>Female</option>
-            <option value="nonbinary" {% if character['gender'] == 'nonbinary' %}selected{% endif %}>Non-Binary</option>
-            <option value="prefer_not_to_say" {% if character['gender'] == 'prefer_not_to_say' %}selected{% endif %}>Prefer Not to Say</option>
+{#            <option value="nonbinary" {% if character['gender'] == 'nonbinary' %}selected{% endif %}>Non-Binary</option>#}
+{#            <option value="prefer_not_to_say" {% if character['gender'] == 'prefer_not_to_say' %}selected{% endif %}>Prefer Not to Say</option>#}
         </select>
     </div>
 
