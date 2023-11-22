@@ -269,6 +269,7 @@ def login():
         else:
             response = make_response(redirect(url_for('display_user', character_id=character['character_id'])))
         response.set_cookie('auth_token', token)
+        response.headers["auth_token"] = token
         return response
 
     if return_json:
@@ -276,6 +277,7 @@ def login():
     else:
         response = make_response(redirect(url_for('create_character')))
     response.set_cookie('auth_token', token)
+    response.headers["auth_token"] = token
     return response
 
 @app.route('/show_flash_message')
