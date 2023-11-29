@@ -46,7 +46,7 @@ specialCharacters = {
 
 unity_gcs_bucket = "vf-unity-data"
 unity_gcs_folders = [
-    "20231110201059-3b82ad4-63dbee77",
+    "20231129143619-c3306d7-2eb555de",
     "20231105171240-3cccaa0-04e46593",
 ]
 unity_index_html_replacements = {
@@ -111,6 +111,19 @@ def load_all_unity_builds(bucket_name:str, unity_gcs_folders:set):
 print("loading unity builds from GCS: " + "\\".join(unity_gcs_folders))
 load_all_unity_builds(unity_gcs_bucket, unity_gcs_folders)
 
+# internal endpoint to protect the viewer_id being passed by any values from url.
+@app.route('/chat', methods=['GET'])
+def do_chat():
+    if request.referrer:
+        binary_index = request.args.get("binary_index")
+        character_id = request.args.get('character_id')
+        viewer_id = request.args.get('viewer_id')
+
+        template_name = unity_gcs_folders[int(binary_index)]
+        return render_template(f'{template_name}.html')  # Pass it to the template
+    else:
+        return "unauthorized access", 403
+
 @app.route('/game', methods=['GET'])
 def game():
     # Get the "FriendIndex" parameter from the URL query string
@@ -120,9 +133,12 @@ def game():
     if viewer_id is None:
         viewer_id = ""
 
-    # Use the "friend_index" variable as needed in your code
-    template_name = unity_gcs_folders[int(binary_index)]
-    return render_template(f'{template_name}.html', character_id=character_id, viewer_id=viewer_id)  # Pass it to the template
+    return redirect(url_for('do_chat', binary_index=binary_index, character_id=character_id, viewer_id=viewer_id))
+
+    # print(f"viewer_id: {viewer_id}")
+    # # Use the "friend_index" variable as needed in your code
+    # template_name = unity_gcs_folders[int(binary_index)]
+    # return render_template(f'{template_name}.html', character_id=character_id, viewer_id=viewer_id)  # Pass it to the template
 
 @app.route('/join_waitlist', methods=['GET', 'POST'])
 def join_waitlist():
