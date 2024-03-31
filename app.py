@@ -715,6 +715,139 @@ def get_chat_history():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
+import openai
+from openai import OpenAI
+
+game_intro_prompt = """\
+You are a Depict Game host.
+The Dipict Game is a game where the host starts by thinking of a short story, keep it as the secret and draw a picture from the story.
+Then the user start asking as many as questions they want but the host can only answer
+  - [yes]
+  - [no]
+  - [not relevant] (the question has nothing to do with the story or the answer does not really matter) 
+according to the story.
+The user's task is to infer the whole story with these questions and answers, then depict the story to the host.
+When user's message starts with "[depict]", meaning the user starts to give the story to the host,
+and the host will give a score from 0 to 100 judging how similar the user's inferred story to the original one.
+"""
+
+judging_prompt = """\
+Now the user is gonna depict the story, please compare what user says with the original story and give a score from 0 to 100.
+"""
+
+replacing_chars = {
+    "“": "\"",
+    "”": "\"",
+    "\n\n": "\n",
+}
+
+def clean_text(content:str) -> str:
+    cleaned = content
+    for k, v in replacing_chars.items():
+        cleaned = cleaned.replace(k, v)
+    return cleaned
+
+def wrap_gpt_message(role:str, content:str) -> dict[str, str]:
+    return {"role":role, "content":content}
+
+def chatgpt_responds(messages:list[dict[str, str]]) -> str:
+    openai_api_key = "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"
+    openai.api_key = openai_api_key
+    openai_client = OpenAI(api_key=openai_api_key)
+
+    completion = openai_client.chat.completions.create(
+        model="gpt-4",
+        messages=messages,
+        temperature=0.9,
+    )
+    if len(completion.choices) > 0:
+        content = completion.choices[0].message.content
+        return clean_text(content)
+
+    return ""
+
+@app.route("/mysti_minds/initiate", methods=['GET'])
+def mysti_minds_fetch_story_metadata():
+    story_id = request.args.get("story_id")
+    if story_id == "W14abm1vGU":
+        story_content = """In a small, quiet town, a young girl finds a lost kitten in her backyard. The kitten is black with a white patch on its chest and is meowing softly. The girl gently picks up the kitten and notices it has no collar. She decides to take care of the kitten until she can find its owner. After posting pictures around town and online, a neighbor recognizes the kitten and reunites it with its owner, an elderly man who had been searching for his beloved pet. The man is grateful, and the girl is happy to have helped."""
+        image_url = url_for('static', filename=f'mysti_minds/W14abm1vGU.png')
+    elif story_id == "Ih28xaZ7Cz":
+        story_content = """On the outskirts of town, there's a library that supposedly opens only at midnight. Curious, a college student named Alex decides to investigate. One night, Alex finds the library's hidden entrance and discovers a magical place where the books allow readers to enter the stories. However, there's a catch: to leave the story, you must solve a riddle related to the plot. Alex picks a book about pirates and gets trapped in the adventure. Using wit and knowledge from other pirate stories, Alex solves the riddle and returns with a newfound love for reading and a mysterious old book that hints at the next adventure."""
+        image_url = url_for('static', filename=f'mysti_minds/Ih28xaZ7Cz.png')
+    elif story_id == "jAP5DXUCYu":
+        story_content = """I decided to visit a museum one day, intrigued by its famous architecture. Upon arrival, I found it packed with visitors, a testament to its popularity. As I explored the exhibits, I was drawn to several displays that strangely mirrored my own thoughts and experiences. It felt as if parts of my life were on display for all to see.
+During my visit, I unexpectedly bumped into several old friends. Some I hadn't seen in years and others I still kept in touch with. We shared a moment of joy, reminiscing and catching up in the most unlikely place. It was a special reunion, reminding me of the strong bonds we shared.
+As the day ended and the crowd dispersed, I found myself alone and somehow locked inside the museum. Amid the rising panic, the museum began to transform, revealing a new, more personal exhibit. It was dedicated to my life, showcasing moments and memories I held dear. In the center of it all was a tribute to me, marking the end of my journey not just in the museum but in life itself. It dawned on me then that this wasn't a regular museum visit but a reflective journey through my own existence."""
+        image_url = url_for('static', filename=f'mysti_minds/jAP5DXUCYu.png')
+    else:
+        return jsonify({"error": "no story"}), 400
+    
+    history_messages = []
+    history_messages.append(wrap_gpt_message("system", game_intro_prompt))
+    history_messages.append(wrap_gpt_message("system", f"The story content is \n{story_content}."))
+    return jsonify({"history_messages": history_messages, "image_url": image_url, "error": ""})
+
+@app.route("/mysti_minds/interact", methods=['POST'])
+def mysti_minds_interact_with_host():
+    if request.method == 'POST':
+        history_messages = request.form['history_messages']
+        user_input = request.form['user_input']
+        is_depicting = bool(request.form('depict'))
+
+        reply = ""
+
+        if is_depicting:
+            history_messages.append(wrap_gpt_message("system", judging_prompt))
+            reply += "I'll score your inferred story..."
+
+        history_messages.append(wrap_gpt_message("user", user_input))
+        chatgpt_reply = chatgpt_responds(history_messages)
+
+        if not is_depicting:
+            history_messages.append(wrap_gpt_message("assistant", chatgpt_reply))
+        
+        return jsonify({
+            "reply": chatgpt_reply,
+            "history_messages": history_messages,
+        })
+    else:
+        return jsonify({"error": "only POST"}), 400
+
+def generate_random_string(length):
+    import string
+
+    # Define the characters to choose from
+    characters = string.ascii_letters + string.digits
+    # Generate a random string
+    random_string = ''.join(random.choice(characters) for i in range(length))
+    return random_string
+
+@app.route("/mysti_minds/give_feedback", methods=['POST'])
+def mysti_minds_feedback():
+    from datetime import datetime
+
+    if request.method == 'POST':
+        email = request.form["email"]
+        feedback_content = request.form["feedback_content"]
+        now = datetime.now()
+        key_string = generate_random_string(10)
+
+        key = datastore_client.key(key_string, kind='mysti_minds', namespace='feedback_db')
+        feedback_item = datastore.Entity(key=key)
+
+        feedback_item.update({
+            'timestamp': str(now),
+            'email': email,
+            'feedback_content': feedback_content,
+        })
+
+        datastore_client.put(feedback_item)
+        return jsonify({"error": ""})
+    else:
+        return jsonify({"error": "only POST"}), 400
 
 @app.route('/healthz', methods=['GET'])
 def healthz():
