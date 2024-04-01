@@ -743,16 +743,16 @@ replacing_chars = {
     "\n\n": "\n",
 }
 
-def clean_text(content:str) -> str:
+def clean_text(content:str):
     cleaned = content
     for k, v in replacing_chars.items():
         cleaned = cleaned.replace(k, v)
     return cleaned
 
-def wrap_gpt_message(role:str, content:str) -> dict[str, str]:
+def wrap_gpt_message(role, content):
     return {"role":role, "content":content}
 
-def chatgpt_responds(messages:list[dict[str, str]]) -> str:
+def chatgpt_responds(messages):
     openai_api_key = "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"
     openai.api_key = openai_api_key
     openai_client = OpenAI(api_key=openai_api_key)
@@ -833,9 +833,8 @@ def mysti_minds_feedback():
         email = request.form["email"]
         feedback_content = request.form["feedback_content"]
         now = datetime.now()
-        key_string = generate_random_string(10)
 
-        key = datastore_client.key(key_string, kind='mysti_minds', namespace='feedback_db')
+        key = datastore_client.key('mysti_minds', namespace='feedback_db')
         feedback_item = datastore.Entity(key=key)
 
         feedback_item.update({
