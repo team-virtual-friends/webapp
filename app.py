@@ -797,11 +797,8 @@ def mysti_minds_interact_with_host():
         user_input = request.form['user_input']
         is_depicting = bool(request.form('depict'))
 
-        reply = ""
-
         if is_depicting:
             history_messages.append(wrap_gpt_message("system", judging_prompt))
-            reply += "I'll score your inferred story..."
 
         history_messages.append(wrap_gpt_message("user", user_input))
         chatgpt_reply = chatgpt_responds(history_messages)
