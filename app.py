@@ -801,6 +801,7 @@ As the day ended and the crowd dispersed, I found myself alone and somehow locke
     history_messages.append(wrap_gpt_message("system", f"The story content is \n{story_content}."))
     history_messages.append(wrap_gpt_message("assistant", f"Initial Hint: {initial_hint}"))
 
+    print("initiate")
     return jsonify({
         "session_id": generate_random_string(12),
         "history_messages": history_messages,
@@ -819,6 +820,7 @@ def mysti_minds_interact_with_host():
         chatgpt_reply = chatgpt_responds(history_messages)
         history_messages.append(wrap_gpt_message("assistant", chatgpt_reply))
         
+        print(f"interact: {session_id}")
         return jsonify({
             "session_id": session_id,
             "message_id": generate_random_string(12),
